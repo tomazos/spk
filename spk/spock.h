@@ -23982,80 +23982,701 @@ class buffer {
  public:
   operator buffer_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_buffer
+
+  void destroy_buffer(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_buffer(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   buffer_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class buffer_view {
  public:
   operator buffer_view_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_buffer_view
+
+  void destroy_buffer_view(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_buffer_view(parent_device_ref, handle_,
+                                         pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   buffer_view_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class command_buffer {
  public:
   operator command_buffer_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: allocate_command_buffers
+
+  void cmd_dispatch_base_khr(uint32_t baseGroupX, uint32_t baseGroupY,
+                             uint32_t baseGroupZ, uint32_t groupCountX,
+                             uint32_t groupCountY,
+                             uint32_t groupCountZ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_dispatch_base_khr(handle_, baseGroupX, baseGroupY,
+                                           baseGroupZ, groupCountX, groupCountY,
+                                           groupCountZ);
+  }
+
+  void cmd_set_device_mask_khr(uint32_t deviceMask) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_device_mask_khr(handle_, deviceMask);
+  }
+
+  void cmd_next_subpass_2khr(
+      spk::subpass_begin_info_khr const* pSubpassBeginInfo,
+      spk::subpass_end_info_khr const* pSubpassEndInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_next_subpass_2khr(handle_, pSubpassBeginInfo,
+                                           pSubpassEndInfo);
+  }
+
+  void cmd_draw_indirect_count_khr(spk::buffer_ref buffer, uint64_t offset,
+                                   spk::buffer_ref countBuffer,
+                                   uint64_t countBufferOffset,
+                                   uint32_t maxDrawCount,
+                                   uint32_t stride) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indirect_count_khr(handle_, buffer, offset,
+                                                 countBuffer, countBufferOffset,
+                                                 maxDrawCount, stride);
+  }
+
+  void cmd_insert_debug_utils_label_ext(
+      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_insert_debug_utils_label_ext(handle_, pLabelInfo);
+  }
+
+  void cmd_end_debug_utils_label_ext(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_end_debug_utils_label_ext(handle_);
+  }
+
+  void cmd_set_discard_rectangle_ext(
+      uint32_t firstDiscardRectangle, uint32_t discardRectangleCount,
+      spk::rect_2d const* pDiscardRectangles) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_discard_rectangle_ext(
+        handle_, firstDiscardRectangle, discardRectangleCount,
+        pDiscardRectangles);
+  }
+
+  void cmd_push_descriptor_set_with_template_khr(
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      spk::pipeline_layout_ref layout, uint32_t set,
+      void const* pData) {  // SINGLE_HANDLE
+    dispatch_table().cmd_push_descriptor_set_with_template_khr(
+        handle_, descriptorUpdateTemplate, layout, set, pData);
+  }
+
+  void cmd_dispatch_base(uint32_t baseGroupX, uint32_t baseGroupY,
+                         uint32_t baseGroupZ, uint32_t groupCountX,
+                         uint32_t groupCountY,
+                         uint32_t groupCountZ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_dispatch_base(handle_, baseGroupX, baseGroupY,
+                                       baseGroupZ, groupCountX, groupCountY,
+                                       groupCountZ);
+  }
+
+  void cmd_set_viewport_w_scaling_nv(
+      uint32_t firstViewport, uint32_t viewportCount,
+      spk::viewport_w_scaling_nv const* pViewportWScalings) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_viewport_w_scaling_nv(
+        handle_, firstViewport, viewportCount, pViewportWScalings);
+  }
+
+  void cmd_set_device_mask(uint32_t deviceMask) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_device_mask(handle_, deviceMask);
+  }
+
+  void cmd_begin_debug_utils_label_ext(
+      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_begin_debug_utils_label_ext(handle_, pLabelInfo);
+  }
+
+  void cmd_push_descriptor_set_khr(
+      spk::pipeline_bind_point pipelineBindPoint,
+      spk::pipeline_layout_ref layout, uint32_t set,
+      uint32_t descriptorWriteCount,
+      spk::write_descriptor_set const* pDescriptorWrites) {  // SINGLE_HANDLE
+    dispatch_table().cmd_push_descriptor_set_khr(
+        handle_, pipelineBindPoint, layout, set, descriptorWriteCount,
+        pDescriptorWrites);
+  }
+
+  void cmd_reserve_space_for_commands_nvx(
+      spk::cmd_reserve_space_for_commands_info_nvx const*
+          pReserveSpaceInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_reserve_space_for_commands_nvx(handle_,
+                                                        pReserveSpaceInfo);
+  }
+
+  void cmd_draw_indexed_indirect_count_amd(spk::buffer_ref buffer,
+                                           uint64_t offset,
+                                           spk::buffer_ref countBuffer,
+                                           uint64_t countBufferOffset,
+                                           uint32_t maxDrawCount,
+                                           uint32_t stride) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indexed_indirect_count_amd(
+        handle_, buffer, offset, countBuffer, countBufferOffset, maxDrawCount,
+        stride);
+  }
+
+  void cmd_draw_indirect_count_amd(spk::buffer_ref buffer, uint64_t offset,
+                                   spk::buffer_ref countBuffer,
+                                   uint64_t countBufferOffset,
+                                   uint32_t maxDrawCount,
+                                   uint32_t stride) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indirect_count_amd(handle_, buffer, offset,
+                                                 countBuffer, countBufferOffset,
+                                                 maxDrawCount, stride);
+  }
+
+  void cmd_debug_marker_insert_ext(
+      spk::debug_marker_marker_info_ext const* pMarkerInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_debug_marker_insert_ext(handle_, pMarkerInfo);
+  }
+
+  void cmd_debug_marker_end_ext(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_debug_marker_end_ext(handle_);
+  }
+
+  void cmd_debug_marker_begin_ext(
+      spk::debug_marker_marker_info_ext const* pMarkerInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_debug_marker_begin_ext(handle_, pMarkerInfo);
+  }
+
+  void cmd_write_timestamp(spk::pipeline_stage_flags pipelineStage,
+                           spk::query_pool_ref queryPool,
+                           uint32_t query) {  // SINGLE_HANDLE
+    dispatch_table().cmd_write_timestamp(handle_, pipelineStage, queryPool,
+                                         query);
+  }
+
+  void cmd_set_event(spk::event_ref event,
+                     spk::pipeline_stage_flags stageMask) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_event(handle_, event, stageMask);
+  }
+
+  void cmd_copy_buffer(spk::buffer_ref srcBuffer, spk::buffer_ref dstBuffer,
+                       uint32_t regionCount,
+                       spk::buffer_copy const* pRegions) {  // SINGLE_HANDLE
+    dispatch_table().cmd_copy_buffer(handle_, srcBuffer, dstBuffer, regionCount,
+                                     pRegions);
+  }
+
+  void cmd_set_blend_constants(
+      std::array<float const, 4> blendConstants) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_blend_constants(handle_, blendConstants);
+  }
+
+  void cmd_draw(uint32_t vertexCount, uint32_t instanceCount,
+                uint32_t firstVertex,
+                uint32_t firstInstance) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw(handle_, vertexCount, instanceCount, firstVertex,
+                              firstInstance);
+  }
+
+  void cmd_draw_indexed_indirect_count_khr(spk::buffer_ref buffer,
+                                           uint64_t offset,
+                                           spk::buffer_ref countBuffer,
+                                           uint64_t countBufferOffset,
+                                           uint32_t maxDrawCount,
+                                           uint32_t stride) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indexed_indirect_count_khr(
+        handle_, buffer, offset, countBuffer, countBufferOffset, maxDrawCount,
+        stride);
+  }
+
+  void cmd_set_checkpoint_nv(void const* pCheckpointMarker) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_checkpoint_nv(handle_, pCheckpointMarker);
+  }
+
+  void cmd_bind_index_buffer(spk::buffer_ref buffer, uint64_t offset,
+                             spk::index_type indexType) {  // SINGLE_HANDLE
+    dispatch_table().cmd_bind_index_buffer(handle_, buffer, offset, indexType);
+  }
+
+  void cmd_draw_indexed(uint32_t indexCount, uint32_t instanceCount,
+                        uint32_t firstIndex, int32_t vertexOffset,
+                        uint32_t firstInstance) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indexed(handle_, indexCount, instanceCount,
+                                      firstIndex, vertexOffset, firstInstance);
+  }
+
+  void cmd_dispatch(uint32_t groupCountX, uint32_t groupCountY,
+                    uint32_t groupCountZ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_dispatch(handle_, groupCountX, groupCountY,
+                                  groupCountZ);
+  }
+
+  void cmd_process_commands_nvx(spk::cmd_process_commands_info_nvx const*
+                                    pProcessCommandsInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_process_commands_nvx(handle_, pProcessCommandsInfo);
+  }
+
+  void cmd_bind_vertex_buffers(uint32_t firstBinding, uint32_t bindingCount,
+                               spk::buffer_ref const* pBuffers,
+                               uint64_t const* pOffsets) {  // SINGLE_HANDLE
+    dispatch_table().cmd_bind_vertex_buffers(handle_, firstBinding,
+                                             bindingCount, pBuffers, pOffsets);
+  }
+
+  void cmd_end_render_pass(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_end_render_pass(handle_);
+  }
+
+  void cmd_wait_events(
+      uint32_t eventCount, spk::event_ref const* pEvents,
+      spk::pipeline_stage_flags srcStageMask,
+      spk::pipeline_stage_flags dstStageMask, uint32_t memoryBarrierCount,
+      spk::memory_barrier const* pMemoryBarriers,
+      uint32_t bufferMemoryBarrierCount,
+      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
+      uint32_t imageMemoryBarrierCount,
+      spk::image_memory_barrier const* pImageMemoryBarriers) {  // SINGLE_HANDLE
+    dispatch_table().cmd_wait_events(
+        handle_, eventCount, pEvents, srcStageMask, dstStageMask,
+        memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount,
+        pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+  }
+
+  void cmd_set_scissor(uint32_t firstScissor, uint32_t scissorCount,
+                       spk::rect_2d const* pScissors) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_scissor(handle_, firstScissor, scissorCount,
+                                     pScissors);
+  }
+
+  void cmd_end_render_pass_2khr(
+      spk::subpass_end_info_khr const* pSubpassEndInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_end_render_pass_2khr(handle_, pSubpassEndInfo);
+  }
+
+  void reset_command_buffer(
+      spk::command_buffer_reset_flags flags) {  // SINGLE_HANDLE
+    dispatch_table().reset_command_buffer(handle_, flags);
+  }
+
+  void cmd_update_buffer(spk::buffer_ref dstBuffer, uint64_t dstOffset,
+                         uint64_t dataSize,
+                         void const* pData) {  // SINGLE_HANDLE
+    dispatch_table().cmd_update_buffer(handle_, dstBuffer, dstOffset, dataSize,
+                                       pData);
+  }
+
+  void cmd_draw_indexed_indirect(spk::buffer_ref buffer, uint64_t offset,
+                                 uint32_t drawCount,
+                                 uint32_t stride) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indexed_indirect(handle_, buffer, offset,
+                                               drawCount, stride);
+  }
+
+  void cmd_write_buffer_marker_amd(spk::pipeline_stage_flags pipelineStage,
+                                   spk::buffer_ref dstBuffer,
+                                   uint64_t dstOffset,
+                                   uint32_t marker) {  // SINGLE_HANDLE
+    dispatch_table().cmd_write_buffer_marker_amd(handle_, pipelineStage,
+                                                 dstBuffer, dstOffset, marker);
+  }
+
+  void cmd_dispatch_indirect(spk::buffer_ref buffer,
+                             uint64_t offset) {  // SINGLE_HANDLE
+    dispatch_table().cmd_dispatch_indirect(handle_, buffer, offset);
+  }
+
+  void cmd_bind_pipeline(spk::pipeline_bind_point pipelineBindPoint,
+                         spk::pipeline_ref pipeline) {  // SINGLE_HANDLE
+    dispatch_table().cmd_bind_pipeline(handle_, pipelineBindPoint, pipeline);
+  }
+
+  void cmd_begin_query(spk::query_pool_ref queryPool, uint32_t query,
+                       spk::query_control_flags flags) {  // SINGLE_HANDLE
+    dispatch_table().cmd_begin_query(handle_, queryPool, query, flags);
+  }
+
+  void cmd_begin_render_pass_2khr(
+      spk::render_pass_begin_info const* pRenderPassBegin,
+      spk::subpass_begin_info_khr const* pSubpassBeginInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_begin_render_pass_2khr(handle_, pRenderPassBegin,
+                                                pSubpassBeginInfo);
+  }
+
+  void end_command_buffer(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().end_command_buffer(handle_);
+  }
+
+  void cmd_resolve_image(spk::image_ref srcImage,
+                         spk::image_layout srcImageLayout,
+                         spk::image_ref dstImage,
+                         spk::image_layout dstImageLayout, uint32_t regionCount,
+                         spk::image_resolve const* pRegions) {  // SINGLE_HANDLE
+    dispatch_table().cmd_resolve_image(handle_, srcImage, srcImageLayout,
+                                       dstImage, dstImageLayout, regionCount,
+                                       pRegions);
+  }
+
+  void cmd_set_sample_locations_ext(
+      spk::sample_locations_info_ext const*
+          pSampleLocationsInfo) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_sample_locations_ext(handle_,
+                                                  pSampleLocationsInfo);
+  }
+
+  void cmd_set_depth_bias(float depthBiasConstantFactor, float depthBiasClamp,
+                          float depthBiasSlopeFactor) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_depth_bias(handle_, depthBiasConstantFactor,
+                                        depthBiasClamp, depthBiasSlopeFactor);
+  }
+
+  void cmd_set_depth_bounds(float minDepthBounds,
+                            float maxDepthBounds) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_depth_bounds(handle_, minDepthBounds,
+                                          maxDepthBounds);
+  }
+
+  void cmd_set_stencil_compare_mask(spk::stencil_face_flags faceMask,
+                                    uint32_t compareMask) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_stencil_compare_mask(handle_, faceMask,
+                                                  compareMask);
+  }
+
+  void cmd_copy_buffer_to_image(
+      spk::buffer_ref srcBuffer, spk::image_ref dstImage,
+      spk::image_layout dstImageLayout, uint32_t regionCount,
+      spk::buffer_image_copy const* pRegions) {  // SINGLE_HANDLE
+    dispatch_table().cmd_copy_buffer_to_image(
+        handle_, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
+  }
+
+  void cmd_set_stencil_write_mask(spk::stencil_face_flags faceMask,
+                                  uint32_t writeMask) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_stencil_write_mask(handle_, faceMask, writeMask);
+  }
+
+  void cmd_set_stencil_reference(spk::stencil_face_flags faceMask,
+                                 uint32_t reference) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_stencil_reference(handle_, faceMask, reference);
+  }
+
+  void cmd_draw_indirect(spk::buffer_ref buffer, uint64_t offset,
+                         uint32_t drawCount,
+                         uint32_t stride) {  // SINGLE_HANDLE
+    dispatch_table().cmd_draw_indirect(handle_, buffer, offset, drawCount,
+                                       stride);
+  }
+
+  void cmd_copy_image(spk::image_ref srcImage, spk::image_layout srcImageLayout,
+                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
+                      uint32_t regionCount,
+                      spk::image_copy const* pRegions) {  // SINGLE_HANDLE
+    dispatch_table().cmd_copy_image(handle_, srcImage, srcImageLayout, dstImage,
+                                    dstImageLayout, regionCount, pRegions);
+  }
+
+  void cmd_next_subpass(spk::subpass_contents contents) {  // SINGLE_HANDLE
+    dispatch_table().cmd_next_subpass(handle_, contents);
+  }
+
+  void cmd_set_line_width(float lineWidth) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_line_width(handle_, lineWidth);
+  }
+
+  void cmd_blit_image(spk::image_ref srcImage, spk::image_layout srcImageLayout,
+                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
+                      uint32_t regionCount, spk::image_blit const* pRegions,
+                      spk::filter filter) {  // SINGLE_HANDLE
+    dispatch_table().cmd_blit_image(handle_, srcImage, srcImageLayout, dstImage,
+                                    dstImageLayout, regionCount, pRegions,
+                                    filter);
+  }
+
+  void cmd_fill_buffer(spk::buffer_ref dstBuffer, uint64_t dstOffset,
+                       uint64_t size, uint32_t data) {  // SINGLE_HANDLE
+    dispatch_table().cmd_fill_buffer(handle_, dstBuffer, dstOffset, size, data);
+  }
+
+  void cmd_clear_color_image(
+      spk::image_ref image, spk::image_layout imageLayout,
+      spk::clear_color_value const* pColor, uint32_t rangeCount,
+      spk::image_subresource_range const* pRanges) {  // SINGLE_HANDLE
+    dispatch_table().cmd_clear_color_image(handle_, image, imageLayout, pColor,
+                                           rangeCount, pRanges);
+  }
+
+  void cmd_clear_depth_stencil_image(
+      spk::image_ref image, spk::image_layout imageLayout,
+      spk::clear_depth_stencil_value const* pDepthStencil, uint32_t rangeCount,
+      spk::image_subresource_range const* pRanges) {  // SINGLE_HANDLE
+    dispatch_table().cmd_clear_depth_stencil_image(
+        handle_, image, imageLayout, pDepthStencil, rangeCount, pRanges);
+  }
+
+  void begin_command_buffer(
+      spk::command_buffer_begin_info const* pBeginInfo) {  // SINGLE_HANDLE
+    dispatch_table().begin_command_buffer(handle_, pBeginInfo);
+  }
+
+  void cmd_set_viewport(uint32_t firstViewport, uint32_t viewportCount,
+                        spk::viewport const* pViewports) {  // SINGLE_HANDLE
+    dispatch_table().cmd_set_viewport(handle_, firstViewport, viewportCount,
+                                      pViewports);
+  }
+
+  void cmd_clear_attachments(uint32_t attachmentCount,
+                             spk::clear_attachment const* pAttachments,
+                             uint32_t rectCount,
+                             spk::clear_rect const* pRects) {  // SINGLE_HANDLE
+    dispatch_table().cmd_clear_attachments(handle_, attachmentCount,
+                                           pAttachments, rectCount, pRects);
+  }
+
+  void cmd_reset_event(spk::event_ref event,
+                       spk::pipeline_stage_flags stageMask) {  // SINGLE_HANDLE
+    dispatch_table().cmd_reset_event(handle_, event, stageMask);
+  }
+
+  void cmd_pipeline_barrier(
+      spk::pipeline_stage_flags srcStageMask,
+      spk::pipeline_stage_flags dstStageMask,
+      spk::dependency_flags dependencyFlags, uint32_t memoryBarrierCount,
+      spk::memory_barrier const* pMemoryBarriers,
+      uint32_t bufferMemoryBarrierCount,
+      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
+      uint32_t imageMemoryBarrierCount,
+      spk::image_memory_barrier const* pImageMemoryBarriers) {  // SINGLE_HANDLE
+    dispatch_table().cmd_pipeline_barrier(
+        handle_, srcStageMask, dstStageMask, dependencyFlags,
+        memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount,
+        pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
+  }
+
+  void cmd_end_query(spk::query_pool_ref queryPool,
+                     uint32_t query) {  // SINGLE_HANDLE
+    dispatch_table().cmd_end_query(handle_, queryPool, query);
+  }
+
+  void cmd_begin_conditional_rendering_ext(
+      spk::conditional_rendering_begin_info_ext const*
+          pConditionalRenderingBegin) {  // SINGLE_HANDLE
+    dispatch_table().cmd_begin_conditional_rendering_ext(
+        handle_, pConditionalRenderingBegin);
+  }
+
+  void cmd_end_conditional_rendering_ext(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().cmd_end_conditional_rendering_ext(handle_);
+  }
+
+  void cmd_push_constants(spk::pipeline_layout_ref layout,
+                          spk::shader_stage_flags stageFlags, uint32_t offset,
+                          uint32_t size,
+                          void const* pValues) {  // SINGLE_HANDLE
+    dispatch_table().cmd_push_constants(handle_, layout, stageFlags, offset,
+                                        size, pValues);
+  }
+
+  void cmd_begin_render_pass(
+      spk::render_pass_begin_info const* pRenderPassBegin,
+      spk::subpass_contents contents) {  // SINGLE_HANDLE
+    dispatch_table().cmd_begin_render_pass(handle_, pRenderPassBegin, contents);
+  }
+
+  void cmd_execute_commands(
+      uint32_t commandBufferCount,
+      spk::command_buffer_ref const* pCommandBuffers) {  // SINGLE_HANDLE
+    dispatch_table().cmd_execute_commands(handle_, commandBufferCount,
+                                          pCommandBuffers);
+  }
+
+  void cmd_bind_descriptor_sets(
+      spk::pipeline_bind_point pipelineBindPoint,
+      spk::pipeline_layout_ref layout, uint32_t firstSet,
+      uint32_t descriptorSetCount,
+      spk::descriptor_set_ref const* pDescriptorSets,
+      uint32_t dynamicOffsetCount,
+      uint32_t const* pDynamicOffsets) {  // SINGLE_HANDLE
+    dispatch_table().cmd_bind_descriptor_sets(
+        handle_, pipelineBindPoint, layout, firstSet, descriptorSetCount,
+        pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
+  }
+
+  void cmd_copy_query_pool_results(
+      spk::query_pool_ref queryPool, uint32_t firstQuery, uint32_t queryCount,
+      spk::buffer_ref dstBuffer, uint64_t dstOffset, uint64_t stride,
+      spk::query_result_flags flags) {  // SINGLE_HANDLE
+    dispatch_table().cmd_copy_query_pool_results(handle_, queryPool, firstQuery,
+                                                 queryCount, dstBuffer,
+                                                 dstOffset, stride, flags);
+  }
+
+  void cmd_copy_image_to_buffer(
+      spk::image_ref srcImage, spk::image_layout srcImageLayout,
+      spk::buffer_ref dstBuffer, uint32_t regionCount,
+      spk::buffer_image_copy const* pRegions) {  // SINGLE_HANDLE
+    dispatch_table().cmd_copy_image_to_buffer(handle_, srcImage, srcImageLayout,
+                                              dstBuffer, regionCount, pRegions);
+  }
+
+  void cmd_reset_query_pool(spk::query_pool_ref queryPool, uint32_t firstQuery,
+                            uint32_t queryCount) {  // SINGLE_HANDLE
+    dispatch_table().cmd_reset_query_pool(handle_, queryPool, firstQuery,
+                                          queryCount);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   command_buffer_ref handle_ = VK_NULL_HANDLE;
+  command_pool_ref parent_command_pool_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class command_pool {
  public:
   operator command_pool_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_command_pool
+
+  void destroy_command_pool(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_command_pool(parent_device_ref, handle_,
+                                          pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   command_pool_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class debug_report_callback_ext {
  public:
   operator debug_report_callback_ext_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_debug_report_callback_ext
+
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   debug_report_callback_ext_ref handle_ = VK_NULL_HANDLE;
+  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  const instance_dispatch_table* dispatch_table_;
 };
 
 class debug_utils_messenger_ext {
  public:
   operator debug_utils_messenger_ext_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_debug_utils_messenger_ext
+
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   debug_utils_messenger_ext_ref handle_ = VK_NULL_HANDLE;
+  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  const instance_dispatch_table* dispatch_table_;
 };
 
 class descriptor_pool {
  public:
   operator descriptor_pool_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_descriptor_pool
+
+  void destroy_descriptor_pool(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_descriptor_pool(parent_device_ref, handle_,
+                                             pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   descriptor_pool_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class descriptor_set_layout {
  public:
   operator descriptor_set_layout_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_descriptor_set_layout
+
+  void destroy_descriptor_set_layout(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_descriptor_set_layout(parent_device_ref, handle_,
+                                                   pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   descriptor_set_layout_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class descriptor_set {
  public:
   operator descriptor_set_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: allocate_descriptor_sets
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   descriptor_set_ref handle_ = VK_NULL_HANDLE;
+  descriptor_pool_ref parent_descriptor_pool_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class descriptor_update_template {
  public:
   operator descriptor_update_template_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_descriptor_update_template_khr
+
+  // TODO CONSTRUCTOR: create_descriptor_update_template
+
+  void destroy_descriptor_update_template_khr(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_descriptor_update_template_khr(
+        parent_device_ref, handle_, pAllocator);
+  }
+
+  void destroy_descriptor_update_template(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_descriptor_update_template(parent_device_ref,
+                                                        handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   descriptor_update_template_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 using descriptor_update_template_khr = descriptor_update_template_ref;
 
@@ -24063,168 +24684,1506 @@ class device_memory {
  public:
   operator device_memory_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: allocate_memory
+
+  void free_memory(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_HANDLE
+    dispatch_table().free_memory(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   device_memory_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class device {
  public:
   operator device_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_device
+
+  void get_descriptor_set_layout_support_khr(
+      spk::descriptor_set_layout_create_info const* pCreateInfo,
+      spk::descriptor_set_layout_support* pSupport) {  // SINGLE_HANDLE
+    dispatch_table().get_descriptor_set_layout_support_khr(handle_, pCreateInfo,
+                                                           pSupport);
+  }
+
+  void get_image_memory_requirements_2khr(
+      spk::image_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_image_memory_requirements_2khr(handle_, pInfo,
+                                                        pMemoryRequirements);
+  }
+
+  void update_descriptor_set_with_template_khr(
+      spk::descriptor_set_ref descriptorSet,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      void const* pData) {  // SINGLE_HANDLE
+    dispatch_table().update_descriptor_set_with_template_khr(
+        handle_, descriptorSet, descriptorUpdateTemplate, pData);
+  }
+
+  void get_memory_host_pointer_properties_ext(
+      spk::external_memory_handle_type_flags handleType,
+      void const* pHostPointer,
+      spk::memory_host_pointer_properties_ext*
+          pMemoryHostPointerProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_host_pointer_properties_ext(
+        handle_, handleType, pHostPointer, pMemoryHostPointerProperties);
+  }
+
+  [[nodiscard]] spk::result get_shader_info_amd(
+      spk::pipeline_ref pipeline, spk::shader_stage_flags shaderStage,
+      spk::shader_info_type_amd infoType, size_t* pInfoSize,
+      void* pInfo) {  // SINGLE_HANDLE
+    return dispatch_table().get_shader_info_amd(handle_, pipeline, shaderStage,
+                                                infoType, pInfoSize, pInfo);
+  }
+
+  void merge_validation_caches_ext(
+      spk::validation_cache_ext_ref dstCache, uint32_t srcCacheCount,
+      spk::validation_cache_ext_ref const* pSrcCaches) {  // SINGLE_HANDLE
+    dispatch_table().merge_validation_caches_ext(handle_, dstCache,
+                                                 srcCacheCount, pSrcCaches);
+  }
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  void get_memory_android_hardware_buffer_android(
+      spk::memory_get_android_hardware_buffer_info_android const* pInfo,
+      AHardwareBuffer** pBuffer) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_android_hardware_buffer_android(handle_, pInfo,
+                                                                pBuffer);
+  }
+#endif
+
+  [[nodiscard]] spk::result get_validation_cache_data_ext(
+      spk::validation_cache_ext_ref validationCache, size_t* pDataSize,
+      void* pData) {  // SINGLE_HANDLE
+    return dispatch_table().get_validation_cache_data_ext(
+        handle_, validationCache, pDataSize, pData);
+  }
+
+  void get_device_queue_2(spk::device_queue_info_2 const* pQueueInfo,
+                          spk::queue_ref* pQueue) {  // SINGLE_HANDLE
+    dispatch_table().get_device_queue_2(handle_, pQueueInfo, pQueue);
+  }
+
+  void get_image_sparse_memory_requirements_2(
+      spk::image_sparse_memory_requirements_info_2 const* pInfo,
+      uint32_t* pSparseMemoryRequirementCount,
+      spk::sparse_image_memory_requirements_2*
+          pSparseMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_image_sparse_memory_requirements_2(
+        handle_, pInfo, pSparseMemoryRequirementCount,
+        pSparseMemoryRequirements);
+  }
+
+  void get_image_memory_requirements_2(
+      spk::image_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_image_memory_requirements_2(handle_, pInfo,
+                                                     pMemoryRequirements);
+  }
+
+  [[nodiscard]] spk::result get_swapchain_status_khr(
+      spk::swapchain_khr_ref swapchain) {  // SINGLE_HANDLE
+    return dispatch_table().get_swapchain_status_khr(handle_, swapchain);
+  }
+
+  void set_hdr_metadata_ext(
+      uint32_t swapchainCount, spk::swapchain_khr_ref const* pSwapchains,
+      spk::hdr_metadata_ext const* pMetadata) {  // SINGLE_HANDLE
+    dispatch_table().set_hdr_metadata_ext(handle_, swapchainCount, pSwapchains,
+                                          pMetadata);
+  }
+
+  void trim_command_pool_khr(
+      spk::command_pool_ref commandPool) {  // SINGLE_HANDLE
+    dispatch_table().trim_command_pool_khr(handle_, commandPool);
+  }
+
+  [[nodiscard]] spk::result acquire_next_image_2khr(
+      spk::acquire_next_image_info_khr const* pAcquireInfo,
+      uint32_t* pImageIndex) {  // SINGLE_HANDLE
+    return dispatch_table().acquire_next_image_2khr(handle_, pAcquireInfo,
+                                                    pImageIndex);
+  }
+
+  void get_device_group_surface_present_modes_khr(
+      spk::surface_khr_ref surface,
+      spk::device_group_present_mode_flags_khr* pModes) {  // SINGLE_HANDLE
+    dispatch_table().get_device_group_surface_present_modes_khr(
+        handle_, surface, pModes);
+  }
+
+  void get_device_group_present_capabilities_khr(
+      spk::device_group_present_capabilities_khr*
+          pDeviceGroupPresentCapabilities) {  // SINGLE_HANDLE
+    dispatch_table().get_device_group_present_capabilities_khr(
+        handle_, pDeviceGroupPresentCapabilities);
+  }
+
+  void get_swapchain_counter_ext(spk::swapchain_khr_ref swapchain,
+                                 spk::surface_counter_flags_ext counter,
+                                 uint64_t* pCounterValue) {  // SINGLE_HANDLE
+    dispatch_table().get_swapchain_counter_ext(handle_, swapchain, counter,
+                                               pCounterValue);
+  }
+
+  void get_descriptor_set_layout_support(
+      spk::descriptor_set_layout_create_info const* pCreateInfo,
+      spk::descriptor_set_layout_support* pSupport) {  // SINGLE_HANDLE
+    dispatch_table().get_descriptor_set_layout_support(handle_, pCreateInfo,
+                                                       pSupport);
+  }
+
+  void register_display_event_ext(
+      spk::display_khr_ref display,
+      spk::display_event_info_ext const* pDisplayEventInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::fence_ref* pFence) {  // SINGLE_HANDLE
+    dispatch_table().register_display_event_ext(
+        handle_, display, pDisplayEventInfo, pAllocator, pFence);
+  }
+
+  void display_power_control_ext(
+      spk::display_khr_ref display,
+      spk::display_power_info_ext const* pDisplayPowerInfo) {  // SINGLE_HANDLE
+    dispatch_table().display_power_control_ext(handle_, display,
+                                               pDisplayPowerInfo);
+  }
+
+  void get_semaphore_fd_khr(spk::semaphore_get_fd_info_khr const* pGetFdInfo,
+                            int* pFd) {  // SINGLE_HANDLE
+    dispatch_table().get_semaphore_fd_khr(handle_, pGetFdInfo, pFd);
+  }
+
+  void get_device_group_peer_memory_features(
+      uint32_t heapIndex, uint32_t localDeviceIndex, uint32_t remoteDeviceIndex,
+      spk::peer_memory_feature_flags* pPeerMemoryFeatures) {  // SINGLE_HANDLE
+    dispatch_table().get_device_group_peer_memory_features(
+        handle_, heapIndex, localDeviceIndex, remoteDeviceIndex,
+        pPeerMemoryFeatures);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_semaphore_win_32handle_khr(
+      spk::semaphore_get_win_32handle_info_khr const* pGetWin32HandleInfo,
+      HANDLE* pHandle) {  // SINGLE_HANDLE
+    dispatch_table().get_semaphore_win_32handle_khr(
+        handle_, pGetWin32HandleInfo, pHandle);
+  }
+#endif
+
+  void get_memory_fd_properties_khr(
+      spk::external_memory_handle_type_flags handleType, int fd,
+      spk::memory_fd_properties_khr* pMemoryFdProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_fd_properties_khr(handle_, handleType, fd,
+                                                  pMemoryFdProperties);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_memory_win_32handle_properties_khr(
+      spk::external_memory_handle_type_flags handleType, HANDLE handle,
+      spk::memory_win_32handle_properties_khr*
+          pMemoryWin32HandleProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_win_32handle_properties_khr(
+        handle_, handleType, handle, pMemoryWin32HandleProperties);
+  }
+#endif
+
+  void trim_command_pool(spk::command_pool_ref commandPool) {  // SINGLE_HANDLE
+    dispatch_table().trim_command_pool(handle_, commandPool);
+  }
+
+  void unregister_objects_nvx(
+      spk::object_table_nvx_ref objectTable, uint32_t objectCount,
+      spk::object_entry_type_nvx const* pObjectEntryTypes,
+      uint32_t const* pObjectIndices) {  // SINGLE_HANDLE
+    dispatch_table().unregister_objects_nvx(handle_, objectTable, objectCount,
+                                            pObjectEntryTypes, pObjectIndices);
+  }
+
+  void register_objects_nvx(
+      spk::object_table_nvx_ref objectTable, uint32_t objectCount,
+      spk::object_table_entry_nvx const* const* ppObjectTableEntries,
+      uint32_t const* pObjectIndices) {  // SINGLE_HANDLE
+    dispatch_table().register_objects_nvx(handle_, objectTable, objectCount,
+                                          ppObjectTableEntries, pObjectIndices);
+  }
+
+  void get_image_sparse_memory_requirements_2khr(
+      spk::image_sparse_memory_requirements_info_2 const* pInfo,
+      uint32_t* pSparseMemoryRequirementCount,
+      spk::sparse_image_memory_requirements_2*
+          pSparseMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_image_sparse_memory_requirements_2khr(
+        handle_, pInfo, pSparseMemoryRequirementCount,
+        pSparseMemoryRequirements);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void import_semaphore_win_32handle_khr(
+      spk::import_semaphore_win_32handle_info_khr const*
+          pImportSemaphoreWin32HandleInfo) {  // SINGLE_HANDLE
+    dispatch_table().import_semaphore_win_32handle_khr(
+        handle_, pImportSemaphoreWin32HandleInfo);
+  }
+#endif
+
+  void debug_marker_set_object_name_ext(
+      spk::debug_marker_object_name_info_ext const*
+          pNameInfo) {  // SINGLE_HANDLE
+    dispatch_table().debug_marker_set_object_name_ext(handle_, pNameInfo);
+  }
+
+  void reset_command_pool(
+      spk::command_pool_ref commandPool,
+      spk::command_pool_reset_flags flags) {  // SINGLE_HANDLE
+    dispatch_table().reset_command_pool(handle_, commandPool, flags);
+  }
+
+  void merge_pipeline_caches(
+      spk::pipeline_cache_ref dstCache, uint32_t srcCacheCount,
+      spk::pipeline_cache_ref const* pSrcCaches) {  // SINGLE_HANDLE
+    dispatch_table().merge_pipeline_caches(handle_, dstCache, srcCacheCount,
+                                           pSrcCaches);
+  }
+
+  [[nodiscard]] spk::result get_pipeline_cache_data(
+      spk::pipeline_cache_ref pipelineCache, size_t* pDataSize,
+      void* pData) {  // SINGLE_HANDLE
+    return dispatch_table().get_pipeline_cache_data(handle_, pipelineCache,
+                                                    pDataSize, pData);
+  }
+
+  void device_wait_idle(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().device_wait_idle(handle_);
+  }
+
+  void update_descriptor_set_with_template(
+      spk::descriptor_set_ref descriptorSet,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      void const* pData) {  // SINGLE_HANDLE
+    dispatch_table().update_descriptor_set_with_template(
+        handle_, descriptorSet, descriptorUpdateTemplate, pData);
+  }
+
+  void get_buffer_memory_requirements_2(
+      spk::buffer_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_buffer_memory_requirements_2(handle_, pInfo,
+                                                      pMemoryRequirements);
+  }
+
+  void reset_descriptor_pool(
+      spk::descriptor_pool_ref descriptorPool) {  // SINGLE_HANDLE
+    dispatch_table().reset_descriptor_pool(handle_, descriptorPool);
+  }
+
+  void unmap_memory(spk::device_memory_ref memory) {  // SINGLE_HANDLE
+    dispatch_table().unmap_memory(handle_, memory);
+  }
+
+  void bind_image_memory_2khr(
+      uint32_t bindInfoCount,
+      spk::bind_image_memory_info const* pBindInfos) {  // SINGLE_HANDLE
+    dispatch_table().bind_image_memory_2khr(handle_, bindInfoCount, pBindInfos);
+  }
+
+  void get_image_subresource_layout(
+      spk::image_ref image, spk::image_subresource const* pSubresource,
+      spk::subresource_layout* pLayout) {  // SINGLE_HANDLE
+    dispatch_table().get_image_subresource_layout(handle_, image, pSubresource,
+                                                  pLayout);
+  }
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  void get_android_hardware_buffer_properties_android(
+      AHardwareBuffer const* buffer,
+      spk::android_hardware_buffer_properties_android*
+          pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_android_hardware_buffer_properties_android(
+        handle_, buffer, pProperties);
+  }
+#endif
+
+  void set_event(spk::event_ref event) {  // SINGLE_HANDLE
+    dispatch_table().set_event(handle_, event);
+  }
+
+  void bind_image_memory(spk::image_ref image, spk::device_memory_ref memory,
+                         uint64_t memoryOffset) {  // SINGLE_HANDLE
+    dispatch_table().bind_image_memory(handle_, image, memory, memoryOffset);
+  }
+
+  [[nodiscard]] spk::result get_query_pool_results(
+      spk::query_pool_ref queryPool, uint32_t firstQuery, uint32_t queryCount,
+      size_t dataSize, void* pData, uint64_t stride,
+      spk::query_result_flags flags) {  // SINGLE_HANDLE
+    return dispatch_table().get_query_pool_results(
+        handle_, queryPool, firstQuery, queryCount, dataSize, pData, stride,
+        flags);
+  }
+
+  void reset_fences(uint32_t fenceCount,
+                    spk::fence_ref const* pFences) {  // SINGLE_HANDLE
+    dispatch_table().reset_fences(handle_, fenceCount, pFences);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_memory_win_32handle_nv(
+      spk::device_memory_ref memory,
+      spk::external_memory_handle_type_flags_nv handleType,
+      HANDLE* pHandle) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_win_32handle_nv(handle_, memory, handleType,
+                                                pHandle);
+  }
+#endif
+
+  void bind_buffer_memory_2(
+      uint32_t bindInfoCount,
+      spk::bind_buffer_memory_info const* pBindInfos) {  // SINGLE_HANDLE
+    dispatch_table().bind_buffer_memory_2(handle_, bindInfoCount, pBindInfos);
+  }
+
+  void get_fence_fd_khr(spk::fence_get_fd_info_khr const* pGetFdInfo,
+                        int* pFd) {  // SINGLE_HANDLE
+    dispatch_table().get_fence_fd_khr(handle_, pGetFdInfo, pFd);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_fence_win_32handle_khr(
+      spk::fence_get_win_32handle_info_khr const* pGetWin32HandleInfo,
+      HANDLE* pHandle) {  // SINGLE_HANDLE
+    dispatch_table().get_fence_win_32handle_khr(handle_, pGetWin32HandleInfo,
+                                                pHandle);
+  }
+#endif
+
+  void map_memory(spk::device_memory_ref memory, uint64_t offset, uint64_t size,
+                  void** ppData) {  // SINGLE_HANDLE
+    dispatch_table().map_memory(handle_, memory, offset, size, ppData);
+  }
+
+  void get_device_queue(uint32_t queueFamilyIndex, uint32_t queueIndex,
+                        spk::queue_ref* pQueue) {  // SINGLE_HANDLE
+    dispatch_table().get_device_queue(handle_, queueFamilyIndex, queueIndex,
+                                      pQueue);
+  }
+
+  void get_buffer_memory_requirements(
+      spk::buffer_ref buffer,
+      spk::memory_requirements* pMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_buffer_memory_requirements(handle_, buffer,
+                                                    pMemoryRequirements);
+  }
+
+  PFN_vkVoidFunction get_device_proc_addr(char const* pName) {  // SINGLE_HANDLE
+    return dispatch_table().get_device_proc_addr(handle_, pName);
+  }
+
+  [[nodiscard]] spk::result wait_for_fences(
+      uint32_t fenceCount, spk::fence_ref const* pFences, spk::bool32_t waitAll,
+      uint64_t timeout) {  // SINGLE_HANDLE
+    return dispatch_table().wait_for_fences(handle_, fenceCount, pFences,
+                                            waitAll, timeout);
+  }
+
+  void flush_mapped_memory_ranges(
+      uint32_t memoryRangeCount,
+      spk::mapped_memory_range const* pMemoryRanges) {  // SINGLE_HANDLE
+    dispatch_table().flush_mapped_memory_ranges(handle_, memoryRangeCount,
+                                                pMemoryRanges);
+  }
+
+  void get_render_area_granularity(
+      spk::render_pass_ref renderPass,
+      spk::extent_2d* pGranularity) {  // SINGLE_HANDLE
+    dispatch_table().get_render_area_granularity(handle_, renderPass,
+                                                 pGranularity);
+  }
+
+  void set_debug_utils_object_tag_ext(
+      spk::debug_utils_object_tag_info_ext const* pTagInfo) {  // SINGLE_HANDLE
+    dispatch_table().set_debug_utils_object_tag_ext(handle_, pTagInfo);
+  }
+
+  void register_device_event_ext(
+      spk::device_event_info_ext const* pDeviceEventInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::fence_ref* pFence) {  // SINGLE_HANDLE
+    dispatch_table().register_device_event_ext(handle_, pDeviceEventInfo,
+                                               pAllocator, pFence);
+  }
+
+  void reset_event(spk::event_ref event) {  // SINGLE_HANDLE
+    dispatch_table().reset_event(handle_, event);
+  }
+
+  void get_memory_fd_khr(spk::memory_get_fd_info_khr const* pGetFdInfo,
+                         int* pFd) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_fd_khr(handle_, pGetFdInfo, pFd);
+  }
+
+  void invalidate_mapped_memory_ranges(
+      uint32_t memoryRangeCount,
+      spk::mapped_memory_range const* pMemoryRanges) {  // SINGLE_HANDLE
+    dispatch_table().invalidate_mapped_memory_ranges(handle_, memoryRangeCount,
+                                                     pMemoryRanges);
+  }
+
+  void get_device_memory_commitment(
+      spk::device_memory_ref memory,
+      uint64_t* pCommittedMemoryInBytes) {  // SINGLE_HANDLE
+    dispatch_table().get_device_memory_commitment(handle_, memory,
+                                                  pCommittedMemoryInBytes);
+  }
+
+  void import_fence_fd_khr(spk::import_fence_fd_info_khr const*
+                               pImportFenceFdInfo) {  // SINGLE_HANDLE
+    dispatch_table().import_fence_fd_khr(handle_, pImportFenceFdInfo);
+  }
+
+  void set_debug_utils_object_name_ext(
+      spk::debug_utils_object_name_info_ext const*
+          pNameInfo) {  // SINGLE_HANDLE
+    dispatch_table().set_debug_utils_object_name_ext(handle_, pNameInfo);
+  }
+
+  [[nodiscard]] spk::result get_fence_status(
+      spk::fence_ref fence) {  // SINGLE_HANDLE
+    return dispatch_table().get_fence_status(handle_, fence);
+  }
+
+  void get_image_memory_requirements(
+      spk::image_ref image,
+      spk::memory_requirements* pMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_image_memory_requirements(handle_, image,
+                                                   pMemoryRequirements);
+  }
+
+  void get_image_sparse_memory_requirements(
+      spk::image_ref image, uint32_t* pSparseMemoryRequirementCount,
+      spk::sparse_image_memory_requirements*
+          pSparseMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_image_sparse_memory_requirements(
+        handle_, image, pSparseMemoryRequirementCount,
+        pSparseMemoryRequirements);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_memory_win_32handle_khr(
+      spk::memory_get_win_32handle_info_khr const* pGetWin32HandleInfo,
+      HANDLE* pHandle) {  // SINGLE_HANDLE
+    dispatch_table().get_memory_win_32handle_khr(handle_, pGetWin32HandleInfo,
+                                                 pHandle);
+  }
+#endif
+
+  void free_descriptor_sets(
+      spk::descriptor_pool_ref descriptorPool, uint32_t descriptorSetCount,
+      spk::descriptor_set_ref const* pDescriptorSets) {  // SINGLE_HANDLE
+    dispatch_table().free_descriptor_sets(handle_, descriptorPool,
+                                          descriptorSetCount, pDescriptorSets);
+  }
+
+  void free_command_buffers(
+      spk::command_pool_ref commandPool, uint32_t commandBufferCount,
+      spk::command_buffer_ref const* pCommandBuffers) {  // SINGLE_HANDLE
+    dispatch_table().free_command_buffers(handle_, commandPool,
+                                          commandBufferCount, pCommandBuffers);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void import_fence_win_32handle_khr(
+      spk::import_fence_win_32handle_info_khr const*
+          pImportFenceWin32HandleInfo) {  // SINGLE_HANDLE
+    dispatch_table().import_fence_win_32handle_khr(handle_,
+                                                   pImportFenceWin32HandleInfo);
+  }
+#endif
+
+  void bind_buffer_memory(spk::buffer_ref buffer, spk::device_memory_ref memory,
+                          uint64_t memoryOffset) {  // SINGLE_HANDLE
+    dispatch_table().bind_buffer_memory(handle_, buffer, memory, memoryOffset);
+  }
+
+  std::vector<spk::past_presentation_timing_google>
+  get_past_presentation_timing_google(
+      spk::swapchain_khr_ref swapchain) {  // SINGLE_HANDLE
+    return dispatch_table().get_past_presentation_timing_google(handle_,
+                                                                swapchain);
+  }
+
+  [[nodiscard]] spk::result get_event_status(
+      spk::event_ref event) {  // SINGLE_HANDLE
+    return dispatch_table().get_event_status(handle_, event);
+  }
+
+  void get_refresh_cycle_duration_google(
+      spk::swapchain_khr_ref swapchain,
+      spk::refresh_cycle_duration_google*
+          pDisplayTimingProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_refresh_cycle_duration_google(
+        handle_, swapchain, pDisplayTimingProperties);
+  }
+
+  void get_device_group_peer_memory_features_khr(
+      uint32_t heapIndex, uint32_t localDeviceIndex, uint32_t remoteDeviceIndex,
+      spk::peer_memory_feature_flags* pPeerMemoryFeatures) {  // SINGLE_HANDLE
+    dispatch_table().get_device_group_peer_memory_features_khr(
+        handle_, heapIndex, localDeviceIndex, remoteDeviceIndex,
+        pPeerMemoryFeatures);
+  }
+
+  void import_semaphore_fd_khr(spk::import_semaphore_fd_info_khr const*
+                                   pImportSemaphoreFdInfo) {  // SINGLE_HANDLE
+    dispatch_table().import_semaphore_fd_khr(handle_, pImportSemaphoreFdInfo);
+  }
+
+  void bind_buffer_memory_2khr(
+      uint32_t bindInfoCount,
+      spk::bind_buffer_memory_info const* pBindInfos) {  // SINGLE_HANDLE
+    dispatch_table().bind_buffer_memory_2khr(handle_, bindInfoCount,
+                                             pBindInfos);
+  }
+
+  void debug_marker_set_object_tag_ext(
+      spk::debug_marker_object_tag_info_ext const* pTagInfo) {  // SINGLE_HANDLE
+    dispatch_table().debug_marker_set_object_tag_ext(handle_, pTagInfo);
+  }
+
+  void update_descriptor_sets(
+      uint32_t descriptorWriteCount,
+      spk::write_descriptor_set const* pDescriptorWrites,
+      uint32_t descriptorCopyCount,
+      spk::copy_descriptor_set const* pDescriptorCopies) {  // SINGLE_HANDLE
+    dispatch_table().update_descriptor_sets(
+        handle_, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount,
+        pDescriptorCopies);
+  }
+
+  void bind_image_memory_2(
+      uint32_t bindInfoCount,
+      spk::bind_image_memory_info const* pBindInfos) {  // SINGLE_HANDLE
+    dispatch_table().bind_image_memory_2(handle_, bindInfoCount, pBindInfos);
+  }
+
+  void get_buffer_memory_requirements_2khr(
+      spk::buffer_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
+    dispatch_table().get_buffer_memory_requirements_2khr(handle_, pInfo,
+                                                         pMemoryRequirements);
+  }
+
+  std::vector<spk::image_ref> get_swapchain_images_khr(
+      spk::swapchain_khr_ref swapchain) {  // SINGLE_HANDLE
+    return dispatch_table().get_swapchain_images_khr(handle_, swapchain);
+  }
+
+  [[nodiscard]] spk::result acquire_next_image_khr(
+      spk::swapchain_khr_ref swapchain, uint64_t timeout,
+      spk::semaphore_ref semaphore, spk::fence_ref fence,
+      uint32_t* pImageIndex) {  // SINGLE_HANDLE
+    return dispatch_table().acquire_next_image_khr(
+        handle_, swapchain, timeout, semaphore, fence, pImageIndex);
+  }
+
+  void destroy_object_table_nvx(
+      spk::object_table_nvx_ref objectTable,
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_object_table_nvx(handle_, objectTable, pAllocator);
+  }
+
+  void destroy_indirect_commands_layout_nvx(
+      spk::indirect_commands_layout_nvx_ref indirectCommandsLayout,
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_indirect_commands_layout_nvx(
+        handle_, indirectCommandsLayout, pAllocator);
+  }
+
+  void destroy_swapchain_khr(
+      spk::swapchain_khr_ref swapchain,
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_swapchain_khr(handle_, swapchain, pAllocator);
+  }
+
+  void destroy_device(
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_device(handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return dispatch_table_; }
+
  private:
   device_ref handle_ = VK_NULL_HANDLE;
+  physical_device_ref parent_physical_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table dispatch_table_;
 };
 
 class display_khr {
  public:
   operator display_khr_ref() const { return handle_; }
 
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   display_khr_ref handle_ = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class display_mode_khr {
  public:
   operator display_mode_khr_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_display_mode_khr
+
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   display_mode_khr_ref handle_ = VK_NULL_HANDLE;
+  display_khr_ref parent_display_khr_ref = VK_NULL_HANDLE;
+  physical_device_ref parent_physical_device_ref = VK_NULL_HANDLE;
+  const instance_dispatch_table* dispatch_table_;
 };
 
 class event {
  public:
   operator event_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_event
+
+  void destroy_event(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_event(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   event_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class fence {
  public:
   operator fence_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_fence
+
+  void destroy_fence(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_fence(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   fence_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class framebuffer {
  public:
   operator framebuffer_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_framebuffer
+
+  void destroy_framebuffer(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_framebuffer(parent_device_ref, handle_,
+                                         pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   framebuffer_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class image {
  public:
   operator image_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_image
+
+  void destroy_image(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_image(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   image_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class image_view {
  public:
   operator image_view_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_image_view
+
+  void destroy_image_view(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_image_view(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   image_view_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class indirect_commands_layout_nvx {
  public:
   operator indirect_commands_layout_nvx_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_indirect_commands_layout_nvx
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   indirect_commands_layout_nvx_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class instance {
  public:
   operator instance_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_instance
+
+  std::vector<spk::physical_device_group_properties>
+  enumerate_physical_device_groups_khr(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().enumerate_physical_device_groups_khr(handle_);
+  }
+
+  void submit_debug_utils_message_ext(
+      spk::debug_utils_message_severity_flags_ext messageSeverity,
+      spk::debug_utils_message_type_flags_ext messageTypes,
+      spk::debug_utils_messenger_callback_data_ext const*
+          pCallbackData) {  // SINGLE_HANDLE
+    dispatch_table().submit_debug_utils_message_ext(
+        handle_, messageSeverity, messageTypes, pCallbackData);
+  }
+
+  void debug_report_message_ext(spk::debug_report_flags_ext flags,
+                                spk::debug_report_object_type_ext objectType,
+                                uint64_t object, size_t location,
+                                int32_t messageCode, char const* pLayerPrefix,
+                                char const* pMessage) {  // SINGLE_HANDLE
+    dispatch_table().debug_report_message_ext(handle_, flags, objectType,
+                                              object, location, messageCode,
+                                              pLayerPrefix, pMessage);
+  }
+
+  std::vector<spk::physical_device_ref> enumerate_physical_devices(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().enumerate_physical_devices(handle_);
+  }
+
+  PFN_vkVoidFunction get_instance_proc_addr(
+      char const* pName) {  // SINGLE_HANDLE
+    return dispatch_table().get_instance_proc_addr(handle_, pName);
+  }
+
+  std::vector<spk::physical_device_group_properties>
+  enumerate_physical_device_groups(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().enumerate_physical_device_groups(handle_);
+  }
+
+  void destroy_debug_utils_messenger_ext(
+      spk::debug_utils_messenger_ext_ref messenger,
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_debug_utils_messenger_ext(handle_, messenger,
+                                                       pAllocator);
+  }
+
+  void destroy_debug_report_callback_ext(
+      spk::debug_report_callback_ext_ref callback,
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_debug_report_callback_ext(handle_, callback,
+                                                       pAllocator);
+  }
+
+  void destroy_instance(
+      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
+    dispatch_table().destroy_instance(handle_, pAllocator);
+  }
+
+  const instance_dispatch_table& dispatch_table() { return dispatch_table_; }
+
  private:
   instance_ref handle_ = VK_NULL_HANDLE;
+  const instance_dispatch_table dispatch_table_;
 };
 
 class object_table_nvx {
  public:
   operator object_table_nvx_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_object_table_nvx
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   object_table_nvx_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class physical_device {
  public:
   operator physical_device_ref() const { return handle_; }
 
+  void get_physical_device_external_fence_properties_khr(
+      spk::physical_device_external_fence_info const* pExternalFenceInfo,
+      spk::external_fence_properties*
+          pExternalFenceProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_fence_properties_khr(
+        handle_, pExternalFenceInfo, pExternalFenceProperties);
+  }
+
+  void get_physical_device_external_buffer_properties_khr(
+      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
+      spk::external_buffer_properties*
+          pExternalBufferProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_buffer_properties_khr(
+        handle_, pExternalBufferInfo, pExternalBufferProperties);
+  }
+
+  void get_physical_device_memory_properties_2khr(
+      spk::physical_device_memory_properties_2*
+          pMemoryProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_memory_properties_2khr(
+        handle_, pMemoryProperties);
+  }
+
+  void get_physical_device_queue_family_properties_2khr(
+      uint32_t* pQueueFamilyPropertyCount,
+      spk::queue_family_properties_2*
+          pQueueFamilyProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_queue_family_properties_2khr(
+        handle_, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+  }
+
+  void get_physical_device_features_2khr(
+      spk::physical_device_features_2* pFeatures) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_features_2khr(handle_, pFeatures);
+  }
+
+  std::vector<spk::display_mode_properties_2khr>
+  get_display_mode_properties_2khr(
+      spk::display_khr_ref display) {  // SINGLE_HANDLE
+    return dispatch_table().get_display_mode_properties_2khr(handle_, display);
+  }
+
+  void get_physical_device_surface_capabilities_2khr(
+      spk::physical_device_surface_info_2khr const* pSurfaceInfo,
+      spk::surface_capabilities_2khr* pSurfaceCapabilities) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_surface_capabilities_2khr(
+        handle_, pSurfaceInfo, pSurfaceCapabilities);
+  }
+
+  void get_physical_device_format_properties_2khr(
+      spk::format format,
+      spk::format_properties_2* pFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_format_properties_2khr(
+        handle_, format, pFormatProperties);
+  }
+
+  void get_physical_device_multisample_properties_ext(
+      spk::sample_count_flags samples,
+      spk::multisample_properties_ext*
+          pMultisampleProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_multisample_properties_ext(
+        handle_, samples, pMultisampleProperties);
+  }
+
+  std::vector<spk::display_properties_2khr>
+  get_physical_device_display_properties_2khr(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_display_properties_2khr(
+        handle_);
+  }
+
+  std::vector<spk::surface_format_2khr>
+  get_physical_device_surface_formats_2khr(
+      spk::physical_device_surface_info_2khr const*
+          pSurfaceInfo) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_surface_formats_2khr(
+        handle_, pSurfaceInfo);
+  }
+
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  void get_rand_r_output_display_ext(
+      Display* dpy, RROutput rrOutput,
+      spk::display_khr_ref* pDisplay) {  // SINGLE_HANDLE
+    dispatch_table().get_rand_r_output_display_ext(handle_, dpy, rrOutput,
+                                                   pDisplay);
+  }
+#endif
+
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  void acquire_xlib_display_ext(
+      Display* dpy, spk::display_khr_ref display) {  // SINGLE_HANDLE
+    dispatch_table().acquire_xlib_display_ext(handle_, dpy, display);
+  }
+#endif
+
+  void get_physical_device_external_fence_properties(
+      spk::physical_device_external_fence_info const* pExternalFenceInfo,
+      spk::external_fence_properties*
+          pExternalFenceProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_fence_properties(
+        handle_, pExternalFenceInfo, pExternalFenceProperties);
+  }
+
+  void get_physical_device_external_semaphore_properties(
+      spk::physical_device_external_semaphore_info const*
+          pExternalSemaphoreInfo,
+      spk::external_semaphore_properties*
+          pExternalSemaphoreProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_semaphore_properties(
+        handle_, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+  }
+
+  void get_physical_device_external_buffer_properties(
+      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
+      spk::external_buffer_properties*
+          pExternalBufferProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_buffer_properties(
+        handle_, pExternalBufferInfo, pExternalBufferProperties);
+  }
+
+  void get_physical_device_sparse_image_format_properties_2(
+      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
+      uint32_t* pPropertyCount,
+      spk::sparse_image_format_properties_2* pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_sparse_image_format_properties_2(
+        handle_, pFormatInfo, pPropertyCount, pProperties);
+  }
+
+  void get_physical_device_format_properties_2(
+      spk::format format,
+      spk::format_properties_2* pFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_format_properties_2(handle_, format,
+                                                             pFormatProperties);
+  }
+
+  void get_physical_device_properties_2(
+      spk::physical_device_properties_2* pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_properties_2(handle_, pProperties);
+  }
+
+  void get_physical_device_generated_commands_properties_nvx(
+      spk::device_generated_commands_features_nvx* pFeatures,
+      spk::device_generated_commands_limits_nvx* pLimits) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_generated_commands_properties_nvx(
+        handle_, pFeatures, pLimits);
+  }
+
+  std::vector<spk::display_plane_properties_2khr>
+  get_physical_device_display_plane_properties_2khr(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_display_plane_properties_2khr(
+        handle_);
+  }
+
+  void get_physical_device_external_image_format_properties_nv(
+      spk::format format, spk::image_type type, spk::image_tiling tiling,
+      spk::image_usage_flags usage, spk::image_create_flags flags,
+      spk::external_memory_handle_type_flags_nv externalHandleType,
+      spk::external_image_format_properties_nv*
+          pExternalImageFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_image_format_properties_nv(
+        handle_, format, type, tiling, usage, flags, externalHandleType,
+        pExternalImageFormatProperties);
+  }
+
+#ifdef VK_USE_PLATFORM_XCB_KHR
+  spk::bool32_t get_physical_device_xcb_presentation_support_khr(
+      uint32_t queueFamilyIndex, xcb_connection_t* connection,
+      xcb_visualid_t visual_id) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_xcb_presentation_support_khr(
+        handle_, queueFamilyIndex, connection, visual_id);
+  }
+#endif
+
+  void get_physical_device_format_properties(
+      spk::format format,
+      spk::format_properties* pFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_format_properties(handle_, format,
+                                                           pFormatProperties);
+  }
+
+  void release_display_ext(spk::display_khr_ref display) {  // SINGLE_HANDLE
+    dispatch_table().release_display_ext(handle_, display);
+  }
+
+  void get_physical_device_image_format_properties(
+      spk::format format, spk::image_type type, spk::image_tiling tiling,
+      spk::image_usage_flags usage, spk::image_create_flags flags,
+      spk::image_format_properties* pImageFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_image_format_properties(
+        handle_, format, type, tiling, usage, flags, pImageFormatProperties);
+  }
+
+  void get_physical_device_properties(
+      spk::physical_device_properties* pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_properties(handle_, pProperties);
+  }
+
+  std::vector<spk::extension_properties> enumerate_device_extension_properties(
+      char const* pLayerName) {  // SINGLE_HANDLE
+    return dispatch_table().enumerate_device_extension_properties(handle_,
+                                                                  pLayerName);
+  }
+
+  void get_physical_device_queue_family_properties_2(
+      uint32_t* pQueueFamilyPropertyCount,
+      spk::queue_family_properties_2*
+          pQueueFamilyProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_queue_family_properties_2(
+        handle_, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+  }
+
+  void get_display_plane_capabilities_2khr(
+      spk::display_plane_info_2khr const* pDisplayPlaneInfo,
+      spk::display_plane_capabilities_2khr* pCapabilities) {  // SINGLE_HANDLE
+    dispatch_table().get_display_plane_capabilities_2khr(
+        handle_, pDisplayPlaneInfo, pCapabilities);
+  }
+
+  void get_physical_device_memory_properties_2(
+      spk::physical_device_memory_properties_2*
+          pMemoryProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_memory_properties_2(handle_,
+                                                             pMemoryProperties);
+  }
+
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  spk::bool32_t get_physical_device_xlib_presentation_support_khr(
+      uint32_t queueFamilyIndex, Display* dpy,
+      VisualID visualID) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_xlib_presentation_support_khr(
+        handle_, queueFamilyIndex, dpy, visualID);
+  }
+#endif
+
+  void get_physical_device_features(
+      spk::physical_device_features* pFeatures) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_features(handle_, pFeatures);
+  }
+
+  void get_physical_device_memory_properties(
+      spk::physical_device_memory_properties*
+          pMemoryProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_memory_properties(handle_,
+                                                           pMemoryProperties);
+  }
+
+  void get_physical_device_sparse_image_format_properties(
+      spk::format format, spk::image_type type, spk::sample_count_flags samples,
+      spk::image_usage_flags usage, spk::image_tiling tiling,
+      uint32_t* pPropertyCount,
+      spk::sparse_image_format_properties* pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_sparse_image_format_properties(
+        handle_, format, type, samples, usage, tiling, pPropertyCount,
+        pProperties);
+  }
+
+  std::vector<spk::rect_2d> get_physical_device_present_rectangles_khr(
+      spk::surface_khr_ref surface) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_present_rectangles_khr(handle_,
+                                                                       surface);
+  }
+
+  void get_physical_device_queue_family_properties(
+      uint32_t* pQueueFamilyPropertyCount,
+      spk::queue_family_properties* pQueueFamilyProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_queue_family_properties(
+        handle_, pQueueFamilyPropertyCount, pQueueFamilyProperties);
+  }
+
+  std::vector<spk::display_mode_properties_khr> get_display_mode_properties_khr(
+      spk::display_khr_ref display) {  // SINGLE_HANDLE
+    return dispatch_table().get_display_mode_properties_khr(handle_, display);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  spk::bool32_t get_physical_device_win_32presentation_support_khr(
+      uint32_t queueFamilyIndex) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_win_32presentation_support_khr(
+        handle_, queueFamilyIndex);
+  }
+#endif
+
+  void get_physical_device_sparse_image_format_properties_2khr(
+      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
+      uint32_t* pPropertyCount,
+      spk::sparse_image_format_properties_2* pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_sparse_image_format_properties_2khr(
+        handle_, pFormatInfo, pPropertyCount, pProperties);
+  }
+
+  void get_physical_device_surface_capabilities_2ext(
+      spk::surface_khr_ref surface,
+      spk::surface_capabilities_2ext* pSurfaceCapabilities) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_surface_capabilities_2ext(
+        handle_, surface, pSurfaceCapabilities);
+  }
+
+  void get_physical_device_image_format_properties_2(
+      spk::physical_device_image_format_info_2 const* pImageFormatInfo,
+      spk::image_format_properties_2*
+          pImageFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_image_format_properties_2(
+        handle_, pImageFormatInfo, pImageFormatProperties);
+  }
+
+  void get_physical_device_properties_2khr(
+      spk::physical_device_properties_2* pProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_properties_2khr(handle_, pProperties);
+  }
+
+  std::vector<spk::layer_properties> enumerate_device_layer_properties(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().enumerate_device_layer_properties(handle_);
+  }
+
+  void get_physical_device_surface_capabilities_khr(
+      spk::surface_khr_ref surface,
+      spk::surface_capabilities_khr* pSurfaceCapabilities) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_surface_capabilities_khr(
+        handle_, surface, pSurfaceCapabilities);
+  }
+
+  void get_physical_device_external_semaphore_properties_khr(
+      spk::physical_device_external_semaphore_info const*
+          pExternalSemaphoreInfo,
+      spk::external_semaphore_properties*
+          pExternalSemaphoreProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_external_semaphore_properties_khr(
+        handle_, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
+  }
+
+  void get_physical_device_surface_support_khr(
+      uint32_t queueFamilyIndex, spk::surface_khr_ref surface,
+      spk::bool32_t* pSupported) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_surface_support_khr(
+        handle_, queueFamilyIndex, surface, pSupported);
+  }
+
+  std::vector<spk::display_properties_khr>
+  get_physical_device_display_properties_khr(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_display_properties_khr(handle_);
+  }
+
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  spk::bool32_t get_physical_device_wayland_presentation_support_khr(
+      uint32_t queueFamilyIndex, wl_display* display) {  // SINGLE_HANDLE
+    return dispatch_table()
+        .get_physical_device_wayland_presentation_support_khr(
+            handle_, queueFamilyIndex, display);
+  }
+#endif
+
+  std::vector<spk::display_plane_properties_khr>
+  get_physical_device_display_plane_properties_khr(
+
+  ) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_display_plane_properties_khr(
+        handle_);
+  }
+
+  std::vector<spk::present_mode_khr>
+  get_physical_device_surface_present_modes_khr(
+      spk::surface_khr_ref surface) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_surface_present_modes_khr(
+        handle_, surface);
+  }
+
+  void get_physical_device_image_format_properties_2khr(
+      spk::physical_device_image_format_info_2 const* pImageFormatInfo,
+      spk::image_format_properties_2*
+          pImageFormatProperties) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_image_format_properties_2khr(
+        handle_, pImageFormatInfo, pImageFormatProperties);
+  }
+
+  std::vector<spk::display_khr_ref> get_display_plane_supported_displays_khr(
+      uint32_t planeIndex) {  // SINGLE_HANDLE
+    return dispatch_table().get_display_plane_supported_displays_khr(
+        handle_, planeIndex);
+  }
+
+#ifdef VK_USE_PLATFORM_MIR_KHR
+  spk::bool32_t get_physical_device_mir_presentation_support_khr(
+      uint32_t queueFamilyIndex, MirConnection* connection) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_mir_presentation_support_khr(
+        handle_, queueFamilyIndex, connection);
+  }
+#endif
+
+  std::vector<spk::surface_format_khr> get_physical_device_surface_formats_khr(
+      spk::surface_khr_ref surface) {  // SINGLE_HANDLE
+    return dispatch_table().get_physical_device_surface_formats_khr(handle_,
+                                                                    surface);
+  }
+
+  void get_physical_device_features_2(
+      spk::physical_device_features_2* pFeatures) {  // SINGLE_HANDLE
+    dispatch_table().get_physical_device_features_2(handle_, pFeatures);
+  }
+
+  void get_display_plane_capabilities_khr(
+      spk::display_mode_khr_ref mode, uint32_t planeIndex,
+      spk::display_plane_capabilities_khr* pCapabilities) {  // SINGLE_HANDLE
+    dispatch_table().get_display_plane_capabilities_khr(
+        handle_, mode, planeIndex, pCapabilities);
+  }
+
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   physical_device_ref handle_ = VK_NULL_HANDLE;
+  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  const instance_dispatch_table* dispatch_table_;
 };
 
 class pipeline_cache {
  public:
   operator pipeline_cache_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_pipeline_cache
+
+  void destroy_pipeline_cache(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_pipeline_cache(parent_device_ref, handle_,
+                                            pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   pipeline_cache_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class pipeline_layout {
  public:
   operator pipeline_layout_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_pipeline_layout
+
+  void destroy_pipeline_layout(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_pipeline_layout(parent_device_ref, handle_,
+                                             pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   pipeline_layout_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class pipeline {
  public:
   operator pipeline_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_graphics_pipelines
+
+  // TODO CONSTRUCTOR: create_compute_pipelines
+
+  void destroy_pipeline(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_pipeline(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   pipeline_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class query_pool {
  public:
   operator query_pool_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_query_pool
+
+  void destroy_query_pool(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_query_pool(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   query_pool_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class queue {
  public:
   operator queue_ref() const { return handle_; }
 
+  void queue_end_debug_utils_label_ext(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().queue_end_debug_utils_label_ext(handle_);
+  }
+
+  void queue_begin_debug_utils_label_ext(
+      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
+    dispatch_table().queue_begin_debug_utils_label_ext(handle_, pLabelInfo);
+  }
+
+  void queue_insert_debug_utils_label_ext(
+      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
+    dispatch_table().queue_insert_debug_utils_label_ext(handle_, pLabelInfo);
+  }
+
+  void get_queue_checkpoint_data_nv(
+      uint32_t* pCheckpointDataCount,
+      spk::checkpoint_data_nv* pCheckpointData) {  // SINGLE_HANDLE
+    dispatch_table().get_queue_checkpoint_data_nv(handle_, pCheckpointDataCount,
+                                                  pCheckpointData);
+  }
+
+  void queue_wait_idle(
+
+  ) {  // SINGLE_HANDLE
+    dispatch_table().queue_wait_idle(handle_);
+  }
+
+  [[nodiscard]] spk::result queue_present_khr(
+      spk::present_info_khr const* pPresentInfo) {  // SINGLE_HANDLE
+    return dispatch_table().queue_present_khr(handle_, pPresentInfo);
+  }
+
+  void queue_bind_sparse(uint32_t bindInfoCount,
+                         spk::bind_sparse_info const* pBindInfo,
+                         spk::fence_ref fence) {  // SINGLE_HANDLE
+    dispatch_table().queue_bind_sparse(handle_, bindInfoCount, pBindInfo,
+                                       fence);
+  }
+
+  void queue_submit(uint32_t submitCount, spk::submit_info const* pSubmits,
+                    spk::fence_ref fence) {  // SINGLE_HANDLE
+    dispatch_table().queue_submit(handle_, submitCount, pSubmits, fence);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   queue_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class render_pass {
  public:
   operator render_pass_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_render_pass
+
+  // TODO CONSTRUCTOR: create_render_pass_2khr
+
+  void destroy_render_pass(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_render_pass(parent_device_ref, handle_,
+                                         pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   render_pass_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class sampler {
  public:
   operator sampler_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_sampler
+
+  void destroy_sampler(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_sampler(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   sampler_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class sampler_ycbcr_conversion {
  public:
   operator sampler_ycbcr_conversion_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_sampler_ycbcr_conversion
+
+  // TODO CONSTRUCTOR: create_sampler_ycbcr_conversion_khr
+
+  void destroy_sampler_ycbcr_conversion(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_sampler_ycbcr_conversion(parent_device_ref,
+                                                      handle_, pAllocator);
+  }
+
+  void destroy_sampler_ycbcr_conversion_khr(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_sampler_ycbcr_conversion_khr(parent_device_ref,
+                                                          handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   sampler_ycbcr_conversion_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 using sampler_ycbcr_conversion_khr = sampler_ycbcr_conversion_ref;
 
@@ -24232,40 +26191,131 @@ class semaphore {
  public:
   operator semaphore_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_semaphore
+
+  void destroy_semaphore(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_semaphore(parent_device_ref, handle_, pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   semaphore_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class shader_module {
  public:
   operator shader_module_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_shader_module
+
+  void destroy_shader_module(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_shader_module(parent_device_ref, handle_,
+                                           pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   shader_module_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class surface_khr {
  public:
   operator surface_khr_ref() const { return handle_; }
 
+#ifdef VK_USE_PLATFORM_IOS_MVK
+  // TODO CONSTRUCTOR: create_ios_surface_mvk
+#endif
+
+#ifdef VK_USE_PLATFORM_MACOS_MVK
+  // TODO CONSTRUCTOR: create_mac_os_surface_mvk
+#endif
+
+#ifdef VK_USE_PLATFORM_XCB_KHR
+  // TODO CONSTRUCTOR: create_xcb_surface_khr
+#endif
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  // TODO CONSTRUCTOR: create_android_surface_khr
+#endif
+
+  // TODO CONSTRUCTOR: create_display_plane_surface_khr
+
+#ifdef VK_USE_PLATFORM_VI_NN
+  // TODO CONSTRUCTOR: create_vi_surface_nn
+#endif
+
+#ifdef VK_USE_PLATFORM_MIR_KHR
+  // TODO CONSTRUCTOR: create_mir_surface_khr
+#endif
+
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  // TODO CONSTRUCTOR: create_wayland_surface_khr
+#endif
+
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  // TODO CONSTRUCTOR: create_xlib_surface_khr
+#endif
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  // TODO CONSTRUCTOR: create_win_32surface_khr
+#endif
+
+  void destroy_surface_khr(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_surface_khr(parent_instance_ref, handle_,
+                                         pAllocator);
+  }
+
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   surface_khr_ref handle_ = VK_NULL_HANDLE;
+  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  const instance_dispatch_table* dispatch_table_;
 };
 
 class swapchain_khr {
  public:
   operator swapchain_khr_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_shared_swapchains_khr
+
+  // TODO CONSTRUCTOR: create_swapchain_khr
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   swapchain_khr_ref handle_ = VK_NULL_HANDLE;
+  surface_khr_ref parent_surface_khr_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 class validation_cache_ext {
  public:
   operator validation_cache_ext_ref() const { return handle_; }
 
+  // TODO CONSTRUCTOR: create_validation_cache_ext
+
+  void destroy_validation_cache_ext(
+      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
+    dispatch_table().destroy_validation_cache_ext(parent_device_ref, handle_,
+                                                  pAllocator);
+  }
+
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+
  private:
   validation_cache_ext_ref handle_ = VK_NULL_HANDLE;
+  device_ref parent_device_ref = VK_NULL_HANDLE;
+  const device_dispatch_table* dispatch_table_;
 };
 
 }  // namespace spk
