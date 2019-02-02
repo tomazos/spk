@@ -5948,8 +5948,8 @@ class bind_buffer_memory_device_group_info {
   using underlying_type = VkBindBufferMemoryDeviceGroupInfo;
 
   // mutators
-  void set_device_indices(spk::array_view<uint32_t const> value) {
-    p_device_indices_ = value.get();
+  void set_device_indices(spk::array_ptr<uint32_t const> value) {
+    p_device_indices_ = value.data();
     device_index_count_ = value.size();
   }
 
@@ -6006,13 +6006,13 @@ class bind_image_memory_device_group_info {
   using underlying_type = VkBindImageMemoryDeviceGroupInfo;
 
   // mutators
-  void set_device_indices(spk::array_view<uint32_t const> value) {
-    p_device_indices_ = value.get();
+  void set_device_indices(spk::array_ptr<uint32_t const> value) {
+    p_device_indices_ = value.data();
     device_index_count_ = value.size();
   }
   void set_split_instance_bind_regions(
-      spk::array_view<spk::rect_2d const> value) {
-    p_split_instance_bind_regions_ = value.get();
+      spk::array_ptr<spk::rect_2d const> value) {
+    p_split_instance_bind_regions_ = value.data();
     split_instance_bind_region_count_ = value.size();
   }
 
@@ -6123,27 +6123,27 @@ class bind_sparse_info {
   using underlying_type = VkBindSparseInfo;
 
   // mutators
-  void set_wait_semaphores(spk::array_view<spk::semaphore_ref const> value) {
-    p_wait_semaphores_ = value.get();
+  void set_wait_semaphores(spk::array_ptr<spk::semaphore_ref const> value) {
+    p_wait_semaphores_ = value.data();
     wait_semaphore_count_ = value.size();
   }
   void set_buffer_binds(
-      spk::array_view<spk::sparse_buffer_memory_bind_info const> value) {
-    p_buffer_binds_ = value.get();
+      spk::array_ptr<spk::sparse_buffer_memory_bind_info const> value) {
+    p_buffer_binds_ = value.data();
     buffer_bind_count_ = value.size();
   }
   void set_image_opaque_binds(
-      spk::array_view<spk::sparse_image_opaque_memory_bind_info const> value) {
-    p_image_opaque_binds_ = value.get();
+      spk::array_ptr<spk::sparse_image_opaque_memory_bind_info const> value) {
+    p_image_opaque_binds_ = value.data();
     image_opaque_bind_count_ = value.size();
   }
   void set_image_binds(
-      spk::array_view<spk::sparse_image_memory_bind_info const> value) {
-    p_image_binds_ = value.get();
+      spk::array_ptr<spk::sparse_image_memory_bind_info const> value) {
+    p_image_binds_ = value.data();
     image_bind_count_ = value.size();
   }
-  void set_signal_semaphores(spk::array_view<spk::semaphore_ref const> value) {
-    p_signal_semaphores_ = value.get();
+  void set_signal_semaphores(spk::array_ptr<spk::semaphore_ref const> value) {
+    p_signal_semaphores_ = value.data();
     signal_semaphore_count_ = value.size();
   }
 
@@ -6213,8 +6213,8 @@ class buffer_create_info {
   using underlying_type = VkBufferCreateInfo;
 
   // mutators
-  void set_queue_family_indices(spk::array_view<uint32_t const> value) {
-    p_queue_family_indices_ = value.get();
+  void set_queue_family_indices(spk::array_ptr<uint32_t const> value) {
+    p_queue_family_indices_ = value.data();
     queue_family_index_count_ = value.size();
   }
   void set_flags(spk::buffer_create_flags value) { flags_ = value; }
@@ -6420,8 +6420,8 @@ class cmd_process_commands_info_nvx {
 
   // mutators
   void set_indirect_commands_tokens(
-      spk::array_view<spk::indirect_commands_token_nvx const> value) {
-    p_indirect_commands_tokens_ = value.get();
+      spk::array_ptr<spk::indirect_commands_token_nvx const> value) {
+    p_indirect_commands_tokens_ = value.data();
     indirect_commands_token_count_ = value.size();
   }
   void set_object_table(spk::object_table_nvx_ref value) {
@@ -6779,12 +6779,12 @@ class d3d12fence_submit_info_khr {
   using underlying_type = VkD3D12FenceSubmitInfoKHR;
 
   // mutators
-  void set_wait_semaphore_values(spk::array_view<uint64_t const> value) {
-    p_wait_semaphore_values_ = value.get();
+  void set_wait_semaphore_values(spk::array_ptr<uint64_t const> value) {
+    p_wait_semaphore_values_ = value.data();
     wait_semaphore_values_count_ = value.size();
   }
-  void set_signal_semaphore_values(spk::array_view<uint64_t const> value) {
-    p_signal_semaphore_values_ = value.get();
+  void set_signal_semaphore_values(spk::array_ptr<uint64_t const> value) {
+    p_signal_semaphore_values_ = value.data();
     signal_semaphore_values_count_ = value.size();
   }
 
@@ -6870,8 +6870,8 @@ class debug_marker_object_tag_info_ext {
   using underlying_type = VkDebugMarkerObjectTagInfoEXT;
 
   // mutators
-  void set_tag(spk::array_view<void const> value) {
-    p_tag_ = value.get();
+  void set_tag(spk::array_ptr<void const> value) {
+    p_tag_ = value.data();
     tag_size_ = value.size();
   }
   void set_object_type(spk::debug_report_object_type_ext value) {
@@ -6966,17 +6966,17 @@ class debug_utils_messenger_callback_data_ext {
     p_message_id_name_ = str.get();
   }
   void set_message(spk::string_ptr str) { p_message_ = str.get(); }
-  void set_queue_labels(spk::array_view<spk::debug_utils_label_ext> value) {
-    p_queue_labels_ = value.get();
+  void set_queue_labels(spk::array_ptr<spk::debug_utils_label_ext> value) {
+    p_queue_labels_ = value.data();
     queue_label_count_ = value.size();
   }
-  void set_cmd_buf_labels(spk::array_view<spk::debug_utils_label_ext> value) {
-    p_cmd_buf_labels_ = value.get();
+  void set_cmd_buf_labels(spk::array_ptr<spk::debug_utils_label_ext> value) {
+    p_cmd_buf_labels_ = value.data();
     cmd_buf_label_count_ = value.size();
   }
   void set_objects(
-      spk::array_view<spk::debug_utils_object_name_info_ext> value) {
-    p_objects_ = value.get();
+      spk::array_ptr<spk::debug_utils_object_name_info_ext> value) {
+    p_objects_ = value.data();
     object_count_ = value.size();
   }
   void set_message_id_number(int32_t value) { message_id_number_ = value; }
@@ -7094,8 +7094,8 @@ class debug_utils_object_tag_info_ext {
   using underlying_type = VkDebugUtilsObjectTagInfoEXT;
 
   // mutators
-  void set_tag(spk::array_view<void const> value) {
-    p_tag_ = value.get();
+  void set_tag(spk::array_ptr<void const> value) {
+    p_tag_ = value.data();
     tag_size_ = value.size();
   }
   void set_object_type(spk::object_type value) { object_type_ = value; }
@@ -7244,8 +7244,8 @@ class descriptor_pool_create_info {
   using underlying_type = VkDescriptorPoolCreateInfo;
 
   // mutators
-  void set_pool_sizes(spk::array_view<spk::descriptor_pool_size const> value) {
-    p_pool_sizes_ = value.get();
+  void set_pool_sizes(spk::array_ptr<spk::descriptor_pool_size const> value) {
+    p_pool_sizes_ = value.data();
     pool_size_count_ = value.size();
   }
   void set_flags(spk::descriptor_pool_create_flags value) { flags_ = value; }
@@ -7298,8 +7298,8 @@ class descriptor_set_allocate_info {
 
   // mutators
   void set_set_layouts(
-      spk::array_view<spk::descriptor_set_layout_ref const> value) {
-    p_set_layouts_ = value.get();
+      spk::array_ptr<spk::descriptor_set_layout_ref const> value) {
+    p_set_layouts_ = value.data();
     descriptor_set_count_ = value.size();
   }
   void set_descriptor_pool(spk::descriptor_pool_ref value) {
@@ -7330,8 +7330,8 @@ class descriptor_set_layout_binding {
   using underlying_type = VkDescriptorSetLayoutBinding;
 
   // mutators
-  void set_immutable_samplers(spk::array_view<spk::sampler_ref const> value) {
-    p_immutable_samplers_ = value.get();
+  void set_immutable_samplers(spk::array_ptr<spk::sampler_ref const> value) {
+    p_immutable_samplers_ = value.data();
     descriptor_count_ = value.size();
   }
   void set_binding(uint32_t value) { binding_ = value; }
@@ -7364,8 +7364,8 @@ class descriptor_set_layout_binding_flags_create_info_ext {
 
   // mutators
   void set_binding_flags(
-      spk::array_view<spk::descriptor_binding_flags_ext const> value) {
-    p_binding_flags_ = value.get();
+      spk::array_ptr<spk::descriptor_binding_flags_ext const> value) {
+    p_binding_flags_ = value.data();
     binding_count_ = value.size();
   }
 
@@ -7396,8 +7396,8 @@ class descriptor_set_layout_create_info {
 
   // mutators
   void set_bindings(
-      spk::array_view<spk::descriptor_set_layout_binding const> value) {
-    p_bindings_ = value.get();
+      spk::array_ptr<spk::descriptor_set_layout_binding const> value) {
+    p_bindings_ = value.data();
     binding_count_ = value.size();
   }
   void set_flags(spk::descriptor_set_layout_create_flags value) {
@@ -7451,8 +7451,8 @@ class descriptor_set_variable_descriptor_count_allocate_info_ext {
   using underlying_type = VkDescriptorSetVariableDescriptorCountAllocateInfoEXT;
 
   // mutators
-  void set_descriptor_counts(spk::array_view<uint32_t const> value) {
-    p_descriptor_counts_ = value.get();
+  void set_descriptor_counts(spk::array_ptr<uint32_t const> value) {
+    p_descriptor_counts_ = value.data();
     descriptor_set_count_ = value.size();
   }
 
@@ -7511,8 +7511,8 @@ class descriptor_update_template_create_info {
 
   // mutators
   void set_descriptor_update_entries(
-      spk::array_view<spk::descriptor_update_template_entry const> value) {
-    p_descriptor_update_entries_ = value.get();
+      spk::array_ptr<spk::descriptor_update_template_entry const> value) {
+    p_descriptor_update_entries_ = value.data();
     descriptor_update_entry_count_ = value.size();
   }
   void set_template_type(spk::descriptor_update_template_type value) {
@@ -7608,17 +7608,16 @@ class device_create_info {
 
   // mutators
   void set_queue_create_infos(
-      spk::array_view<spk::device_queue_create_info const> value) {
-    p_queue_create_infos_ = value.get();
+      spk::array_ptr<spk::device_queue_create_info const> value) {
+    p_queue_create_infos_ = value.data();
     queue_create_info_count_ = value.size();
   }
-  void set_pp_enabled_layer_names(spk::array_view<char const* const> value) {
-    pp_enabled_layer_names_ = value.get();
+  void set_pp_enabled_layer_names(spk::array_ptr<char const* const> value) {
+    pp_enabled_layer_names_ = value.data();
     enabled_layer_count_ = value.size();
   }
-  void set_pp_enabled_extension_names(
-      spk::array_view<char const* const> value) {
-    pp_enabled_extension_names_ = value.get();
+  void set_pp_enabled_extension_names(spk::array_ptr<char const* const> value) {
+    pp_enabled_extension_names_ = value.data();
     enabled_extension_count_ = value.size();
   }
   void set_p_enabled_features(spk::physical_device_features const* value) {
@@ -7816,8 +7815,8 @@ class device_group_device_create_info {
 
   // mutators
   void set_physical_devices(
-      spk::array_view<spk::physical_device_ref const> value) {
-    p_physical_devices_ = value.get();
+      spk::array_ptr<spk::physical_device_ref const> value) {
+    p_physical_devices_ = value.data();
     physical_device_count_ = value.size();
   }
 
@@ -7877,8 +7876,8 @@ class device_group_present_info_khr {
   using underlying_type = VkDeviceGroupPresentInfoKHR;
 
   // mutators
-  void set_device_masks(spk::array_view<uint32_t const> value) {
-    p_device_masks_ = value.get();
+  void set_device_masks(spk::array_ptr<uint32_t const> value) {
+    p_device_masks_ = value.data();
     swapchain_count_ = value.size();
   }
   void set_mode(spk::device_group_present_mode_flags_khr value) {
@@ -7910,8 +7909,8 @@ class device_group_render_pass_begin_info {
   using underlying_type = VkDeviceGroupRenderPassBeginInfo;
 
   // mutators
-  void set_device_render_areas(spk::array_view<spk::rect_2d const> value) {
-    p_device_render_areas_ = value.get();
+  void set_device_render_areas(spk::array_ptr<spk::rect_2d const> value) {
+    p_device_render_areas_ = value.data();
     device_render_area_count_ = value.size();
   }
   void set_device_mask(uint32_t value) { device_mask_ = value; }
@@ -7943,18 +7942,17 @@ class device_group_submit_info {
   using underlying_type = VkDeviceGroupSubmitInfo;
 
   // mutators
-  void set_wait_semaphore_device_indices(
-      spk::array_view<uint32_t const> value) {
-    p_wait_semaphore_device_indices_ = value.get();
+  void set_wait_semaphore_device_indices(spk::array_ptr<uint32_t const> value) {
+    p_wait_semaphore_device_indices_ = value.data();
     wait_semaphore_count_ = value.size();
   }
-  void set_command_buffer_device_masks(spk::array_view<uint32_t const> value) {
-    p_command_buffer_device_masks_ = value.get();
+  void set_command_buffer_device_masks(spk::array_ptr<uint32_t const> value) {
+    p_command_buffer_device_masks_ = value.data();
     command_buffer_count_ = value.size();
   }
   void set_signal_semaphore_device_indices(
-      spk::array_view<uint32_t const> value) {
-    p_signal_semaphore_device_indices_ = value.get();
+      spk::array_ptr<uint32_t const> value) {
+    p_signal_semaphore_device_indices_ = value.data();
     signal_semaphore_count_ = value.size();
   }
 
@@ -8016,8 +8014,8 @@ class device_queue_create_info {
   using underlying_type = VkDeviceQueueCreateInfo;
 
   // mutators
-  void set_queue_priorities(spk::array_view<float const> value) {
-    p_queue_priorities_ = value.get();
+  void set_queue_priorities(spk::array_ptr<float const> value) {
+    p_queue_priorities_ = value.data();
     queue_count_ = value.size();
   }
   void set_flags(spk::device_queue_create_flags value) { flags_ = value; }
@@ -8941,8 +8939,8 @@ class framebuffer_create_info {
   using underlying_type = VkFramebufferCreateInfo;
 
   // mutators
-  void set_attachments(spk::array_view<spk::image_view_ref const> value) {
-    p_attachments_ = value.get();
+  void set_attachments(spk::array_ptr<spk::image_view_ref const> value) {
+    p_attachments_ = value.data();
     attachment_count_ = value.size();
   }
   void set_render_pass(spk::render_pass_ref value) { render_pass_ = value; }
@@ -8982,8 +8980,8 @@ class graphics_pipeline_create_info {
 
   // mutators
   void set_stages(
-      spk::array_view<spk::pipeline_shader_stage_create_info const> value) {
-    p_stages_ = value.get();
+      spk::array_ptr<spk::pipeline_shader_stage_create_info const> value) {
+    p_stages_ = value.data();
     stage_count_ = value.size();
   }
   void set_flags(spk::pipeline_create_flags value) { flags_ = value; }
@@ -9119,8 +9117,8 @@ class image_format_list_create_info_khr {
   using underlying_type = VkImageFormatListCreateInfoKHR;
 
   // mutators
-  void set_view_formats(spk::array_view<spk::format const> value) {
-    p_view_formats_ = value.get();
+  void set_view_formats(spk::array_ptr<spk::format const> value) {
+    p_view_formats_ = value.data();
     view_format_count_ = value.size();
   }
 
@@ -9642,8 +9640,8 @@ class indirect_commands_layout_create_info_nvx {
 
   // mutators
   void set_tokens(
-      spk::array_view<spk::indirect_commands_layout_token_nvx const> value) {
-    p_tokens_ = value.get();
+      spk::array_ptr<spk::indirect_commands_layout_token_nvx const> value) {
+    p_tokens_ = value.data();
     token_count_ = value.size();
   }
   void set_pipeline_bind_point(spk::pipeline_bind_point value) {
@@ -9767,13 +9765,12 @@ class instance_create_info {
   using underlying_type = VkInstanceCreateInfo;
 
   // mutators
-  void set_pp_enabled_layer_names(spk::array_view<char const* const> value) {
-    pp_enabled_layer_names_ = value.get();
+  void set_pp_enabled_layer_names(spk::array_ptr<char const* const> value) {
+    pp_enabled_layer_names_ = value.data();
     enabled_layer_count_ = value.size();
   }
-  void set_pp_enabled_extension_names(
-      spk::array_view<char const* const> value) {
-    pp_enabled_extension_names_ = value.get();
+  void set_pp_enabled_extension_names(spk::array_ptr<char const* const> value) {
+    pp_enabled_extension_names_ = value.data();
     enabled_extension_count_ = value.size();
   }
   void set_p_application_info(spk::application_info const* value) {
@@ -10300,17 +10297,17 @@ class object_table_create_info_nvx {
 
   // mutators
   void set_object_entry_types(
-      spk::array_view<spk::object_entry_type_nvx const> value) {
-    p_object_entry_types_ = value.get();
+      spk::array_ptr<spk::object_entry_type_nvx const> value) {
+    p_object_entry_types_ = value.data();
     object_count_ = value.size();
   }
-  void set_object_entry_counts(spk::array_view<uint32_t const> value) {
-    p_object_entry_counts_ = value.get();
+  void set_object_entry_counts(spk::array_ptr<uint32_t const> value) {
+    p_object_entry_counts_ = value.data();
     object_count_ = value.size();
   }
   void set_object_entry_usage_flags(
-      spk::array_view<spk::object_entry_usage_flags_nvx const> value) {
-    p_object_entry_usage_flags_ = value.get();
+      spk::array_ptr<spk::object_entry_usage_flags_nvx const> value) {
+    p_object_entry_usage_flags_ = value.data();
     object_count_ = value.size();
   }
   void set_max_uniform_buffers_per_descriptor(uint32_t value) {
@@ -13083,8 +13080,8 @@ class pipeline_cache_create_info {
   using underlying_type = VkPipelineCacheCreateInfo;
 
   // mutators
-  void set_initial_data(spk::array_view<void const> value) {
-    p_initial_data_ = value.get();
+  void set_initial_data(spk::array_ptr<void const> value) {
+    p_initial_data_ = value.data();
     initial_data_size_ = value.size();
   }
 
@@ -13203,8 +13200,8 @@ class pipeline_color_blend_state_create_info {
   // mutators
   void set_logic_op_enable(bool val) { logic_op_enable_ = val; }
   void set_attachments(
-      spk::array_view<spk::pipeline_color_blend_attachment_state const> value) {
-    p_attachments_ = value.get();
+      spk::array_ptr<spk::pipeline_color_blend_attachment_state const> value) {
+    p_attachments_ = value.data();
     attachment_count_ = value.size();
   }
   void set_logic_op(spk::logic_op value) { logic_op_ = value; }
@@ -13248,8 +13245,8 @@ class pipeline_coverage_modulation_state_create_info_nv {
   void set_coverage_modulation_table_enable(bool val) {
     coverage_modulation_table_enable_ = val;
   }
-  void set_coverage_modulation_table(spk::array_view<float const> value) {
-    p_coverage_modulation_table_ = value.get();
+  void set_coverage_modulation_table(spk::array_ptr<float const> value) {
+    p_coverage_modulation_table_ = value.data();
     coverage_modulation_table_count_ = value.size();
   }
   void set_coverage_modulation_mode(spk::coverage_modulation_mode_nv value) {
@@ -13323,8 +13320,8 @@ class pipeline_discard_rectangle_state_create_info_ext {
   using underlying_type = VkPipelineDiscardRectangleStateCreateInfoEXT;
 
   // mutators
-  void set_discard_rectangles(spk::array_view<spk::rect_2d const> value) {
-    p_discard_rectangles_ = value.get();
+  void set_discard_rectangles(spk::array_ptr<spk::rect_2d const> value) {
+    p_discard_rectangles_ = value.data();
     discard_rectangle_count_ = value.size();
   }
   void set_discard_rectangle_mode(spk::discard_rectangle_mode_ext value) {
@@ -13361,8 +13358,8 @@ class pipeline_dynamic_state_create_info {
   using underlying_type = VkPipelineDynamicStateCreateInfo;
 
   // mutators
-  void set_dynamic_states(spk::array_view<spk::dynamic_state const> value) {
-    p_dynamic_states_ = value.get();
+  void set_dynamic_states(spk::array_ptr<spk::dynamic_state const> value) {
+    p_dynamic_states_ = value.data();
     dynamic_state_count_ = value.size();
   }
 
@@ -13420,13 +13417,13 @@ class pipeline_layout_create_info {
 
   // mutators
   void set_set_layouts(
-      spk::array_view<spk::descriptor_set_layout_ref const> value) {
-    p_set_layouts_ = value.get();
+      spk::array_ptr<spk::descriptor_set_layout_ref const> value) {
+    p_set_layouts_ = value.data();
     set_layout_count_ = value.size();
   }
   void set_push_constant_ranges(
-      spk::array_view<spk::push_constant_range const> value) {
-    p_push_constant_ranges_ = value.get();
+      spk::array_ptr<spk::push_constant_range const> value) {
+    p_push_constant_ranges_ = value.data();
     push_constant_range_count_ = value.size();
   }
 
@@ -13720,9 +13717,9 @@ class pipeline_vertex_input_divisor_state_create_info_ext {
 
   // mutators
   void set_vertex_binding_divisors(
-      spk::array_view<spk::vertex_input_binding_divisor_description_ext const>
+      spk::array_ptr<spk::vertex_input_binding_divisor_description_ext const>
           value) {
-    p_vertex_binding_divisors_ = value.get();
+    p_vertex_binding_divisors_ = value.data();
     vertex_binding_divisor_count_ = value.size();
   }
 
@@ -13754,13 +13751,13 @@ class pipeline_vertex_input_state_create_info {
 
   // mutators
   void set_vertex_binding_descriptions(
-      spk::array_view<spk::vertex_input_binding_description const> value) {
-    p_vertex_binding_descriptions_ = value.get();
+      spk::array_ptr<spk::vertex_input_binding_description const> value) {
+    p_vertex_binding_descriptions_ = value.data();
     vertex_binding_description_count_ = value.size();
   }
   void set_vertex_attribute_descriptions(
-      spk::array_view<spk::vertex_input_attribute_description const> value) {
-    p_vertex_attribute_descriptions_ = value.get();
+      spk::array_ptr<spk::vertex_input_attribute_description const> value) {
+    p_vertex_attribute_descriptions_ = value.data();
     vertex_attribute_description_count_ = value.size();
   }
 
@@ -13798,12 +13795,12 @@ class pipeline_viewport_state_create_info {
   using underlying_type = VkPipelineViewportStateCreateInfo;
 
   // mutators
-  void set_viewports(spk::array_view<spk::viewport const> value) {
-    p_viewports_ = value.get();
+  void set_viewports(spk::array_ptr<spk::viewport const> value) {
+    p_viewports_ = value.data();
     viewport_count_ = value.size();
   }
-  void set_scissors(spk::array_view<spk::rect_2d const> value) {
-    p_scissors_ = value.get();
+  void set_scissors(spk::array_ptr<spk::rect_2d const> value) {
+    p_scissors_ = value.data();
     scissor_count_ = value.size();
   }
 
@@ -13837,8 +13834,8 @@ class pipeline_viewport_swizzle_state_create_info_nv {
 
   // mutators
   void set_viewport_swizzles(
-      spk::array_view<spk::viewport_swizzle_nv const> value) {
-    p_viewport_swizzles_ = value.get();
+      spk::array_ptr<spk::viewport_swizzle_nv const> value) {
+    p_viewport_swizzles_ = value.data();
     viewport_count_ = value.size();
   }
 
@@ -13871,8 +13868,8 @@ class pipeline_viewport_w_scaling_state_create_info_nv {
     viewport_w_scaling_enable_ = val;
   }
   void set_viewport_w_scalings(
-      spk::array_view<spk::viewport_w_scaling_nv const> value) {
-    p_viewport_w_scalings_ = value.get();
+      spk::array_ptr<spk::viewport_w_scaling_nv const> value) {
+    p_viewport_w_scalings_ = value.data();
     viewport_count_ = value.size();
   }
 
@@ -13903,20 +13900,20 @@ class present_info_khr {
   using underlying_type = VkPresentInfoKHR;
 
   // mutators
-  void set_wait_semaphores(spk::array_view<spk::semaphore_ref const> value) {
-    p_wait_semaphores_ = value.get();
+  void set_wait_semaphores(spk::array_ptr<spk::semaphore_ref const> value) {
+    p_wait_semaphores_ = value.data();
     wait_semaphore_count_ = value.size();
   }
-  void set_swapchains(spk::array_view<spk::swapchain_khr_ref const> value) {
-    p_swapchains_ = value.get();
+  void set_swapchains(spk::array_ptr<spk::swapchain_khr_ref const> value) {
+    p_swapchains_ = value.data();
     swapchain_count_ = value.size();
   }
-  void set_image_indices(spk::array_view<uint32_t const> value) {
-    p_image_indices_ = value.get();
+  void set_image_indices(spk::array_ptr<uint32_t const> value) {
+    p_image_indices_ = value.data();
     swapchain_count_ = value.size();
   }
-  void set_results(spk::array_view<spk::result> value) {
-    p_results_ = value.get();
+  void set_results(spk::array_ptr<spk::result> value) {
+    p_results_ = value.data();
     swapchain_count_ = value.size();
   }
 
@@ -13955,8 +13952,8 @@ class present_region_khr {
   using underlying_type = VkPresentRegionKHR;
 
   // mutators
-  void set_rectangles(spk::array_view<spk::rect_layer_khr const> value) {
-    p_rectangles_ = value.get();
+  void set_rectangles(spk::array_ptr<spk::rect_layer_khr const> value) {
+    p_rectangles_ = value.data();
     rectangle_count_ = value.size();
   }
 
@@ -13977,8 +13974,8 @@ class present_regions_khr {
   using underlying_type = VkPresentRegionsKHR;
 
   // mutators
-  void set_regions(spk::array_view<spk::present_region_khr const> value) {
-    p_regions_ = value.get();
+  void set_regions(spk::array_ptr<spk::present_region_khr const> value) {
+    p_regions_ = value.data();
     swapchain_count_ = value.size();
   }
 
@@ -14025,8 +14022,8 @@ class present_times_info_google {
   using underlying_type = VkPresentTimesInfoGOOGLE;
 
   // mutators
-  void set_times(spk::array_view<spk::present_time_google const> value) {
-    p_times_ = value.get();
+  void set_times(spk::array_ptr<spk::present_time_google const> value) {
+    p_times_ = value.data();
     swapchain_count_ = value.size();
   }
 
@@ -14172,16 +14169,16 @@ class render_pass_create_info {
 
   // mutators
   void set_attachments(
-      spk::array_view<spk::attachment_description const> value) {
-    p_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_description const> value) {
+    p_attachments_ = value.data();
     attachment_count_ = value.size();
   }
-  void set_subpasses(spk::array_view<spk::subpass_description const> value) {
-    p_subpasses_ = value.get();
+  void set_subpasses(spk::array_ptr<spk::subpass_description const> value) {
+    p_subpasses_ = value.data();
     subpass_count_ = value.size();
   }
-  void set_dependencies(spk::array_view<spk::subpass_dependency const> value) {
-    p_dependencies_ = value.get();
+  void set_dependencies(spk::array_ptr<spk::subpass_dependency const> value) {
+    p_dependencies_ = value.data();
     dependency_count_ = value.size();
   }
 
@@ -14219,22 +14216,22 @@ class render_pass_create_info_2khr {
 
   // mutators
   void set_attachments(
-      spk::array_view<spk::attachment_description_2khr const> value) {
-    p_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_description_2khr const> value) {
+    p_attachments_ = value.data();
     attachment_count_ = value.size();
   }
   void set_subpasses(
-      spk::array_view<spk::subpass_description_2khr const> value) {
-    p_subpasses_ = value.get();
+      spk::array_ptr<spk::subpass_description_2khr const> value) {
+    p_subpasses_ = value.data();
     subpass_count_ = value.size();
   }
   void set_dependencies(
-      spk::array_view<spk::subpass_dependency_2khr const> value) {
-    p_dependencies_ = value.get();
+      spk::array_ptr<spk::subpass_dependency_2khr const> value) {
+    p_dependencies_ = value.data();
     dependency_count_ = value.size();
   }
-  void set_correlated_view_masks(spk::array_view<uint32_t const> value) {
-    p_correlated_view_masks_ = value.get();
+  void set_correlated_view_masks(spk::array_ptr<uint32_t const> value) {
+    p_correlated_view_masks_ = value.data();
     correlated_view_mask_count_ = value.size();
   }
 
@@ -14277,8 +14274,8 @@ class render_pass_input_attachment_aspect_create_info {
 
   // mutators
   void set_aspect_references(
-      spk::array_view<spk::input_attachment_aspect_reference const> value) {
-    p_aspect_references_ = value.get();
+      spk::array_ptr<spk::input_attachment_aspect_reference const> value) {
+    p_aspect_references_ = value.data();
     aspect_reference_count_ = value.size();
   }
 
@@ -14309,16 +14306,16 @@ class render_pass_multiview_create_info {
   using underlying_type = VkRenderPassMultiviewCreateInfo;
 
   // mutators
-  void set_view_masks(spk::array_view<uint32_t const> value) {
-    p_view_masks_ = value.get();
+  void set_view_masks(spk::array_ptr<uint32_t const> value) {
+    p_view_masks_ = value.data();
     subpass_count_ = value.size();
   }
-  void set_view_offsets(spk::array_view<int32_t const> value) {
-    p_view_offsets_ = value.get();
+  void set_view_offsets(spk::array_ptr<int32_t const> value) {
+    p_view_offsets_ = value.data();
     dependency_count_ = value.size();
   }
-  void set_correlation_masks(spk::array_view<uint32_t const> value) {
-    p_correlation_masks_ = value.get();
+  void set_correlation_masks(spk::array_ptr<uint32_t const> value) {
+    p_correlation_masks_ = value.data();
     correlation_mask_count_ = value.size();
   }
 
@@ -14356,13 +14353,13 @@ class render_pass_sample_locations_begin_info_ext {
 
   // mutators
   void set_attachment_initial_sample_locations(
-      spk::array_view<spk::attachment_sample_locations_ext const> value) {
-    p_attachment_initial_sample_locations_ = value.get();
+      spk::array_ptr<spk::attachment_sample_locations_ext const> value) {
+    p_attachment_initial_sample_locations_ = value.data();
     attachment_initial_sample_locations_count_ = value.size();
   }
   void set_post_subpass_sample_locations(
-      spk::array_view<spk::subpass_sample_locations_ext const> value) {
-    p_post_subpass_sample_locations_ = value.get();
+      spk::array_ptr<spk::subpass_sample_locations_ext const> value) {
+    p_post_subpass_sample_locations_ = value.data();
     post_subpass_sample_locations_count_ = value.size();
   }
 
@@ -14768,8 +14765,8 @@ class sparse_buffer_memory_bind_info {
   using underlying_type = VkSparseBufferMemoryBindInfo;
 
   // mutators
-  void set_binds(spk::array_view<spk::sparse_memory_bind const> value) {
-    p_binds_ = value.get();
+  void set_binds(spk::array_ptr<spk::sparse_memory_bind const> value) {
+    p_binds_ = value.data();
     bind_count_ = value.size();
   }
   void set_buffer(spk::buffer_ref value) { buffer_ = value; }
@@ -14793,8 +14790,8 @@ class sparse_image_memory_bind_info {
   using underlying_type = VkSparseImageMemoryBindInfo;
 
   // mutators
-  void set_binds(spk::array_view<spk::sparse_image_memory_bind const> value) {
-    p_binds_ = value.get();
+  void set_binds(spk::array_ptr<spk::sparse_image_memory_bind const> value) {
+    p_binds_ = value.data();
     bind_count_ = value.size();
   }
   void set_image(spk::image_ref value) { image_ = value; }
@@ -14818,8 +14815,8 @@ class sparse_image_opaque_memory_bind_info {
   using underlying_type = VkSparseImageOpaqueMemoryBindInfo;
 
   // mutators
-  void set_binds(spk::array_view<spk::sparse_memory_bind const> value) {
-    p_binds_ = value.get();
+  void set_binds(spk::array_ptr<spk::sparse_memory_bind const> value) {
+    p_binds_ = value.data();
     bind_count_ = value.size();
   }
   void set_image(spk::image_ref value) { image_ = value; }
@@ -14873,12 +14870,12 @@ class specialization_info {
 
   // mutators
   void set_map_entries(
-      spk::array_view<spk::specialization_map_entry const> value) {
-    p_map_entries_ = value.get();
+      spk::array_ptr<spk::specialization_map_entry const> value) {
+    p_map_entries_ = value.data();
     map_entry_count_ = value.size();
   }
-  void set_data(spk::array_view<void const> value) {
-    p_data_ = value.get();
+  void set_data(spk::array_ptr<void const> value) {
+    p_data_ = value.data();
     data_size_ = value.size();
   }
 
@@ -14958,22 +14955,22 @@ class submit_info {
   using underlying_type = VkSubmitInfo;
 
   // mutators
-  void set_wait_semaphores(spk::array_view<spk::semaphore_ref const> value) {
-    p_wait_semaphores_ = value.get();
+  void set_wait_semaphores(spk::array_ptr<spk::semaphore_ref const> value) {
+    p_wait_semaphores_ = value.data();
     wait_semaphore_count_ = value.size();
   }
   void set_wait_dst_stage_mask(
-      spk::array_view<spk::pipeline_stage_flags const> value) {
-    p_wait_dst_stage_mask_ = value.get();
+      spk::array_ptr<spk::pipeline_stage_flags const> value) {
+    p_wait_dst_stage_mask_ = value.data();
     wait_semaphore_count_ = value.size();
   }
   void set_command_buffers(
-      spk::array_view<spk::command_buffer_ref const> value) {
-    p_command_buffers_ = value.get();
+      spk::array_ptr<spk::command_buffer_ref const> value) {
+    p_command_buffers_ = value.data();
     command_buffer_count_ = value.size();
   }
-  void set_signal_semaphores(spk::array_view<spk::semaphore_ref const> value) {
-    p_signal_semaphores_ = value.get();
+  void set_signal_semaphores(spk::array_ptr<spk::semaphore_ref const> value) {
+    p_signal_semaphores_ = value.data();
     signal_semaphore_count_ = value.size();
   }
 
@@ -15132,22 +15129,22 @@ class subpass_description {
 
   // mutators
   void set_input_attachments(
-      spk::array_view<spk::attachment_reference const> value) {
-    p_input_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_reference const> value) {
+    p_input_attachments_ = value.data();
     input_attachment_count_ = value.size();
   }
   void set_color_attachments(
-      spk::array_view<spk::attachment_reference const> value) {
-    p_color_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_reference const> value) {
+    p_color_attachments_ = value.data();
     color_attachment_count_ = value.size();
   }
   void set_resolve_attachments(
-      spk::array_view<spk::attachment_reference const> value) {
-    p_resolve_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_reference const> value) {
+    p_resolve_attachments_ = value.data();
     color_attachment_count_ = value.size();
   }
-  void set_preserve_attachments(spk::array_view<uint32_t const> value) {
-    p_preserve_attachments_ = value.get();
+  void set_preserve_attachments(spk::array_ptr<uint32_t const> value) {
+    p_preserve_attachments_ = value.data();
     preserve_attachment_count_ = value.size();
   }
   void set_flags(spk::subpass_description_flags value) { flags_ = value; }
@@ -15201,22 +15198,22 @@ class subpass_description_2khr {
 
   // mutators
   void set_input_attachments(
-      spk::array_view<spk::attachment_reference_2khr const> value) {
-    p_input_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_reference_2khr const> value) {
+    p_input_attachments_ = value.data();
     input_attachment_count_ = value.size();
   }
   void set_color_attachments(
-      spk::array_view<spk::attachment_reference_2khr const> value) {
-    p_color_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_reference_2khr const> value) {
+    p_color_attachments_ = value.data();
     color_attachment_count_ = value.size();
   }
   void set_resolve_attachments(
-      spk::array_view<spk::attachment_reference_2khr const> value) {
-    p_resolve_attachments_ = value.get();
+      spk::array_ptr<spk::attachment_reference_2khr const> value) {
+    p_resolve_attachments_ = value.data();
     color_attachment_count_ = value.size();
   }
-  void set_preserve_attachments(spk::array_view<uint32_t const> value) {
-    p_preserve_attachments_ = value.get();
+  void set_preserve_attachments(spk::array_ptr<uint32_t const> value) {
+    p_preserve_attachments_ = value.data();
     preserve_attachment_count_ = value.size();
   }
   void set_flags(spk::subpass_description_flags value) { flags_ = value; }
@@ -15399,8 +15396,8 @@ class validation_cache_create_info_ext {
   using underlying_type = VkValidationCacheCreateInfoEXT;
 
   // mutators
-  void set_initial_data(spk::array_view<void const> value) {
-    p_initial_data_ = value.get();
+  void set_initial_data(spk::array_ptr<void const> value) {
+    p_initial_data_ = value.data();
     initial_data_size_ = value.size();
   }
 
@@ -15428,8 +15425,8 @@ class validation_flags_ext {
 
   // mutators
   void set_disabled_validation_checks(
-      spk::array_view<spk::validation_check_ext const> value) {
-    p_disabled_validation_checks_ = value.get();
+      spk::array_ptr<spk::validation_check_ext const> value) {
+    p_disabled_validation_checks_ = value.data();
     disabled_validation_check_count_ = value.size();
   }
 
@@ -15653,24 +15650,24 @@ class win_32keyed_mutex_acquire_release_info_khr {
   using underlying_type = VkWin32KeyedMutexAcquireReleaseInfoKHR;
 
   // mutators
-  void set_acquire_syncs(spk::array_view<spk::device_memory_ref const> value) {
-    p_acquire_syncs_ = value.get();
+  void set_acquire_syncs(spk::array_ptr<spk::device_memory_ref const> value) {
+    p_acquire_syncs_ = value.data();
     acquire_count_ = value.size();
   }
-  void set_acquire_keys(spk::array_view<uint64_t const> value) {
-    p_acquire_keys_ = value.get();
+  void set_acquire_keys(spk::array_ptr<uint64_t const> value) {
+    p_acquire_keys_ = value.data();
     acquire_count_ = value.size();
   }
-  void set_acquire_timeouts(spk::array_view<uint32_t const> value) {
-    p_acquire_timeouts_ = value.get();
+  void set_acquire_timeouts(spk::array_ptr<uint32_t const> value) {
+    p_acquire_timeouts_ = value.data();
     acquire_count_ = value.size();
   }
-  void set_release_syncs(spk::array_view<spk::device_memory_ref const> value) {
-    p_release_syncs_ = value.get();
+  void set_release_syncs(spk::array_ptr<spk::device_memory_ref const> value) {
+    p_release_syncs_ = value.data();
     release_count_ = value.size();
   }
-  void set_release_keys(spk::array_view<uint64_t const> value) {
-    p_release_keys_ = value.get();
+  void set_release_keys(spk::array_ptr<uint64_t const> value) {
+    p_release_keys_ = value.data();
     release_count_ = value.size();
   }
 
@@ -15717,24 +15714,24 @@ class win_32keyed_mutex_acquire_release_info_nv {
   using underlying_type = VkWin32KeyedMutexAcquireReleaseInfoNV;
 
   // mutators
-  void set_acquire_syncs(spk::array_view<spk::device_memory_ref const> value) {
-    p_acquire_syncs_ = value.get();
+  void set_acquire_syncs(spk::array_ptr<spk::device_memory_ref const> value) {
+    p_acquire_syncs_ = value.data();
     acquire_count_ = value.size();
   }
-  void set_acquire_keys(spk::array_view<uint64_t const> value) {
-    p_acquire_keys_ = value.get();
+  void set_acquire_keys(spk::array_ptr<uint64_t const> value) {
+    p_acquire_keys_ = value.data();
     acquire_count_ = value.size();
   }
-  void set_acquire_timeout_milliseconds(spk::array_view<uint32_t const> value) {
-    p_acquire_timeout_milliseconds_ = value.get();
+  void set_acquire_timeout_milliseconds(spk::array_ptr<uint32_t const> value) {
+    p_acquire_timeout_milliseconds_ = value.data();
     acquire_count_ = value.size();
   }
-  void set_release_syncs(spk::array_view<spk::device_memory_ref const> value) {
-    p_release_syncs_ = value.get();
+  void set_release_syncs(spk::array_ptr<spk::device_memory_ref const> value) {
+    p_release_syncs_ = value.data();
     release_count_ = value.size();
   }
-  void set_release_keys(spk::array_view<uint64_t const> value) {
-    p_release_keys_ = value.get();
+  void set_release_keys(spk::array_ptr<uint64_t const> value) {
+    p_release_keys_ = value.data();
     release_count_ = value.size();
   }
 
@@ -15807,18 +15804,17 @@ class write_descriptor_set {
   using underlying_type = VkWriteDescriptorSet;
 
   // mutators
-  void set_image_info(spk::array_view<spk::descriptor_image_info const> value) {
-    p_image_info_ = value.get();
+  void set_image_info(spk::array_ptr<spk::descriptor_image_info const> value) {
+    p_image_info_ = value.data();
     descriptor_count_ = value.size();
   }
   void set_buffer_info(
-      spk::array_view<spk::descriptor_buffer_info const> value) {
-    p_buffer_info_ = value.get();
+      spk::array_ptr<spk::descriptor_buffer_info const> value) {
+    p_buffer_info_ = value.data();
     descriptor_count_ = value.size();
   }
-  void set_texel_buffer_view(
-      spk::array_view<spk::buffer_view_ref const> value) {
-    p_texel_buffer_view_ = value.get();
+  void set_texel_buffer_view(spk::array_ptr<spk::buffer_view_ref const> value) {
+    p_texel_buffer_view_ = value.data();
     descriptor_count_ = value.size();
   }
   void set_dst_set(spk::descriptor_set_ref value) { dst_set_ = value; }
@@ -16497,8 +16493,8 @@ class image_create_info {
   using underlying_type = VkImageCreateInfo;
 
   // mutators
-  void set_queue_family_indices(spk::array_view<uint32_t const> value) {
-    p_queue_family_indices_ = value.get();
+  void set_queue_family_indices(spk::array_ptr<uint32_t const> value) {
+    p_queue_family_indices_ = value.data();
     queue_family_index_count_ = value.size();
   }
   void set_flags(spk::image_create_flags value) { flags_ = value; }
@@ -17059,8 +17055,8 @@ class sample_locations_info_ext {
 
   // mutators
   void set_sample_locations(
-      spk::array_view<spk::sample_location_ext const> value) {
-    p_sample_locations_ = value.get();
+      spk::array_ptr<spk::sample_location_ext const> value) {
+    p_sample_locations_ = value.data();
     sample_locations_count_ = value.size();
   }
   void set_sample_locations_per_pixel(spk::sample_count_flags value) {
@@ -17430,8 +17426,8 @@ class swapchain_create_info_khr {
 
   // mutators
   void set_clipped(bool val) { clipped_ = val; }
-  void set_queue_family_indices(spk::array_view<uint32_t const> value) {
-    p_queue_family_indices_ = value.get();
+  void set_queue_family_indices(spk::array_ptr<uint32_t const> value) {
+    p_queue_family_indices_ = value.data();
     queue_family_index_count_ = value.size();
   }
   void set_flags(spk::swapchain_create_flags_khr value) { flags_ = value; }
@@ -17887,8 +17883,8 @@ class render_pass_begin_info {
   using underlying_type = VkRenderPassBeginInfo;
 
   // mutators
-  void set_clear_values(spk::array_view<spk::clear_value const> value) {
-    p_clear_values_ = value.get();
+  void set_clear_values(spk::array_ptr<spk::clear_value const> value) {
+    p_clear_values_ = value.data();
     clear_value_count_ = value.size();
   }
   void set_render_pass(spk::render_pass_ref value) { render_pass_ = value; }
@@ -18104,22 +18100,6 @@ struct global_dispatch_table {
     }
   }
 
-  std::vector<spk::layer_properties> enumerate_instance_layer_properties(
-
-      ) const {
-    uint32_t sz_;
-    spk::result rz_ = enumerate_instance_layer_properties(&sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkEnumerateInstanceLayerProperties");
-    std::vector<spk::layer_properties> rt_(sz_);
-    rz_ = enumerate_instance_layer_properties(&sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkEnumerateInstanceLayerProperties");
-    return rt_;
-  }
-
   void create_instance(spk::instance_create_info const* pCreateInfo,
                        spk::allocation_callbacks const* pAllocator,
                        spk::instance_ref* pInstance) const {
@@ -18170,23 +18150,6 @@ struct global_dispatch_table {
     }
   }
 
-  std::
-      vector<spk::extension_properties> enumerate_instance_extension_properties(
-          char const* pLayerName) const {
-    uint32_t sz_;
-    spk::result rz_ =
-        enumerate_instance_extension_properties(pLayerName, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkEnumerateInstanceExtensionProperties");
-    std::vector<spk::extension_properties> rt_(sz_);
-    rz_ = enumerate_instance_extension_properties(pLayerName, &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkEnumerateInstanceExtensionProperties");
-    return rt_;
-  }
-
   void enumerate_instance_version(uint32_t* pApiVersion) const {
     const VkResult res = vkEnumerateInstanceVersion((uint32_t*)pApiVersion);
     switch (res) {
@@ -18222,6 +18185,7 @@ void visit_dispatch_table(global_dispatch_table& dispatch_table,
 }
 
 struct instance_dispatch_table {
+  spk::instance_ref instance;
   // spock commands
   void submit_debug_utils_message_ext(
       spk::instance_ref instance,
@@ -18263,25 +18227,6 @@ struct instance_dispatch_table {
         throw spk::unexpected_command_result((spk::result)res,
                                              "vkGetDisplayModeProperties2KHR");
     }
-  }
-
-  std::
-      vector<spk::display_mode_properties_2khr> get_display_mode_properties_2khr(
-          spk::physical_device_ref physicalDevice,
-          spk::display_khr_ref display) const {
-    uint32_t sz_;
-    spk::result rz_ = get_display_mode_properties_2khr(physicalDevice, display,
-                                                       &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkGetDisplayModeProperties2KHR");
-    std::vector<spk::display_mode_properties_2khr> rt_(sz_);
-    rz_ = get_display_mode_properties_2khr(physicalDevice, display, &sz_,
-                                           rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkGetDisplayModeProperties2KHR");
-    return rt_;
   }
 
   void get_physical_device_surface_capabilities_2khr(
@@ -18335,25 +18280,6 @@ struct instance_dispatch_table {
             (spk::result)res, "vkGetPhysicalDeviceDisplayProperties2KHR");
     }
   }
-
-  std::
-      vector<spk::display_properties_2khr> get_physical_device_display_properties_2khr(
-          spk::physical_device_ref physicalDevice) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_display_properties_2khr(
-        physicalDevice, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayProperties2KHR");
-    std::vector<spk::display_properties_2khr> rt_(sz_);
-    rz_ = get_physical_device_display_properties_2khr(physicalDevice, &sz_,
-                                                      rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayProperties2KHR");
-    return rt_;
-  }
-
 #ifdef VK_USE_PLATFORM_IOS_MVK
   void create_ios_surface_mvk(
       spk::instance_ref instance,
@@ -18403,25 +18329,6 @@ struct instance_dispatch_table {
         throw spk::unexpected_command_result(
             (spk::result)res, "vkGetPhysicalDeviceSurfaceFormats2KHR");
     }
-  }
-
-  std::
-      vector<spk::surface_format_2khr> get_physical_device_surface_formats_2khr(
-          spk::physical_device_ref physicalDevice,
-          spk::physical_device_surface_info_2khr const* pSurfaceInfo) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_surface_formats_2khr(
-        physicalDevice, pSurfaceInfo, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceSurfaceFormats2KHR");
-    std::vector<spk::surface_format_2khr> rt_(sz_);
-    rz_ = get_physical_device_surface_formats_2khr(physicalDevice, pSurfaceInfo,
-                                                   &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceSurfaceFormats2KHR");
-    return rt_;
   }
 
   void create_debug_utils_messenger_ext(
@@ -18652,24 +18559,6 @@ struct instance_dispatch_table {
     }
   }
 
-  std::
-      vector<spk::display_plane_properties_2khr> get_physical_device_display_plane_properties_2khr(
-          spk::physical_device_ref physicalDevice) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_display_plane_properties_2khr(
-        physicalDevice, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
-    std::vector<spk::display_plane_properties_2khr> rt_(sz_);
-    rz_ = get_physical_device_display_plane_properties_2khr(physicalDevice,
-                                                            &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
-    return rt_;
-  }
-
   void get_physical_device_external_image_format_properties_nv(
       spk::physical_device_ref physicalDevice, spk::format format,
       spk::image_type type, spk::image_tiling tiling,
@@ -18829,23 +18718,6 @@ struct instance_dispatch_table {
     }
   }
 
-  std::vector<spk::extension_properties> enumerate_device_extension_properties(
-      spk::physical_device_ref physicalDevice, char const* pLayerName) const {
-    uint32_t sz_;
-    spk::result rz_ = enumerate_device_extension_properties(
-        physicalDevice, pLayerName, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkEnumerateDeviceExtensionProperties");
-    std::vector<spk::extension_properties> rt_(sz_);
-    rz_ = enumerate_device_extension_properties(physicalDevice, pLayerName,
-                                                &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkEnumerateDeviceExtensionProperties");
-    return rt_;
-  }
-
   void get_physical_device_queue_family_properties_2khr(
       spk::physical_device_ref physicalDevice,
       uint32_t* pQueueFamilyPropertyCount,
@@ -18934,19 +18806,6 @@ struct instance_dispatch_table {
     }
   }
 
-  std::vector<spk::physical_device_ref> enumerate_physical_devices(
-      spk::instance_ref instance) const {
-    uint32_t sz_;
-    spk::result rz_ = enumerate_physical_devices(instance, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_, "vkEnumeratePhysicalDevices");
-    std::vector<spk::physical_device_ref> rt_(sz_);
-    rz_ = enumerate_physical_devices(instance, &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_, "vkEnumeratePhysicalDevices");
-    return rt_;
-  }
-
   PFN_vkVoidFunction get_instance_proc_addr(spk::instance_ref instance,
                                             char const* pName) const {
     return (PFN_vkVoidFunction)(
@@ -19008,24 +18867,6 @@ struct instance_dispatch_table {
     }
   }
 
-  std::vector<spk::rect_2d> get_physical_device_present_rectangles_khr(
-      spk::physical_device_ref physicalDevice,
-      spk::surface_khr_ref surface) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_present_rectangles_khr(
-        physicalDevice, surface, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDevicePresentRectanglesKHR");
-    std::vector<spk::rect_2d> rt_(sz_);
-    rz_ = get_physical_device_present_rectangles_khr(physicalDevice, surface,
-                                                     &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDevicePresentRectanglesKHR");
-    return rt_;
-  }
-
   void get_physical_device_queue_family_properties(
       spk::physical_device_ref physicalDevice,
       uint32_t* pQueueFamilyPropertyCount,
@@ -19059,61 +18900,29 @@ struct instance_dispatch_table {
         }
       }
 
-  std::
-      vector<spk::physical_device_group_properties> enumerate_physical_device_groups_khr(
-          spk::instance_ref instance) const {
-    uint32_t sz_;
-    spk::result rz_ =
-        enumerate_physical_device_groups_khr(instance, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkEnumeratePhysicalDeviceGroups");
-    std::vector<spk::physical_device_group_properties> rt_(sz_);
-    rz_ = enumerate_physical_device_groups_khr(instance, &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkEnumeratePhysicalDeviceGroups");
-    return rt_;
-  }
-
-  [[nodiscard]] spk::result enumerate_physical_device_groups(
-      spk::instance_ref instance, uint32_t* pPhysicalDeviceGroupCount,
-      spk::physical_device_group_properties* pPhysicalDeviceGroupProperties)
-      const {
-        const VkResult res = vkEnumeratePhysicalDeviceGroups(
-            (VkInstance)instance, (uint32_t*)pPhysicalDeviceGroupCount,
-            (VkPhysicalDeviceGroupProperties*)pPhysicalDeviceGroupProperties);
-        switch (res) {
-          case VK_SUCCESS:
-            return spk::result::success;
-          case VK_INCOMPLETE:
-            return spk::result::incomplete;
-          case VK_ERROR_OUT_OF_HOST_MEMORY:
-            throw spk::error_out_of_host_memory();
-          case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-            throw spk::error_out_of_device_memory();
-          case VK_ERROR_INITIALIZATION_FAILED:
-            throw spk::error_initialization_failed();
-          default:
-            throw spk::unexpected_command_result(
-                (spk::result)res, "vkEnumeratePhysicalDeviceGroups");
-        }
-      }
-
-  std::
-      vector<spk::physical_device_group_properties> enumerate_physical_device_groups(
-          spk::instance_ref instance) const {
-    uint32_t sz_;
-    spk::result rz_ = enumerate_physical_device_groups(instance, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkEnumeratePhysicalDeviceGroups");
-    std::vector<spk::physical_device_group_properties> rt_(sz_);
-    rz_ = enumerate_physical_device_groups(instance, &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkEnumeratePhysicalDeviceGroups");
-    return rt_;
+          [[nodiscard]] spk::result
+      enumerate_physical_device_groups(
+          spk::instance_ref instance, uint32_t* pPhysicalDeviceGroupCount,
+          spk::physical_device_group_properties* pPhysicalDeviceGroupProperties)
+          const {
+    const VkResult res = vkEnumeratePhysicalDeviceGroups(
+        (VkInstance)instance, (uint32_t*)pPhysicalDeviceGroupCount,
+        (VkPhysicalDeviceGroupProperties*)pPhysicalDeviceGroupProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INITIALIZATION_FAILED:
+        throw spk::error_initialization_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkEnumeratePhysicalDeviceGroups");
+    }
   }
 
   [[nodiscard]] spk::result get_display_mode_properties_khr(
@@ -19137,25 +18946,6 @@ struct instance_dispatch_table {
                                              "vkGetDisplayModePropertiesKHR");
     }
   }
-
-  std::vector<spk::display_mode_properties_khr> get_display_mode_properties_khr(
-      spk::physical_device_ref physicalDevice,
-      spk::display_khr_ref display) const {
-    uint32_t sz_;
-    spk::result rz_ =
-        get_display_mode_properties_khr(physicalDevice, display, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkGetDisplayModePropertiesKHR");
-    std::vector<spk::display_mode_properties_khr> rt_(sz_);
-    rz_ = get_display_mode_properties_khr(physicalDevice, display, &sz_,
-                                          rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkGetDisplayModePropertiesKHR");
-    return rt_;
-  }
-
 #ifdef VK_USE_PLATFORM_WIN32_KHR
   spk::bool32_t get_physical_device_win_32presentation_support_khr(
       spk::physical_device_ref physicalDevice,
@@ -19337,22 +19127,6 @@ struct instance_dispatch_table {
     }
   }
 
-  std::vector<spk::layer_properties> enumerate_device_layer_properties(
-      spk::physical_device_ref physicalDevice) const {
-    uint32_t sz_;
-    spk::result rz_ =
-        enumerate_device_layer_properties(physicalDevice, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkEnumerateDeviceLayerProperties");
-    std::vector<spk::layer_properties> rt_(sz_);
-    rz_ = enumerate_device_layer_properties(physicalDevice, &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkEnumerateDeviceLayerProperties");
-    return rt_;
-  }
-
   void get_physical_device_surface_capabilities_khr(
       spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
       spk::surface_capabilities_khr* pSurfaceCapabilities) const {
@@ -19439,25 +19213,6 @@ struct instance_dispatch_table {
             (spk::result)res, "vkGetPhysicalDeviceDisplayPropertiesKHR");
     }
   }
-
-  std::
-      vector<spk::display_properties_khr> get_physical_device_display_properties_khr(
-          spk::physical_device_ref physicalDevice) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_display_properties_khr(physicalDevice,
-                                                                 &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayPropertiesKHR");
-    std::vector<spk::display_properties_khr> rt_(sz_);
-    rz_ = get_physical_device_display_properties_khr(physicalDevice, &sz_,
-                                                     rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayPropertiesKHR");
-    return rt_;
-  }
-
 #ifdef VK_USE_PLATFORM_WAYLAND_KHR
   spk::bool32_t get_physical_device_wayland_presentation_support_khr(
       spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
@@ -19489,27 +19244,10 @@ struct instance_dispatch_table {
     }
   }
 
-  std::
-      vector<spk::display_plane_properties_khr> get_physical_device_display_plane_properties_khr(
-          spk::physical_device_ref physicalDevice) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_display_plane_properties_khr(
-        physicalDevice, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
-    std::vector<spk::display_plane_properties_khr> rt_(sz_);
-    rz_ = get_physical_device_display_plane_properties_khr(physicalDevice, &sz_,
-                                                           rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
-    return rt_;
-  }
-
-  [[nodiscard]] spk::result get_physical_device_surface_present_modes_khr(
-      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
-      uint32_t* pPresentModeCount, spk::present_mode_khr* pPresentModes) const {
+      [[nodiscard]] spk::result get_physical_device_surface_present_modes_khr(
+          spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
+          uint32_t* pPresentModeCount,
+          spk::present_mode_khr* pPresentModes) const {
     const VkResult res = vkGetPhysicalDeviceSurfacePresentModesKHR(
         (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
         (uint32_t*)pPresentModeCount, (VkPresentModeKHR*)pPresentModes);
@@ -19528,25 +19266,6 @@ struct instance_dispatch_table {
         throw spk::unexpected_command_result(
             (spk::result)res, "vkGetPhysicalDeviceSurfacePresentModesKHR");
     }
-  }
-
-  std::
-      vector<spk::present_mode_khr> get_physical_device_surface_present_modes_khr(
-          spk::physical_device_ref physicalDevice,
-          spk::surface_khr_ref surface) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_surface_present_modes_khr(
-        physicalDevice, surface, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceSurfacePresentModesKHR");
-    std::vector<spk::present_mode_khr> rt_(sz_);
-    rz_ = get_physical_device_surface_present_modes_khr(physicalDevice, surface,
-                                                        &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceSurfacePresentModesKHR");
-    return rt_;
   }
 
   [[nodiscard]] spk::result get_display_plane_supported_displays_khr(
@@ -19568,23 +19287,6 @@ struct instance_dispatch_table {
         throw spk::unexpected_command_result(
             (spk::result)res, "vkGetDisplayPlaneSupportedDisplaysKHR");
     }
-  }
-
-  std::vector<spk::display_khr_ref> get_display_plane_supported_displays_khr(
-      spk::physical_device_ref physicalDevice, uint32_t planeIndex) const {
-    uint32_t sz_;
-    spk::result rz_ = get_display_plane_supported_displays_khr(
-        physicalDevice, planeIndex, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetDisplayPlaneSupportedDisplaysKHR");
-    std::vector<spk::display_khr_ref> rt_(sz_);
-    rz_ = get_display_plane_supported_displays_khr(physicalDevice, planeIndex,
-                                                   &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetDisplayPlaneSupportedDisplaysKHR");
-    return rt_;
   }
 
   void create_display_plane_surface_khr(
@@ -19688,25 +19390,6 @@ struct instance_dispatch_table {
             (spk::result)res, "vkGetPhysicalDeviceSurfaceFormatsKHR");
     }
   }
-
-  std::vector<spk::surface_format_khr> get_physical_device_surface_formats_khr(
-      spk::physical_device_ref physicalDevice,
-      spk::surface_khr_ref surface) const {
-    uint32_t sz_;
-    spk::result rz_ = get_physical_device_surface_formats_khr(
-        physicalDevice, surface, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceSurfaceFormatsKHR");
-    std::vector<spk::surface_format_khr> rt_(sz_);
-    rz_ = get_physical_device_surface_formats_khr(physicalDevice, surface, &sz_,
-                                                  rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(
-          rz_, "vkGetPhysicalDeviceSurfaceFormatsKHR");
-    return rt_;
-  }
-
 #ifdef VK_USE_PLATFORM_WAYLAND_KHR
   void create_wayland_surface_khr(
       spk::instance_ref instance,
@@ -20166,6 +19849,7 @@ void visit_dispatch_table(instance_dispatch_table& dispatch_table,
 }
 
 struct device_dispatch_table {
+  spk::device_ref device;
   // spock commands
   void cmd_next_subpass_2khr(
       spk::command_buffer_ref commandBuffer,
@@ -22765,24 +22449,6 @@ struct device_dispatch_table {
     }
   }
 
-  std::
-      vector<spk::past_presentation_timing_google> get_past_presentation_timing_google(
-          spk::device_ref device, spk::swapchain_khr_ref swapchain) const {
-    uint32_t sz_;
-    spk::result rz_ =
-        get_past_presentation_timing_google(device, swapchain, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkGetPastPresentationTimingGOOGLE");
-    std::vector<spk::past_presentation_timing_google> rt_(sz_);
-    rz_ = get_past_presentation_timing_google(device, swapchain, &sz_,
-                                              rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_,
-                                           "vkGetPastPresentationTimingGOOGLE");
-    return rt_;
-  }
-
   void create_event(spk::device_ref device,
                     spk::event_create_info const* pCreateInfo,
                     spk::allocation_callbacks const* pAllocator,
@@ -23221,24 +22887,11 @@ struct device_dispatch_table {
     }
   }
 
-  std::vector<spk::image_ref> get_swapchain_images_khr(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain) const {
-    uint32_t sz_;
-    spk::result rz_ =
-        get_swapchain_images_khr(device, swapchain, &sz_, nullptr);
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_, "vkGetSwapchainImagesKHR");
-    std::vector<spk::image_ref> rt_(sz_);
-    rz_ = get_swapchain_images_khr(device, swapchain, &sz_, rt_.data());
-    if (rz_ != spk::result::success)
-      throw spk::unexpected_command_result(rz_, "vkGetSwapchainImagesKHR");
-    return rt_;
-  }
-
-  [[nodiscard]] spk::result acquire_next_image_khr(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain,
-      uint64_t timeout, spk::semaphore_ref semaphore, spk::fence_ref fence,
-      uint32_t* pImageIndex) const {
+      [[nodiscard]] spk::result
+      acquire_next_image_khr(spk::device_ref device,
+                             spk::swapchain_khr_ref swapchain, uint64_t timeout,
+                             spk::semaphore_ref semaphore, spk::fence_ref fence,
+                             uint32_t* pImageIndex) const {
     const VkResult res = vkAcquireNextImageKHR(
         (VkDevice)device, (VkSwapchainKHR)swapchain, (uint64_t)timeout,
         (VkSemaphore)semaphore, (VkFence)fence, (uint32_t*)pImageIndex);
@@ -23978,2344 +23631,4016 @@ void visit_dispatch_table(device_dispatch_table& dispatch_table,
     "vkCmdResetQueryPool");
 }
 
+inline spk::global_dispatch_table load_global_dispatch_table(
+    PFN_vkGetInstanceProcAddr pvkGetInstanceProcAddr) {
+  spk::global_dispatch_table global_dispatch_table;
+  spk::visit_dispatch_table(
+      global_dispatch_table,
+      [pvkGetInstanceProcAddr](spk::global_dispatch_table& t, auto mf,
+                               const char* name) {
+        using PFN = strip_member_function_t<decltype(mf)>;
+        (t.*mf) = (PFN)pvkGetInstanceProcAddr(VK_NULL_HANDLE, name);
+      });
+  return global_dispatch_table;
+}
+
+inline spk::instance_dispatch_table load_instance_dispatch_table(
+    PFN_vkGetInstanceProcAddr pvkGetInstanceProcAddr,
+    spk::instance_ref instance) {
+  spk::instance_dispatch_table instance_dispatch_table;
+  instance_dispatch_table.instance = instance;
+  spk::visit_dispatch_table(
+      instance_dispatch_table,
+      [pvkGetInstanceProcAddr, instance](spk::instance_dispatch_table& t,
+                                         auto mf, const char* name) {
+        using PFN = spk::strip_member_function_t<decltype(mf)>;
+        (t.*mf) = (PFN)pvkGetInstanceProcAddr(instance, name);
+      });
+  return instance_dispatch_table;
+}
+
+inline spk::device_dispatch_table load_device_dispatch_table(
+    PFN_vkGetDeviceProcAddr pvkGetDeviceProcAddr, spk::device_ref device) {
+  spk::device_dispatch_table device_dispatch_table;
+  device_dispatch_table.device = device;
+
+  spk::visit_dispatch_table(
+      device_dispatch_table,
+      [pvkGetDeviceProcAddr, device](spk::device_dispatch_table& t, auto mf,
+                                     const char* name) {
+        using PFN = spk::strip_member_function_t<decltype(mf)>;
+        (t.*mf) = (PFN)pvkGetDeviceProcAddr(device, name);
+      });
+  return device_dispatch_table;
+}
+
+// fwd declare loader
+class loader;
+
+// fwd declare handles
+class buffer;
+class buffer_view;
+class command_buffer;
+class command_pool;
+class debug_report_callback_ext;
+class debug_utils_messenger_ext;
+class descriptor_pool;
+class descriptor_set_layout;
+class descriptor_set;
+class descriptor_update_template;
+class device_memory;
+class device;
+class display_khr;
+class display_mode_khr;
+class event;
+class fence;
+class framebuffer;
+class image;
+class image_view;
+class indirect_commands_layout_nvx;
+class instance;
+class object_table_nvx;
+class physical_device;
+class pipeline_cache;
+class pipeline_layout;
+class pipeline;
+class query_pool;
+class queue;
+class render_pass;
+class sampler;
+class sampler_ycbcr_conversion;
+class semaphore;
+class shader_module;
+class surface_khr;
+class swapchain_khr;
+class validation_cache_ext;
+
+// handles
 class buffer {
  public:
   operator buffer_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_buffer
-
-  void destroy_buffer(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_buffer(parent_device_ref, handle_, pAllocator);
+  buffer(buffer_ref handle, device_ref parent,
+         const device_dispatch_table& dispatch_table,
+         const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  buffer(const buffer&) = delete;
+  buffer(buffer&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline spk::memory_requirements get_buffer_memory_requirements();
+  inline void bind_buffer_memory(spk::device_memory_ref memory,
+                                 uint64_t memoryOffset);
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~buffer() {
+    dispatch_table().destroy_buffer(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   buffer_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class buffer_view {
  public:
   operator buffer_view_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_buffer_view
-
-  void destroy_buffer_view(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_buffer_view(parent_device_ref, handle_,
-                                         pAllocator);
+  buffer_view(buffer_view_ref handle, device_ref parent,
+              const device_dispatch_table& dispatch_table,
+              const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  buffer_view(const buffer_view&) = delete;
+  buffer_view(buffer_view&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~buffer_view() {
+    dispatch_table().destroy_buffer_view(parent_, handle_,
+                                         allocation_callbacks_);
+  }
 
  private:
   buffer_view_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class command_buffer {
  public:
   operator command_buffer_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: allocate_command_buffers
-
-  void cmd_dispatch_base_khr(uint32_t baseGroupX, uint32_t baseGroupY,
-                             uint32_t baseGroupZ, uint32_t groupCountX,
-                             uint32_t groupCountY,
-                             uint32_t groupCountZ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_dispatch_base_khr(handle_, baseGroupX, baseGroupY,
-                                           baseGroupZ, groupCountX, groupCountY,
-                                           groupCountZ);
+  command_buffer(command_buffer_ref handle,
+                 const device_dispatch_table& dispatch_table,
+                 const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  command_buffer(const command_buffer&) = delete;
+  command_buffer(command_buffer&& that)
+      : handle_(that.handle_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
-  void cmd_set_device_mask_khr(uint32_t deviceMask) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_device_mask_khr(handle_, deviceMask);
-  }
-
-  void cmd_next_subpass_2khr(
-      spk::subpass_begin_info_khr const* pSubpassBeginInfo,
-      spk::subpass_end_info_khr const* pSubpassEndInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_next_subpass_2khr(handle_, pSubpassBeginInfo,
-                                           pSubpassEndInfo);
-  }
-
-  void cmd_draw_indirect_count_khr(spk::buffer_ref buffer, uint64_t offset,
-                                   spk::buffer_ref countBuffer,
-                                   uint64_t countBufferOffset,
-                                   uint32_t maxDrawCount,
-                                   uint32_t stride) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indirect_count_khr(handle_, buffer, offset,
-                                                 countBuffer, countBufferOffset,
-                                                 maxDrawCount, stride);
-  }
-
-  void cmd_insert_debug_utils_label_ext(
-      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_insert_debug_utils_label_ext(handle_, pLabelInfo);
-  }
-
-  void cmd_end_debug_utils_label_ext(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_end_debug_utils_label_ext(handle_);
-  }
-
-  void cmd_set_discard_rectangle_ext(
-      uint32_t firstDiscardRectangle, uint32_t discardRectangleCount,
-      spk::rect_2d const* pDiscardRectangles) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_discard_rectangle_ext(
-        handle_, firstDiscardRectangle, discardRectangleCount,
-        pDiscardRectangles);
-  }
-
-  void cmd_push_descriptor_set_with_template_khr(
+  inline void cmd_dispatch_base_khr(uint32_t baseGroupX, uint32_t baseGroupY,
+                                    uint32_t baseGroupZ, uint32_t groupCountX,
+                                    uint32_t groupCountY, uint32_t groupCountZ);
+  inline void cmd_set_device_mask_khr(uint32_t deviceMask);
+  inline void cmd_next_subpass_2khr(
+      spk::subpass_begin_info_khr const& pSubpassBeginInfo,
+      spk::subpass_end_info_khr const& pSubpassEndInfo);
+  inline void cmd_draw_indirect_count_khr(
+      spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+      uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride);
+  inline void cmd_insert_debug_utils_label_ext(
+      spk::debug_utils_label_ext const& pLabelInfo);
+  inline void cmd_end_debug_utils_label_ext();
+  inline void cmd_set_discard_rectangle_ext(
+      uint32_t firstDiscardRectangle,
+      spk::array_view<spk::rect_2d const> pDiscardRectangles);
+  inline void cmd_push_descriptor_set_with_template_khr(
       spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      spk::pipeline_layout_ref layout, uint32_t set,
-      void const* pData) {  // SINGLE_HANDLE
-    dispatch_table().cmd_push_descriptor_set_with_template_khr(
-        handle_, descriptorUpdateTemplate, layout, set, pData);
-  }
-
-  void cmd_dispatch_base(uint32_t baseGroupX, uint32_t baseGroupY,
-                         uint32_t baseGroupZ, uint32_t groupCountX,
-                         uint32_t groupCountY,
-                         uint32_t groupCountZ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_dispatch_base(handle_, baseGroupX, baseGroupY,
-                                       baseGroupZ, groupCountX, groupCountY,
-                                       groupCountZ);
-  }
-
-  void cmd_set_viewport_w_scaling_nv(
-      uint32_t firstViewport, uint32_t viewportCount,
-      spk::viewport_w_scaling_nv const* pViewportWScalings) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_viewport_w_scaling_nv(
-        handle_, firstViewport, viewportCount, pViewportWScalings);
-  }
-
-  void cmd_set_device_mask(uint32_t deviceMask) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_device_mask(handle_, deviceMask);
-  }
-
-  void cmd_begin_debug_utils_label_ext(
-      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_begin_debug_utils_label_ext(handle_, pLabelInfo);
-  }
-
-  void cmd_push_descriptor_set_khr(
+      spk::pipeline_layout_ref layout, uint32_t set, void const* pData);
+  inline void cmd_dispatch_base(uint32_t baseGroupX, uint32_t baseGroupY,
+                                uint32_t baseGroupZ, uint32_t groupCountX,
+                                uint32_t groupCountY, uint32_t groupCountZ);
+  inline void cmd_set_viewport_w_scaling_nv(
+      uint32_t firstViewport,
+      spk::array_view<spk::viewport_w_scaling_nv const> pViewportWScalings);
+  inline void cmd_set_device_mask(uint32_t deviceMask);
+  inline void cmd_begin_debug_utils_label_ext(
+      spk::debug_utils_label_ext const& pLabelInfo);
+  inline void cmd_push_descriptor_set_khr(
       spk::pipeline_bind_point pipelineBindPoint,
       spk::pipeline_layout_ref layout, uint32_t set,
-      uint32_t descriptorWriteCount,
-      spk::write_descriptor_set const* pDescriptorWrites) {  // SINGLE_HANDLE
-    dispatch_table().cmd_push_descriptor_set_khr(
-        handle_, pipelineBindPoint, layout, set, descriptorWriteCount,
-        pDescriptorWrites);
-  }
-
-  void cmd_reserve_space_for_commands_nvx(
-      spk::cmd_reserve_space_for_commands_info_nvx const*
-          pReserveSpaceInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_reserve_space_for_commands_nvx(handle_,
-                                                        pReserveSpaceInfo);
-  }
-
-  void cmd_draw_indexed_indirect_count_amd(spk::buffer_ref buffer,
-                                           uint64_t offset,
-                                           spk::buffer_ref countBuffer,
-                                           uint64_t countBufferOffset,
-                                           uint32_t maxDrawCount,
-                                           uint32_t stride) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indexed_indirect_count_amd(
-        handle_, buffer, offset, countBuffer, countBufferOffset, maxDrawCount,
-        stride);
-  }
-
-  void cmd_draw_indirect_count_amd(spk::buffer_ref buffer, uint64_t offset,
-                                   spk::buffer_ref countBuffer,
-                                   uint64_t countBufferOffset,
-                                   uint32_t maxDrawCount,
-                                   uint32_t stride) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indirect_count_amd(handle_, buffer, offset,
-                                                 countBuffer, countBufferOffset,
-                                                 maxDrawCount, stride);
-  }
-
-  void cmd_debug_marker_insert_ext(
-      spk::debug_marker_marker_info_ext const* pMarkerInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_debug_marker_insert_ext(handle_, pMarkerInfo);
-  }
-
-  void cmd_debug_marker_end_ext(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_debug_marker_end_ext(handle_);
-  }
-
-  void cmd_debug_marker_begin_ext(
-      spk::debug_marker_marker_info_ext const* pMarkerInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_debug_marker_begin_ext(handle_, pMarkerInfo);
-  }
-
-  void cmd_write_timestamp(spk::pipeline_stage_flags pipelineStage,
-                           spk::query_pool_ref queryPool,
-                           uint32_t query) {  // SINGLE_HANDLE
-    dispatch_table().cmd_write_timestamp(handle_, pipelineStage, queryPool,
-                                         query);
-  }
-
-  void cmd_set_event(spk::event_ref event,
-                     spk::pipeline_stage_flags stageMask) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_event(handle_, event, stageMask);
-  }
-
-  void cmd_copy_buffer(spk::buffer_ref srcBuffer, spk::buffer_ref dstBuffer,
-                       uint32_t regionCount,
-                       spk::buffer_copy const* pRegions) {  // SINGLE_HANDLE
-    dispatch_table().cmd_copy_buffer(handle_, srcBuffer, dstBuffer, regionCount,
-                                     pRegions);
-  }
-
-  void cmd_set_blend_constants(
-      std::array<float const, 4> blendConstants) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_blend_constants(handle_, blendConstants);
-  }
-
-  void cmd_draw(uint32_t vertexCount, uint32_t instanceCount,
-                uint32_t firstVertex,
-                uint32_t firstInstance) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw(handle_, vertexCount, instanceCount, firstVertex,
-                              firstInstance);
-  }
-
-  void cmd_draw_indexed_indirect_count_khr(spk::buffer_ref buffer,
-                                           uint64_t offset,
-                                           spk::buffer_ref countBuffer,
-                                           uint64_t countBufferOffset,
-                                           uint32_t maxDrawCount,
-                                           uint32_t stride) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indexed_indirect_count_khr(
-        handle_, buffer, offset, countBuffer, countBufferOffset, maxDrawCount,
-        stride);
-  }
-
-  void cmd_set_checkpoint_nv(void const* pCheckpointMarker) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_checkpoint_nv(handle_, pCheckpointMarker);
-  }
-
-  void cmd_bind_index_buffer(spk::buffer_ref buffer, uint64_t offset,
-                             spk::index_type indexType) {  // SINGLE_HANDLE
-    dispatch_table().cmd_bind_index_buffer(handle_, buffer, offset, indexType);
-  }
-
-  void cmd_draw_indexed(uint32_t indexCount, uint32_t instanceCount,
-                        uint32_t firstIndex, int32_t vertexOffset,
-                        uint32_t firstInstance) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indexed(handle_, indexCount, instanceCount,
-                                      firstIndex, vertexOffset, firstInstance);
-  }
-
-  void cmd_dispatch(uint32_t groupCountX, uint32_t groupCountY,
-                    uint32_t groupCountZ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_dispatch(handle_, groupCountX, groupCountY,
-                                  groupCountZ);
-  }
-
-  void cmd_process_commands_nvx(spk::cmd_process_commands_info_nvx const*
-                                    pProcessCommandsInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_process_commands_nvx(handle_, pProcessCommandsInfo);
-  }
-
-  void cmd_bind_vertex_buffers(uint32_t firstBinding, uint32_t bindingCount,
-                               spk::buffer_ref const* pBuffers,
-                               uint64_t const* pOffsets) {  // SINGLE_HANDLE
-    dispatch_table().cmd_bind_vertex_buffers(handle_, firstBinding,
-                                             bindingCount, pBuffers, pOffsets);
-  }
-
-  void cmd_end_render_pass(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_end_render_pass(handle_);
-  }
-
-  void cmd_wait_events(
-      uint32_t eventCount, spk::event_ref const* pEvents,
-      spk::pipeline_stage_flags srcStageMask,
-      spk::pipeline_stage_flags dstStageMask, uint32_t memoryBarrierCount,
-      spk::memory_barrier const* pMemoryBarriers,
-      uint32_t bufferMemoryBarrierCount,
-      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
-      uint32_t imageMemoryBarrierCount,
-      spk::image_memory_barrier const* pImageMemoryBarriers) {  // SINGLE_HANDLE
-    dispatch_table().cmd_wait_events(
-        handle_, eventCount, pEvents, srcStageMask, dstStageMask,
-        memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount,
-        pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
-  }
-
-  void cmd_set_scissor(uint32_t firstScissor, uint32_t scissorCount,
-                       spk::rect_2d const* pScissors) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_scissor(handle_, firstScissor, scissorCount,
-                                     pScissors);
-  }
-
-  void cmd_end_render_pass_2khr(
-      spk::subpass_end_info_khr const* pSubpassEndInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_end_render_pass_2khr(handle_, pSubpassEndInfo);
-  }
-
-  void reset_command_buffer(
-      spk::command_buffer_reset_flags flags) {  // SINGLE_HANDLE
-    dispatch_table().reset_command_buffer(handle_, flags);
-  }
-
-  void cmd_update_buffer(spk::buffer_ref dstBuffer, uint64_t dstOffset,
-                         uint64_t dataSize,
-                         void const* pData) {  // SINGLE_HANDLE
-    dispatch_table().cmd_update_buffer(handle_, dstBuffer, dstOffset, dataSize,
-                                       pData);
-  }
-
-  void cmd_draw_indexed_indirect(spk::buffer_ref buffer, uint64_t offset,
-                                 uint32_t drawCount,
-                                 uint32_t stride) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indexed_indirect(handle_, buffer, offset,
-                                               drawCount, stride);
-  }
-
-  void cmd_write_buffer_marker_amd(spk::pipeline_stage_flags pipelineStage,
-                                   spk::buffer_ref dstBuffer,
-                                   uint64_t dstOffset,
-                                   uint32_t marker) {  // SINGLE_HANDLE
-    dispatch_table().cmd_write_buffer_marker_amd(handle_, pipelineStage,
-                                                 dstBuffer, dstOffset, marker);
-  }
-
-  void cmd_dispatch_indirect(spk::buffer_ref buffer,
-                             uint64_t offset) {  // SINGLE_HANDLE
-    dispatch_table().cmd_dispatch_indirect(handle_, buffer, offset);
-  }
-
-  void cmd_bind_pipeline(spk::pipeline_bind_point pipelineBindPoint,
-                         spk::pipeline_ref pipeline) {  // SINGLE_HANDLE
-    dispatch_table().cmd_bind_pipeline(handle_, pipelineBindPoint, pipeline);
-  }
-
-  void cmd_begin_query(spk::query_pool_ref queryPool, uint32_t query,
-                       spk::query_control_flags flags) {  // SINGLE_HANDLE
-    dispatch_table().cmd_begin_query(handle_, queryPool, query, flags);
-  }
-
-  void cmd_begin_render_pass_2khr(
-      spk::render_pass_begin_info const* pRenderPassBegin,
-      spk::subpass_begin_info_khr const* pSubpassBeginInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_begin_render_pass_2khr(handle_, pRenderPassBegin,
-                                                pSubpassBeginInfo);
-  }
-
-  void end_command_buffer(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().end_command_buffer(handle_);
-  }
-
-  void cmd_resolve_image(spk::image_ref srcImage,
-                         spk::image_layout srcImageLayout,
-                         spk::image_ref dstImage,
-                         spk::image_layout dstImageLayout, uint32_t regionCount,
-                         spk::image_resolve const* pRegions) {  // SINGLE_HANDLE
-    dispatch_table().cmd_resolve_image(handle_, srcImage, srcImageLayout,
-                                       dstImage, dstImageLayout, regionCount,
-                                       pRegions);
-  }
-
-  void cmd_set_sample_locations_ext(
-      spk::sample_locations_info_ext const*
-          pSampleLocationsInfo) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_sample_locations_ext(handle_,
-                                                  pSampleLocationsInfo);
-  }
-
-  void cmd_set_depth_bias(float depthBiasConstantFactor, float depthBiasClamp,
-                          float depthBiasSlopeFactor) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_depth_bias(handle_, depthBiasConstantFactor,
-                                        depthBiasClamp, depthBiasSlopeFactor);
-  }
-
-  void cmd_set_depth_bounds(float minDepthBounds,
-                            float maxDepthBounds) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_depth_bounds(handle_, minDepthBounds,
-                                          maxDepthBounds);
-  }
-
-  void cmd_set_stencil_compare_mask(spk::stencil_face_flags faceMask,
-                                    uint32_t compareMask) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_stencil_compare_mask(handle_, faceMask,
-                                                  compareMask);
-  }
-
-  void cmd_copy_buffer_to_image(
-      spk::buffer_ref srcBuffer, spk::image_ref dstImage,
-      spk::image_layout dstImageLayout, uint32_t regionCount,
-      spk::buffer_image_copy const* pRegions) {  // SINGLE_HANDLE
-    dispatch_table().cmd_copy_buffer_to_image(
-        handle_, srcBuffer, dstImage, dstImageLayout, regionCount, pRegions);
-  }
-
-  void cmd_set_stencil_write_mask(spk::stencil_face_flags faceMask,
-                                  uint32_t writeMask) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_stencil_write_mask(handle_, faceMask, writeMask);
-  }
-
-  void cmd_set_stencil_reference(spk::stencil_face_flags faceMask,
-                                 uint32_t reference) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_stencil_reference(handle_, faceMask, reference);
-  }
-
-  void cmd_draw_indirect(spk::buffer_ref buffer, uint64_t offset,
-                         uint32_t drawCount,
-                         uint32_t stride) {  // SINGLE_HANDLE
-    dispatch_table().cmd_draw_indirect(handle_, buffer, offset, drawCount,
-                                       stride);
-  }
-
-  void cmd_copy_image(spk::image_ref srcImage, spk::image_layout srcImageLayout,
-                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
-                      uint32_t regionCount,
-                      spk::image_copy const* pRegions) {  // SINGLE_HANDLE
-    dispatch_table().cmd_copy_image(handle_, srcImage, srcImageLayout, dstImage,
-                                    dstImageLayout, regionCount, pRegions);
-  }
-
-  void cmd_next_subpass(spk::subpass_contents contents) {  // SINGLE_HANDLE
-    dispatch_table().cmd_next_subpass(handle_, contents);
-  }
-
-  void cmd_set_line_width(float lineWidth) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_line_width(handle_, lineWidth);
-  }
-
-  void cmd_blit_image(spk::image_ref srcImage, spk::image_layout srcImageLayout,
-                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
-                      uint32_t regionCount, spk::image_blit const* pRegions,
-                      spk::filter filter) {  // SINGLE_HANDLE
-    dispatch_table().cmd_blit_image(handle_, srcImage, srcImageLayout, dstImage,
-                                    dstImageLayout, regionCount, pRegions,
-                                    filter);
-  }
-
-  void cmd_fill_buffer(spk::buffer_ref dstBuffer, uint64_t dstOffset,
-                       uint64_t size, uint32_t data) {  // SINGLE_HANDLE
-    dispatch_table().cmd_fill_buffer(handle_, dstBuffer, dstOffset, size, data);
-  }
-
-  void cmd_clear_color_image(
-      spk::image_ref image, spk::image_layout imageLayout,
-      spk::clear_color_value const* pColor, uint32_t rangeCount,
-      spk::image_subresource_range const* pRanges) {  // SINGLE_HANDLE
-    dispatch_table().cmd_clear_color_image(handle_, image, imageLayout, pColor,
-                                           rangeCount, pRanges);
-  }
-
-  void cmd_clear_depth_stencil_image(
-      spk::image_ref image, spk::image_layout imageLayout,
-      spk::clear_depth_stencil_value const* pDepthStencil, uint32_t rangeCount,
-      spk::image_subresource_range const* pRanges) {  // SINGLE_HANDLE
-    dispatch_table().cmd_clear_depth_stencil_image(
-        handle_, image, imageLayout, pDepthStencil, rangeCount, pRanges);
-  }
-
-  void begin_command_buffer(
-      spk::command_buffer_begin_info const* pBeginInfo) {  // SINGLE_HANDLE
-    dispatch_table().begin_command_buffer(handle_, pBeginInfo);
-  }
-
-  void cmd_set_viewport(uint32_t firstViewport, uint32_t viewportCount,
-                        spk::viewport const* pViewports) {  // SINGLE_HANDLE
-    dispatch_table().cmd_set_viewport(handle_, firstViewport, viewportCount,
-                                      pViewports);
-  }
-
-  void cmd_clear_attachments(uint32_t attachmentCount,
-                             spk::clear_attachment const* pAttachments,
-                             uint32_t rectCount,
-                             spk::clear_rect const* pRects) {  // SINGLE_HANDLE
-    dispatch_table().cmd_clear_attachments(handle_, attachmentCount,
-                                           pAttachments, rectCount, pRects);
-  }
-
-  void cmd_reset_event(spk::event_ref event,
-                       spk::pipeline_stage_flags stageMask) {  // SINGLE_HANDLE
-    dispatch_table().cmd_reset_event(handle_, event, stageMask);
-  }
-
-  void cmd_pipeline_barrier(
+      spk::array_view<spk::write_descriptor_set const> pDescriptorWrites);
+  inline void cmd_reserve_space_for_commands_nvx(
+      spk::cmd_reserve_space_for_commands_info_nvx const& pReserveSpaceInfo);
+  inline void cmd_draw_indexed_indirect_count_amd(
+      spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+      uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride);
+  inline void cmd_draw_indirect_count_amd(
+      spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+      uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride);
+  inline void cmd_debug_marker_insert_ext(
+      spk::debug_marker_marker_info_ext const& pMarkerInfo);
+  inline void cmd_debug_marker_end_ext();
+  inline void cmd_debug_marker_begin_ext(
+      spk::debug_marker_marker_info_ext const& pMarkerInfo);
+  inline void cmd_write_timestamp(spk::pipeline_stage_flags pipelineStage,
+                                  spk::query_pool_ref queryPool,
+                                  uint32_t query);
+  inline void cmd_set_event(spk::event_ref event,
+                            spk::pipeline_stage_flags stageMask);
+  inline void cmd_copy_buffer(spk::buffer_ref srcBuffer,
+                              spk::buffer_ref dstBuffer,
+                              spk::array_view<spk::buffer_copy const> pRegions);
+  inline void cmd_set_blend_constants(
+      std::array<float const, 4> blendConstants);
+  inline void cmd_draw(uint32_t vertexCount, uint32_t instanceCount,
+                       uint32_t firstVertex, uint32_t firstInstance);
+  inline void cmd_draw_indexed_indirect_count_khr(
+      spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+      uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride);
+  inline void cmd_set_checkpoint_nv(void const* pCheckpointMarker);
+  inline void cmd_bind_index_buffer(spk::buffer_ref buffer, uint64_t offset,
+                                    spk::index_type indexType);
+  inline void cmd_draw_indexed(uint32_t indexCount, uint32_t instanceCount,
+                               uint32_t firstIndex, int32_t vertexOffset,
+                               uint32_t firstInstance);
+  inline void cmd_dispatch(uint32_t groupCountX, uint32_t groupCountY,
+                           uint32_t groupCountZ);
+  inline void cmd_process_commands_nvx(
+      spk::cmd_process_commands_info_nvx const& pProcessCommandsInfo);
+  inline void cmd_end_render_pass();
+  inline void cmd_wait_events(
+      spk::array_view<spk::event_ref const> pEvents,
       spk::pipeline_stage_flags srcStageMask,
       spk::pipeline_stage_flags dstStageMask,
-      spk::dependency_flags dependencyFlags, uint32_t memoryBarrierCount,
-      spk::memory_barrier const* pMemoryBarriers,
-      uint32_t bufferMemoryBarrierCount,
-      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
-      uint32_t imageMemoryBarrierCount,
-      spk::image_memory_barrier const* pImageMemoryBarriers) {  // SINGLE_HANDLE
-    dispatch_table().cmd_pipeline_barrier(
-        handle_, srcStageMask, dstStageMask, dependencyFlags,
-        memoryBarrierCount, pMemoryBarriers, bufferMemoryBarrierCount,
-        pBufferMemoryBarriers, imageMemoryBarrierCount, pImageMemoryBarriers);
-  }
-
-  void cmd_end_query(spk::query_pool_ref queryPool,
-                     uint32_t query) {  // SINGLE_HANDLE
-    dispatch_table().cmd_end_query(handle_, queryPool, query);
-  }
-
-  void cmd_begin_conditional_rendering_ext(
-      spk::conditional_rendering_begin_info_ext const*
-          pConditionalRenderingBegin) {  // SINGLE_HANDLE
-    dispatch_table().cmd_begin_conditional_rendering_ext(
-        handle_, pConditionalRenderingBegin);
-  }
-
-  void cmd_end_conditional_rendering_ext(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().cmd_end_conditional_rendering_ext(handle_);
-  }
-
-  void cmd_push_constants(spk::pipeline_layout_ref layout,
-                          spk::shader_stage_flags stageFlags, uint32_t offset,
-                          uint32_t size,
-                          void const* pValues) {  // SINGLE_HANDLE
-    dispatch_table().cmd_push_constants(handle_, layout, stageFlags, offset,
-                                        size, pValues);
-  }
-
-  void cmd_begin_render_pass(
-      spk::render_pass_begin_info const* pRenderPassBegin,
-      spk::subpass_contents contents) {  // SINGLE_HANDLE
-    dispatch_table().cmd_begin_render_pass(handle_, pRenderPassBegin, contents);
-  }
-
-  void cmd_execute_commands(
-      uint32_t commandBufferCount,
-      spk::command_buffer_ref const* pCommandBuffers) {  // SINGLE_HANDLE
-    dispatch_table().cmd_execute_commands(handle_, commandBufferCount,
-                                          pCommandBuffers);
-  }
-
-  void cmd_bind_descriptor_sets(
+      spk::array_view<spk::memory_barrier const> pMemoryBarriers,
+      spk::array_view<spk::buffer_memory_barrier const> pBufferMemoryBarriers,
+      spk::array_view<spk::image_memory_barrier const> pImageMemoryBarriers);
+  inline void cmd_set_scissor(uint32_t firstScissor,
+                              spk::array_view<spk::rect_2d const> pScissors);
+  inline void cmd_end_render_pass_2khr(
+      spk::subpass_end_info_khr const& pSubpassEndInfo);
+  inline void reset_command_buffer(spk::command_buffer_reset_flags flags);
+  inline void cmd_update_buffer(spk::buffer_ref dstBuffer, uint64_t dstOffset,
+                                spk::array_view<void const> pData);
+  inline void cmd_draw_indexed_indirect(spk::buffer_ref buffer, uint64_t offset,
+                                        uint32_t drawCount, uint32_t stride);
+  inline void cmd_write_buffer_marker_amd(
+      spk::pipeline_stage_flags pipelineStage, spk::buffer_ref dstBuffer,
+      uint64_t dstOffset, uint32_t marker);
+  inline void cmd_dispatch_indirect(spk::buffer_ref buffer, uint64_t offset);
+  inline void cmd_bind_pipeline(spk::pipeline_bind_point pipelineBindPoint,
+                                spk::pipeline_ref pipeline);
+  inline void cmd_begin_query(spk::query_pool_ref queryPool, uint32_t query,
+                              spk::query_control_flags flags);
+  inline void cmd_begin_render_pass_2khr(
+      spk::render_pass_begin_info const& pRenderPassBegin,
+      spk::subpass_begin_info_khr const& pSubpassBeginInfo);
+  inline void end_command_buffer();
+  inline void cmd_resolve_image(
+      spk::image_ref srcImage, spk::image_layout srcImageLayout,
+      spk::image_ref dstImage, spk::image_layout dstImageLayout,
+      spk::array_view<spk::image_resolve const> pRegions);
+  inline void cmd_set_sample_locations_ext(
+      spk::sample_locations_info_ext const& pSampleLocationsInfo);
+  inline void cmd_set_depth_bias(float depthBiasConstantFactor,
+                                 float depthBiasClamp,
+                                 float depthBiasSlopeFactor);
+  inline void cmd_set_depth_bounds(float minDepthBounds, float maxDepthBounds);
+  inline void cmd_set_stencil_compare_mask(spk::stencil_face_flags faceMask,
+                                           uint32_t compareMask);
+  inline void cmd_copy_buffer_to_image(
+      spk::buffer_ref srcBuffer, spk::image_ref dstImage,
+      spk::image_layout dstImageLayout,
+      spk::array_view<spk::buffer_image_copy const> pRegions);
+  inline void cmd_set_stencil_write_mask(spk::stencil_face_flags faceMask,
+                                         uint32_t writeMask);
+  inline void cmd_set_stencil_reference(spk::stencil_face_flags faceMask,
+                                        uint32_t reference);
+  inline void cmd_draw_indirect(spk::buffer_ref buffer, uint64_t offset,
+                                uint32_t drawCount, uint32_t stride);
+  inline void cmd_copy_image(spk::image_ref srcImage,
+                             spk::image_layout srcImageLayout,
+                             spk::image_ref dstImage,
+                             spk::image_layout dstImageLayout,
+                             spk::array_view<spk::image_copy const> pRegions);
+  inline void cmd_next_subpass(spk::subpass_contents contents);
+  inline void cmd_set_line_width(float lineWidth);
+  inline void cmd_blit_image(spk::image_ref srcImage,
+                             spk::image_layout srcImageLayout,
+                             spk::image_ref dstImage,
+                             spk::image_layout dstImageLayout,
+                             spk::array_view<spk::image_blit const> pRegions,
+                             spk::filter filter);
+  inline void cmd_fill_buffer(spk::buffer_ref dstBuffer, uint64_t dstOffset,
+                              uint64_t size, uint32_t data);
+  inline void cmd_clear_color_image(
+      spk::image_ref image, spk::image_layout imageLayout,
+      spk::clear_color_value const& pColor,
+      spk::array_view<spk::image_subresource_range const> pRanges);
+  inline void cmd_clear_depth_stencil_image(
+      spk::image_ref image, spk::image_layout imageLayout,
+      spk::clear_depth_stencil_value const& pDepthStencil,
+      spk::array_view<spk::image_subresource_range const> pRanges);
+  inline void begin_command_buffer(
+      spk::command_buffer_begin_info const& pBeginInfo);
+  inline void cmd_set_viewport(uint32_t firstViewport,
+                               spk::array_view<spk::viewport const> pViewports);
+  inline void cmd_clear_attachments(
+      spk::array_view<spk::clear_attachment const> pAttachments,
+      spk::array_view<spk::clear_rect const> pRects);
+  inline void cmd_reset_event(spk::event_ref event,
+                              spk::pipeline_stage_flags stageMask);
+  inline void cmd_pipeline_barrier(
+      spk::pipeline_stage_flags srcStageMask,
+      spk::pipeline_stage_flags dstStageMask,
+      spk::dependency_flags dependencyFlags,
+      spk::array_view<spk::memory_barrier const> pMemoryBarriers,
+      spk::array_view<spk::buffer_memory_barrier const> pBufferMemoryBarriers,
+      spk::array_view<spk::image_memory_barrier const> pImageMemoryBarriers);
+  inline void cmd_end_query(spk::query_pool_ref queryPool, uint32_t query);
+  inline void cmd_begin_conditional_rendering_ext(
+      spk::conditional_rendering_begin_info_ext const&
+          pConditionalRenderingBegin);
+  inline void cmd_end_conditional_rendering_ext();
+  inline void cmd_push_constants(spk::pipeline_layout_ref layout,
+                                 spk::shader_stage_flags stageFlags,
+                                 uint32_t offset,
+                                 spk::array_view<void const> pValues);
+  inline void cmd_begin_render_pass(
+      spk::render_pass_begin_info const& pRenderPassBegin,
+      spk::subpass_contents contents);
+  inline void cmd_execute_commands(
+      spk::array_view<spk::command_buffer_ref const> pCommandBuffers);
+  inline void cmd_bind_descriptor_sets(
       spk::pipeline_bind_point pipelineBindPoint,
       spk::pipeline_layout_ref layout, uint32_t firstSet,
-      uint32_t descriptorSetCount,
-      spk::descriptor_set_ref const* pDescriptorSets,
-      uint32_t dynamicOffsetCount,
-      uint32_t const* pDynamicOffsets) {  // SINGLE_HANDLE
-    dispatch_table().cmd_bind_descriptor_sets(
-        handle_, pipelineBindPoint, layout, firstSet, descriptorSetCount,
-        pDescriptorSets, dynamicOffsetCount, pDynamicOffsets);
-  }
-
-  void cmd_copy_query_pool_results(
-      spk::query_pool_ref queryPool, uint32_t firstQuery, uint32_t queryCount,
-      spk::buffer_ref dstBuffer, uint64_t dstOffset, uint64_t stride,
-      spk::query_result_flags flags) {  // SINGLE_HANDLE
-    dispatch_table().cmd_copy_query_pool_results(handle_, queryPool, firstQuery,
-                                                 queryCount, dstBuffer,
-                                                 dstOffset, stride, flags);
-  }
-
-  void cmd_copy_image_to_buffer(
+      spk::array_view<spk::descriptor_set_ref const> pDescriptorSets,
+      spk::array_view<uint32_t const> pDynamicOffsets);
+  inline void cmd_copy_query_pool_results(spk::query_pool_ref queryPool,
+                                          uint32_t firstQuery,
+                                          uint32_t queryCount,
+                                          spk::buffer_ref dstBuffer,
+                                          uint64_t dstOffset, uint64_t stride,
+                                          spk::query_result_flags flags);
+  inline void cmd_copy_image_to_buffer(
       spk::image_ref srcImage, spk::image_layout srcImageLayout,
-      spk::buffer_ref dstBuffer, uint32_t regionCount,
-      spk::buffer_image_copy const* pRegions) {  // SINGLE_HANDLE
-    dispatch_table().cmd_copy_image_to_buffer(handle_, srcImage, srcImageLayout,
-                                              dstBuffer, regionCount, pRegions);
-  }
-
-  void cmd_reset_query_pool(spk::query_pool_ref queryPool, uint32_t firstQuery,
-                            uint32_t queryCount) {  // SINGLE_HANDLE
-    dispatch_table().cmd_reset_query_pool(handle_, queryPool, firstQuery,
-                                          queryCount);
-  }
+      spk::buffer_ref dstBuffer,
+      spk::array_view<spk::buffer_image_copy const> pRegions);
+  inline void cmd_reset_query_pool(spk::query_pool_ref queryPool,
+                                   uint32_t firstQuery, uint32_t queryCount);
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   command_buffer_ref handle_ = VK_NULL_HANDLE;
-  command_pool_ref parent_command_pool_ref = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class command_pool {
  public:
   operator command_pool_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_command_pool
-
-  void destroy_command_pool(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_command_pool(parent_device_ref, handle_,
-                                          pAllocator);
+  command_pool(command_pool_ref handle, device_ref parent,
+               const device_dispatch_table& dispatch_table,
+               const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  command_pool(const command_pool&) = delete;
+  command_pool(command_pool&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline void trim_command_pool_khr();
+  inline void trim_command_pool();
+  inline void reset_command_pool(spk::command_pool_reset_flags flags);
+  inline void free_command_buffers(
+      spk::array_view<spk::command_buffer_ref const> pCommandBuffers);
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~command_pool() {
+    dispatch_table().destroy_command_pool(parent_, handle_,
+                                          allocation_callbacks_);
+  }
 
  private:
   command_pool_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class debug_report_callback_ext {
  public:
   operator debug_report_callback_ext_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_debug_report_callback_ext
+  debug_report_callback_ext(
+      debug_report_callback_ext_ref handle, instance_ref parent,
+      const instance_dispatch_table& dispatch_table,
+      const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  debug_report_callback_ext(const debug_report_callback_ext&) = delete;
+  debug_report_callback_ext(debug_report_callback_ext&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~debug_report_callback_ext() {
+    dispatch_table().destroy_debug_report_callback_ext(parent_, handle_,
+                                                       allocation_callbacks_);
+  }
 
  private:
   debug_report_callback_ext_ref handle_ = VK_NULL_HANDLE;
-  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  instance_ref parent_ = VK_NULL_HANDLE;
   const instance_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class debug_utils_messenger_ext {
  public:
   operator debug_utils_messenger_ext_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_debug_utils_messenger_ext
+  debug_utils_messenger_ext(
+      debug_utils_messenger_ext_ref handle, instance_ref parent,
+      const instance_dispatch_table& dispatch_table,
+      const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  debug_utils_messenger_ext(const debug_utils_messenger_ext&) = delete;
+  debug_utils_messenger_ext(debug_utils_messenger_ext&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~debug_utils_messenger_ext() {
+    dispatch_table().destroy_debug_utils_messenger_ext(parent_, handle_,
+                                                       allocation_callbacks_);
+  }
 
  private:
   debug_utils_messenger_ext_ref handle_ = VK_NULL_HANDLE;
-  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  instance_ref parent_ = VK_NULL_HANDLE;
   const instance_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class descriptor_pool {
  public:
   operator descriptor_pool_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_descriptor_pool
-
-  void destroy_descriptor_pool(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_descriptor_pool(parent_device_ref, handle_,
-                                             pAllocator);
+  descriptor_pool(descriptor_pool_ref handle, device_ref parent,
+                  const device_dispatch_table& dispatch_table,
+                  const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  descriptor_pool(const descriptor_pool&) = delete;
+  descriptor_pool(descriptor_pool&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline void reset_descriptor_pool();
+  inline void free_descriptor_sets(
+      spk::array_view<spk::descriptor_set_ref const> pDescriptorSets);
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~descriptor_pool() {
+    dispatch_table().destroy_descriptor_pool(parent_, handle_,
+                                             allocation_callbacks_);
+  }
 
  private:
   descriptor_pool_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class descriptor_set_layout {
  public:
   operator descriptor_set_layout_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_descriptor_set_layout
-
-  void destroy_descriptor_set_layout(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_descriptor_set_layout(parent_device_ref, handle_,
-                                                   pAllocator);
+  descriptor_set_layout(descriptor_set_layout_ref handle, device_ref parent,
+                        const device_dispatch_table& dispatch_table,
+                        const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  descriptor_set_layout(const descriptor_set_layout&) = delete;
+  descriptor_set_layout(descriptor_set_layout&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~descriptor_set_layout() {
+    dispatch_table().destroy_descriptor_set_layout(parent_, handle_,
+                                                   allocation_callbacks_);
+  }
 
  private:
   descriptor_set_layout_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class descriptor_set {
  public:
   operator descriptor_set_ref() const { return handle_; }
+  descriptor_set(descriptor_set_ref handle, device_ref parent,
+                 const device_dispatch_table& dispatch_table,
+                 const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  descriptor_set(const descriptor_set&) = delete;
+  descriptor_set(descriptor_set&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
-  // TODO CONSTRUCTOR: allocate_descriptor_sets
+  inline void update_descriptor_set_with_template_khr(
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      void const* pData);
+  inline void update_descriptor_set_with_template(
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      void const* pData);
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   descriptor_set_ref handle_ = VK_NULL_HANDLE;
-  descriptor_pool_ref parent_descriptor_pool_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class descriptor_update_template {
  public:
   operator descriptor_update_template_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_descriptor_update_template_khr
-
-  // TODO CONSTRUCTOR: create_descriptor_update_template
-
-  void destroy_descriptor_update_template_khr(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_descriptor_update_template_khr(
-        parent_device_ref, handle_, pAllocator);
-  }
-
-  void destroy_descriptor_update_template(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_descriptor_update_template(parent_device_ref,
-                                                        handle_, pAllocator);
+  descriptor_update_template(
+      descriptor_update_template_ref handle, device_ref parent,
+      const device_dispatch_table& dispatch_table,
+      const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  descriptor_update_template(const descriptor_update_template&) = delete;
+  descriptor_update_template(descriptor_update_template&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~descriptor_update_template() {
+    dispatch_table().destroy_descriptor_update_template(parent_, handle_,
+                                                        allocation_callbacks_);
+  }
 
  private:
   descriptor_update_template_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 using descriptor_update_template_khr = descriptor_update_template_ref;
 
 class device_memory {
  public:
   operator device_memory_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: allocate_memory
-
-  void free_memory(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_HANDLE
-    dispatch_table().free_memory(parent_device_ref, handle_, pAllocator);
+  device_memory(device_memory_ref handle, device_ref parent,
+                const device_dispatch_table& dispatch_table,
+                const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  device_memory(const device_memory&) = delete;
+  device_memory(device_memory&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
+
+  inline void unmap_memory();
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  inline void get_memory_win_32handle_nv(
+      spk::external_memory_handle_type_flags_nv handleType, HANDLE& pHandle);
+#endif
+  inline void map_memory(uint64_t offset, uint64_t size, void*& ppData);
+  inline void free_memory(spk::allocation_callbacks const* pAllocator);
+  inline void get_device_memory_commitment(uint64_t& pCommittedMemoryInBytes);
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   device_memory_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class device {
  public:
   operator device_ref() const { return handle_; }
+  device(spk::physical_device& physical_device,
+         spk::device_create_info const* create_info,
+         spk::allocation_callbacks const* allocation_callbacks = nullptr);
+  device(const device&) = delete;
+  device(device&&) = delete;
 
-  // TODO CONSTRUCTOR: create_device
-
-  void get_descriptor_set_layout_support_khr(
-      spk::descriptor_set_layout_create_info const* pCreateInfo,
-      spk::descriptor_set_layout_support* pSupport) {  // SINGLE_HANDLE
-    dispatch_table().get_descriptor_set_layout_support_khr(handle_, pCreateInfo,
-                                                           pSupport);
-  }
-
-  void get_image_memory_requirements_2khr(
-      spk::image_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_image_memory_requirements_2khr(handle_, pInfo,
-                                                        pMemoryRequirements);
-  }
-
-  void update_descriptor_set_with_template_khr(
-      spk::descriptor_set_ref descriptorSet,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      void const* pData) {  // SINGLE_HANDLE
-    dispatch_table().update_descriptor_set_with_template_khr(
-        handle_, descriptorSet, descriptorUpdateTemplate, pData);
-  }
-
-  void get_memory_host_pointer_properties_ext(
+  inline spk::descriptor_set_layout_support
+  get_descriptor_set_layout_support_khr(
+      spk::descriptor_set_layout_create_info const& pCreateInfo);
+  inline spk::memory_requirements_2 get_image_memory_requirements_2khr(
+      spk::image_memory_requirements_info_2 const& pInfo);
+  inline spk::memory_host_pointer_properties_ext
+  get_memory_host_pointer_properties_ext(
       spk::external_memory_handle_type_flags handleType,
-      void const* pHostPointer,
-      spk::memory_host_pointer_properties_ext*
-          pMemoryHostPointerProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_host_pointer_properties_ext(
-        handle_, handleType, pHostPointer, pMemoryHostPointerProperties);
-  }
-
-  [[nodiscard]] spk::result get_shader_info_amd(
-      spk::pipeline_ref pipeline, spk::shader_stage_flags shaderStage,
-      spk::shader_info_type_amd infoType, size_t* pInfoSize,
-      void* pInfo) {  // SINGLE_HANDLE
-    return dispatch_table().get_shader_info_amd(handle_, pipeline, shaderStage,
-                                                infoType, pInfoSize, pInfo);
-  }
-
-  void merge_validation_caches_ext(
-      spk::validation_cache_ext_ref dstCache, uint32_t srcCacheCount,
-      spk::validation_cache_ext_ref const* pSrcCaches) {  // SINGLE_HANDLE
-    dispatch_table().merge_validation_caches_ext(handle_, dstCache,
-                                                 srcCacheCount, pSrcCaches);
-  }
-
+      void const* pHostPointer);
 #ifdef VK_USE_PLATFORM_ANDROID_KHR
-  void get_memory_android_hardware_buffer_android(
-      spk::memory_get_android_hardware_buffer_info_android const* pInfo,
-      AHardwareBuffer** pBuffer) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_android_hardware_buffer_android(handle_, pInfo,
-                                                                pBuffer);
-  }
+  inline void get_memory_android_hardware_buffer_android(
+      spk::memory_get_android_hardware_buffer_info_android const& pInfo,
+      AHardwareBuffer*& pBuffer);
 #endif
-
-  [[nodiscard]] spk::result get_validation_cache_data_ext(
-      spk::validation_cache_ext_ref validationCache, size_t* pDataSize,
-      void* pData) {  // SINGLE_HANDLE
-    return dispatch_table().get_validation_cache_data_ext(
-        handle_, validationCache, pDataSize, pData);
-  }
-
-  void get_device_queue_2(spk::device_queue_info_2 const* pQueueInfo,
-                          spk::queue_ref* pQueue) {  // SINGLE_HANDLE
-    dispatch_table().get_device_queue_2(handle_, pQueueInfo, pQueue);
-  }
-
-  void get_image_sparse_memory_requirements_2(
-      spk::image_sparse_memory_requirements_info_2 const* pInfo,
-      uint32_t* pSparseMemoryRequirementCount,
-      spk::sparse_image_memory_requirements_2*
-          pSparseMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_image_sparse_memory_requirements_2(
-        handle_, pInfo, pSparseMemoryRequirementCount,
-        pSparseMemoryRequirements);
-  }
-
-  void get_image_memory_requirements_2(
-      spk::image_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_image_memory_requirements_2(handle_, pInfo,
-                                                     pMemoryRequirements);
-  }
-
-  [[nodiscard]] spk::result get_swapchain_status_khr(
-      spk::swapchain_khr_ref swapchain) {  // SINGLE_HANDLE
-    return dispatch_table().get_swapchain_status_khr(handle_, swapchain);
-  }
-
-  void set_hdr_metadata_ext(
-      uint32_t swapchainCount, spk::swapchain_khr_ref const* pSwapchains,
-      spk::hdr_metadata_ext const* pMetadata) {  // SINGLE_HANDLE
-    dispatch_table().set_hdr_metadata_ext(handle_, swapchainCount, pSwapchains,
-                                          pMetadata);
-  }
-
-  void trim_command_pool_khr(
-      spk::command_pool_ref commandPool) {  // SINGLE_HANDLE
-    dispatch_table().trim_command_pool_khr(handle_, commandPool);
-  }
-
-  [[nodiscard]] spk::result acquire_next_image_2khr(
-      spk::acquire_next_image_info_khr const* pAcquireInfo,
-      uint32_t* pImageIndex) {  // SINGLE_HANDLE
-    return dispatch_table().acquire_next_image_2khr(handle_, pAcquireInfo,
-                                                    pImageIndex);
-  }
-
-  void get_device_group_surface_present_modes_khr(
-      spk::surface_khr_ref surface,
-      spk::device_group_present_mode_flags_khr* pModes) {  // SINGLE_HANDLE
-    dispatch_table().get_device_group_surface_present_modes_khr(
-        handle_, surface, pModes);
-  }
-
-  void get_device_group_present_capabilities_khr(
-      spk::device_group_present_capabilities_khr*
-          pDeviceGroupPresentCapabilities) {  // SINGLE_HANDLE
-    dispatch_table().get_device_group_present_capabilities_khr(
-        handle_, pDeviceGroupPresentCapabilities);
-  }
-
-  void get_swapchain_counter_ext(spk::swapchain_khr_ref swapchain,
-                                 spk::surface_counter_flags_ext counter,
-                                 uint64_t* pCounterValue) {  // SINGLE_HANDLE
-    dispatch_table().get_swapchain_counter_ext(handle_, swapchain, counter,
-                                               pCounterValue);
-  }
-
-  void get_descriptor_set_layout_support(
-      spk::descriptor_set_layout_create_info const* pCreateInfo,
-      spk::descriptor_set_layout_support* pSupport) {  // SINGLE_HANDLE
-    dispatch_table().get_descriptor_set_layout_support(handle_, pCreateInfo,
-                                                       pSupport);
-  }
-
-  void register_display_event_ext(
+  inline spk::queue_ref get_device_queue_2(
+      spk::device_queue_info_2 const& pQueueInfo);
+  inline spk::sampler_ycbcr_conversion_ref create_sampler_ycbcr_conversion(
+      spk::sampler_ycbcr_conversion_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline std::vector<spk::sparse_image_memory_requirements_2>
+  get_image_sparse_memory_requirements_2(
+      spk::image_sparse_memory_requirements_info_2 const& pInfo);
+  inline spk::memory_requirements_2 get_image_memory_requirements_2(
+      spk::image_memory_requirements_info_2 const& pInfo);
+  inline spk::result acquire_next_image_2khr(
+      spk::acquire_next_image_info_khr const& pAcquireInfo,
+      uint32_t& pImageIndex);
+  inline spk::device_group_present_mode_flags_khr
+  get_device_group_surface_present_modes_khr(spk::surface_khr_ref surface);
+  inline spk::device_group_present_capabilities_khr
+  get_device_group_present_capabilities_khr();
+  inline spk::descriptor_set_layout_support get_descriptor_set_layout_support(
+      spk::descriptor_set_layout_create_info const& pCreateInfo);
+  inline spk::fence_ref register_display_event_ext(
       spk::display_khr_ref display,
-      spk::display_event_info_ext const* pDisplayEventInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::fence_ref* pFence) {  // SINGLE_HANDLE
-    dispatch_table().register_display_event_ext(
-        handle_, display, pDisplayEventInfo, pAllocator, pFence);
-  }
-
-  void display_power_control_ext(
+      spk::display_event_info_ext const& pDisplayEventInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void display_power_control_ext(
       spk::display_khr_ref display,
-      spk::display_power_info_ext const* pDisplayPowerInfo) {  // SINGLE_HANDLE
-    dispatch_table().display_power_control_ext(handle_, display,
-                                               pDisplayPowerInfo);
-  }
-
-  void get_semaphore_fd_khr(spk::semaphore_get_fd_info_khr const* pGetFdInfo,
-                            int* pFd) {  // SINGLE_HANDLE
-    dispatch_table().get_semaphore_fd_khr(handle_, pGetFdInfo, pFd);
-  }
-
-  void get_device_group_peer_memory_features(
-      uint32_t heapIndex, uint32_t localDeviceIndex, uint32_t remoteDeviceIndex,
-      spk::peer_memory_feature_flags* pPeerMemoryFeatures) {  // SINGLE_HANDLE
-    dispatch_table().get_device_group_peer_memory_features(
-        handle_, heapIndex, localDeviceIndex, remoteDeviceIndex,
-        pPeerMemoryFeatures);
-  }
-
+      spk::display_power_info_ext const& pDisplayPowerInfo);
+  inline void get_semaphore_fd_khr(
+      spk::semaphore_get_fd_info_khr const& pGetFdInfo, int& pFd);
+  inline spk::peer_memory_feature_flags get_device_group_peer_memory_features(
+      uint32_t heapIndex, uint32_t localDeviceIndex,
+      uint32_t remoteDeviceIndex);
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_semaphore_win_32handle_khr(
-      spk::semaphore_get_win_32handle_info_khr const* pGetWin32HandleInfo,
-      HANDLE* pHandle) {  // SINGLE_HANDLE
-    dispatch_table().get_semaphore_win_32handle_khr(
-        handle_, pGetWin32HandleInfo, pHandle);
-  }
+  inline void get_semaphore_win_32handle_khr(
+      spk::semaphore_get_win_32handle_info_khr const& pGetWin32HandleInfo,
+      HANDLE& pHandle);
 #endif
-
-  void get_memory_fd_properties_khr(
-      spk::external_memory_handle_type_flags handleType, int fd,
-      spk::memory_fd_properties_khr* pMemoryFdProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_fd_properties_khr(handle_, handleType, fd,
-                                                  pMemoryFdProperties);
-  }
-
+  inline spk::memory_fd_properties_khr get_memory_fd_properties_khr(
+      spk::external_memory_handle_type_flags handleType, int fd);
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_memory_win_32handle_properties_khr(
-      spk::external_memory_handle_type_flags handleType, HANDLE handle,
-      spk::memory_win_32handle_properties_khr*
-          pMemoryWin32HandleProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_win_32handle_properties_khr(
-        handle_, handleType, handle, pMemoryWin32HandleProperties);
-  }
+  inline spk::memory_win_32handle_properties_khr
+  get_memory_win_32handle_properties_khr(
+      spk::external_memory_handle_type_flags handleType, HANDLE handle);
 #endif
-
-  void trim_command_pool(spk::command_pool_ref commandPool) {  // SINGLE_HANDLE
-    dispatch_table().trim_command_pool(handle_, commandPool);
-  }
-
-  void unregister_objects_nvx(
-      spk::object_table_nvx_ref objectTable, uint32_t objectCount,
-      spk::object_entry_type_nvx const* pObjectEntryTypes,
-      uint32_t const* pObjectIndices) {  // SINGLE_HANDLE
-    dispatch_table().unregister_objects_nvx(handle_, objectTable, objectCount,
-                                            pObjectEntryTypes, pObjectIndices);
-  }
-
-  void register_objects_nvx(
-      spk::object_table_nvx_ref objectTable, uint32_t objectCount,
-      spk::object_table_entry_nvx const* const* ppObjectTableEntries,
-      uint32_t const* pObjectIndices) {  // SINGLE_HANDLE
-    dispatch_table().register_objects_nvx(handle_, objectTable, objectCount,
-                                          ppObjectTableEntries, pObjectIndices);
-  }
-
-  void get_image_sparse_memory_requirements_2khr(
-      spk::image_sparse_memory_requirements_info_2 const* pInfo,
-      uint32_t* pSparseMemoryRequirementCount,
-      spk::sparse_image_memory_requirements_2*
-          pSparseMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_image_sparse_memory_requirements_2khr(
-        handle_, pInfo, pSparseMemoryRequirementCount,
-        pSparseMemoryRequirements);
-  }
-
+  inline spk::object_table_nvx_ref create_object_table_nvx(
+      spk::object_table_create_info_nvx const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline std::vector<spk::sparse_image_memory_requirements_2>
+  get_image_sparse_memory_requirements_2khr(
+      spk::image_sparse_memory_requirements_info_2 const& pInfo);
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  void import_semaphore_win_32handle_khr(
-      spk::import_semaphore_win_32handle_info_khr const*
-          pImportSemaphoreWin32HandleInfo) {  // SINGLE_HANDLE
-    dispatch_table().import_semaphore_win_32handle_khr(
-        handle_, pImportSemaphoreWin32HandleInfo);
-  }
+  inline void import_semaphore_win_32handle_khr(
+      spk::import_semaphore_win_32handle_info_khr const&
+          pImportSemaphoreWin32HandleInfo);
 #endif
-
-  void debug_marker_set_object_name_ext(
-      spk::debug_marker_object_name_info_ext const*
-          pNameInfo) {  // SINGLE_HANDLE
-    dispatch_table().debug_marker_set_object_name_ext(handle_, pNameInfo);
-  }
-
-  void reset_command_pool(
-      spk::command_pool_ref commandPool,
-      spk::command_pool_reset_flags flags) {  // SINGLE_HANDLE
-    dispatch_table().reset_command_pool(handle_, commandPool, flags);
-  }
-
-  void merge_pipeline_caches(
-      spk::pipeline_cache_ref dstCache, uint32_t srcCacheCount,
-      spk::pipeline_cache_ref const* pSrcCaches) {  // SINGLE_HANDLE
-    dispatch_table().merge_pipeline_caches(handle_, dstCache, srcCacheCount,
-                                           pSrcCaches);
-  }
-
-  [[nodiscard]] spk::result get_pipeline_cache_data(
-      spk::pipeline_cache_ref pipelineCache, size_t* pDataSize,
-      void* pData) {  // SINGLE_HANDLE
-    return dispatch_table().get_pipeline_cache_data(handle_, pipelineCache,
-                                                    pDataSize, pData);
-  }
-
-  void device_wait_idle(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().device_wait_idle(handle_);
-  }
-
-  void update_descriptor_set_with_template(
-      spk::descriptor_set_ref descriptorSet,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      void const* pData) {  // SINGLE_HANDLE
-    dispatch_table().update_descriptor_set_with_template(
-        handle_, descriptorSet, descriptorUpdateTemplate, pData);
-  }
-
-  void get_buffer_memory_requirements_2(
-      spk::buffer_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_buffer_memory_requirements_2(handle_, pInfo,
-                                                      pMemoryRequirements);
-  }
-
-  void reset_descriptor_pool(
-      spk::descriptor_pool_ref descriptorPool) {  // SINGLE_HANDLE
-    dispatch_table().reset_descriptor_pool(handle_, descriptorPool);
-  }
-
-  void unmap_memory(spk::device_memory_ref memory) {  // SINGLE_HANDLE
-    dispatch_table().unmap_memory(handle_, memory);
-  }
-
-  void bind_image_memory_2khr(
-      uint32_t bindInfoCount,
-      spk::bind_image_memory_info const* pBindInfos) {  // SINGLE_HANDLE
-    dispatch_table().bind_image_memory_2khr(handle_, bindInfoCount, pBindInfos);
-  }
-
-  void get_image_subresource_layout(
-      spk::image_ref image, spk::image_subresource const* pSubresource,
-      spk::subresource_layout* pLayout) {  // SINGLE_HANDLE
-    dispatch_table().get_image_subresource_layout(handle_, image, pSubresource,
-                                                  pLayout);
-  }
-
+  inline void debug_marker_set_object_name_ext(
+      spk::debug_marker_object_name_info_ext const& pNameInfo);
+  inline spk::descriptor_set_layout_ref create_descriptor_set_layout(
+      spk::descriptor_set_layout_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::pipeline_layout_ref create_pipeline_layout(
+      spk::pipeline_layout_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void device_wait_idle();
+  inline spk::memory_requirements_2 get_buffer_memory_requirements_2(
+      spk::buffer_memory_requirements_info_2 const& pInfo);
+  inline void bind_image_memory_2khr(
+      spk::array_view<spk::bind_image_memory_info const> pBindInfos);
 #ifdef VK_USE_PLATFORM_ANDROID_KHR
-  void get_android_hardware_buffer_properties_android(
-      AHardwareBuffer const* buffer,
-      spk::android_hardware_buffer_properties_android*
-          pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_android_hardware_buffer_properties_android(
-        handle_, buffer, pProperties);
-  }
+  inline spk::android_hardware_buffer_properties_android
+  get_android_hardware_buffer_properties_android(AHardwareBuffer const& buffer);
 #endif
-
-  void set_event(spk::event_ref event) {  // SINGLE_HANDLE
-    dispatch_table().set_event(handle_, event);
-  }
-
-  void bind_image_memory(spk::image_ref image, spk::device_memory_ref memory,
-                         uint64_t memoryOffset) {  // SINGLE_HANDLE
-    dispatch_table().bind_image_memory(handle_, image, memory, memoryOffset);
-  }
-
-  [[nodiscard]] spk::result get_query_pool_results(
-      spk::query_pool_ref queryPool, uint32_t firstQuery, uint32_t queryCount,
-      size_t dataSize, void* pData, uint64_t stride,
-      spk::query_result_flags flags) {  // SINGLE_HANDLE
-    return dispatch_table().get_query_pool_results(
-        handle_, queryPool, firstQuery, queryCount, dataSize, pData, stride,
-        flags);
-  }
-
-  void reset_fences(uint32_t fenceCount,
-                    spk::fence_ref const* pFences) {  // SINGLE_HANDLE
-    dispatch_table().reset_fences(handle_, fenceCount, pFences);
-  }
-
+  inline spk::pipeline_cache_ref create_pipeline_cache(
+      spk::pipeline_cache_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::sampler_ref create_sampler(
+      spk::sampler_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::query_pool_ref create_query_pool(
+      spk::query_pool_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::semaphore_ref create_semaphore(
+      spk::semaphore_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void reset_fences(spk::array_view<spk::fence_ref const> pFences);
+  inline spk::shader_module_ref create_shader_module(
+      spk::shader_module_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::buffer_ref create_buffer(
+      spk::buffer_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::framebuffer_ref create_framebuffer(
+      spk::framebuffer_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::fence_ref create_fence(
+      spk::fence_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::device_memory_ref allocate_memory(
+      spk::memory_allocate_info const& pAllocateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::buffer_view_ref create_buffer_view(
+      spk::buffer_view_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void bind_buffer_memory_2(
+      spk::array_view<spk::bind_buffer_memory_info const> pBindInfos);
+  inline void get_fence_fd_khr(spk::fence_get_fd_info_khr const& pGetFdInfo,
+                               int& pFd);
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_memory_win_32handle_nv(
-      spk::device_memory_ref memory,
-      spk::external_memory_handle_type_flags_nv handleType,
-      HANDLE* pHandle) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_win_32handle_nv(handle_, memory, handleType,
-                                                pHandle);
-  }
+  inline void get_fence_win_32handle_khr(
+      spk::fence_get_win_32handle_info_khr const& pGetWin32HandleInfo,
+      HANDLE& pHandle);
 #endif
-
-  void bind_buffer_memory_2(
-      uint32_t bindInfoCount,
-      spk::bind_buffer_memory_info const* pBindInfos) {  // SINGLE_HANDLE
-    dispatch_table().bind_buffer_memory_2(handle_, bindInfoCount, pBindInfos);
-  }
-
-  void get_fence_fd_khr(spk::fence_get_fd_info_khr const* pGetFdInfo,
-                        int* pFd) {  // SINGLE_HANDLE
-    dispatch_table().get_fence_fd_khr(handle_, pGetFdInfo, pFd);
-  }
-
+  inline spk::queue_ref get_device_queue(uint32_t queueFamilyIndex,
+                                         uint32_t queueIndex);
+  inline spk::result wait_for_fences(
+      spk::array_view<spk::fence_ref const> pFences, spk::bool32_t waitAll,
+      uint64_t timeout);
+  inline void flush_mapped_memory_ranges(
+      spk::array_view<spk::mapped_memory_range const> pMemoryRanges);
+  inline spk::descriptor_pool_ref create_descriptor_pool(
+      spk::descriptor_pool_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void set_debug_utils_object_tag_ext(
+      spk::debug_utils_object_tag_info_ext const& pTagInfo);
+  inline spk::fence_ref register_device_event_ext(
+      spk::device_event_info_ext const& pDeviceEventInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::image_view_ref create_image_view(
+      spk::image_view_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void get_memory_fd_khr(spk::memory_get_fd_info_khr const& pGetFdInfo,
+                                int& pFd);
+  inline void invalidate_mapped_memory_ranges(
+      spk::array_view<spk::mapped_memory_range const> pMemoryRanges);
+  inline spk::render_pass_ref create_render_pass(
+      spk::render_pass_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline void import_fence_fd_khr(
+      spk::import_fence_fd_info_khr const& pImportFenceFdInfo);
+  inline void set_debug_utils_object_name_ext(
+      spk::debug_utils_object_name_info_ext const& pNameInfo);
+  inline spk::validation_cache_ext_ref create_validation_cache_ext(
+      spk::validation_cache_create_info_ext const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_fence_win_32handle_khr(
-      spk::fence_get_win_32handle_info_khr const* pGetWin32HandleInfo,
-      HANDLE* pHandle) {  // SINGLE_HANDLE
-    dispatch_table().get_fence_win_32handle_khr(handle_, pGetWin32HandleInfo,
-                                                pHandle);
-  }
+  inline void get_memory_win_32handle_khr(
+      spk::memory_get_win_32handle_info_khr const& pGetWin32HandleInfo,
+      HANDLE& pHandle);
 #endif
-
-  void map_memory(spk::device_memory_ref memory, uint64_t offset, uint64_t size,
-                  void** ppData) {  // SINGLE_HANDLE
-    dispatch_table().map_memory(handle_, memory, offset, size, ppData);
-  }
-
-  void get_device_queue(uint32_t queueFamilyIndex, uint32_t queueIndex,
-                        spk::queue_ref* pQueue) {  // SINGLE_HANDLE
-    dispatch_table().get_device_queue(handle_, queueFamilyIndex, queueIndex,
-                                      pQueue);
-  }
-
-  void get_buffer_memory_requirements(
-      spk::buffer_ref buffer,
-      spk::memory_requirements* pMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_buffer_memory_requirements(handle_, buffer,
-                                                    pMemoryRequirements);
-  }
-
-  PFN_vkVoidFunction get_device_proc_addr(char const* pName) {  // SINGLE_HANDLE
-    return dispatch_table().get_device_proc_addr(handle_, pName);
-  }
-
-  [[nodiscard]] spk::result wait_for_fences(
-      uint32_t fenceCount, spk::fence_ref const* pFences, spk::bool32_t waitAll,
-      uint64_t timeout) {  // SINGLE_HANDLE
-    return dispatch_table().wait_for_fences(handle_, fenceCount, pFences,
-                                            waitAll, timeout);
-  }
-
-  void flush_mapped_memory_ranges(
-      uint32_t memoryRangeCount,
-      spk::mapped_memory_range const* pMemoryRanges) {  // SINGLE_HANDLE
-    dispatch_table().flush_mapped_memory_ranges(handle_, memoryRangeCount,
-                                                pMemoryRanges);
-  }
-
-  void get_render_area_granularity(
-      spk::render_pass_ref renderPass,
-      spk::extent_2d* pGranularity) {  // SINGLE_HANDLE
-    dispatch_table().get_render_area_granularity(handle_, renderPass,
-                                                 pGranularity);
-  }
-
-  void set_debug_utils_object_tag_ext(
-      spk::debug_utils_object_tag_info_ext const* pTagInfo) {  // SINGLE_HANDLE
-    dispatch_table().set_debug_utils_object_tag_ext(handle_, pTagInfo);
-  }
-
-  void register_device_event_ext(
-      spk::device_event_info_ext const* pDeviceEventInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::fence_ref* pFence) {  // SINGLE_HANDLE
-    dispatch_table().register_device_event_ext(handle_, pDeviceEventInfo,
-                                               pAllocator, pFence);
-  }
-
-  void reset_event(spk::event_ref event) {  // SINGLE_HANDLE
-    dispatch_table().reset_event(handle_, event);
-  }
-
-  void get_memory_fd_khr(spk::memory_get_fd_info_khr const* pGetFdInfo,
-                         int* pFd) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_fd_khr(handle_, pGetFdInfo, pFd);
-  }
-
-  void invalidate_mapped_memory_ranges(
-      uint32_t memoryRangeCount,
-      spk::mapped_memory_range const* pMemoryRanges) {  // SINGLE_HANDLE
-    dispatch_table().invalidate_mapped_memory_ranges(handle_, memoryRangeCount,
-                                                     pMemoryRanges);
-  }
-
-  void get_device_memory_commitment(
-      spk::device_memory_ref memory,
-      uint64_t* pCommittedMemoryInBytes) {  // SINGLE_HANDLE
-    dispatch_table().get_device_memory_commitment(handle_, memory,
-                                                  pCommittedMemoryInBytes);
-  }
-
-  void import_fence_fd_khr(spk::import_fence_fd_info_khr const*
-                               pImportFenceFdInfo) {  // SINGLE_HANDLE
-    dispatch_table().import_fence_fd_khr(handle_, pImportFenceFdInfo);
-  }
-
-  void set_debug_utils_object_name_ext(
-      spk::debug_utils_object_name_info_ext const*
-          pNameInfo) {  // SINGLE_HANDLE
-    dispatch_table().set_debug_utils_object_name_ext(handle_, pNameInfo);
-  }
-
-  [[nodiscard]] spk::result get_fence_status(
-      spk::fence_ref fence) {  // SINGLE_HANDLE
-    return dispatch_table().get_fence_status(handle_, fence);
-  }
-
-  void get_image_memory_requirements(
-      spk::image_ref image,
-      spk::memory_requirements* pMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_image_memory_requirements(handle_, image,
-                                                   pMemoryRequirements);
-  }
-
-  void get_image_sparse_memory_requirements(
-      spk::image_ref image, uint32_t* pSparseMemoryRequirementCount,
-      spk::sparse_image_memory_requirements*
-          pSparseMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_image_sparse_memory_requirements(
-        handle_, image, pSparseMemoryRequirementCount,
-        pSparseMemoryRequirements);
-  }
-
+  inline spk::command_pool_ref create_command_pool(
+      spk::command_pool_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_memory_win_32handle_khr(
-      spk::memory_get_win_32handle_info_khr const* pGetWin32HandleInfo,
-      HANDLE* pHandle) {  // SINGLE_HANDLE
-    dispatch_table().get_memory_win_32handle_khr(handle_, pGetWin32HandleInfo,
-                                                 pHandle);
-  }
+  inline void import_fence_win_32handle_khr(
+      spk::import_fence_win_32handle_info_khr const&
+          pImportFenceWin32HandleInfo);
 #endif
-
-  void free_descriptor_sets(
-      spk::descriptor_pool_ref descriptorPool, uint32_t descriptorSetCount,
-      spk::descriptor_set_ref const* pDescriptorSets) {  // SINGLE_HANDLE
-    dispatch_table().free_descriptor_sets(handle_, descriptorPool,
-                                          descriptorSetCount, pDescriptorSets);
-  }
-
-  void free_command_buffers(
-      spk::command_pool_ref commandPool, uint32_t commandBufferCount,
-      spk::command_buffer_ref const* pCommandBuffers) {  // SINGLE_HANDLE
-    dispatch_table().free_command_buffers(handle_, commandPool,
-                                          commandBufferCount, pCommandBuffers);
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void import_fence_win_32handle_khr(
-      spk::import_fence_win_32handle_info_khr const*
-          pImportFenceWin32HandleInfo) {  // SINGLE_HANDLE
-    dispatch_table().import_fence_win_32handle_khr(handle_,
-                                                   pImportFenceWin32HandleInfo);
-  }
-#endif
-
-  void bind_buffer_memory(spk::buffer_ref buffer, spk::device_memory_ref memory,
-                          uint64_t memoryOffset) {  // SINGLE_HANDLE
-    dispatch_table().bind_buffer_memory(handle_, buffer, memory, memoryOffset);
-  }
-
-  std::vector<spk::past_presentation_timing_google>
-  get_past_presentation_timing_google(
-      spk::swapchain_khr_ref swapchain) {  // SINGLE_HANDLE
-    return dispatch_table().get_past_presentation_timing_google(handle_,
-                                                                swapchain);
-  }
-
-  [[nodiscard]] spk::result get_event_status(
-      spk::event_ref event) {  // SINGLE_HANDLE
-    return dispatch_table().get_event_status(handle_, event);
-  }
-
-  void get_refresh_cycle_duration_google(
-      spk::swapchain_khr_ref swapchain,
-      spk::refresh_cycle_duration_google*
-          pDisplayTimingProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_refresh_cycle_duration_google(
-        handle_, swapchain, pDisplayTimingProperties);
-  }
-
-  void get_device_group_peer_memory_features_khr(
-      uint32_t heapIndex, uint32_t localDeviceIndex, uint32_t remoteDeviceIndex,
-      spk::peer_memory_feature_flags* pPeerMemoryFeatures) {  // SINGLE_HANDLE
-    dispatch_table().get_device_group_peer_memory_features_khr(
-        handle_, heapIndex, localDeviceIndex, remoteDeviceIndex,
-        pPeerMemoryFeatures);
-  }
-
-  void import_semaphore_fd_khr(spk::import_semaphore_fd_info_khr const*
-                                   pImportSemaphoreFdInfo) {  // SINGLE_HANDLE
-    dispatch_table().import_semaphore_fd_khr(handle_, pImportSemaphoreFdInfo);
-  }
-
-  void bind_buffer_memory_2khr(
-      uint32_t bindInfoCount,
-      spk::bind_buffer_memory_info const* pBindInfos) {  // SINGLE_HANDLE
-    dispatch_table().bind_buffer_memory_2khr(handle_, bindInfoCount,
-                                             pBindInfos);
-  }
-
-  void debug_marker_set_object_tag_ext(
-      spk::debug_marker_object_tag_info_ext const* pTagInfo) {  // SINGLE_HANDLE
-    dispatch_table().debug_marker_set_object_tag_ext(handle_, pTagInfo);
-  }
-
-  void update_descriptor_sets(
-      uint32_t descriptorWriteCount,
-      spk::write_descriptor_set const* pDescriptorWrites,
-      uint32_t descriptorCopyCount,
-      spk::copy_descriptor_set const* pDescriptorCopies) {  // SINGLE_HANDLE
-    dispatch_table().update_descriptor_sets(
-        handle_, descriptorWriteCount, pDescriptorWrites, descriptorCopyCount,
-        pDescriptorCopies);
-  }
-
-  void bind_image_memory_2(
-      uint32_t bindInfoCount,
-      spk::bind_image_memory_info const* pBindInfos) {  // SINGLE_HANDLE
-    dispatch_table().bind_image_memory_2(handle_, bindInfoCount, pBindInfos);
-  }
-
-  void get_buffer_memory_requirements_2khr(
-      spk::buffer_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) {  // SINGLE_HANDLE
-    dispatch_table().get_buffer_memory_requirements_2khr(handle_, pInfo,
-                                                         pMemoryRequirements);
-  }
-
-  std::vector<spk::image_ref> get_swapchain_images_khr(
-      spk::swapchain_khr_ref swapchain) {  // SINGLE_HANDLE
-    return dispatch_table().get_swapchain_images_khr(handle_, swapchain);
-  }
-
-  [[nodiscard]] spk::result acquire_next_image_khr(
-      spk::swapchain_khr_ref swapchain, uint64_t timeout,
-      spk::semaphore_ref semaphore, spk::fence_ref fence,
-      uint32_t* pImageIndex) {  // SINGLE_HANDLE
-    return dispatch_table().acquire_next_image_khr(
-        handle_, swapchain, timeout, semaphore, fence, pImageIndex);
-  }
-
-  void destroy_object_table_nvx(
-      spk::object_table_nvx_ref objectTable,
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_object_table_nvx(handle_, objectTable, pAllocator);
-  }
-
-  void destroy_indirect_commands_layout_nvx(
-      spk::indirect_commands_layout_nvx_ref indirectCommandsLayout,
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_indirect_commands_layout_nvx(
-        handle_, indirectCommandsLayout, pAllocator);
-  }
-
-  void destroy_swapchain_khr(
-      spk::swapchain_khr_ref swapchain,
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_swapchain_khr(handle_, swapchain, pAllocator);
-  }
-
-  void destroy_device(
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_device(handle_, pAllocator);
-  }
+  inline spk::descriptor_update_template_ref
+  create_descriptor_update_template_khr(
+      spk::descriptor_update_template_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::render_pass_ref create_render_pass_2khr(
+      spk::render_pass_create_info_2khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::event_ref create_event(
+      spk::event_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::descriptor_update_template_ref create_descriptor_update_template(
+      spk::descriptor_update_template_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::indirect_commands_layout_nvx_ref
+  create_indirect_commands_layout_nvx(
+      spk::indirect_commands_layout_create_info_nvx const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::sampler_ycbcr_conversion_ref create_sampler_ycbcr_conversion_khr(
+      spk::sampler_ycbcr_conversion_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::peer_memory_feature_flags
+  get_device_group_peer_memory_features_khr(uint32_t heapIndex,
+                                            uint32_t localDeviceIndex,
+                                            uint32_t remoteDeviceIndex);
+  inline void import_semaphore_fd_khr(
+      spk::import_semaphore_fd_info_khr const& pImportSemaphoreFdInfo);
+  inline void bind_buffer_memory_2khr(
+      spk::array_view<spk::bind_buffer_memory_info const> pBindInfos);
+  inline void debug_marker_set_object_tag_ext(
+      spk::debug_marker_object_tag_info_ext const& pTagInfo);
+  inline void update_descriptor_sets(
+      spk::array_view<spk::write_descriptor_set const> pDescriptorWrites,
+      spk::array_view<spk::copy_descriptor_set const> pDescriptorCopies);
+  inline void bind_image_memory_2(
+      spk::array_view<spk::bind_image_memory_info const> pBindInfos);
+  inline spk::image_ref create_image(
+      spk::image_create_info const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::memory_requirements_2 get_buffer_memory_requirements_2khr(
+      spk::buffer_memory_requirements_info_2 const& pInfo);
+  inline spk::swapchain_khr_ref create_swapchain_khr(
+      spk::swapchain_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
 
   const device_dispatch_table& dispatch_table() { return dispatch_table_; }
+  ~device() { dispatch_table().destroy_device(handle_, allocation_callbacks_); }
 
  private:
   device_ref handle_ = VK_NULL_HANDLE;
-  physical_device_ref parent_physical_device_ref = VK_NULL_HANDLE;
   const device_dispatch_table dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class display_khr {
  public:
   operator display_khr_ref() const { return handle_; }
+  display_khr(display_khr_ref handle, physical_device_ref parent,
+              const instance_dispatch_table& dispatch_table,
+              const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  display_khr(const display_khr&) = delete;
+  display_khr(display_khr&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
-  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  inline std::vector<spk::display_mode_properties_2khr>
+  get_display_mode_properties_2khr();
+  inline void release_display_ext();
+  inline std::vector<spk::display_mode_properties_khr>
+  get_display_mode_properties_khr();
+  inline spk::display_mode_khr_ref create_display_mode_khr(
+      spk::display_mode_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   display_khr_ref handle_ = VK_NULL_HANDLE;
-  const device_dispatch_table* dispatch_table_;
+  physical_device_ref parent_ = VK_NULL_HANDLE;
+  const instance_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class display_mode_khr {
  public:
   operator display_mode_khr_ref() const { return handle_; }
+  display_mode_khr(display_mode_khr_ref handle, physical_device_ref parent,
+                   const instance_dispatch_table& dispatch_table,
+                   const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  display_mode_khr(const display_mode_khr&) = delete;
+  display_mode_khr(display_mode_khr&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
-  // TODO CONSTRUCTOR: create_display_mode_khr
+  inline spk::display_plane_capabilities_khr get_display_plane_capabilities_khr(
+      uint32_t planeIndex);
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   display_mode_khr_ref handle_ = VK_NULL_HANDLE;
-  display_khr_ref parent_display_khr_ref = VK_NULL_HANDLE;
-  physical_device_ref parent_physical_device_ref = VK_NULL_HANDLE;
+  physical_device_ref parent_ = VK_NULL_HANDLE;
   const instance_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class event {
  public:
   operator event_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_event
-
-  void destroy_event(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_event(parent_device_ref, handle_, pAllocator);
+  event(event_ref handle, device_ref parent,
+        const device_dispatch_table& dispatch_table,
+        const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  event(const event&) = delete;
+  event(event&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline void set_event();
+  inline void reset_event();
+  inline spk::result get_event_status();
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~event() {
+    dispatch_table().destroy_event(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   event_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class fence {
  public:
   operator fence_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_fence
-
-  void destroy_fence(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_fence(parent_device_ref, handle_, pAllocator);
+  fence(fence_ref handle, device_ref parent,
+        const device_dispatch_table& dispatch_table,
+        const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  fence(const fence&) = delete;
+  fence(fence&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline spk::result get_fence_status();
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~fence() {
+    dispatch_table().destroy_fence(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   fence_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class framebuffer {
  public:
   operator framebuffer_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_framebuffer
-
-  void destroy_framebuffer(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_framebuffer(parent_device_ref, handle_,
-                                         pAllocator);
+  framebuffer(framebuffer_ref handle, device_ref parent,
+              const device_dispatch_table& dispatch_table,
+              const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  framebuffer(const framebuffer&) = delete;
+  framebuffer(framebuffer&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~framebuffer() {
+    dispatch_table().destroy_framebuffer(parent_, handle_,
+                                         allocation_callbacks_);
+  }
 
  private:
   framebuffer_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class image {
  public:
   operator image_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_image
-
-  void destroy_image(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_image(parent_device_ref, handle_, pAllocator);
+  image(image_ref handle, device_ref parent,
+        const device_dispatch_table& dispatch_table,
+        const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  image(const image&) = delete;
+  image(image&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline spk::subresource_layout get_image_subresource_layout(
+      spk::image_subresource const& pSubresource);
+  inline void bind_image_memory(spk::device_memory_ref memory,
+                                uint64_t memoryOffset);
+  inline spk::memory_requirements get_image_memory_requirements();
+  inline std::vector<spk::sparse_image_memory_requirements>
+  get_image_sparse_memory_requirements();
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~image() {
+    dispatch_table().destroy_image(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   image_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class image_view {
  public:
   operator image_view_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_image_view
-
-  void destroy_image_view(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_image_view(parent_device_ref, handle_, pAllocator);
+  image_view(image_view_ref handle, device_ref parent,
+             const device_dispatch_table& dispatch_table,
+             const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  image_view(const image_view&) = delete;
+  image_view(image_view&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~image_view() {
+    dispatch_table().destroy_image_view(parent_, handle_,
+                                        allocation_callbacks_);
+  }
 
  private:
   image_view_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class indirect_commands_layout_nvx {
  public:
   operator indirect_commands_layout_nvx_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_indirect_commands_layout_nvx
+  indirect_commands_layout_nvx(
+      indirect_commands_layout_nvx_ref handle, device_ref parent,
+      const device_dispatch_table& dispatch_table,
+      const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  indirect_commands_layout_nvx(const indirect_commands_layout_nvx&) = delete;
+  indirect_commands_layout_nvx(indirect_commands_layout_nvx&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~indirect_commands_layout_nvx() {
+    dispatch_table().destroy_indirect_commands_layout_nvx(
+        parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   indirect_commands_layout_nvx_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class instance {
  public:
   operator instance_ref() const { return handle_; }
+  instance(loader& loader, instance_create_info const* create_info,
+           spk::allocation_callbacks const* allocation_callbacks = nullptr);
+  instance(const instance&) = delete;
+  instance(instance&&) = delete;
 
-  // TODO CONSTRUCTOR: create_instance
-
-  std::vector<spk::physical_device_group_properties>
-  enumerate_physical_device_groups_khr(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().enumerate_physical_device_groups_khr(handle_);
-  }
-
-  void submit_debug_utils_message_ext(
+  inline std::vector<spk::physical_device_group_properties>
+  enumerate_physical_device_groups_khr();
+  inline void submit_debug_utils_message_ext(
       spk::debug_utils_message_severity_flags_ext messageSeverity,
       spk::debug_utils_message_type_flags_ext messageTypes,
-      spk::debug_utils_messenger_callback_data_ext const*
-          pCallbackData) {  // SINGLE_HANDLE
-    dispatch_table().submit_debug_utils_message_ext(
-        handle_, messageSeverity, messageTypes, pCallbackData);
-  }
-
-  void debug_report_message_ext(spk::debug_report_flags_ext flags,
-                                spk::debug_report_object_type_ext objectType,
-                                uint64_t object, size_t location,
-                                int32_t messageCode, char const* pLayerPrefix,
-                                char const* pMessage) {  // SINGLE_HANDLE
-    dispatch_table().debug_report_message_ext(handle_, flags, objectType,
-                                              object, location, messageCode,
-                                              pLayerPrefix, pMessage);
-  }
-
-  std::vector<spk::physical_device_ref> enumerate_physical_devices(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().enumerate_physical_devices(handle_);
-  }
-
-  PFN_vkVoidFunction get_instance_proc_addr(
-      char const* pName) {  // SINGLE_HANDLE
-    return dispatch_table().get_instance_proc_addr(handle_, pName);
-  }
-
-  std::vector<spk::physical_device_group_properties>
-  enumerate_physical_device_groups(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().enumerate_physical_device_groups(handle_);
-  }
-
-  void destroy_debug_utils_messenger_ext(
-      spk::debug_utils_messenger_ext_ref messenger,
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_debug_utils_messenger_ext(handle_, messenger,
-                                                       pAllocator);
-  }
-
-  void destroy_debug_report_callback_ext(
-      spk::debug_report_callback_ext_ref callback,
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_debug_report_callback_ext(handle_, callback,
-                                                       pAllocator);
-  }
-
-  void destroy_instance(
-      spk::allocation_callbacks const* pAllocator) {  // SINGLE_DESTRUCTOR
-    dispatch_table().destroy_instance(handle_, pAllocator);
-  }
+      spk::debug_utils_messenger_callback_data_ext const& pCallbackData);
+#ifdef VK_USE_PLATFORM_IOS_MVK
+  inline spk::surface_khr_ref create_ios_surface_mvk(
+      spk::ios_surface_create_info_mvk const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+  inline spk::debug_utils_messenger_ext_ref create_debug_utils_messenger_ext(
+      spk::debug_utils_messenger_create_info_ext const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#ifdef VK_USE_PLATFORM_MACOS_MVK
+  inline spk::surface_khr_ref create_mac_os_surface_mvk(
+      spk::mac_os_surface_create_info_mvk const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+#ifdef VK_USE_PLATFORM_XCB_KHR
+  inline spk::surface_khr_ref create_xcb_surface_khr(
+      spk::xcb_surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+  inline std::vector<spk::physical_device_ref> enumerate_physical_devices();
+  inline std::vector<spk::physical_device_group_properties>
+  enumerate_physical_device_groups();
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  inline spk::surface_khr_ref create_android_surface_khr(
+      spk::android_surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+  inline spk::debug_report_callback_ext_ref create_debug_report_callback_ext(
+      spk::debug_report_callback_create_info_ext const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+  inline spk::surface_khr_ref create_display_plane_surface_khr(
+      spk::display_surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#ifdef VK_USE_PLATFORM_VI_NN
+  inline spk::surface_khr_ref create_vi_surface_nn(
+      spk::vi_surface_create_info_nn const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+#ifdef VK_USE_PLATFORM_MIR_KHR
+  inline spk::surface_khr_ref create_mir_surface_khr(
+      spk::mir_surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  inline spk::surface_khr_ref create_wayland_surface_khr(
+      spk::wayland_surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  inline spk::surface_khr_ref create_xlib_surface_khr(
+      spk::xlib_surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  inline spk::surface_khr_ref create_win_32surface_khr(
+      spk::win_32surface_create_info_khr const& pCreateInfo,
+      spk::allocation_callbacks const* pAllocator);
+#endif
 
   const instance_dispatch_table& dispatch_table() { return dispatch_table_; }
+  ~instance() {
+    dispatch_table().destroy_instance(handle_, allocation_callbacks_);
+  }
 
  private:
   instance_ref handle_ = VK_NULL_HANDLE;
   const instance_dispatch_table dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class object_table_nvx {
  public:
   operator object_table_nvx_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_object_table_nvx
+  object_table_nvx(object_table_nvx_ref handle, device_ref parent,
+                   const device_dispatch_table& dispatch_table,
+                   const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  object_table_nvx(const object_table_nvx&) = delete;
+  object_table_nvx(object_table_nvx&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~object_table_nvx() {
+    dispatch_table().destroy_object_table_nvx(parent_, handle_,
+                                              allocation_callbacks_);
+  }
 
  private:
   object_table_nvx_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class physical_device {
  public:
   operator physical_device_ref() const { return handle_; }
-
-  void get_physical_device_external_fence_properties_khr(
-      spk::physical_device_external_fence_info const* pExternalFenceInfo,
-      spk::external_fence_properties*
-          pExternalFenceProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_fence_properties_khr(
-        handle_, pExternalFenceInfo, pExternalFenceProperties);
+  physical_device(physical_device_ref handle,
+                  const instance_dispatch_table& dispatch_table,
+                  const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  physical_device(const physical_device&) = delete;
+  physical_device(physical_device&& that)
+      : handle_(that.handle_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
-  void get_physical_device_external_buffer_properties_khr(
-      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
-      spk::external_buffer_properties*
-          pExternalBufferProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_buffer_properties_khr(
-        handle_, pExternalBufferInfo, pExternalBufferProperties);
-  }
-
-  void get_physical_device_memory_properties_2khr(
-      spk::physical_device_memory_properties_2*
-          pMemoryProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_memory_properties_2khr(
-        handle_, pMemoryProperties);
-  }
-
-  void get_physical_device_queue_family_properties_2khr(
-      uint32_t* pQueueFamilyPropertyCount,
-      spk::queue_family_properties_2*
-          pQueueFamilyProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_queue_family_properties_2khr(
-        handle_, pQueueFamilyPropertyCount, pQueueFamilyProperties);
-  }
-
-  void get_physical_device_features_2khr(
-      spk::physical_device_features_2* pFeatures) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_features_2khr(handle_, pFeatures);
-  }
-
-  std::vector<spk::display_mode_properties_2khr>
-  get_display_mode_properties_2khr(
-      spk::display_khr_ref display) {  // SINGLE_HANDLE
-    return dispatch_table().get_display_mode_properties_2khr(handle_, display);
-  }
-
-  void get_physical_device_surface_capabilities_2khr(
-      spk::physical_device_surface_info_2khr const* pSurfaceInfo,
-      spk::surface_capabilities_2khr* pSurfaceCapabilities) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_surface_capabilities_2khr(
-        handle_, pSurfaceInfo, pSurfaceCapabilities);
-  }
-
-  void get_physical_device_format_properties_2khr(
-      spk::format format,
-      spk::format_properties_2* pFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_format_properties_2khr(
-        handle_, format, pFormatProperties);
-  }
-
-  void get_physical_device_multisample_properties_ext(
-      spk::sample_count_flags samples,
-      spk::multisample_properties_ext*
-          pMultisampleProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_multisample_properties_ext(
-        handle_, samples, pMultisampleProperties);
-  }
-
-  std::vector<spk::display_properties_2khr>
-  get_physical_device_display_properties_2khr(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_display_properties_2khr(
-        handle_);
-  }
-
-  std::vector<spk::surface_format_2khr>
+  inline spk::external_fence_properties
+  get_physical_device_external_fence_properties_khr(
+      spk::physical_device_external_fence_info const& pExternalFenceInfo);
+  inline spk::external_buffer_properties
+  get_physical_device_external_buffer_properties_khr(
+      spk::physical_device_external_buffer_info const& pExternalBufferInfo);
+  inline spk::physical_device_memory_properties_2
+  get_physical_device_memory_properties_2khr();
+  inline std::vector<spk::queue_family_properties_2>
+  get_physical_device_queue_family_properties_2khr();
+  inline spk::physical_device_features_2 get_physical_device_features_2khr();
+  inline spk::surface_capabilities_2khr
+  get_physical_device_surface_capabilities_2khr(
+      spk::physical_device_surface_info_2khr const& pSurfaceInfo);
+  inline spk::format_properties_2 get_physical_device_format_properties_2khr(
+      spk::format format);
+  inline spk::multisample_properties_ext
+  get_physical_device_multisample_properties_ext(
+      spk::sample_count_flags samples);
+  inline std::vector<spk::display_properties_2khr>
+  get_physical_device_display_properties_2khr();
+  inline std::vector<spk::surface_format_2khr>
   get_physical_device_surface_formats_2khr(
-      spk::physical_device_surface_info_2khr const*
-          pSurfaceInfo) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_surface_formats_2khr(
-        handle_, pSurfaceInfo);
-  }
-
+      spk::physical_device_surface_info_2khr const& pSurfaceInfo);
 #ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  void get_rand_r_output_display_ext(
-      Display* dpy, RROutput rrOutput,
-      spk::display_khr_ref* pDisplay) {  // SINGLE_HANDLE
-    dispatch_table().get_rand_r_output_display_ext(handle_, dpy, rrOutput,
-                                                   pDisplay);
-  }
+  inline spk::display_khr_ref get_rand_r_output_display_ext(Display& dpy,
+                                                            RROutput rrOutput);
 #endif
-
 #ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  void acquire_xlib_display_ext(
-      Display* dpy, spk::display_khr_ref display) {  // SINGLE_HANDLE
-    dispatch_table().acquire_xlib_display_ext(handle_, dpy, display);
-  }
+  inline void acquire_xlib_display_ext(Display& dpy,
+                                       spk::display_khr_ref display);
 #endif
-
-  void get_physical_device_external_fence_properties(
-      spk::physical_device_external_fence_info const* pExternalFenceInfo,
-      spk::external_fence_properties*
-          pExternalFenceProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_fence_properties(
-        handle_, pExternalFenceInfo, pExternalFenceProperties);
-  }
-
-  void get_physical_device_external_semaphore_properties(
-      spk::physical_device_external_semaphore_info const*
-          pExternalSemaphoreInfo,
-      spk::external_semaphore_properties*
-          pExternalSemaphoreProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_semaphore_properties(
-        handle_, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
-  }
-
-  void get_physical_device_external_buffer_properties(
-      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
-      spk::external_buffer_properties*
-          pExternalBufferProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_buffer_properties(
-        handle_, pExternalBufferInfo, pExternalBufferProperties);
-  }
-
-  void get_physical_device_sparse_image_format_properties_2(
-      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
-      uint32_t* pPropertyCount,
-      spk::sparse_image_format_properties_2* pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_sparse_image_format_properties_2(
-        handle_, pFormatInfo, pPropertyCount, pProperties);
-  }
-
-  void get_physical_device_format_properties_2(
-      spk::format format,
-      spk::format_properties_2* pFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_format_properties_2(handle_, format,
-                                                             pFormatProperties);
-  }
-
-  void get_physical_device_properties_2(
-      spk::physical_device_properties_2* pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_properties_2(handle_, pProperties);
-  }
-
-  void get_physical_device_generated_commands_properties_nvx(
-      spk::device_generated_commands_features_nvx* pFeatures,
-      spk::device_generated_commands_limits_nvx* pLimits) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_generated_commands_properties_nvx(
-        handle_, pFeatures, pLimits);
-  }
-
-  std::vector<spk::display_plane_properties_2khr>
-  get_physical_device_display_plane_properties_2khr(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_display_plane_properties_2khr(
-        handle_);
-  }
-
-  void get_physical_device_external_image_format_properties_nv(
+  inline spk::external_fence_properties
+  get_physical_device_external_fence_properties(
+      spk::physical_device_external_fence_info const& pExternalFenceInfo);
+  inline spk::external_semaphore_properties
+  get_physical_device_external_semaphore_properties(
+      spk::physical_device_external_semaphore_info const&
+          pExternalSemaphoreInfo);
+  inline spk::external_buffer_properties
+  get_physical_device_external_buffer_properties(
+      spk::physical_device_external_buffer_info const& pExternalBufferInfo);
+  inline std::vector<spk::sparse_image_format_properties_2>
+  get_physical_device_sparse_image_format_properties_2(
+      spk::physical_device_sparse_image_format_info_2 const& pFormatInfo);
+  inline spk::format_properties_2 get_physical_device_format_properties_2(
+      spk::format format);
+  inline spk::physical_device_properties_2 get_physical_device_properties_2();
+  inline std::vector<spk::display_plane_properties_2khr>
+  get_physical_device_display_plane_properties_2khr();
+  inline spk::external_image_format_properties_nv
+  get_physical_device_external_image_format_properties_nv(
       spk::format format, spk::image_type type, spk::image_tiling tiling,
       spk::image_usage_flags usage, spk::image_create_flags flags,
-      spk::external_memory_handle_type_flags_nv externalHandleType,
-      spk::external_image_format_properties_nv*
-          pExternalImageFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_image_format_properties_nv(
-        handle_, format, type, tiling, usage, flags, externalHandleType,
-        pExternalImageFormatProperties);
-  }
-
+      spk::external_memory_handle_type_flags_nv externalHandleType);
 #ifdef VK_USE_PLATFORM_XCB_KHR
-  spk::bool32_t get_physical_device_xcb_presentation_support_khr(
-      uint32_t queueFamilyIndex, xcb_connection_t* connection,
-      xcb_visualid_t visual_id) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_xcb_presentation_support_khr(
-        handle_, queueFamilyIndex, connection, visual_id);
-  }
+  inline spk::bool32_t get_physical_device_xcb_presentation_support_khr(
+      uint32_t queueFamilyIndex, xcb_connection_t& connection,
+      xcb_visualid_t visual_id);
 #endif
-
-  void get_physical_device_format_properties(
-      spk::format format,
-      spk::format_properties* pFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_format_properties(handle_, format,
-                                                           pFormatProperties);
-  }
-
-  void release_display_ext(spk::display_khr_ref display) {  // SINGLE_HANDLE
-    dispatch_table().release_display_ext(handle_, display);
-  }
-
-  void get_physical_device_image_format_properties(
-      spk::format format, spk::image_type type, spk::image_tiling tiling,
-      spk::image_usage_flags usage, spk::image_create_flags flags,
-      spk::image_format_properties* pImageFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_image_format_properties(
-        handle_, format, type, tiling, usage, flags, pImageFormatProperties);
-  }
-
-  void get_physical_device_properties(
-      spk::physical_device_properties* pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_properties(handle_, pProperties);
-  }
-
-  std::vector<spk::extension_properties> enumerate_device_extension_properties(
-      char const* pLayerName) {  // SINGLE_HANDLE
-    return dispatch_table().enumerate_device_extension_properties(handle_,
-                                                                  pLayerName);
-  }
-
-  void get_physical_device_queue_family_properties_2(
-      uint32_t* pQueueFamilyPropertyCount,
-      spk::queue_family_properties_2*
-          pQueueFamilyProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_queue_family_properties_2(
-        handle_, pQueueFamilyPropertyCount, pQueueFamilyProperties);
-  }
-
-  void get_display_plane_capabilities_2khr(
-      spk::display_plane_info_2khr const* pDisplayPlaneInfo,
-      spk::display_plane_capabilities_2khr* pCapabilities) {  // SINGLE_HANDLE
-    dispatch_table().get_display_plane_capabilities_2khr(
-        handle_, pDisplayPlaneInfo, pCapabilities);
-  }
-
-  void get_physical_device_memory_properties_2(
-      spk::physical_device_memory_properties_2*
-          pMemoryProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_memory_properties_2(handle_,
-                                                             pMemoryProperties);
-  }
-
+  inline spk::format_properties get_physical_device_format_properties(
+      spk::format format);
+  inline spk::image_format_properties
+  get_physical_device_image_format_properties(spk::format format,
+                                              spk::image_type type,
+                                              spk::image_tiling tiling,
+                                              spk::image_usage_flags usage,
+                                              spk::image_create_flags flags);
+  inline spk::physical_device_properties get_physical_device_properties();
+  inline std::vector<spk::queue_family_properties_2>
+  get_physical_device_queue_family_properties_2();
+  inline spk::display_plane_capabilities_2khr
+  get_display_plane_capabilities_2khr(
+      spk::display_plane_info_2khr const& pDisplayPlaneInfo);
+  inline spk::physical_device_memory_properties_2
+  get_physical_device_memory_properties_2();
 #ifdef VK_USE_PLATFORM_XLIB_KHR
-  spk::bool32_t get_physical_device_xlib_presentation_support_khr(
-      uint32_t queueFamilyIndex, Display* dpy,
-      VisualID visualID) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_xlib_presentation_support_khr(
-        handle_, queueFamilyIndex, dpy, visualID);
-  }
+  inline spk::bool32_t get_physical_device_xlib_presentation_support_khr(
+      uint32_t queueFamilyIndex, Display& dpy, VisualID visualID);
 #endif
-
-  void get_physical_device_features(
-      spk::physical_device_features* pFeatures) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_features(handle_, pFeatures);
-  }
-
-  void get_physical_device_memory_properties(
-      spk::physical_device_memory_properties*
-          pMemoryProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_memory_properties(handle_,
-                                                           pMemoryProperties);
-  }
-
-  void get_physical_device_sparse_image_format_properties(
+  inline spk::physical_device_features get_physical_device_features();
+  inline spk::physical_device_memory_properties
+  get_physical_device_memory_properties();
+  inline std::vector<spk::sparse_image_format_properties>
+  get_physical_device_sparse_image_format_properties(
       spk::format format, spk::image_type type, spk::sample_count_flags samples,
-      spk::image_usage_flags usage, spk::image_tiling tiling,
-      uint32_t* pPropertyCount,
-      spk::sparse_image_format_properties* pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_sparse_image_format_properties(
-        handle_, format, type, samples, usage, tiling, pPropertyCount,
-        pProperties);
-  }
-
-  std::vector<spk::rect_2d> get_physical_device_present_rectangles_khr(
-      spk::surface_khr_ref surface) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_present_rectangles_khr(handle_,
-                                                                       surface);
-  }
-
-  void get_physical_device_queue_family_properties(
-      uint32_t* pQueueFamilyPropertyCount,
-      spk::queue_family_properties* pQueueFamilyProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_queue_family_properties(
-        handle_, pQueueFamilyPropertyCount, pQueueFamilyProperties);
-  }
-
-  std::vector<spk::display_mode_properties_khr> get_display_mode_properties_khr(
-      spk::display_khr_ref display) {  // SINGLE_HANDLE
-    return dispatch_table().get_display_mode_properties_khr(handle_, display);
-  }
-
+      spk::image_usage_flags usage, spk::image_tiling tiling);
+  inline std::vector<spk::rect_2d> get_physical_device_present_rectangles_khr(
+      spk::surface_khr_ref surface);
+  inline std::vector<spk::queue_family_properties>
+  get_physical_device_queue_family_properties();
 #ifdef VK_USE_PLATFORM_WIN32_KHR
-  spk::bool32_t get_physical_device_win_32presentation_support_khr(
-      uint32_t queueFamilyIndex) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_win_32presentation_support_khr(
-        handle_, queueFamilyIndex);
-  }
+  inline spk::bool32_t get_physical_device_win_32presentation_support_khr(
+      uint32_t queueFamilyIndex);
 #endif
-
-  void get_physical_device_sparse_image_format_properties_2khr(
-      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
-      uint32_t* pPropertyCount,
-      spk::sparse_image_format_properties_2* pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_sparse_image_format_properties_2khr(
-        handle_, pFormatInfo, pPropertyCount, pProperties);
-  }
-
-  void get_physical_device_surface_capabilities_2ext(
-      spk::surface_khr_ref surface,
-      spk::surface_capabilities_2ext* pSurfaceCapabilities) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_surface_capabilities_2ext(
-        handle_, surface, pSurfaceCapabilities);
-  }
-
-  void get_physical_device_image_format_properties_2(
-      spk::physical_device_image_format_info_2 const* pImageFormatInfo,
-      spk::image_format_properties_2*
-          pImageFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_image_format_properties_2(
-        handle_, pImageFormatInfo, pImageFormatProperties);
-  }
-
-  void get_physical_device_properties_2khr(
-      spk::physical_device_properties_2* pProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_properties_2khr(handle_, pProperties);
-  }
-
-  std::vector<spk::layer_properties> enumerate_device_layer_properties(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().enumerate_device_layer_properties(handle_);
-  }
-
-  void get_physical_device_surface_capabilities_khr(
-      spk::surface_khr_ref surface,
-      spk::surface_capabilities_khr* pSurfaceCapabilities) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_surface_capabilities_khr(
-        handle_, surface, pSurfaceCapabilities);
-  }
-
-  void get_physical_device_external_semaphore_properties_khr(
-      spk::physical_device_external_semaphore_info const*
-          pExternalSemaphoreInfo,
-      spk::external_semaphore_properties*
-          pExternalSemaphoreProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_external_semaphore_properties_khr(
-        handle_, pExternalSemaphoreInfo, pExternalSemaphoreProperties);
-  }
-
-  void get_physical_device_surface_support_khr(
+  inline std::vector<spk::sparse_image_format_properties_2>
+  get_physical_device_sparse_image_format_properties_2khr(
+      spk::physical_device_sparse_image_format_info_2 const& pFormatInfo);
+  inline spk::surface_capabilities_2ext
+  get_physical_device_surface_capabilities_2ext(spk::surface_khr_ref surface);
+  inline spk::image_format_properties_2
+  get_physical_device_image_format_properties_2(
+      spk::physical_device_image_format_info_2 const& pImageFormatInfo);
+  inline spk::physical_device_properties_2
+  get_physical_device_properties_2khr();
+  inline std::vector<spk::layer_properties> enumerate_device_layer_properties();
+  inline spk::surface_capabilities_khr
+  get_physical_device_surface_capabilities_khr(spk::surface_khr_ref surface);
+  inline spk::external_semaphore_properties
+  get_physical_device_external_semaphore_properties_khr(
+      spk::physical_device_external_semaphore_info const&
+          pExternalSemaphoreInfo);
+  inline void get_physical_device_surface_support_khr(
       uint32_t queueFamilyIndex, spk::surface_khr_ref surface,
-      spk::bool32_t* pSupported) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_surface_support_khr(
-        handle_, queueFamilyIndex, surface, pSupported);
-  }
-
-  std::vector<spk::display_properties_khr>
-  get_physical_device_display_properties_khr(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_display_properties_khr(handle_);
-  }
-
+      spk::bool32_t& pSupported);
+  inline std::vector<spk::display_properties_khr>
+  get_physical_device_display_properties_khr();
 #ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  spk::bool32_t get_physical_device_wayland_presentation_support_khr(
-      uint32_t queueFamilyIndex, wl_display* display) {  // SINGLE_HANDLE
-    return dispatch_table()
-        .get_physical_device_wayland_presentation_support_khr(
-            handle_, queueFamilyIndex, display);
-  }
+  inline spk::bool32_t get_physical_device_wayland_presentation_support_khr(
+      uint32_t queueFamilyIndex, wl_display& display);
 #endif
-
-  std::vector<spk::display_plane_properties_khr>
-  get_physical_device_display_plane_properties_khr(
-
-  ) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_display_plane_properties_khr(
-        handle_);
-  }
-
-  std::vector<spk::present_mode_khr>
-  get_physical_device_surface_present_modes_khr(
-      spk::surface_khr_ref surface) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_surface_present_modes_khr(
-        handle_, surface);
-  }
-
-  void get_physical_device_image_format_properties_2khr(
-      spk::physical_device_image_format_info_2 const* pImageFormatInfo,
-      spk::image_format_properties_2*
-          pImageFormatProperties) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_image_format_properties_2khr(
-        handle_, pImageFormatInfo, pImageFormatProperties);
-  }
-
-  std::vector<spk::display_khr_ref> get_display_plane_supported_displays_khr(
-      uint32_t planeIndex) {  // SINGLE_HANDLE
-    return dispatch_table().get_display_plane_supported_displays_khr(
-        handle_, planeIndex);
-  }
-
+  inline std::vector<spk::display_plane_properties_khr>
+  get_physical_device_display_plane_properties_khr();
+  inline std::vector<spk::present_mode_khr>
+  get_physical_device_surface_present_modes_khr(spk::surface_khr_ref surface);
+  inline spk::image_format_properties_2
+  get_physical_device_image_format_properties_2khr(
+      spk::physical_device_image_format_info_2 const& pImageFormatInfo);
+  inline std::vector<spk::display_khr_ref>
+  get_display_plane_supported_displays_khr(uint32_t planeIndex);
 #ifdef VK_USE_PLATFORM_MIR_KHR
-  spk::bool32_t get_physical_device_mir_presentation_support_khr(
-      uint32_t queueFamilyIndex, MirConnection* connection) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_mir_presentation_support_khr(
-        handle_, queueFamilyIndex, connection);
-  }
+  inline spk::bool32_t get_physical_device_mir_presentation_support_khr(
+      uint32_t queueFamilyIndex, MirConnection& connection);
 #endif
-
-  std::vector<spk::surface_format_khr> get_physical_device_surface_formats_khr(
-      spk::surface_khr_ref surface) {  // SINGLE_HANDLE
-    return dispatch_table().get_physical_device_surface_formats_khr(handle_,
-                                                                    surface);
-  }
-
-  void get_physical_device_features_2(
-      spk::physical_device_features_2* pFeatures) {  // SINGLE_HANDLE
-    dispatch_table().get_physical_device_features_2(handle_, pFeatures);
-  }
-
-  void get_display_plane_capabilities_khr(
-      spk::display_mode_khr_ref mode, uint32_t planeIndex,
-      spk::display_plane_capabilities_khr* pCapabilities) {  // SINGLE_HANDLE
-    dispatch_table().get_display_plane_capabilities_khr(
-        handle_, mode, planeIndex, pCapabilities);
-  }
+  inline std::vector<spk::surface_format_khr>
+  get_physical_device_surface_formats_khr(spk::surface_khr_ref surface);
+  inline spk::physical_device_features_2 get_physical_device_features_2();
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   physical_device_ref handle_ = VK_NULL_HANDLE;
-  instance_ref parent_instance_ref = VK_NULL_HANDLE;
   const instance_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
+
+  friend class device;
 };
 
 class pipeline_cache {
  public:
   operator pipeline_cache_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_pipeline_cache
-
-  void destroy_pipeline_cache(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_pipeline_cache(parent_device_ref, handle_,
-                                            pAllocator);
+  pipeline_cache(pipeline_cache_ref handle, device_ref parent,
+                 const device_dispatch_table& dispatch_table,
+                 const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  pipeline_cache(const pipeline_cache&) = delete;
+  pipeline_cache(pipeline_cache&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline void merge_pipeline_caches(
+      spk::array_view<spk::pipeline_cache_ref const> pSrcCaches);
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~pipeline_cache() {
+    dispatch_table().destroy_pipeline_cache(parent_, handle_,
+                                            allocation_callbacks_);
+  }
 
  private:
   pipeline_cache_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class pipeline_layout {
  public:
   operator pipeline_layout_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_pipeline_layout
-
-  void destroy_pipeline_layout(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_pipeline_layout(parent_device_ref, handle_,
-                                             pAllocator);
+  pipeline_layout(pipeline_layout_ref handle, device_ref parent,
+                  const device_dispatch_table& dispatch_table,
+                  const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  pipeline_layout(const pipeline_layout&) = delete;
+  pipeline_layout(pipeline_layout&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~pipeline_layout() {
+    dispatch_table().destroy_pipeline_layout(parent_, handle_,
+                                             allocation_callbacks_);
+  }
 
  private:
   pipeline_layout_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class pipeline {
  public:
   operator pipeline_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_graphics_pipelines
-
-  // TODO CONSTRUCTOR: create_compute_pipelines
-
-  void destroy_pipeline(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_pipeline(parent_device_ref, handle_, pAllocator);
+  pipeline(pipeline_ref handle, device_ref parent,
+           const device_dispatch_table& dispatch_table,
+           const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  pipeline(const pipeline&) = delete;
+  pipeline(pipeline&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~pipeline() {
+    dispatch_table().destroy_pipeline(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   pipeline_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class query_pool {
  public:
   operator query_pool_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_query_pool
-
-  void destroy_query_pool(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_query_pool(parent_device_ref, handle_, pAllocator);
+  query_pool(query_pool_ref handle, device_ref parent,
+             const device_dispatch_table& dispatch_table,
+             const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  query_pool(const query_pool&) = delete;
+  query_pool(query_pool&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~query_pool() {
+    dispatch_table().destroy_query_pool(parent_, handle_,
+                                        allocation_callbacks_);
+  }
 
  private:
   query_pool_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class queue {
  public:
   operator queue_ref() const { return handle_; }
-
-  void queue_end_debug_utils_label_ext(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().queue_end_debug_utils_label_ext(handle_);
+  queue(queue_ref handle, const device_dispatch_table& dispatch_table,
+        const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  queue(const queue&) = delete;
+  queue(queue&& that)
+      : handle_(that.handle_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
-  void queue_begin_debug_utils_label_ext(
-      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
-    dispatch_table().queue_begin_debug_utils_label_ext(handle_, pLabelInfo);
-  }
-
-  void queue_insert_debug_utils_label_ext(
-      spk::debug_utils_label_ext const* pLabelInfo) {  // SINGLE_HANDLE
-    dispatch_table().queue_insert_debug_utils_label_ext(handle_, pLabelInfo);
-  }
-
-  void get_queue_checkpoint_data_nv(
-      uint32_t* pCheckpointDataCount,
-      spk::checkpoint_data_nv* pCheckpointData) {  // SINGLE_HANDLE
-    dispatch_table().get_queue_checkpoint_data_nv(handle_, pCheckpointDataCount,
-                                                  pCheckpointData);
-  }
-
-  void queue_wait_idle(
-
-  ) {  // SINGLE_HANDLE
-    dispatch_table().queue_wait_idle(handle_);
-  }
-
-  [[nodiscard]] spk::result queue_present_khr(
-      spk::present_info_khr const* pPresentInfo) {  // SINGLE_HANDLE
-    return dispatch_table().queue_present_khr(handle_, pPresentInfo);
-  }
-
-  void queue_bind_sparse(uint32_t bindInfoCount,
-                         spk::bind_sparse_info const* pBindInfo,
-                         spk::fence_ref fence) {  // SINGLE_HANDLE
-    dispatch_table().queue_bind_sparse(handle_, bindInfoCount, pBindInfo,
-                                       fence);
-  }
-
-  void queue_submit(uint32_t submitCount, spk::submit_info const* pSubmits,
-                    spk::fence_ref fence) {  // SINGLE_HANDLE
-    dispatch_table().queue_submit(handle_, submitCount, pSubmits, fence);
-  }
+  inline void queue_end_debug_utils_label_ext();
+  inline void queue_begin_debug_utils_label_ext(
+      spk::debug_utils_label_ext const& pLabelInfo);
+  inline void queue_insert_debug_utils_label_ext(
+      spk::debug_utils_label_ext const& pLabelInfo);
+  inline std::vector<spk::checkpoint_data_nv> get_queue_checkpoint_data_nv();
+  inline void queue_wait_idle();
+  inline spk::result queue_present_khr(
+      spk::present_info_khr const& pPresentInfo);
+  inline void queue_bind_sparse(
+      spk::array_view<spk::bind_sparse_info const> pBindInfo,
+      spk::fence_ref fence);
+  inline void queue_submit(spk::array_view<spk::submit_info const> pSubmits,
+                           spk::fence_ref fence);
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
 
  private:
   queue_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class render_pass {
  public:
   operator render_pass_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_render_pass
-
-  // TODO CONSTRUCTOR: create_render_pass_2khr
-
-  void destroy_render_pass(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_render_pass(parent_device_ref, handle_,
-                                         pAllocator);
+  render_pass(render_pass_ref handle, device_ref parent,
+              const device_dispatch_table& dispatch_table,
+              const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  render_pass(const render_pass&) = delete;
+  render_pass(render_pass&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline spk::extent_2d get_render_area_granularity();
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~render_pass() {
+    dispatch_table().destroy_render_pass(parent_, handle_,
+                                         allocation_callbacks_);
+  }
 
  private:
   render_pass_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class sampler {
  public:
   operator sampler_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_sampler
-
-  void destroy_sampler(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_sampler(parent_device_ref, handle_, pAllocator);
+  sampler(sampler_ref handle, device_ref parent,
+          const device_dispatch_table& dispatch_table,
+          const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  sampler(const sampler&) = delete;
+  sampler(sampler&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~sampler() {
+    dispatch_table().destroy_sampler(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   sampler_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class sampler_ycbcr_conversion {
  public:
   operator sampler_ycbcr_conversion_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_sampler_ycbcr_conversion
-
-  // TODO CONSTRUCTOR: create_sampler_ycbcr_conversion_khr
-
-  void destroy_sampler_ycbcr_conversion(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_sampler_ycbcr_conversion(parent_device_ref,
-                                                      handle_, pAllocator);
-  }
-
-  void destroy_sampler_ycbcr_conversion_khr(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_sampler_ycbcr_conversion_khr(parent_device_ref,
-                                                          handle_, pAllocator);
+  sampler_ycbcr_conversion(
+      sampler_ycbcr_conversion_ref handle, device_ref parent,
+      const device_dispatch_table& dispatch_table,
+      const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  sampler_ycbcr_conversion(const sampler_ycbcr_conversion&) = delete;
+  sampler_ycbcr_conversion(sampler_ycbcr_conversion&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~sampler_ycbcr_conversion() {
+    dispatch_table().destroy_sampler_ycbcr_conversion(parent_, handle_,
+                                                      allocation_callbacks_);
+  }
 
  private:
   sampler_ycbcr_conversion_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 using sampler_ycbcr_conversion_khr = sampler_ycbcr_conversion_ref;
 
 class semaphore {
  public:
   operator semaphore_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_semaphore
-
-  void destroy_semaphore(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_semaphore(parent_device_ref, handle_, pAllocator);
+  semaphore(semaphore_ref handle, device_ref parent,
+            const device_dispatch_table& dispatch_table,
+            const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  semaphore(const semaphore&) = delete;
+  semaphore(semaphore&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~semaphore() {
+    dispatch_table().destroy_semaphore(parent_, handle_, allocation_callbacks_);
+  }
 
  private:
   semaphore_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class shader_module {
  public:
   operator shader_module_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_shader_module
-
-  void destroy_shader_module(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_shader_module(parent_device_ref, handle_,
-                                           pAllocator);
+  shader_module(shader_module_ref handle, device_ref parent,
+                const device_dispatch_table& dispatch_table,
+                const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  shader_module(const shader_module&) = delete;
+  shader_module(shader_module&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~shader_module() {
+    dispatch_table().destroy_shader_module(parent_, handle_,
+                                           allocation_callbacks_);
+  }
 
  private:
   shader_module_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class surface_khr {
  public:
   operator surface_khr_ref() const { return handle_; }
-
-#ifdef VK_USE_PLATFORM_IOS_MVK
-  // TODO CONSTRUCTOR: create_ios_surface_mvk
-#endif
-
-#ifdef VK_USE_PLATFORM_MACOS_MVK
-  // TODO CONSTRUCTOR: create_mac_os_surface_mvk
-#endif
-
-#ifdef VK_USE_PLATFORM_XCB_KHR
-  // TODO CONSTRUCTOR: create_xcb_surface_khr
-#endif
-
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-  // TODO CONSTRUCTOR: create_android_surface_khr
-#endif
-
-  // TODO CONSTRUCTOR: create_display_plane_surface_khr
-
-#ifdef VK_USE_PLATFORM_VI_NN
-  // TODO CONSTRUCTOR: create_vi_surface_nn
-#endif
-
-#ifdef VK_USE_PLATFORM_MIR_KHR
-  // TODO CONSTRUCTOR: create_mir_surface_khr
-#endif
-
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  // TODO CONSTRUCTOR: create_wayland_surface_khr
-#endif
-
-#ifdef VK_USE_PLATFORM_XLIB_KHR
-  // TODO CONSTRUCTOR: create_xlib_surface_khr
-#endif
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  // TODO CONSTRUCTOR: create_win_32surface_khr
-#endif
-
-  void destroy_surface_khr(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_surface_khr(parent_instance_ref, handle_,
-                                         pAllocator);
+  surface_khr(surface_khr_ref handle, instance_ref parent,
+              const instance_dispatch_table& dispatch_table,
+              const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  surface_khr(const surface_khr&) = delete;
+  surface_khr(surface_khr&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~surface_khr() {
+    dispatch_table().destroy_surface_khr(parent_, handle_,
+                                         allocation_callbacks_);
+  }
 
  private:
   surface_khr_ref handle_ = VK_NULL_HANDLE;
-  instance_ref parent_instance_ref = VK_NULL_HANDLE;
+  instance_ref parent_ = VK_NULL_HANDLE;
   const instance_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class swapchain_khr {
  public:
   operator swapchain_khr_ref() const { return handle_; }
+  swapchain_khr(swapchain_khr_ref handle, device_ref parent,
+                const device_dispatch_table& dispatch_table,
+                const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  swapchain_khr(const swapchain_khr&) = delete;
+  swapchain_khr(swapchain_khr&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
+  }
 
-  // TODO CONSTRUCTOR: create_shared_swapchains_khr
-
-  // TODO CONSTRUCTOR: create_swapchain_khr
+  inline spk::result get_swapchain_status_khr();
+  inline void get_swapchain_counter_ext(spk::surface_counter_flags_ext counter,
+                                        uint64_t& pCounterValue);
+  inline std::vector<spk::past_presentation_timing_google>
+  get_past_presentation_timing_google();
+  inline spk::refresh_cycle_duration_google get_refresh_cycle_duration_google();
+  inline std::vector<spk::image_ref> get_swapchain_images_khr();
+  inline spk::result acquire_next_image_khr(uint64_t timeout,
+                                            spk::semaphore_ref semaphore,
+                                            spk::fence_ref fence,
+                                            uint32_t& pImageIndex);
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~swapchain_khr() {
+    dispatch_table().destroy_swapchain_khr(parent_, handle_,
+                                           allocation_callbacks_);
+  }
 
  private:
   swapchain_khr_ref handle_ = VK_NULL_HANDLE;
-  surface_khr_ref parent_surface_khr_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
 class validation_cache_ext {
  public:
   operator validation_cache_ext_ref() const { return handle_; }
-
-  // TODO CONSTRUCTOR: create_validation_cache_ext
-
-  void destroy_validation_cache_ext(
-      spk::allocation_callbacks const* pAllocator) {  // DOUBLE_DESTRUCTOR
-    dispatch_table().destroy_validation_cache_ext(parent_device_ref, handle_,
-                                                  pAllocator);
+  validation_cache_ext(validation_cache_ext_ref handle, device_ref parent,
+                       const device_dispatch_table& dispatch_table,
+                       const spk::allocation_callbacks* allocation_callbacks)
+      : handle_(handle),
+        parent_(parent),
+        dispatch_table_(&dispatch_table),
+        allocation_callbacks_(allocation_callbacks) {}
+  validation_cache_ext(const validation_cache_ext&) = delete;
+  validation_cache_ext(validation_cache_ext&& that)
+      : handle_(that.handle_),
+        parent_(that.parent_),
+        dispatch_table_(that.dispatch_table_),
+        allocation_callbacks_(that.allocation_callbacks_) {
+    that.handle_ = VK_NULL_HANDLE;
   }
 
+  inline void merge_validation_caches_ext(
+      spk::array_view<spk::validation_cache_ext_ref const> pSrcCaches);
+
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~validation_cache_ext() {
+    dispatch_table().destroy_validation_cache_ext(parent_, handle_,
+                                                  allocation_callbacks_);
+  }
 
  private:
   validation_cache_ext_ref handle_ = VK_NULL_HANDLE;
-  device_ref parent_device_ref = VK_NULL_HANDLE;
+  device_ref parent_ = VK_NULL_HANDLE;
   const device_dispatch_table* dispatch_table_;
+  const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
+
+inline spk::memory_requirements buffer::get_buffer_memory_requirements() {
+  spk::memory_requirements result_;
+  dispatch_table().get_buffer_memory_requirements(parent_, handle_, &result_);
+  return result_;
+}
+
+inline void buffer::bind_buffer_memory(spk::device_memory_ref memory,
+                                       uint64_t memoryOffset) {
+  dispatch_table().bind_buffer_memory(parent_, handle_, memory, memoryOffset);
+}
+
+inline void command_buffer::cmd_dispatch_base_khr(
+    uint32_t baseGroupX, uint32_t baseGroupY, uint32_t baseGroupZ,
+    uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) {
+  dispatch_table().cmd_dispatch_base_khr(handle_, baseGroupX, baseGroupY,
+                                         baseGroupZ, groupCountX, groupCountY,
+                                         groupCountZ);
+}
+
+inline void command_buffer::cmd_set_device_mask_khr(uint32_t deviceMask) {
+  dispatch_table().cmd_set_device_mask_khr(handle_, deviceMask);
+}
+
+inline void command_buffer::cmd_next_subpass_2khr(
+    spk::subpass_begin_info_khr const& pSubpassBeginInfo,
+    spk::subpass_end_info_khr const& pSubpassEndInfo) {
+  dispatch_table().cmd_next_subpass_2khr(handle_, &pSubpassBeginInfo,
+                                         &pSubpassEndInfo);
+}
+
+inline void command_buffer::cmd_draw_indirect_count_khr(
+    spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+    uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride) {
+  dispatch_table().cmd_draw_indirect_count_khr(handle_, buffer, offset,
+                                               countBuffer, countBufferOffset,
+                                               maxDrawCount, stride);
+}
+
+inline void command_buffer::cmd_insert_debug_utils_label_ext(
+    spk::debug_utils_label_ext const& pLabelInfo) {
+  dispatch_table().cmd_insert_debug_utils_label_ext(handle_, &pLabelInfo);
+}
+
+inline void command_buffer::cmd_end_debug_utils_label_ext() {
+  dispatch_table().cmd_end_debug_utils_label_ext(handle_);
+}
+
+inline void command_buffer::cmd_set_discard_rectangle_ext(
+    uint32_t firstDiscardRectangle,
+    spk::array_view<spk::rect_2d const> pDiscardRectangles) {
+  dispatch_table().cmd_set_discard_rectangle_ext(handle_, firstDiscardRectangle,
+                                                 pDiscardRectangles.size(),
+                                                 pDiscardRectangles.data());
+}
+
+inline void command_buffer::cmd_push_descriptor_set_with_template_khr(
+    spk::descriptor_update_template_ref descriptorUpdateTemplate,
+    spk::pipeline_layout_ref layout, uint32_t set, void const* pData) {
+  dispatch_table().cmd_push_descriptor_set_with_template_khr(
+      handle_, descriptorUpdateTemplate, layout, set, pData);
+}
+
+inline void command_buffer::cmd_dispatch_base(
+    uint32_t baseGroupX, uint32_t baseGroupY, uint32_t baseGroupZ,
+    uint32_t groupCountX, uint32_t groupCountY, uint32_t groupCountZ) {
+  dispatch_table().cmd_dispatch_base(handle_, baseGroupX, baseGroupY,
+                                     baseGroupZ, groupCountX, groupCountY,
+                                     groupCountZ);
+}
+
+inline void command_buffer::cmd_set_viewport_w_scaling_nv(
+    uint32_t firstViewport,
+    spk::array_view<spk::viewport_w_scaling_nv const> pViewportWScalings) {
+  dispatch_table().cmd_set_viewport_w_scaling_nv(handle_, firstViewport,
+                                                 pViewportWScalings.size(),
+                                                 pViewportWScalings.data());
+}
+
+inline void command_buffer::cmd_set_device_mask(uint32_t deviceMask) {
+  dispatch_table().cmd_set_device_mask(handle_, deviceMask);
+}
+
+inline void command_buffer::cmd_begin_debug_utils_label_ext(
+    spk::debug_utils_label_ext const& pLabelInfo) {
+  dispatch_table().cmd_begin_debug_utils_label_ext(handle_, &pLabelInfo);
+}
+
+inline void command_buffer::cmd_push_descriptor_set_khr(
+    spk::pipeline_bind_point pipelineBindPoint, spk::pipeline_layout_ref layout,
+    uint32_t set,
+    spk::array_view<spk::write_descriptor_set const> pDescriptorWrites) {
+  dispatch_table().cmd_push_descriptor_set_khr(
+      handle_, pipelineBindPoint, layout, set, pDescriptorWrites.size(),
+      pDescriptorWrites.data());
+}
+
+inline void command_buffer::cmd_reserve_space_for_commands_nvx(
+    spk::cmd_reserve_space_for_commands_info_nvx const& pReserveSpaceInfo) {
+  dispatch_table().cmd_reserve_space_for_commands_nvx(handle_,
+                                                      &pReserveSpaceInfo);
+}
+
+inline void command_buffer::cmd_draw_indexed_indirect_count_amd(
+    spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+    uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride) {
+  dispatch_table().cmd_draw_indexed_indirect_count_amd(
+      handle_, buffer, offset, countBuffer, countBufferOffset, maxDrawCount,
+      stride);
+}
+
+inline void command_buffer::cmd_draw_indirect_count_amd(
+    spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+    uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride) {
+  dispatch_table().cmd_draw_indirect_count_amd(handle_, buffer, offset,
+                                               countBuffer, countBufferOffset,
+                                               maxDrawCount, stride);
+}
+
+inline void command_buffer::cmd_debug_marker_insert_ext(
+    spk::debug_marker_marker_info_ext const& pMarkerInfo) {
+  dispatch_table().cmd_debug_marker_insert_ext(handle_, &pMarkerInfo);
+}
+
+inline void command_buffer::cmd_debug_marker_end_ext() {
+  dispatch_table().cmd_debug_marker_end_ext(handle_);
+}
+
+inline void command_buffer::cmd_debug_marker_begin_ext(
+    spk::debug_marker_marker_info_ext const& pMarkerInfo) {
+  dispatch_table().cmd_debug_marker_begin_ext(handle_, &pMarkerInfo);
+}
+
+inline void command_buffer::cmd_write_timestamp(
+    spk::pipeline_stage_flags pipelineStage, spk::query_pool_ref queryPool,
+    uint32_t query) {
+  dispatch_table().cmd_write_timestamp(handle_, pipelineStage, queryPool,
+                                       query);
+}
+
+inline void command_buffer::cmd_set_event(spk::event_ref event,
+                                          spk::pipeline_stage_flags stageMask) {
+  dispatch_table().cmd_set_event(handle_, event, stageMask);
+}
+
+inline void command_buffer::cmd_copy_buffer(
+    spk::buffer_ref srcBuffer, spk::buffer_ref dstBuffer,
+    spk::array_view<spk::buffer_copy const> pRegions) {
+  dispatch_table().cmd_copy_buffer(handle_, srcBuffer, dstBuffer,
+                                   pRegions.size(), pRegions.data());
+}
+
+inline void command_buffer::cmd_set_blend_constants(
+    std::array<float const, 4> blendConstants) {
+  dispatch_table().cmd_set_blend_constants(handle_, blendConstants);
+}
+
+inline void command_buffer::cmd_draw(uint32_t vertexCount,
+                                     uint32_t instanceCount,
+                                     uint32_t firstVertex,
+                                     uint32_t firstInstance) {
+  dispatch_table().cmd_draw(handle_, vertexCount, instanceCount, firstVertex,
+                            firstInstance);
+}
+
+inline void command_buffer::cmd_draw_indexed_indirect_count_khr(
+    spk::buffer_ref buffer, uint64_t offset, spk::buffer_ref countBuffer,
+    uint64_t countBufferOffset, uint32_t maxDrawCount, uint32_t stride) {
+  dispatch_table().cmd_draw_indexed_indirect_count_khr(
+      handle_, buffer, offset, countBuffer, countBufferOffset, maxDrawCount,
+      stride);
+}
+
+inline void command_buffer::cmd_set_checkpoint_nv(
+    void const* pCheckpointMarker) {
+  dispatch_table().cmd_set_checkpoint_nv(handle_, pCheckpointMarker);
+}
+
+inline void command_buffer::cmd_bind_index_buffer(spk::buffer_ref buffer,
+                                                  uint64_t offset,
+                                                  spk::index_type indexType) {
+  dispatch_table().cmd_bind_index_buffer(handle_, buffer, offset, indexType);
+}
+
+inline void command_buffer::cmd_draw_indexed(uint32_t indexCount,
+                                             uint32_t instanceCount,
+                                             uint32_t firstIndex,
+                                             int32_t vertexOffset,
+                                             uint32_t firstInstance) {
+  dispatch_table().cmd_draw_indexed(handle_, indexCount, instanceCount,
+                                    firstIndex, vertexOffset, firstInstance);
+}
+
+inline void command_buffer::cmd_dispatch(uint32_t groupCountX,
+                                         uint32_t groupCountY,
+                                         uint32_t groupCountZ) {
+  dispatch_table().cmd_dispatch(handle_, groupCountX, groupCountY, groupCountZ);
+}
+
+inline void command_buffer::cmd_process_commands_nvx(
+    spk::cmd_process_commands_info_nvx const& pProcessCommandsInfo) {
+  dispatch_table().cmd_process_commands_nvx(handle_, &pProcessCommandsInfo);
+}
+
+inline void command_buffer::cmd_end_render_pass() {
+  dispatch_table().cmd_end_render_pass(handle_);
+}
+
+inline void command_buffer::cmd_wait_events(
+    spk::array_view<spk::event_ref const> pEvents,
+    spk::pipeline_stage_flags srcStageMask,
+    spk::pipeline_stage_flags dstStageMask,
+    spk::array_view<spk::memory_barrier const> pMemoryBarriers,
+    spk::array_view<spk::buffer_memory_barrier const> pBufferMemoryBarriers,
+    spk::array_view<spk::image_memory_barrier const> pImageMemoryBarriers) {
+  dispatch_table().cmd_wait_events(
+      handle_, pEvents.size(), pEvents.data(), srcStageMask, dstStageMask,
+      pMemoryBarriers.size(), pMemoryBarriers.data(),
+      pBufferMemoryBarriers.size(), pBufferMemoryBarriers.data(),
+      pImageMemoryBarriers.size(), pImageMemoryBarriers.data());
+}
+
+inline void command_buffer::cmd_set_scissor(
+    uint32_t firstScissor, spk::array_view<spk::rect_2d const> pScissors) {
+  dispatch_table().cmd_set_scissor(handle_, firstScissor, pScissors.size(),
+                                   pScissors.data());
+}
+
+inline void command_buffer::cmd_end_render_pass_2khr(
+    spk::subpass_end_info_khr const& pSubpassEndInfo) {
+  dispatch_table().cmd_end_render_pass_2khr(handle_, &pSubpassEndInfo);
+}
+
+inline void command_buffer::reset_command_buffer(
+    spk::command_buffer_reset_flags flags) {
+  dispatch_table().reset_command_buffer(handle_, flags);
+}
+
+inline void command_buffer::cmd_update_buffer(
+    spk::buffer_ref dstBuffer, uint64_t dstOffset,
+    spk::array_view<void const> pData) {
+  dispatch_table().cmd_update_buffer(handle_, dstBuffer, dstOffset,
+                                     pData.size(), pData.data());
+}
+
+inline void command_buffer::cmd_draw_indexed_indirect(spk::buffer_ref buffer,
+                                                      uint64_t offset,
+                                                      uint32_t drawCount,
+                                                      uint32_t stride) {
+  dispatch_table().cmd_draw_indexed_indirect(handle_, buffer, offset, drawCount,
+                                             stride);
+}
+
+inline void command_buffer::cmd_write_buffer_marker_amd(
+    spk::pipeline_stage_flags pipelineStage, spk::buffer_ref dstBuffer,
+    uint64_t dstOffset, uint32_t marker) {
+  dispatch_table().cmd_write_buffer_marker_amd(handle_, pipelineStage,
+                                               dstBuffer, dstOffset, marker);
+}
+
+inline void command_buffer::cmd_dispatch_indirect(spk::buffer_ref buffer,
+                                                  uint64_t offset) {
+  dispatch_table().cmd_dispatch_indirect(handle_, buffer, offset);
+}
+
+inline void command_buffer::cmd_bind_pipeline(
+    spk::pipeline_bind_point pipelineBindPoint, spk::pipeline_ref pipeline) {
+  dispatch_table().cmd_bind_pipeline(handle_, pipelineBindPoint, pipeline);
+}
+
+inline void command_buffer::cmd_begin_query(spk::query_pool_ref queryPool,
+                                            uint32_t query,
+                                            spk::query_control_flags flags) {
+  dispatch_table().cmd_begin_query(handle_, queryPool, query, flags);
+}
+
+inline void command_buffer::cmd_begin_render_pass_2khr(
+    spk::render_pass_begin_info const& pRenderPassBegin,
+    spk::subpass_begin_info_khr const& pSubpassBeginInfo) {
+  dispatch_table().cmd_begin_render_pass_2khr(handle_, &pRenderPassBegin,
+                                              &pSubpassBeginInfo);
+}
+
+inline void command_buffer::end_command_buffer() {
+  dispatch_table().end_command_buffer(handle_);
+}
+
+inline void command_buffer::cmd_resolve_image(
+    spk::image_ref srcImage, spk::image_layout srcImageLayout,
+    spk::image_ref dstImage, spk::image_layout dstImageLayout,
+    spk::array_view<spk::image_resolve const> pRegions) {
+  dispatch_table().cmd_resolve_image(handle_, srcImage, srcImageLayout,
+                                     dstImage, dstImageLayout, pRegions.size(),
+                                     pRegions.data());
+}
+
+inline void command_buffer::cmd_set_sample_locations_ext(
+    spk::sample_locations_info_ext const& pSampleLocationsInfo) {
+  dispatch_table().cmd_set_sample_locations_ext(handle_, &pSampleLocationsInfo);
+}
+
+inline void command_buffer::cmd_set_depth_bias(float depthBiasConstantFactor,
+                                               float depthBiasClamp,
+                                               float depthBiasSlopeFactor) {
+  dispatch_table().cmd_set_depth_bias(handle_, depthBiasConstantFactor,
+                                      depthBiasClamp, depthBiasSlopeFactor);
+}
+
+inline void command_buffer::cmd_set_depth_bounds(float minDepthBounds,
+                                                 float maxDepthBounds) {
+  dispatch_table().cmd_set_depth_bounds(handle_, minDepthBounds,
+                                        maxDepthBounds);
+}
+
+inline void command_buffer::cmd_set_stencil_compare_mask(
+    spk::stencil_face_flags faceMask, uint32_t compareMask) {
+  dispatch_table().cmd_set_stencil_compare_mask(handle_, faceMask, compareMask);
+}
+
+inline void command_buffer::cmd_copy_buffer_to_image(
+    spk::buffer_ref srcBuffer, spk::image_ref dstImage,
+    spk::image_layout dstImageLayout,
+    spk::array_view<spk::buffer_image_copy const> pRegions) {
+  dispatch_table().cmd_copy_buffer_to_image(handle_, srcBuffer, dstImage,
+                                            dstImageLayout, pRegions.size(),
+                                            pRegions.data());
+}
+
+inline void command_buffer::cmd_set_stencil_write_mask(
+    spk::stencil_face_flags faceMask, uint32_t writeMask) {
+  dispatch_table().cmd_set_stencil_write_mask(handle_, faceMask, writeMask);
+}
+
+inline void command_buffer::cmd_set_stencil_reference(
+    spk::stencil_face_flags faceMask, uint32_t reference) {
+  dispatch_table().cmd_set_stencil_reference(handle_, faceMask, reference);
+}
+
+inline void command_buffer::cmd_draw_indirect(spk::buffer_ref buffer,
+                                              uint64_t offset,
+                                              uint32_t drawCount,
+                                              uint32_t stride) {
+  dispatch_table().cmd_draw_indirect(handle_, buffer, offset, drawCount,
+                                     stride);
+}
+
+inline void command_buffer::cmd_copy_image(
+    spk::image_ref srcImage, spk::image_layout srcImageLayout,
+    spk::image_ref dstImage, spk::image_layout dstImageLayout,
+    spk::array_view<spk::image_copy const> pRegions) {
+  dispatch_table().cmd_copy_image(handle_, srcImage, srcImageLayout, dstImage,
+                                  dstImageLayout, pRegions.size(),
+                                  pRegions.data());
+}
+
+inline void command_buffer::cmd_next_subpass(spk::subpass_contents contents) {
+  dispatch_table().cmd_next_subpass(handle_, contents);
+}
+
+inline void command_buffer::cmd_set_line_width(float lineWidth) {
+  dispatch_table().cmd_set_line_width(handle_, lineWidth);
+}
+
+inline void command_buffer::cmd_blit_image(
+    spk::image_ref srcImage, spk::image_layout srcImageLayout,
+    spk::image_ref dstImage, spk::image_layout dstImageLayout,
+    spk::array_view<spk::image_blit const> pRegions, spk::filter filter) {
+  dispatch_table().cmd_blit_image(handle_, srcImage, srcImageLayout, dstImage,
+                                  dstImageLayout, pRegions.size(),
+                                  pRegions.data(), filter);
+}
+
+inline void command_buffer::cmd_fill_buffer(spk::buffer_ref dstBuffer,
+                                            uint64_t dstOffset, uint64_t size,
+                                            uint32_t data) {
+  dispatch_table().cmd_fill_buffer(handle_, dstBuffer, dstOffset, size, data);
+}
+
+inline void command_buffer::cmd_clear_color_image(
+    spk::image_ref image, spk::image_layout imageLayout,
+    spk::clear_color_value const& pColor,
+    spk::array_view<spk::image_subresource_range const> pRanges) {
+  dispatch_table().cmd_clear_color_image(handle_, image, imageLayout, &pColor,
+                                         pRanges.size(), pRanges.data());
+}
+
+inline void command_buffer::cmd_clear_depth_stencil_image(
+    spk::image_ref image, spk::image_layout imageLayout,
+    spk::clear_depth_stencil_value const& pDepthStencil,
+    spk::array_view<spk::image_subresource_range const> pRanges) {
+  dispatch_table().cmd_clear_depth_stencil_image(handle_, image, imageLayout,
+                                                 &pDepthStencil, pRanges.size(),
+                                                 pRanges.data());
+}
+
+inline void command_buffer::begin_command_buffer(
+    spk::command_buffer_begin_info const& pBeginInfo) {
+  dispatch_table().begin_command_buffer(handle_, &pBeginInfo);
+}
+
+inline void command_buffer::cmd_set_viewport(
+    uint32_t firstViewport, spk::array_view<spk::viewport const> pViewports) {
+  dispatch_table().cmd_set_viewport(handle_, firstViewport, pViewports.size(),
+                                    pViewports.data());
+}
+
+inline void command_buffer::cmd_clear_attachments(
+    spk::array_view<spk::clear_attachment const> pAttachments,
+    spk::array_view<spk::clear_rect const> pRects) {
+  dispatch_table().cmd_clear_attachments(handle_, pAttachments.size(),
+                                         pAttachments.data(), pRects.size(),
+                                         pRects.data());
+}
+
+inline void command_buffer::cmd_reset_event(
+    spk::event_ref event, spk::pipeline_stage_flags stageMask) {
+  dispatch_table().cmd_reset_event(handle_, event, stageMask);
+}
+
+inline void command_buffer::cmd_pipeline_barrier(
+    spk::pipeline_stage_flags srcStageMask,
+    spk::pipeline_stage_flags dstStageMask,
+    spk::dependency_flags dependencyFlags,
+    spk::array_view<spk::memory_barrier const> pMemoryBarriers,
+    spk::array_view<spk::buffer_memory_barrier const> pBufferMemoryBarriers,
+    spk::array_view<spk::image_memory_barrier const> pImageMemoryBarriers) {
+  dispatch_table().cmd_pipeline_barrier(
+      handle_, srcStageMask, dstStageMask, dependencyFlags,
+      pMemoryBarriers.size(), pMemoryBarriers.data(),
+      pBufferMemoryBarriers.size(), pBufferMemoryBarriers.data(),
+      pImageMemoryBarriers.size(), pImageMemoryBarriers.data());
+}
+
+inline void command_buffer::cmd_end_query(spk::query_pool_ref queryPool,
+                                          uint32_t query) {
+  dispatch_table().cmd_end_query(handle_, queryPool, query);
+}
+
+inline void command_buffer::cmd_begin_conditional_rendering_ext(
+    spk::conditional_rendering_begin_info_ext const&
+        pConditionalRenderingBegin) {
+  dispatch_table().cmd_begin_conditional_rendering_ext(
+      handle_, &pConditionalRenderingBegin);
+}
+
+inline void command_buffer::cmd_end_conditional_rendering_ext() {
+  dispatch_table().cmd_end_conditional_rendering_ext(handle_);
+}
+
+inline void command_buffer::cmd_push_constants(
+    spk::pipeline_layout_ref layout, spk::shader_stage_flags stageFlags,
+    uint32_t offset, spk::array_view<void const> pValues) {
+  dispatch_table().cmd_push_constants(handle_, layout, stageFlags, offset,
+                                      pValues.size(), pValues.data());
+}
+
+inline void command_buffer::cmd_begin_render_pass(
+    spk::render_pass_begin_info const& pRenderPassBegin,
+    spk::subpass_contents contents) {
+  dispatch_table().cmd_begin_render_pass(handle_, &pRenderPassBegin, contents);
+}
+
+inline void command_buffer::cmd_execute_commands(
+    spk::array_view<spk::command_buffer_ref const> pCommandBuffers) {
+  dispatch_table().cmd_execute_commands(handle_, pCommandBuffers.size(),
+                                        pCommandBuffers.data());
+}
+
+inline void command_buffer::cmd_bind_descriptor_sets(
+    spk::pipeline_bind_point pipelineBindPoint, spk::pipeline_layout_ref layout,
+    uint32_t firstSet,
+    spk::array_view<spk::descriptor_set_ref const> pDescriptorSets,
+    spk::array_view<uint32_t const> pDynamicOffsets) {
+  dispatch_table().cmd_bind_descriptor_sets(
+      handle_, pipelineBindPoint, layout, firstSet, pDescriptorSets.size(),
+      pDescriptorSets.data(), pDynamicOffsets.size(), pDynamicOffsets.data());
+}
+
+inline void command_buffer::cmd_copy_query_pool_results(
+    spk::query_pool_ref queryPool, uint32_t firstQuery, uint32_t queryCount,
+    spk::buffer_ref dstBuffer, uint64_t dstOffset, uint64_t stride,
+    spk::query_result_flags flags) {
+  dispatch_table().cmd_copy_query_pool_results(handle_, queryPool, firstQuery,
+                                               queryCount, dstBuffer, dstOffset,
+                                               stride, flags);
+}
+
+inline void command_buffer::cmd_copy_image_to_buffer(
+    spk::image_ref srcImage, spk::image_layout srcImageLayout,
+    spk::buffer_ref dstBuffer,
+    spk::array_view<spk::buffer_image_copy const> pRegions) {
+  dispatch_table().cmd_copy_image_to_buffer(handle_, srcImage, srcImageLayout,
+                                            dstBuffer, pRegions.size(),
+                                            pRegions.data());
+}
+
+inline void command_buffer::cmd_reset_query_pool(spk::query_pool_ref queryPool,
+                                                 uint32_t firstQuery,
+                                                 uint32_t queryCount) {
+  dispatch_table().cmd_reset_query_pool(handle_, queryPool, firstQuery,
+                                        queryCount);
+}
+
+inline void command_pool::trim_command_pool_khr() {
+  dispatch_table().trim_command_pool_khr(parent_, handle_);
+}
+
+inline void command_pool::trim_command_pool() {
+  dispatch_table().trim_command_pool(parent_, handle_);
+}
+
+inline void command_pool::reset_command_pool(
+    spk::command_pool_reset_flags flags) {
+  dispatch_table().reset_command_pool(parent_, handle_, flags);
+}
+
+inline void command_pool::free_command_buffers(
+    spk::array_view<spk::command_buffer_ref const> pCommandBuffers) {
+  dispatch_table().free_command_buffers(
+      parent_, handle_, pCommandBuffers.size(), pCommandBuffers.data());
+}
+
+inline void descriptor_pool::reset_descriptor_pool() {
+  dispatch_table().reset_descriptor_pool(parent_, handle_);
+}
+
+inline void descriptor_pool::free_descriptor_sets(
+    spk::array_view<spk::descriptor_set_ref const> pDescriptorSets) {
+  dispatch_table().free_descriptor_sets(
+      parent_, handle_, pDescriptorSets.size(), pDescriptorSets.data());
+}
+
+inline void descriptor_set::update_descriptor_set_with_template_khr(
+    spk::descriptor_update_template_ref descriptorUpdateTemplate,
+    void const* pData) {
+  dispatch_table().update_descriptor_set_with_template_khr(
+      parent_, handle_, descriptorUpdateTemplate, pData);
+}
+
+inline void descriptor_set::update_descriptor_set_with_template(
+    spk::descriptor_update_template_ref descriptorUpdateTemplate,
+    void const* pData) {
+  dispatch_table().update_descriptor_set_with_template(
+      parent_, handle_, descriptorUpdateTemplate, pData);
+}
+
+inline void device_memory::unmap_memory() {
+  dispatch_table().unmap_memory(parent_, handle_);
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline void device_memory::get_memory_win_32handle_nv(
+    spk::external_memory_handle_type_flags_nv handleType, HANDLE& pHandle) {
+  dispatch_table().get_memory_win_32handle_nv(parent_, handle_, handleType,
+                                              &pHandle);
+}
+#endif
+
+inline void device_memory::map_memory(uint64_t offset, uint64_t size,
+                                      void*& ppData) {
+  dispatch_table().map_memory(parent_, handle_, offset, size, &ppData);
+}
+
+inline void device_memory::free_memory(
+    spk::allocation_callbacks const* pAllocator) {
+  dispatch_table().free_memory(parent_, handle_, pAllocator);
+}
+
+inline void device_memory::get_device_memory_commitment(
+    uint64_t& pCommittedMemoryInBytes) {
+  dispatch_table().get_device_memory_commitment(parent_, handle_,
+                                                &pCommittedMemoryInBytes);
+}
+
+inline spk::descriptor_set_layout_support
+device::get_descriptor_set_layout_support_khr(
+    spk::descriptor_set_layout_create_info const& pCreateInfo) {
+  spk::descriptor_set_layout_support result_;
+  dispatch_table().get_descriptor_set_layout_support_khr(handle_, &pCreateInfo,
+                                                         &result_);
+  return result_;
+}
+
+inline spk::memory_requirements_2 device::get_image_memory_requirements_2khr(
+    spk::image_memory_requirements_info_2 const& pInfo) {
+  spk::memory_requirements_2 result_;
+  dispatch_table().get_image_memory_requirements_2khr(handle_, &pInfo,
+                                                      &result_);
+  return result_;
+}
+
+inline spk::memory_host_pointer_properties_ext
+device::get_memory_host_pointer_properties_ext(
+    spk::external_memory_handle_type_flags handleType,
+    void const* pHostPointer) {
+  spk::memory_host_pointer_properties_ext result_;
+  dispatch_table().get_memory_host_pointer_properties_ext(
+      handle_, handleType, pHostPointer, &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+inline void device::get_memory_android_hardware_buffer_android(
+    spk::memory_get_android_hardware_buffer_info_android const& pInfo,
+    AHardwareBuffer*& pBuffer) {
+  dispatch_table().get_memory_android_hardware_buffer_android(handle_, &pInfo,
+                                                              &pBuffer);
+}
+#endif
+
+inline spk::queue_ref device::get_device_queue_2(
+    spk::device_queue_info_2 const& pQueueInfo) {
+  spk::queue_ref result_;
+  dispatch_table().get_device_queue_2(handle_, &pQueueInfo, &result_);
+  return result_;
+}
+
+inline spk::sampler_ycbcr_conversion_ref
+device::create_sampler_ycbcr_conversion(
+    spk::sampler_ycbcr_conversion_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::sampler_ycbcr_conversion_ref result_;
+  dispatch_table().create_sampler_ycbcr_conversion(handle_, &pCreateInfo,
+                                                   pAllocator, &result_);
+  return result_;
+}
+
+inline std::vector<spk::sparse_image_memory_requirements_2>
+device::get_image_sparse_memory_requirements_2(
+    spk::image_sparse_memory_requirements_info_2 const& pInfo) {
+  uint32_t size_;
+  dispatch_table().get_image_sparse_memory_requirements_2(handle_, &pInfo,
+                                                          &size_, nullptr);
+  std::vector<spk::sparse_image_memory_requirements_2> result_(size_);
+  dispatch_table().get_image_sparse_memory_requirements_2(
+      handle_, &pInfo, &size_, result_.data());
+  return result_;
+}
+
+inline spk::memory_requirements_2 device::get_image_memory_requirements_2(
+    spk::image_memory_requirements_info_2 const& pInfo) {
+  spk::memory_requirements_2 result_;
+  dispatch_table().get_image_memory_requirements_2(handle_, &pInfo, &result_);
+  return result_;
+}
+
+inline spk::result device::acquire_next_image_2khr(
+    spk::acquire_next_image_info_khr const& pAcquireInfo,
+    uint32_t& pImageIndex) {
+  return dispatch_table().acquire_next_image_2khr(handle_, &pAcquireInfo,
+                                                  &pImageIndex);
+}
+
+inline spk::device_group_present_mode_flags_khr
+device::get_device_group_surface_present_modes_khr(
+    spk::surface_khr_ref surface) {
+  spk::device_group_present_mode_flags_khr result_;
+  dispatch_table().get_device_group_surface_present_modes_khr(handle_, surface,
+                                                              &result_);
+  return result_;
+}
+
+inline spk::device_group_present_capabilities_khr
+device::get_device_group_present_capabilities_khr() {
+  spk::device_group_present_capabilities_khr result_;
+  dispatch_table().get_device_group_present_capabilities_khr(handle_, &result_);
+  return result_;
+}
+
+inline spk::descriptor_set_layout_support
+device::get_descriptor_set_layout_support(
+    spk::descriptor_set_layout_create_info const& pCreateInfo) {
+  spk::descriptor_set_layout_support result_;
+  dispatch_table().get_descriptor_set_layout_support(handle_, &pCreateInfo,
+                                                     &result_);
+  return result_;
+}
+
+inline spk::fence_ref device::register_display_event_ext(
+    spk::display_khr_ref display,
+    spk::display_event_info_ext const& pDisplayEventInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::fence_ref result_;
+  dispatch_table().register_display_event_ext(
+      handle_, display, &pDisplayEventInfo, pAllocator, &result_);
+  return result_;
+}
+
+inline void device::display_power_control_ext(
+    spk::display_khr_ref display,
+    spk::display_power_info_ext const& pDisplayPowerInfo) {
+  dispatch_table().display_power_control_ext(handle_, display,
+                                             &pDisplayPowerInfo);
+}
+
+inline void device::get_semaphore_fd_khr(
+    spk::semaphore_get_fd_info_khr const& pGetFdInfo, int& pFd) {
+  dispatch_table().get_semaphore_fd_khr(handle_, &pGetFdInfo, &pFd);
+}
+
+inline spk::peer_memory_feature_flags
+device::get_device_group_peer_memory_features(uint32_t heapIndex,
+                                              uint32_t localDeviceIndex,
+                                              uint32_t remoteDeviceIndex) {
+  spk::peer_memory_feature_flags result_;
+  dispatch_table().get_device_group_peer_memory_features(
+      handle_, heapIndex, localDeviceIndex, remoteDeviceIndex, &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline void device::get_semaphore_win_32handle_khr(
+    spk::semaphore_get_win_32handle_info_khr const& pGetWin32HandleInfo,
+    HANDLE& pHandle) {
+  dispatch_table().get_semaphore_win_32handle_khr(handle_, &pGetWin32HandleInfo,
+                                                  &pHandle);
+}
+#endif
+
+inline spk::memory_fd_properties_khr device::get_memory_fd_properties_khr(
+    spk::external_memory_handle_type_flags handleType, int fd) {
+  spk::memory_fd_properties_khr result_;
+  dispatch_table().get_memory_fd_properties_khr(handle_, handleType, fd,
+                                                &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline spk::memory_win_32handle_properties_khr
+device::get_memory_win_32handle_properties_khr(
+    spk::external_memory_handle_type_flags handleType, HANDLE handle) {
+  spk::memory_win_32handle_properties_khr result_;
+  dispatch_table().get_memory_win_32handle_properties_khr(handle_, handleType,
+                                                          handle, &result_);
+  return result_;
+}
+#endif
+
+inline spk::object_table_nvx_ref device::create_object_table_nvx(
+    spk::object_table_create_info_nvx const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::object_table_nvx_ref result_;
+  dispatch_table().create_object_table_nvx(handle_, &pCreateInfo, pAllocator,
+                                           &result_);
+  return result_;
+}
+
+inline std::vector<spk::sparse_image_memory_requirements_2>
+device::get_image_sparse_memory_requirements_2khr(
+    spk::image_sparse_memory_requirements_info_2 const& pInfo) {
+  uint32_t size_;
+  dispatch_table().get_image_sparse_memory_requirements_2khr(handle_, &pInfo,
+                                                             &size_, nullptr);
+  std::vector<spk::sparse_image_memory_requirements_2> result_(size_);
+  dispatch_table().get_image_sparse_memory_requirements_2khr(
+      handle_, &pInfo, &size_, result_.data());
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline void device::import_semaphore_win_32handle_khr(
+    spk::import_semaphore_win_32handle_info_khr const&
+        pImportSemaphoreWin32HandleInfo) {
+  dispatch_table().import_semaphore_win_32handle_khr(
+      handle_, &pImportSemaphoreWin32HandleInfo);
+}
+#endif
+
+inline void device::debug_marker_set_object_name_ext(
+    spk::debug_marker_object_name_info_ext const& pNameInfo) {
+  dispatch_table().debug_marker_set_object_name_ext(handle_, &pNameInfo);
+}
+
+inline spk::descriptor_set_layout_ref device::create_descriptor_set_layout(
+    spk::descriptor_set_layout_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::descriptor_set_layout_ref result_;
+  dispatch_table().create_descriptor_set_layout(handle_, &pCreateInfo,
+                                                pAllocator, &result_);
+  return result_;
+}
+
+inline spk::pipeline_layout_ref device::create_pipeline_layout(
+    spk::pipeline_layout_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::pipeline_layout_ref result_;
+  dispatch_table().create_pipeline_layout(handle_, &pCreateInfo, pAllocator,
+                                          &result_);
+  return result_;
+}
+
+inline void device::device_wait_idle() {
+  dispatch_table().device_wait_idle(handle_);
+}
+
+inline spk::memory_requirements_2 device::get_buffer_memory_requirements_2(
+    spk::buffer_memory_requirements_info_2 const& pInfo) {
+  spk::memory_requirements_2 result_;
+  dispatch_table().get_buffer_memory_requirements_2(handle_, &pInfo, &result_);
+  return result_;
+}
+
+inline void device::bind_image_memory_2khr(
+    spk::array_view<spk::bind_image_memory_info const> pBindInfos) {
+  dispatch_table().bind_image_memory_2khr(handle_, pBindInfos.size(),
+                                          pBindInfos.data());
+}
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+inline spk::android_hardware_buffer_properties_android
+device::get_android_hardware_buffer_properties_android(
+    AHardwareBuffer const& buffer) {
+  spk::android_hardware_buffer_properties_android result_;
+  dispatch_table().get_android_hardware_buffer_properties_android(
+      handle_, &buffer, &result_);
+  return result_;
+}
+#endif
+
+inline spk::pipeline_cache_ref device::create_pipeline_cache(
+    spk::pipeline_cache_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::pipeline_cache_ref result_;
+  dispatch_table().create_pipeline_cache(handle_, &pCreateInfo, pAllocator,
+                                         &result_);
+  return result_;
+}
+
+inline spk::sampler_ref device::create_sampler(
+    spk::sampler_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::sampler_ref result_;
+  dispatch_table().create_sampler(handle_, &pCreateInfo, pAllocator, &result_);
+  return result_;
+}
+
+inline spk::query_pool_ref device::create_query_pool(
+    spk::query_pool_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::query_pool_ref result_;
+  dispatch_table().create_query_pool(handle_, &pCreateInfo, pAllocator,
+                                     &result_);
+  return result_;
+}
+
+inline spk::semaphore_ref device::create_semaphore(
+    spk::semaphore_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::semaphore_ref result_;
+  dispatch_table().create_semaphore(handle_, &pCreateInfo, pAllocator,
+                                    &result_);
+  return result_;
+}
+
+inline void device::reset_fences(
+    spk::array_view<spk::fence_ref const> pFences) {
+  dispatch_table().reset_fences(handle_, pFences.size(), pFences.data());
+}
+
+inline spk::shader_module_ref device::create_shader_module(
+    spk::shader_module_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::shader_module_ref result_;
+  dispatch_table().create_shader_module(handle_, &pCreateInfo, pAllocator,
+                                        &result_);
+  return result_;
+}
+
+inline spk::buffer_ref device::create_buffer(
+    spk::buffer_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::buffer_ref result_;
+  dispatch_table().create_buffer(handle_, &pCreateInfo, pAllocator, &result_);
+  return result_;
+}
+
+inline spk::framebuffer_ref device::create_framebuffer(
+    spk::framebuffer_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::framebuffer_ref result_;
+  dispatch_table().create_framebuffer(handle_, &pCreateInfo, pAllocator,
+                                      &result_);
+  return result_;
+}
+
+inline spk::fence_ref device::create_fence(
+    spk::fence_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::fence_ref result_;
+  dispatch_table().create_fence(handle_, &pCreateInfo, pAllocator, &result_);
+  return result_;
+}
+
+inline spk::device_memory_ref device::allocate_memory(
+    spk::memory_allocate_info const& pAllocateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::device_memory_ref result_;
+  dispatch_table().allocate_memory(handle_, &pAllocateInfo, pAllocator,
+                                   &result_);
+  return result_;
+}
+
+inline spk::buffer_view_ref device::create_buffer_view(
+    spk::buffer_view_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::buffer_view_ref result_;
+  dispatch_table().create_buffer_view(handle_, &pCreateInfo, pAllocator,
+                                      &result_);
+  return result_;
+}
+
+inline void device::bind_buffer_memory_2(
+    spk::array_view<spk::bind_buffer_memory_info const> pBindInfos) {
+  dispatch_table().bind_buffer_memory_2(handle_, pBindInfos.size(),
+                                        pBindInfos.data());
+}
+
+inline void device::get_fence_fd_khr(
+    spk::fence_get_fd_info_khr const& pGetFdInfo, int& pFd) {
+  dispatch_table().get_fence_fd_khr(handle_, &pGetFdInfo, &pFd);
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline void device::get_fence_win_32handle_khr(
+    spk::fence_get_win_32handle_info_khr const& pGetWin32HandleInfo,
+    HANDLE& pHandle) {
+  dispatch_table().get_fence_win_32handle_khr(handle_, &pGetWin32HandleInfo,
+                                              &pHandle);
+}
+#endif
+
+inline spk::queue_ref device::get_device_queue(uint32_t queueFamilyIndex,
+                                               uint32_t queueIndex) {
+  spk::queue_ref result_;
+  dispatch_table().get_device_queue(handle_, queueFamilyIndex, queueIndex,
+                                    &result_);
+  return result_;
+}
+
+inline spk::result device::wait_for_fences(
+    spk::array_view<spk::fence_ref const> pFences, spk::bool32_t waitAll,
+    uint64_t timeout) {
+  return dispatch_table().wait_for_fences(handle_, pFences.size(),
+                                          pFences.data(), waitAll, timeout);
+}
+
+inline void device::flush_mapped_memory_ranges(
+    spk::array_view<spk::mapped_memory_range const> pMemoryRanges) {
+  dispatch_table().flush_mapped_memory_ranges(handle_, pMemoryRanges.size(),
+                                              pMemoryRanges.data());
+}
+
+inline spk::descriptor_pool_ref device::create_descriptor_pool(
+    spk::descriptor_pool_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::descriptor_pool_ref result_;
+  dispatch_table().create_descriptor_pool(handle_, &pCreateInfo, pAllocator,
+                                          &result_);
+  return result_;
+}
+
+inline void device::set_debug_utils_object_tag_ext(
+    spk::debug_utils_object_tag_info_ext const& pTagInfo) {
+  dispatch_table().set_debug_utils_object_tag_ext(handle_, &pTagInfo);
+}
+
+inline spk::fence_ref device::register_device_event_ext(
+    spk::device_event_info_ext const& pDeviceEventInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::fence_ref result_;
+  dispatch_table().register_device_event_ext(handle_, &pDeviceEventInfo,
+                                             pAllocator, &result_);
+  return result_;
+}
+
+inline spk::image_view_ref device::create_image_view(
+    spk::image_view_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::image_view_ref result_;
+  dispatch_table().create_image_view(handle_, &pCreateInfo, pAllocator,
+                                     &result_);
+  return result_;
+}
+
+inline void device::get_memory_fd_khr(
+    spk::memory_get_fd_info_khr const& pGetFdInfo, int& pFd) {
+  dispatch_table().get_memory_fd_khr(handle_, &pGetFdInfo, &pFd);
+}
+
+inline void device::invalidate_mapped_memory_ranges(
+    spk::array_view<spk::mapped_memory_range const> pMemoryRanges) {
+  dispatch_table().invalidate_mapped_memory_ranges(
+      handle_, pMemoryRanges.size(), pMemoryRanges.data());
+}
+
+inline spk::render_pass_ref device::create_render_pass(
+    spk::render_pass_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::render_pass_ref result_;
+  dispatch_table().create_render_pass(handle_, &pCreateInfo, pAllocator,
+                                      &result_);
+  return result_;
+}
+
+inline void device::import_fence_fd_khr(
+    spk::import_fence_fd_info_khr const& pImportFenceFdInfo) {
+  dispatch_table().import_fence_fd_khr(handle_, &pImportFenceFdInfo);
+}
+
+inline void device::set_debug_utils_object_name_ext(
+    spk::debug_utils_object_name_info_ext const& pNameInfo) {
+  dispatch_table().set_debug_utils_object_name_ext(handle_, &pNameInfo);
+}
+
+inline spk::validation_cache_ext_ref device::create_validation_cache_ext(
+    spk::validation_cache_create_info_ext const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::validation_cache_ext_ref result_;
+  dispatch_table().create_validation_cache_ext(handle_, &pCreateInfo,
+                                               pAllocator, &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline void device::get_memory_win_32handle_khr(
+    spk::memory_get_win_32handle_info_khr const& pGetWin32HandleInfo,
+    HANDLE& pHandle) {
+  dispatch_table().get_memory_win_32handle_khr(handle_, &pGetWin32HandleInfo,
+                                               &pHandle);
+}
+#endif
+
+inline spk::command_pool_ref device::create_command_pool(
+    spk::command_pool_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::command_pool_ref result_;
+  dispatch_table().create_command_pool(handle_, &pCreateInfo, pAllocator,
+                                       &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline void device::import_fence_win_32handle_khr(
+    spk::import_fence_win_32handle_info_khr const&
+        pImportFenceWin32HandleInfo) {
+  dispatch_table().import_fence_win_32handle_khr(handle_,
+                                                 &pImportFenceWin32HandleInfo);
+}
+#endif
+
+inline spk::descriptor_update_template_ref
+device::create_descriptor_update_template_khr(
+    spk::descriptor_update_template_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::descriptor_update_template_ref result_;
+  dispatch_table().create_descriptor_update_template_khr(handle_, &pCreateInfo,
+                                                         pAllocator, &result_);
+  return result_;
+}
+
+inline spk::render_pass_ref device::create_render_pass_2khr(
+    spk::render_pass_create_info_2khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::render_pass_ref result_;
+  dispatch_table().create_render_pass_2khr(handle_, &pCreateInfo, pAllocator,
+                                           &result_);
+  return result_;
+}
+
+inline spk::event_ref device::create_event(
+    spk::event_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::event_ref result_;
+  dispatch_table().create_event(handle_, &pCreateInfo, pAllocator, &result_);
+  return result_;
+}
+
+inline spk::descriptor_update_template_ref
+device::create_descriptor_update_template(
+    spk::descriptor_update_template_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::descriptor_update_template_ref result_;
+  dispatch_table().create_descriptor_update_template(handle_, &pCreateInfo,
+                                                     pAllocator, &result_);
+  return result_;
+}
+
+inline spk::indirect_commands_layout_nvx_ref
+device::create_indirect_commands_layout_nvx(
+    spk::indirect_commands_layout_create_info_nvx const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::indirect_commands_layout_nvx_ref result_;
+  dispatch_table().create_indirect_commands_layout_nvx(handle_, &pCreateInfo,
+                                                       pAllocator, &result_);
+  return result_;
+}
+
+inline spk::sampler_ycbcr_conversion_ref
+device::create_sampler_ycbcr_conversion_khr(
+    spk::sampler_ycbcr_conversion_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::sampler_ycbcr_conversion_ref result_;
+  dispatch_table().create_sampler_ycbcr_conversion_khr(handle_, &pCreateInfo,
+                                                       pAllocator, &result_);
+  return result_;
+}
+
+inline spk::peer_memory_feature_flags
+device::get_device_group_peer_memory_features_khr(uint32_t heapIndex,
+                                                  uint32_t localDeviceIndex,
+                                                  uint32_t remoteDeviceIndex) {
+  spk::peer_memory_feature_flags result_;
+  dispatch_table().get_device_group_peer_memory_features_khr(
+      handle_, heapIndex, localDeviceIndex, remoteDeviceIndex, &result_);
+  return result_;
+}
+
+inline void device::import_semaphore_fd_khr(
+    spk::import_semaphore_fd_info_khr const& pImportSemaphoreFdInfo) {
+  dispatch_table().import_semaphore_fd_khr(handle_, &pImportSemaphoreFdInfo);
+}
+
+inline void device::bind_buffer_memory_2khr(
+    spk::array_view<spk::bind_buffer_memory_info const> pBindInfos) {
+  dispatch_table().bind_buffer_memory_2khr(handle_, pBindInfos.size(),
+                                           pBindInfos.data());
+}
+
+inline void device::debug_marker_set_object_tag_ext(
+    spk::debug_marker_object_tag_info_ext const& pTagInfo) {
+  dispatch_table().debug_marker_set_object_tag_ext(handle_, &pTagInfo);
+}
+
+inline void device::update_descriptor_sets(
+    spk::array_view<spk::write_descriptor_set const> pDescriptorWrites,
+    spk::array_view<spk::copy_descriptor_set const> pDescriptorCopies) {
+  dispatch_table().update_descriptor_sets(
+      handle_, pDescriptorWrites.size(), pDescriptorWrites.data(),
+      pDescriptorCopies.size(), pDescriptorCopies.data());
+}
+
+inline void device::bind_image_memory_2(
+    spk::array_view<spk::bind_image_memory_info const> pBindInfos) {
+  dispatch_table().bind_image_memory_2(handle_, pBindInfos.size(),
+                                       pBindInfos.data());
+}
+
+inline spk::image_ref device::create_image(
+    spk::image_create_info const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::image_ref result_;
+  dispatch_table().create_image(handle_, &pCreateInfo, pAllocator, &result_);
+  return result_;
+}
+
+inline spk::memory_requirements_2 device::get_buffer_memory_requirements_2khr(
+    spk::buffer_memory_requirements_info_2 const& pInfo) {
+  spk::memory_requirements_2 result_;
+  dispatch_table().get_buffer_memory_requirements_2khr(handle_, &pInfo,
+                                                       &result_);
+  return result_;
+}
+
+inline spk::swapchain_khr_ref device::create_swapchain_khr(
+    spk::swapchain_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::swapchain_khr_ref result_;
+  dispatch_table().create_swapchain_khr(handle_, &pCreateInfo, pAllocator,
+                                        &result_);
+  return result_;
+}
+
+inline std::vector<spk::display_mode_properties_2khr>
+display_khr::get_display_mode_properties_2khr() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().get_display_mode_properties_2khr(
+      parent_, handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkGetDisplayModeProperties2KHR");
+  std::vector<spk::display_mode_properties_2khr> result_(size_);
+  spk::result success2_ = dispatch_table().get_display_mode_properties_2khr(
+      parent_, handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkGetDisplayModeProperties2KHR");
+  return result_;
+}
+
+inline void display_khr::release_display_ext() {
+  dispatch_table().release_display_ext(parent_, handle_);
+}
+
+inline std::vector<spk::display_mode_properties_khr>
+display_khr::get_display_mode_properties_khr() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().get_display_mode_properties_khr(
+      parent_, handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkGetDisplayModePropertiesKHR");
+  std::vector<spk::display_mode_properties_khr> result_(size_);
+  spk::result success2_ = dispatch_table().get_display_mode_properties_khr(
+      parent_, handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkGetDisplayModePropertiesKHR");
+  return result_;
+}
+
+inline spk::display_mode_khr_ref display_khr::create_display_mode_khr(
+    spk::display_mode_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::display_mode_khr_ref result_;
+  dispatch_table().create_display_mode_khr(parent_, handle_, &pCreateInfo,
+                                           pAllocator, &result_);
+  return result_;
+}
+
+inline spk::display_plane_capabilities_khr
+display_mode_khr::get_display_plane_capabilities_khr(uint32_t planeIndex) {
+  spk::display_plane_capabilities_khr result_;
+  dispatch_table().get_display_plane_capabilities_khr(parent_, handle_,
+                                                      planeIndex, &result_);
+  return result_;
+}
+
+inline void event::set_event() { dispatch_table().set_event(parent_, handle_); }
+
+inline void event::reset_event() {
+  dispatch_table().reset_event(parent_, handle_);
+}
+
+inline spk::result event::get_event_status() {
+  return dispatch_table().get_event_status(parent_, handle_);
+}
+
+inline spk::result fence::get_fence_status() {
+  return dispatch_table().get_fence_status(parent_, handle_);
+}
+
+inline spk::subresource_layout image::get_image_subresource_layout(
+    spk::image_subresource const& pSubresource) {
+  spk::subresource_layout result_;
+  dispatch_table().get_image_subresource_layout(parent_, handle_, &pSubresource,
+                                                &result_);
+  return result_;
+}
+
+inline void image::bind_image_memory(spk::device_memory_ref memory,
+                                     uint64_t memoryOffset) {
+  dispatch_table().bind_image_memory(parent_, handle_, memory, memoryOffset);
+}
+
+inline spk::memory_requirements image::get_image_memory_requirements() {
+  spk::memory_requirements result_;
+  dispatch_table().get_image_memory_requirements(parent_, handle_, &result_);
+  return result_;
+}
+
+inline std::vector<spk::sparse_image_memory_requirements>
+image::get_image_sparse_memory_requirements() {
+  uint32_t size_;
+  dispatch_table().get_image_sparse_memory_requirements(parent_, handle_,
+                                                        &size_, nullptr);
+  std::vector<spk::sparse_image_memory_requirements> result_(size_);
+  dispatch_table().get_image_sparse_memory_requirements(parent_, handle_,
+                                                        &size_, result_.data());
+  return result_;
+}
+
+inline std::vector<spk::physical_device_group_properties>
+instance::enumerate_physical_device_groups_khr() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().enumerate_physical_device_groups_khr(
+      handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkEnumeratePhysicalDeviceGroups");
+  std::vector<spk::physical_device_group_properties> result_(size_);
+  spk::result success2_ = dispatch_table().enumerate_physical_device_groups_khr(
+      handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkEnumeratePhysicalDeviceGroups");
+  return result_;
+}
+
+inline void instance::submit_debug_utils_message_ext(
+    spk::debug_utils_message_severity_flags_ext messageSeverity,
+    spk::debug_utils_message_type_flags_ext messageTypes,
+    spk::debug_utils_messenger_callback_data_ext const& pCallbackData) {
+  dispatch_table().submit_debug_utils_message_ext(handle_, messageSeverity,
+                                                  messageTypes, &pCallbackData);
+}
+
+#ifdef VK_USE_PLATFORM_IOS_MVK
+inline spk::surface_khr_ref instance::create_ios_surface_mvk(
+    spk::ios_surface_create_info_mvk const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_ios_surface_mvk(handle_, &pCreateInfo, pAllocator,
+                                          &result_);
+  return result_;
+}
+#endif
+
+inline spk::debug_utils_messenger_ext_ref
+instance::create_debug_utils_messenger_ext(
+    spk::debug_utils_messenger_create_info_ext const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::debug_utils_messenger_ext_ref result_;
+  dispatch_table().create_debug_utils_messenger_ext(handle_, &pCreateInfo,
+                                                    pAllocator, &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_MACOS_MVK
+inline spk::surface_khr_ref instance::create_mac_os_surface_mvk(
+    spk::mac_os_surface_create_info_mvk const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_mac_os_surface_mvk(handle_, &pCreateInfo, pAllocator,
+                                             &result_);
+  return result_;
+}
+#endif
+
+#ifdef VK_USE_PLATFORM_XCB_KHR
+inline spk::surface_khr_ref instance::create_xcb_surface_khr(
+    spk::xcb_surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_xcb_surface_khr(handle_, &pCreateInfo, pAllocator,
+                                          &result_);
+  return result_;
+}
+#endif
+
+inline std::vector<spk::physical_device_ref>
+instance::enumerate_physical_devices() {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().enumerate_physical_devices(handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkEnumeratePhysicalDevices");
+  std::vector<spk::physical_device_ref> result_(size_);
+  spk::result success2_ = dispatch_table().enumerate_physical_devices(
+      handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkEnumeratePhysicalDevices");
+  return result_;
+}
+
+inline std::vector<spk::physical_device_group_properties>
+instance::enumerate_physical_device_groups() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().enumerate_physical_device_groups(
+      handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkEnumeratePhysicalDeviceGroups");
+  std::vector<spk::physical_device_group_properties> result_(size_);
+  spk::result success2_ = dispatch_table().enumerate_physical_device_groups(
+      handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkEnumeratePhysicalDeviceGroups");
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+inline spk::surface_khr_ref instance::create_android_surface_khr(
+    spk::android_surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_android_surface_khr(handle_, &pCreateInfo, pAllocator,
+                                              &result_);
+  return result_;
+}
+#endif
+
+inline spk::debug_report_callback_ext_ref
+instance::create_debug_report_callback_ext(
+    spk::debug_report_callback_create_info_ext const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::debug_report_callback_ext_ref result_;
+  dispatch_table().create_debug_report_callback_ext(handle_, &pCreateInfo,
+                                                    pAllocator, &result_);
+  return result_;
+}
+
+inline spk::surface_khr_ref instance::create_display_plane_surface_khr(
+    spk::display_surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_display_plane_surface_khr(handle_, &pCreateInfo,
+                                                    pAllocator, &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_VI_NN
+inline spk::surface_khr_ref instance::create_vi_surface_nn(
+    spk::vi_surface_create_info_nn const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_vi_surface_nn(handle_, &pCreateInfo, pAllocator,
+                                        &result_);
+  return result_;
+}
+#endif
+
+#ifdef VK_USE_PLATFORM_MIR_KHR
+inline spk::surface_khr_ref instance::create_mir_surface_khr(
+    spk::mir_surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_mir_surface_khr(handle_, &pCreateInfo, pAllocator,
+                                          &result_);
+  return result_;
+}
+#endif
+
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+inline spk::surface_khr_ref instance::create_wayland_surface_khr(
+    spk::wayland_surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_wayland_surface_khr(handle_, &pCreateInfo, pAllocator,
+                                              &result_);
+  return result_;
+}
+#endif
+
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+inline spk::surface_khr_ref instance::create_xlib_surface_khr(
+    spk::xlib_surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_xlib_surface_khr(handle_, &pCreateInfo, pAllocator,
+                                           &result_);
+  return result_;
+}
+#endif
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline spk::surface_khr_ref instance::create_win_32surface_khr(
+    spk::win_32surface_create_info_khr const& pCreateInfo,
+    spk::allocation_callbacks const* pAllocator) {
+  spk::surface_khr_ref result_;
+  dispatch_table().create_win_32surface_khr(handle_, &pCreateInfo, pAllocator,
+                                            &result_);
+  return result_;
+}
+#endif
+
+inline spk::external_fence_properties
+physical_device::get_physical_device_external_fence_properties_khr(
+    spk::physical_device_external_fence_info const& pExternalFenceInfo) {
+  spk::external_fence_properties result_;
+  dispatch_table().get_physical_device_external_fence_properties_khr(
+      handle_, &pExternalFenceInfo, &result_);
+  return result_;
+}
+
+inline spk::external_buffer_properties
+physical_device::get_physical_device_external_buffer_properties_khr(
+    spk::physical_device_external_buffer_info const& pExternalBufferInfo) {
+  spk::external_buffer_properties result_;
+  dispatch_table().get_physical_device_external_buffer_properties_khr(
+      handle_, &pExternalBufferInfo, &result_);
+  return result_;
+}
+
+inline spk::physical_device_memory_properties_2
+physical_device::get_physical_device_memory_properties_2khr() {
+  spk::physical_device_memory_properties_2 result_;
+  dispatch_table().get_physical_device_memory_properties_2khr(handle_,
+                                                              &result_);
+  return result_;
+}
+
+inline std::vector<spk::queue_family_properties_2>
+physical_device::get_physical_device_queue_family_properties_2khr() {
+  uint32_t size_;
+  dispatch_table().get_physical_device_queue_family_properties_2khr(
+      handle_, &size_, nullptr);
+  std::vector<spk::queue_family_properties_2> result_(size_);
+  dispatch_table().get_physical_device_queue_family_properties_2khr(
+      handle_, &size_, result_.data());
+  return result_;
+}
+
+inline spk::physical_device_features_2
+physical_device::get_physical_device_features_2khr() {
+  spk::physical_device_features_2 result_;
+  dispatch_table().get_physical_device_features_2khr(handle_, &result_);
+  return result_;
+}
+
+inline spk::surface_capabilities_2khr
+physical_device::get_physical_device_surface_capabilities_2khr(
+    spk::physical_device_surface_info_2khr const& pSurfaceInfo) {
+  spk::surface_capabilities_2khr result_;
+  dispatch_table().get_physical_device_surface_capabilities_2khr(
+      handle_, &pSurfaceInfo, &result_);
+  return result_;
+}
+
+inline spk::format_properties_2
+physical_device::get_physical_device_format_properties_2khr(
+    spk::format format) {
+  spk::format_properties_2 result_;
+  dispatch_table().get_physical_device_format_properties_2khr(handle_, format,
+                                                              &result_);
+  return result_;
+}
+
+inline spk::multisample_properties_ext
+physical_device::get_physical_device_multisample_properties_ext(
+    spk::sample_count_flags samples) {
+  spk::multisample_properties_ext result_;
+  dispatch_table().get_physical_device_multisample_properties_ext(
+      handle_, samples, &result_);
+  return result_;
+}
+
+inline std::vector<spk::display_properties_2khr>
+physical_device::get_physical_device_display_properties_2khr() {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_display_properties_2khr(
+          handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceDisplayProperties2KHR");
+  std::vector<spk::display_properties_2khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_display_properties_2khr(
+          handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceDisplayProperties2KHR");
+  return result_;
+}
+
+inline std::vector<spk::surface_format_2khr>
+physical_device::get_physical_device_surface_formats_2khr(
+    spk::physical_device_surface_info_2khr const& pSurfaceInfo) {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_surface_formats_2khr(
+          handle_, &pSurfaceInfo, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceSurfaceFormats2KHR");
+  std::vector<spk::surface_format_2khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_surface_formats_2khr(
+          handle_, &pSurfaceInfo, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceSurfaceFormats2KHR");
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+inline spk::display_khr_ref physical_device::get_rand_r_output_display_ext(
+    Display& dpy, RROutput rrOutput) {
+  spk::display_khr_ref result_;
+  dispatch_table().get_rand_r_output_display_ext(handle_, &dpy, rrOutput,
+                                                 &result_);
+  return result_;
+}
+#endif
+
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+inline void physical_device::acquire_xlib_display_ext(
+    Display& dpy, spk::display_khr_ref display) {
+  dispatch_table().acquire_xlib_display_ext(handle_, &dpy, display);
+}
+#endif
+
+inline spk::external_fence_properties
+physical_device::get_physical_device_external_fence_properties(
+    spk::physical_device_external_fence_info const& pExternalFenceInfo) {
+  spk::external_fence_properties result_;
+  dispatch_table().get_physical_device_external_fence_properties(
+      handle_, &pExternalFenceInfo, &result_);
+  return result_;
+}
+
+inline spk::external_semaphore_properties
+physical_device::get_physical_device_external_semaphore_properties(
+    spk::physical_device_external_semaphore_info const&
+        pExternalSemaphoreInfo) {
+  spk::external_semaphore_properties result_;
+  dispatch_table().get_physical_device_external_semaphore_properties(
+      handle_, &pExternalSemaphoreInfo, &result_);
+  return result_;
+}
+
+inline spk::external_buffer_properties
+physical_device::get_physical_device_external_buffer_properties(
+    spk::physical_device_external_buffer_info const& pExternalBufferInfo) {
+  spk::external_buffer_properties result_;
+  dispatch_table().get_physical_device_external_buffer_properties(
+      handle_, &pExternalBufferInfo, &result_);
+  return result_;
+}
+
+inline std::vector<spk::sparse_image_format_properties_2>
+physical_device::get_physical_device_sparse_image_format_properties_2(
+    spk::physical_device_sparse_image_format_info_2 const& pFormatInfo) {
+  uint32_t size_;
+  dispatch_table().get_physical_device_sparse_image_format_properties_2(
+      handle_, &pFormatInfo, &size_, nullptr);
+  std::vector<spk::sparse_image_format_properties_2> result_(size_);
+  dispatch_table().get_physical_device_sparse_image_format_properties_2(
+      handle_, &pFormatInfo, &size_, result_.data());
+  return result_;
+}
+
+inline spk::format_properties_2
+physical_device::get_physical_device_format_properties_2(spk::format format) {
+  spk::format_properties_2 result_;
+  dispatch_table().get_physical_device_format_properties_2(handle_, format,
+                                                           &result_);
+  return result_;
+}
+
+inline spk::physical_device_properties_2
+physical_device::get_physical_device_properties_2() {
+  spk::physical_device_properties_2 result_;
+  dispatch_table().get_physical_device_properties_2(handle_, &result_);
+  return result_;
+}
+
+inline std::vector<spk::display_plane_properties_2khr>
+physical_device::get_physical_device_display_plane_properties_2khr() {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_display_plane_properties_2khr(
+          handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+  std::vector<spk::display_plane_properties_2khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_display_plane_properties_2khr(
+          handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+  return result_;
+}
+
+inline spk::external_image_format_properties_nv
+physical_device::get_physical_device_external_image_format_properties_nv(
+    spk::format format, spk::image_type type, spk::image_tiling tiling,
+    spk::image_usage_flags usage, spk::image_create_flags flags,
+    spk::external_memory_handle_type_flags_nv externalHandleType) {
+  spk::external_image_format_properties_nv result_;
+  dispatch_table().get_physical_device_external_image_format_properties_nv(
+      handle_, format, type, tiling, usage, flags, externalHandleType,
+      &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_XCB_KHR
+inline spk::bool32_t
+physical_device::get_physical_device_xcb_presentation_support_khr(
+    uint32_t queueFamilyIndex, xcb_connection_t& connection,
+    xcb_visualid_t visual_id) {
+  return dispatch_table().get_physical_device_xcb_presentation_support_khr(
+      handle_, queueFamilyIndex, &connection, visual_id);
+}
+#endif
+
+inline spk::format_properties
+physical_device::get_physical_device_format_properties(spk::format format) {
+  spk::format_properties result_;
+  dispatch_table().get_physical_device_format_properties(handle_, format,
+                                                         &result_);
+  return result_;
+}
+
+inline spk::image_format_properties
+physical_device::get_physical_device_image_format_properties(
+    spk::format format, spk::image_type type, spk::image_tiling tiling,
+    spk::image_usage_flags usage, spk::image_create_flags flags) {
+  spk::image_format_properties result_;
+  dispatch_table().get_physical_device_image_format_properties(
+      handle_, format, type, tiling, usage, flags, &result_);
+  return result_;
+}
+
+inline spk::physical_device_properties
+physical_device::get_physical_device_properties() {
+  spk::physical_device_properties result_;
+  dispatch_table().get_physical_device_properties(handle_, &result_);
+  return result_;
+}
+
+inline std::vector<spk::queue_family_properties_2>
+physical_device::get_physical_device_queue_family_properties_2() {
+  uint32_t size_;
+  dispatch_table().get_physical_device_queue_family_properties_2(
+      handle_, &size_, nullptr);
+  std::vector<spk::queue_family_properties_2> result_(size_);
+  dispatch_table().get_physical_device_queue_family_properties_2(
+      handle_, &size_, result_.data());
+  return result_;
+}
+
+inline spk::display_plane_capabilities_2khr
+physical_device::get_display_plane_capabilities_2khr(
+    spk::display_plane_info_2khr const& pDisplayPlaneInfo) {
+  spk::display_plane_capabilities_2khr result_;
+  dispatch_table().get_display_plane_capabilities_2khr(
+      handle_, &pDisplayPlaneInfo, &result_);
+  return result_;
+}
+
+inline spk::physical_device_memory_properties_2
+physical_device::get_physical_device_memory_properties_2() {
+  spk::physical_device_memory_properties_2 result_;
+  dispatch_table().get_physical_device_memory_properties_2(handle_, &result_);
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+inline spk::bool32_t
+physical_device::get_physical_device_xlib_presentation_support_khr(
+    uint32_t queueFamilyIndex, Display& dpy, VisualID visualID) {
+  return dispatch_table().get_physical_device_xlib_presentation_support_khr(
+      handle_, queueFamilyIndex, &dpy, visualID);
+}
+#endif
+
+inline spk::physical_device_features
+physical_device::get_physical_device_features() {
+  spk::physical_device_features result_;
+  dispatch_table().get_physical_device_features(handle_, &result_);
+  return result_;
+}
+
+inline spk::physical_device_memory_properties
+physical_device::get_physical_device_memory_properties() {
+  spk::physical_device_memory_properties result_;
+  dispatch_table().get_physical_device_memory_properties(handle_, &result_);
+  return result_;
+}
+
+inline std::vector<spk::sparse_image_format_properties>
+physical_device::get_physical_device_sparse_image_format_properties(
+    spk::format format, spk::image_type type, spk::sample_count_flags samples,
+    spk::image_usage_flags usage, spk::image_tiling tiling) {
+  uint32_t size_;
+  dispatch_table().get_physical_device_sparse_image_format_properties(
+      handle_, format, type, samples, usage, tiling, &size_, nullptr);
+  std::vector<spk::sparse_image_format_properties> result_(size_);
+  dispatch_table().get_physical_device_sparse_image_format_properties(
+      handle_, format, type, samples, usage, tiling, &size_, result_.data());
+  return result_;
+}
+
+inline std::vector<spk::rect_2d>
+physical_device::get_physical_device_present_rectangles_khr(
+    spk::surface_khr_ref surface) {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_present_rectangles_khr(
+          handle_, surface, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDevicePresentRectanglesKHR");
+  std::vector<spk::rect_2d> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_present_rectangles_khr(
+          handle_, surface, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDevicePresentRectanglesKHR");
+  return result_;
+}
+
+inline std::vector<spk::queue_family_properties>
+physical_device::get_physical_device_queue_family_properties() {
+  uint32_t size_;
+  dispatch_table().get_physical_device_queue_family_properties(handle_, &size_,
+                                                               nullptr);
+  std::vector<spk::queue_family_properties> result_(size_);
+  dispatch_table().get_physical_device_queue_family_properties(handle_, &size_,
+                                                               result_.data());
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+inline spk::bool32_t
+physical_device::get_physical_device_win_32presentation_support_khr(
+    uint32_t queueFamilyIndex) {
+  return dispatch_table().get_physical_device_win_32presentation_support_khr(
+      handle_, queueFamilyIndex);
+}
+#endif
+
+inline std::vector<spk::sparse_image_format_properties_2>
+physical_device::get_physical_device_sparse_image_format_properties_2khr(
+    spk::physical_device_sparse_image_format_info_2 const& pFormatInfo) {
+  uint32_t size_;
+  dispatch_table().get_physical_device_sparse_image_format_properties_2khr(
+      handle_, &pFormatInfo, &size_, nullptr);
+  std::vector<spk::sparse_image_format_properties_2> result_(size_);
+  dispatch_table().get_physical_device_sparse_image_format_properties_2khr(
+      handle_, &pFormatInfo, &size_, result_.data());
+  return result_;
+}
+
+inline spk::surface_capabilities_2ext
+physical_device::get_physical_device_surface_capabilities_2ext(
+    spk::surface_khr_ref surface) {
+  spk::surface_capabilities_2ext result_;
+  dispatch_table().get_physical_device_surface_capabilities_2ext(
+      handle_, surface, &result_);
+  return result_;
+}
+
+inline spk::image_format_properties_2
+physical_device::get_physical_device_image_format_properties_2(
+    spk::physical_device_image_format_info_2 const& pImageFormatInfo) {
+  spk::image_format_properties_2 result_;
+  dispatch_table().get_physical_device_image_format_properties_2(
+      handle_, &pImageFormatInfo, &result_);
+  return result_;
+}
+
+inline spk::physical_device_properties_2
+physical_device::get_physical_device_properties_2khr() {
+  spk::physical_device_properties_2 result_;
+  dispatch_table().get_physical_device_properties_2khr(handle_, &result_);
+  return result_;
+}
+
+inline std::vector<spk::layer_properties>
+physical_device::enumerate_device_layer_properties() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().enumerate_device_layer_properties(
+      handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkEnumerateDeviceLayerProperties");
+  std::vector<spk::layer_properties> result_(size_);
+  spk::result success2_ = dispatch_table().enumerate_device_layer_properties(
+      handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkEnumerateDeviceLayerProperties");
+  return result_;
+}
+
+inline spk::surface_capabilities_khr
+physical_device::get_physical_device_surface_capabilities_khr(
+    spk::surface_khr_ref surface) {
+  spk::surface_capabilities_khr result_;
+  dispatch_table().get_physical_device_surface_capabilities_khr(
+      handle_, surface, &result_);
+  return result_;
+}
+
+inline spk::external_semaphore_properties
+physical_device::get_physical_device_external_semaphore_properties_khr(
+    spk::physical_device_external_semaphore_info const&
+        pExternalSemaphoreInfo) {
+  spk::external_semaphore_properties result_;
+  dispatch_table().get_physical_device_external_semaphore_properties_khr(
+      handle_, &pExternalSemaphoreInfo, &result_);
+  return result_;
+}
+
+inline void physical_device::get_physical_device_surface_support_khr(
+    uint32_t queueFamilyIndex, spk::surface_khr_ref surface,
+    spk::bool32_t& pSupported) {
+  dispatch_table().get_physical_device_surface_support_khr(
+      handle_, queueFamilyIndex, surface, &pSupported);
+}
+
+inline std::vector<spk::display_properties_khr>
+physical_device::get_physical_device_display_properties_khr() {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_display_properties_khr(
+          handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceDisplayPropertiesKHR");
+  std::vector<spk::display_properties_khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_display_properties_khr(
+          handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceDisplayPropertiesKHR");
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+inline spk::bool32_t
+physical_device::get_physical_device_wayland_presentation_support_khr(
+    uint32_t queueFamilyIndex, wl_display& display) {
+  return dispatch_table().get_physical_device_wayland_presentation_support_khr(
+      handle_, queueFamilyIndex, &display);
+}
+#endif
+
+inline std::vector<spk::display_plane_properties_khr>
+physical_device::get_physical_device_display_plane_properties_khr() {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_display_plane_properties_khr(
+          handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
+  std::vector<spk::display_plane_properties_khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_display_plane_properties_khr(
+          handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
+  return result_;
+}
+
+inline std::vector<spk::present_mode_khr>
+physical_device::get_physical_device_surface_present_modes_khr(
+    spk::surface_khr_ref surface) {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_surface_present_modes_khr(
+          handle_, surface, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceSurfacePresentModesKHR");
+  std::vector<spk::present_mode_khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_surface_present_modes_khr(
+          handle_, surface, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceSurfacePresentModesKHR");
+  return result_;
+}
+
+inline spk::image_format_properties_2
+physical_device::get_physical_device_image_format_properties_2khr(
+    spk::physical_device_image_format_info_2 const& pImageFormatInfo) {
+  spk::image_format_properties_2 result_;
+  dispatch_table().get_physical_device_image_format_properties_2khr(
+      handle_, &pImageFormatInfo, &result_);
+  return result_;
+}
+
+inline std::vector<spk::display_khr_ref>
+physical_device::get_display_plane_supported_displays_khr(uint32_t planeIndex) {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_display_plane_supported_displays_khr(
+          handle_, planeIndex, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetDisplayPlaneSupportedDisplaysKHR");
+  std::vector<spk::display_khr_ref> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_display_plane_supported_displays_khr(
+          handle_, planeIndex, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetDisplayPlaneSupportedDisplaysKHR");
+  return result_;
+}
+
+#ifdef VK_USE_PLATFORM_MIR_KHR
+inline spk::bool32_t
+physical_device::get_physical_device_mir_presentation_support_khr(
+    uint32_t queueFamilyIndex, MirConnection& connection) {
+  return dispatch_table().get_physical_device_mir_presentation_support_khr(
+      handle_, queueFamilyIndex, &connection);
+}
+#endif
+
+inline std::vector<spk::surface_format_khr>
+physical_device::get_physical_device_surface_formats_khr(
+    spk::surface_khr_ref surface) {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_surface_formats_khr(handle_, surface,
+                                                               &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceSurfaceFormatsKHR");
+  std::vector<spk::surface_format_khr> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_surface_formats_khr(
+          handle_, surface, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceSurfaceFormatsKHR");
+  return result_;
+}
+
+inline spk::physical_device_features_2
+physical_device::get_physical_device_features_2() {
+  spk::physical_device_features_2 result_;
+  dispatch_table().get_physical_device_features_2(handle_, &result_);
+  return result_;
+}
+
+inline void pipeline_cache::merge_pipeline_caches(
+    spk::array_view<spk::pipeline_cache_ref const> pSrcCaches) {
+  dispatch_table().merge_pipeline_caches(parent_, handle_, pSrcCaches.size(),
+                                         pSrcCaches.data());
+}
+
+inline void queue::queue_end_debug_utils_label_ext() {
+  dispatch_table().queue_end_debug_utils_label_ext(handle_);
+}
+
+inline void queue::queue_begin_debug_utils_label_ext(
+    spk::debug_utils_label_ext const& pLabelInfo) {
+  dispatch_table().queue_begin_debug_utils_label_ext(handle_, &pLabelInfo);
+}
+
+inline void queue::queue_insert_debug_utils_label_ext(
+    spk::debug_utils_label_ext const& pLabelInfo) {
+  dispatch_table().queue_insert_debug_utils_label_ext(handle_, &pLabelInfo);
+}
+
+inline std::vector<spk::checkpoint_data_nv>
+queue::get_queue_checkpoint_data_nv() {
+  uint32_t size_;
+  dispatch_table().get_queue_checkpoint_data_nv(handle_, &size_, nullptr);
+  std::vector<spk::checkpoint_data_nv> result_(size_);
+  dispatch_table().get_queue_checkpoint_data_nv(handle_, &size_,
+                                                result_.data());
+  return result_;
+}
+
+inline void queue::queue_wait_idle() {
+  dispatch_table().queue_wait_idle(handle_);
+}
+
+inline spk::result queue::queue_present_khr(
+    spk::present_info_khr const& pPresentInfo) {
+  return dispatch_table().queue_present_khr(handle_, &pPresentInfo);
+}
+
+inline void queue::queue_bind_sparse(
+    spk::array_view<spk::bind_sparse_info const> pBindInfo,
+    spk::fence_ref fence) {
+  dispatch_table().queue_bind_sparse(handle_, pBindInfo.size(),
+                                     pBindInfo.data(), fence);
+}
+
+inline void queue::queue_submit(
+    spk::array_view<spk::submit_info const> pSubmits, spk::fence_ref fence) {
+  dispatch_table().queue_submit(handle_, pSubmits.size(), pSubmits.data(),
+                                fence);
+}
+
+inline spk::extent_2d render_pass::get_render_area_granularity() {
+  spk::extent_2d result_;
+  dispatch_table().get_render_area_granularity(parent_, handle_, &result_);
+  return result_;
+}
+
+inline spk::result swapchain_khr::get_swapchain_status_khr() {
+  return dispatch_table().get_swapchain_status_khr(parent_, handle_);
+}
+
+inline void swapchain_khr::get_swapchain_counter_ext(
+    spk::surface_counter_flags_ext counter, uint64_t& pCounterValue) {
+  dispatch_table().get_swapchain_counter_ext(parent_, handle_, counter,
+                                             &pCounterValue);
+}
+
+inline std::vector<spk::past_presentation_timing_google>
+swapchain_khr::get_past_presentation_timing_google() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().get_past_presentation_timing_google(
+      parent_, handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_,
+                                         "vkGetPastPresentationTimingGOOGLE");
+  std::vector<spk::past_presentation_timing_google> result_(size_);
+  spk::result success2_ = dispatch_table().get_past_presentation_timing_google(
+      parent_, handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_,
+                                         "vkGetPastPresentationTimingGOOGLE");
+  return result_;
+}
+
+inline spk::refresh_cycle_duration_google
+swapchain_khr::get_refresh_cycle_duration_google() {
+  spk::refresh_cycle_duration_google result_;
+  dispatch_table().get_refresh_cycle_duration_google(parent_, handle_,
+                                                     &result_);
+  return result_;
+}
+
+inline std::vector<spk::image_ref> swapchain_khr::get_swapchain_images_khr() {
+  uint32_t size_;
+  spk::result success1_ = dispatch_table().get_swapchain_images_khr(
+      parent_, handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(success1_, "vkGetSwapchainImagesKHR");
+  std::vector<spk::image_ref> result_(size_);
+  spk::result success2_ = dispatch_table().get_swapchain_images_khr(
+      parent_, handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(success2_, "vkGetSwapchainImagesKHR");
+  return result_;
+}
+
+inline spk::result swapchain_khr::acquire_next_image_khr(
+    uint64_t timeout, spk::semaphore_ref semaphore, spk::fence_ref fence,
+    uint32_t& pImageIndex) {
+  return dispatch_table().acquire_next_image_khr(
+      parent_, handle_, timeout, semaphore, fence, &pImageIndex);
+}
+
+inline void validation_cache_ext::merge_validation_caches_ext(
+    spk::array_view<spk::validation_cache_ext_ref const> pSrcCaches) {
+  dispatch_table().merge_validation_caches_ext(
+      parent_, handle_, pSrcCaches.size(), pSrcCaches.data());
+}
 
 }  // namespace spk
