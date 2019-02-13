@@ -4,27 +4,13 @@
 #include <glog/logging.h>
 #include <memory>
 
-#include "SDL2/SDL_vulkan.h"
+#include <SDL2/SDL_vulkan.h>
 
 namespace spk {
 
-namespace {
-
-spk::device_ref create_device(
-    spk::physical_device& physical_device,
-    spk::device_create_info const& create_info,
-    spk::allocation_callbacks const* allocation_callbacks) {
-  spk::device_ref device;
-  physical_device.dispatch_table().create_device(physical_device, &create_info,
-                                                 allocation_callbacks, &device);
-  return device;
-}
-
-}  // namespace
-
-instance::instance(spk::instance_ref instance, const spk::loader& loader,
+instance::instance(spk::instance_ref handle, const spk::loader& loader,
                    spk::allocation_callbacks const* allocation_callbacks)
-    : handle_(instance),
+    : handle_(handle),
       dispatch_table_(
           load_instance_dispatch_table(loader.pvkGetInstanceProcAddr, handle_)),
       allocation_callbacks_(allocation_callbacks) {}
@@ -38,11 +24,9 @@ device_dispatch_table load_device_dispatch_table(
   return load_device_dispatch_table(pvkGetDeviceProcAddr, device);
 }
 
-device::device(spk::physical_device& physical_device,
-               spk::device_create_info const& create_info,
+device::device(spk::device_ref handle, spk::physical_device& physical_device,
                spk::allocation_callbacks const* allocation_callbacks)
-    : handle_(
-          create_device(physical_device, create_info, allocation_callbacks)),
+    : handle_(handle),
       dispatch_table_(load_device_dispatch_table(physical_device, handle_)),
       allocation_callbacks_(allocation_callbacks) {}
 
@@ -99,6 +83,37 @@ std::vector<spk::extension_properties> loader::instance_extension_properties_(
            spk::result::success);
   return v;
 }
+
+spk::allocation_callbacks allocator;
+
+// typedef void* (VKAPI_PTR *PFN_vkAllocationFunction)(
+//    void*                                       pUserData,
+//    size_t                                      size,
+//    size_t                                      alignment,
+//    VkSystemAllocationScope                     allocationScope);
+//
+// typedef void* (VKAPI_PTR *PFN_vkReallocationFunction)(
+//    void*                                       pUserData,
+//    void*                                       pOriginal,
+//    size_t                                      size,
+//    size_t                                      alignment,
+//    VkSystemAllocationScope                     allocationScope);
+//
+// typedef void (VKAPI_PTR *PFN_vkFreeFunction)(
+//    void*                                       pUserData,
+//    void*                                       pMemory);
+//
+// typedef void (VKAPI_PTR *PFN_vkInternalAllocationNotification)(
+//    void*                                       pUserData,
+//    size_t                                      size,
+//    VkInternalAllocationType                    allocationType,
+//    VkSystemAllocationScope                     allocationScope);
+//
+// typedef void (VKAPI_PTR *PFN_vkInternalFreeNotification)(
+//    void*                                       pUserData,
+//    size_t                                      size,
+//    VkInternalAllocationType                    allocationType,
+//    VkSystemAllocationScope                     allocationScope);
 
 spk::instance loader::create_instance(
     spk::instance_create_info const& create_info,
