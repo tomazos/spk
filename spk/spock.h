@@ -27528,46 +27528,54 @@ void visit_dispatch_table(device_dispatch_table& dispatch_table,
     "vkCmdEndTransformFeedbackEXT");
 }
 
-inline spk::global_dispatch_table load_global_dispatch_table(
+inline std::unique_ptr<spk::global_dispatch_table> load_global_dispatch_table(
     PFN_vkGetInstanceProcAddr pvkGetInstanceProcAddr) {
-  spk::global_dispatch_table global_dispatch_table;
+  auto global_dispatch_table = std::make_unique<spk::global_dispatch_table>();
+
   spk::visit_dispatch_table(
-      global_dispatch_table,
+      *global_dispatch_table,
       [pvkGetInstanceProcAddr](spk::global_dispatch_table& t, auto mf,
                                const char* name) {
         using PFN = strip_member_function_t<decltype(mf)>;
         (t.*mf) = (PFN)pvkGetInstanceProcAddr(VK_NULL_HANDLE, name);
       });
+
   return global_dispatch_table;
 }
 
-inline spk::instance_dispatch_table load_instance_dispatch_table(
-    PFN_vkGetInstanceProcAddr pvkGetInstanceProcAddr,
-    spk::instance_ref instance) {
-  spk::instance_dispatch_table instance_dispatch_table;
-  instance_dispatch_table.instance = instance;
+inline std::unique_ptr<spk::instance_dispatch_table>
+load_instance_dispatch_table(PFN_vkGetInstanceProcAddr pvkGetInstanceProcAddr,
+                             spk::instance_ref instance) {
+  auto instance_dispatch_table =
+      std::make_unique<spk::instance_dispatch_table>();
+
+  instance_dispatch_table->instance = instance;
+
   spk::visit_dispatch_table(
-      instance_dispatch_table,
+      *instance_dispatch_table,
       [pvkGetInstanceProcAddr, instance](spk::instance_dispatch_table& t,
                                          auto mf, const char* name) {
         using PFN = spk::strip_member_function_t<decltype(mf)>;
         (t.*mf) = (PFN)pvkGetInstanceProcAddr(instance, name);
       });
+
   return instance_dispatch_table;
 }
 
-inline spk::device_dispatch_table load_device_dispatch_table(
+inline std::unique_ptr<spk::device_dispatch_table> load_device_dispatch_table(
     PFN_vkGetDeviceProcAddr pvkGetDeviceProcAddr, spk::device_ref device) {
-  spk::device_dispatch_table device_dispatch_table;
-  device_dispatch_table.device = device;
+  auto device_dispatch_table = std::make_unique<spk::device_dispatch_table>();
+
+  device_dispatch_table->device = device;
 
   spk::visit_dispatch_table(
-      device_dispatch_table,
+      *device_dispatch_table,
       [pvkGetDeviceProcAddr, device](spk::device_dispatch_table& t, auto mf,
                                      const char* name) {
         using PFN = spk::strip_member_function_t<decltype(mf)>;
         (t.*mf) = (PFN)pvkGetDeviceProcAddr(device, name);
       });
+
   return device_dispatch_table;
 }
 
@@ -27629,8 +27637,8 @@ class acceleration_structure_nv {
   acceleration_structure_nv(acceleration_structure_nv&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -27641,8 +27649,9 @@ class acceleration_structure_nv {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~acceleration_structure_nv() {
-    dispatch_table().destroy_acceleration_structure_nv(parent_, handle_,
-                                                       allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_acceleration_structure_nv(parent_, handle_,
+                                                         allocation_callbacks_);
   }
 
  private:
@@ -27666,8 +27675,8 @@ class buffer {
   buffer(buffer&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -27681,7 +27690,8 @@ class buffer {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~buffer() {
-    dispatch_table().destroy_buffer(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_buffer(parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -27705,8 +27715,8 @@ class buffer_view {
   buffer_view(buffer_view&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -27714,8 +27724,9 @@ class buffer_view {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~buffer_view() {
-    dispatch_table().destroy_buffer_view(parent_, handle_,
-                                         allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_buffer_view(parent_, handle_,
+                                           allocation_callbacks_);
   }
 
  private:
@@ -27739,8 +27750,8 @@ class command_buffer {
   command_buffer(command_buffer&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28214,8 +28225,8 @@ class command_pool {
   command_pool(command_pool&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28236,8 +28247,9 @@ class command_pool {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~command_pool() {
-    dispatch_table().destroy_command_pool(parent_, handle_,
-                                          allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_command_pool(parent_, handle_,
+                                            allocation_callbacks_);
   }
 
  private:
@@ -28262,8 +28274,8 @@ class debug_report_callback_ext {
   debug_report_callback_ext(debug_report_callback_ext&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28271,8 +28283,9 @@ class debug_report_callback_ext {
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~debug_report_callback_ext() {
-    dispatch_table().destroy_debug_report_callback_ext(parent_, handle_,
-                                                       allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_debug_report_callback_ext(parent_, handle_,
+                                                         allocation_callbacks_);
   }
 
  private:
@@ -28297,8 +28310,8 @@ class debug_utils_messenger_ext {
   debug_utils_messenger_ext(debug_utils_messenger_ext&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28306,8 +28319,9 @@ class debug_utils_messenger_ext {
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~debug_utils_messenger_ext() {
-    dispatch_table().destroy_debug_utils_messenger_ext(parent_, handle_,
-                                                       allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_debug_utils_messenger_ext(parent_, handle_,
+                                                         allocation_callbacks_);
   }
 
  private:
@@ -28331,8 +28345,8 @@ class descriptor_pool {
   descriptor_pool(descriptor_pool&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28347,8 +28361,9 @@ class descriptor_pool {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~descriptor_pool() {
-    dispatch_table().destroy_descriptor_pool(parent_, handle_,
-                                             allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_descriptor_pool(parent_, handle_,
+                                               allocation_callbacks_);
   }
 
  private:
@@ -28372,8 +28387,8 @@ class descriptor_set_layout {
   descriptor_set_layout(descriptor_set_layout&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28381,8 +28396,9 @@ class descriptor_set_layout {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~descriptor_set_layout() {
-    dispatch_table().destroy_descriptor_set_layout(parent_, handle_,
-                                                   allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_descriptor_set_layout(parent_, handle_,
+                                                     allocation_callbacks_);
   }
 
  private:
@@ -28406,8 +28422,8 @@ class descriptor_set {
   descriptor_set(descriptor_set&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28447,8 +28463,8 @@ class descriptor_update_template {
   descriptor_update_template(descriptor_update_template&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28456,8 +28472,9 @@ class descriptor_update_template {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~descriptor_update_template() {
-    dispatch_table().destroy_descriptor_update_template(parent_, handle_,
-                                                        allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_descriptor_update_template(
+          parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -28482,8 +28499,8 @@ class device_memory {
   device_memory(device_memory&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28513,7 +28530,7 @@ class device_memory {
   const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
-class device : spk::nomove {
+class device {
  public:
   operator device_ref() const { return handle_; }
   device(spk::device_ref handle, spk::physical_device& physical_device,
@@ -28521,8 +28538,8 @@ class device : spk::nomove {
   device(const device&) = delete;
   device(device&& that)
       : handle_(that.handle_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28614,6 +28631,9 @@ class device : spk::nomove {
 
   // vkCreateComputePipelines
 
+  inline spk::pipeline create_compute_pipeline(
+      spk::pipeline_cache_ref pipeline_cache,
+      const spk::compute_pipeline_create_info& create_info);
   inline std::vector<spk::pipeline> create_compute_pipelines(
       spk::pipeline_cache_ref pipeline_cache,
       spk::array_view<const spk::compute_pipeline_create_info> create_infos);
@@ -28646,6 +28666,9 @@ class device : spk::nomove {
 
   // vkCreateGraphicsPipelines
 
+  inline spk::pipeline create_graphics_pipeline(
+      spk::pipeline_cache_ref pipeline_cache,
+      const spk::graphics_pipeline_create_info& create_info);
   inline std::vector<spk::pipeline> create_graphics_pipelines(
       spk::pipeline_cache_ref pipeline_cache,
       spk::array_view<const spk::graphics_pipeline_create_info> create_infos);
@@ -28678,6 +28701,10 @@ class device : spk::nomove {
       spk::query_pool_create_info const& pCreateInfo);
 
   // vkCreateRayTracingPipelinesNV
+
+  inline spk::pipeline create_ray_tracing_pipeline_nv(
+      spk::pipeline_cache_ref pipeline_cache,
+      const spk::ray_tracing_pipeline_create_info_nv& create_info);
 
   inline std::vector<spk::pipeline> create_ray_tracing_pipelines_nv(
       spk::pipeline_cache_ref pipeline_cache,
@@ -28916,12 +28943,15 @@ class device : spk::nomove {
   // vkDeviceWaitIdle
   inline void wait_idle();
 
-  const device_dispatch_table& dispatch_table() { return dispatch_table_; }
-  ~device() { dispatch_table().destroy_device(handle_, allocation_callbacks_); }
+  const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
+  ~device() {
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_device(handle_, allocation_callbacks_);
+  }
 
  private:
   device_ref handle_ = VK_NULL_HANDLE;
-  const device_dispatch_table dispatch_table_;
+  std::unique_ptr<const device_dispatch_table> dispatch_table_;
   const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
@@ -28939,8 +28969,8 @@ class display_khr {
   display_khr(display_khr&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -28983,8 +29013,8 @@ class display_mode_khr {
   display_mode_khr(display_mode_khr&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29017,8 +29047,8 @@ class event {
   event(event&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29035,7 +29065,8 @@ class event {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~event() {
-    dispatch_table().destroy_event(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_event(parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -29059,8 +29090,8 @@ class fence {
   fence(fence&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29071,7 +29102,8 @@ class fence {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~fence() {
-    dispatch_table().destroy_fence(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_fence(parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -29095,8 +29127,8 @@ class framebuffer {
   framebuffer(framebuffer&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29104,8 +29136,9 @@ class framebuffer {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~framebuffer() {
-    dispatch_table().destroy_framebuffer(parent_, handle_,
-                                         allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_framebuffer(parent_, handle_,
+                                           allocation_callbacks_);
   }
 
  private:
@@ -29129,8 +29162,8 @@ class image {
   image(image&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29156,7 +29189,8 @@ class image {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~image() {
-    dispatch_table().destroy_image(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_image(parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -29180,8 +29214,8 @@ class image_view {
   image_view(image_view&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29189,8 +29223,9 @@ class image_view {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~image_view() {
-    dispatch_table().destroy_image_view(parent_, handle_,
-                                        allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_image_view(parent_, handle_,
+                                          allocation_callbacks_);
   }
 
  private:
@@ -29215,8 +29250,8 @@ class indirect_commands_layout_nvx {
   indirect_commands_layout_nvx(indirect_commands_layout_nvx&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29224,8 +29259,9 @@ class indirect_commands_layout_nvx {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~indirect_commands_layout_nvx() {
-    dispatch_table().destroy_indirect_commands_layout_nvx(
-        parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_indirect_commands_layout_nvx(
+          parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -29235,7 +29271,7 @@ class indirect_commands_layout_nvx {
   const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
-class instance : spk::nomove {
+class instance {
  public:
   operator instance_ref() const { return handle_; }
   instance(spk::instance_ref handle, const spk::loader& loader,
@@ -29243,8 +29279,8 @@ class instance : spk::nomove {
   instance(const instance&) = delete;
   instance(instance&& that)
       : handle_(that.handle_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29333,14 +29369,15 @@ class instance : spk::nomove {
       spk::debug_utils_message_type_flags_ext messageTypes,
       spk::debug_utils_messenger_callback_data_ext const& pCallbackData);
 
-  const instance_dispatch_table& dispatch_table() { return dispatch_table_; }
+  const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~instance() {
-    dispatch_table().destroy_instance(handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_instance(handle_, allocation_callbacks_);
   }
 
  private:
   instance_ref handle_ = VK_NULL_HANDLE;
-  const instance_dispatch_table dispatch_table_;
+  std::unique_ptr<const instance_dispatch_table> dispatch_table_;
   const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
 };
 
@@ -29358,8 +29395,8 @@ class object_table_nvx {
   object_table_nvx(object_table_nvx&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29378,8 +29415,9 @@ class object_table_nvx {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~object_table_nvx() {
-    dispatch_table().destroy_object_table_nvx(parent_, handle_,
-                                              allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_object_table_nvx(parent_, handle_,
+                                                allocation_callbacks_);
   }
 
  private:
@@ -29401,8 +29439,8 @@ class physical_device {
   physical_device(const physical_device&) = delete;
   physical_device(physical_device&& that)
       : handle_(that.handle_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29641,8 +29679,6 @@ class physical_device {
   physical_device_ref handle_ = VK_NULL_HANDLE;
   const instance_dispatch_table* dispatch_table_;
   const spk::allocation_callbacks* allocation_callbacks_ = nullptr;
-
-  friend class device;
 };
 
 class pipeline_cache {
@@ -29659,8 +29695,8 @@ class pipeline_cache {
   pipeline_cache(pipeline_cache&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29674,8 +29710,9 @@ class pipeline_cache {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~pipeline_cache() {
-    dispatch_table().destroy_pipeline_cache(parent_, handle_,
-                                            allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_pipeline_cache(parent_, handle_,
+                                              allocation_callbacks_);
   }
 
  private:
@@ -29699,8 +29736,8 @@ class pipeline_layout {
   pipeline_layout(pipeline_layout&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29708,8 +29745,9 @@ class pipeline_layout {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~pipeline_layout() {
-    dispatch_table().destroy_pipeline_layout(parent_, handle_,
-                                             allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_pipeline_layout(parent_, handle_,
+                                               allocation_callbacks_);
   }
 
  private:
@@ -29733,8 +29771,8 @@ class pipeline {
   pipeline(pipeline&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29755,7 +29793,9 @@ class pipeline {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~pipeline() {
-    dispatch_table().destroy_pipeline(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_pipeline(parent_, handle_,
+                                        allocation_callbacks_);
   }
 
  private:
@@ -29779,8 +29819,8 @@ class query_pool {
   query_pool(query_pool&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29793,8 +29833,9 @@ class query_pool {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~query_pool() {
-    dispatch_table().destroy_query_pool(parent_, handle_,
-                                        allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_query_pool(parent_, handle_,
+                                          allocation_callbacks_);
   }
 
  private:
@@ -29815,8 +29856,8 @@ class queue {
   queue(const queue&) = delete;
   queue(queue&& that)
       : handle_(that.handle_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29873,8 +29914,8 @@ class render_pass {
   render_pass(render_pass&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29885,8 +29926,9 @@ class render_pass {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~render_pass() {
-    dispatch_table().destroy_render_pass(parent_, handle_,
-                                         allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_render_pass(parent_, handle_,
+                                           allocation_callbacks_);
   }
 
  private:
@@ -29910,8 +29952,8 @@ class sampler {
   sampler(sampler&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29919,7 +29961,8 @@ class sampler {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~sampler() {
-    dispatch_table().destroy_sampler(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_sampler(parent_, handle_, allocation_callbacks_);
   }
 
  private:
@@ -29944,8 +29987,8 @@ class sampler_ycbcr_conversion {
   sampler_ycbcr_conversion(sampler_ycbcr_conversion&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29953,8 +29996,9 @@ class sampler_ycbcr_conversion {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~sampler_ycbcr_conversion() {
-    dispatch_table().destroy_sampler_ycbcr_conversion(parent_, handle_,
-                                                      allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_sampler_ycbcr_conversion(parent_, handle_,
+                                                        allocation_callbacks_);
   }
 
  private:
@@ -29979,8 +30023,8 @@ class semaphore {
   semaphore(semaphore&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -29988,7 +30032,9 @@ class semaphore {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~semaphore() {
-    dispatch_table().destroy_semaphore(parent_, handle_, allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_semaphore(parent_, handle_,
+                                         allocation_callbacks_);
   }
 
  private:
@@ -30012,8 +30058,8 @@ class shader_module {
   shader_module(shader_module&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -30021,8 +30067,9 @@ class shader_module {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~shader_module() {
-    dispatch_table().destroy_shader_module(parent_, handle_,
-                                           allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_shader_module(parent_, handle_,
+                                             allocation_callbacks_);
   }
 
  private:
@@ -30046,8 +30093,8 @@ class surface_khr {
   surface_khr(surface_khr&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -30055,8 +30102,9 @@ class surface_khr {
 
   const instance_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~surface_khr() {
-    dispatch_table().destroy_surface_khr(parent_, handle_,
-                                         allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_surface_khr(parent_, handle_,
+                                           allocation_callbacks_);
   }
 
  private:
@@ -30080,8 +30128,8 @@ class swapchain_khr {
   swapchain_khr(swapchain_khr&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -30113,8 +30161,9 @@ class swapchain_khr {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~swapchain_khr() {
-    dispatch_table().destroy_swapchain_khr(parent_, handle_,
-                                           allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_swapchain_khr(parent_, handle_,
+                                             allocation_callbacks_);
   }
 
  private:
@@ -30138,8 +30187,8 @@ class validation_cache_ext {
   validation_cache_ext(validation_cache_ext&& that)
       : handle_(that.handle_),
         parent_(that.parent_),
-        dispatch_table_(that.dispatch_table_),
-        allocation_callbacks_(that.allocation_callbacks_) {
+        dispatch_table_(std::move(that.dispatch_table_)),
+        allocation_callbacks_(std::move(that.allocation_callbacks_)) {
     that.handle_ = VK_NULL_HANDLE;
   }
 
@@ -30154,8 +30203,9 @@ class validation_cache_ext {
 
   const device_dispatch_table& dispatch_table() { return *dispatch_table_; }
   ~validation_cache_ext() {
-    dispatch_table().destroy_validation_cache_ext(parent_, handle_,
-                                                  allocation_callbacks_);
+    if (handle_ != VK_NULL_HANDLE)
+      dispatch_table().destroy_validation_cache_ext(parent_, handle_,
+                                                    allocation_callbacks_);
   }
 
  private:
@@ -31040,6 +31090,16 @@ inline spk::command_pool device::create_command_pool(
   return {result_, handle_, dispatch_table(), allocation_callbacks_};
 }
 
+inline spk::pipeline device::create_compute_pipeline(
+    spk::pipeline_cache_ref pipeline_cache,
+    const spk::compute_pipeline_create_info& create_info) {
+  spk::pipeline_ref pipeline_ref;
+  dispatch_table().create_compute_pipelines(handle_, pipeline_cache, 1,
+                                            &create_info, allocation_callbacks_,
+                                            &pipeline_ref);
+  return {pipeline_ref, *this, dispatch_table(), allocation_callbacks_};
+}
+
 inline std::vector<spk::pipeline> device::create_compute_pipelines(
     spk::pipeline_cache_ref pipeline_cache,
     spk::array_view<const spk::compute_pipeline_create_info> create_infos) {
@@ -31113,6 +31173,15 @@ inline spk::framebuffer device::create_framebuffer(
   return {result_, handle_, dispatch_table(), allocation_callbacks_};
 }
 
+inline spk::pipeline device::create_graphics_pipeline(
+    spk::pipeline_cache_ref pipeline_cache,
+    const spk::graphics_pipeline_create_info& create_info) {
+  spk::pipeline_ref ref;
+  dispatch_table().create_graphics_pipelines(
+      handle_, pipeline_cache, 1, &create_info, allocation_callbacks_, &ref);
+  return {ref, *this, dispatch_table(), allocation_callbacks_};
+}
+
 inline std::vector<spk::pipeline> device::create_graphics_pipelines(
     spk::pipeline_cache_ref pipeline_cache,
     spk::array_view<const spk::graphics_pipeline_create_info> create_infos) {
@@ -31183,6 +31252,16 @@ inline spk::query_pool device::create_query_pool(
   dispatch_table().create_query_pool(handle_, &pCreateInfo,
                                      allocation_callbacks_, &result_);
   return {result_, handle_, dispatch_table(), allocation_callbacks_};
+}
+
+spk::pipeline device::create_ray_tracing_pipeline_nv(
+    spk::pipeline_cache_ref pipeline_cache,
+    const spk::ray_tracing_pipeline_create_info_nv& create_info) {
+  spk::pipeline_ref pipeline_ref;
+  dispatch_table().create_ray_tracing_pipelines_nv(
+      handle_, pipeline_cache, 1, &create_info, allocation_callbacks_,
+      &pipeline_ref);
+  return {pipeline_ref, *this, dispatch_table(), allocation_callbacks_};
 }
 
 inline std::vector<spk::pipeline> device::create_ray_tracing_pipelines_nv(
