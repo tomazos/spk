@@ -12,8 +12,10 @@ cc_library(
     ],
     linkopts = [
         "-ldl",
-        "-lglog",
         "-lSDL2",
+    ],
+    deps = [
+        "//dvc:log",
     ],
 )
 
@@ -38,11 +40,11 @@ cc_library(
         "rendering.h",
     ],
     linkopts = [
-        "-lglog",
         "-lgflags",
     ],
     deps = [
         "//dvc:file",
+        "//dvc:log",
         "//dvc:terminate",
         "//spk:spock",
     ],
