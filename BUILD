@@ -45,6 +45,7 @@ cc_library(
     deps = [
         "//dvc:file",
         "//dvc:log",
+        "//dvc:opts",
         "//dvc:terminate",
         "//spk:spock",
     ],
