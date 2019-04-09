@@ -40,13 +40,15 @@ spk::pipeline create_pipeline(spk::device& device, spkx::presenter& presenter,
 
   spk::pipeline_vertex_input_state_create_info vertex_input_info;
 
-  vertex_input_info.set_vertex_binding_descriptions(
-      {config.vertex_binding_descriptions.data(),
-       config.vertex_binding_descriptions.size()});
+  if (!config.vertex_binding_descriptions.empty()) {
+    vertex_input_info.set_vertex_binding_descriptions(
+        {config.vertex_binding_descriptions.data(),
+         config.vertex_binding_descriptions.size()});
 
-  vertex_input_info.set_vertex_attribute_descriptions(
-      {config.vertex_attribute_descriptions.data(),
-       config.vertex_attribute_descriptions.size()});
+    vertex_input_info.set_vertex_attribute_descriptions(
+        {config.vertex_attribute_descriptions.data(),
+         config.vertex_attribute_descriptions.size()});
+  }
 
   spk::pipeline_input_assembly_state_create_info input_assembly;
   input_assembly.set_topology(config.topology);

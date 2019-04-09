@@ -156,6 +156,11 @@ bool is_present_queue_family(spk::physical_device& physical_device,
   return is_supported;
 }
 
+bool is_transfer_queue_family(spk::physical_device& physical_device,
+                              const spk::queue_family_properties& properties) {
+  return properties.queue_flags() & spk::queue_flags::transfer;
+}
+
 bool is_physical_device_suitable(spk::physical_device& physical_device,
                                  spk::surface_khr& surface) {
   if (physical_device.properties().device_type() !=
@@ -166,8 +171,14 @@ bool is_physical_device_suitable(spk::physical_device& physical_device,
       physical_device.surface_present_modes_khr(surface).empty())
     return false;
 
+  spk::physical_device_features features = physical_device.features();
+
+  if (!features.sampler_anisotropy()) return false;
+
   bool found_graphics_queue_family = false;
   bool found_present_queue_family = false;
+  bool found_transfer_queue_family = false;
+
   uint32_t queue_family_index = 0;
   for (const auto& queue_family_properties :
        physical_device.queue_family_properties()) {
@@ -176,9 +187,12 @@ bool is_physical_device_suitable(spk::physical_device& physical_device,
     if (is_present_queue_family(physical_device, queue_family_index, surface,
                                 queue_family_properties))
       found_present_queue_family = true;
+    if (is_transfer_queue_family(physical_device, queue_family_properties))
+      found_transfer_queue_family = true;
     queue_family_index++;
   }
-  return found_graphics_queue_family && found_present_queue_family;
+  return found_graphics_queue_family && found_present_queue_family &&
+         found_transfer_queue_family;
 }
 
 spk::physical_device select_physical_device(spk::instance& instance,
@@ -225,24 +239,41 @@ uint32_t select_present_queue_family(spk::physical_device& physical_device,
       });
 }
 
+uint32_t select_transfer_queue_family(spk::physical_device& physical_device) {
+  return select_queue_family(
+      physical_device,
+      [&](uint32_t index, const spk::queue_family_properties& properties) {
+        return is_transfer_queue_family(physical_device, properties);
+      });
+}
+
 spk::device create_device(spk::physical_device& physical_device,
                           uint32_t graphics_queue_family,
-                          uint32_t present_queue_family) {
+                          uint32_t present_queue_family,
+                          uint32_t transfer_queue_family) {
   spk::device_create_info create_info;
 
-  bool same_queue_family = (graphics_queue_family == present_queue_family);
-
-  spk::device_queue_create_info queue_create_info[2];
-  queue_create_info[0].set_queue_family_index(graphics_queue_family);
-  queue_create_info[1].set_queue_family_index(present_queue_family);
+  std::vector<spk::device_queue_create_info> queue_create_infos;
   float queue_priority = 1.0;
-  queue_create_info[0].set_queue_priorities({&queue_priority, 1});
-  queue_create_info[1].set_queue_priorities({&queue_priority, 1});
+  auto add_family = [&](uint32_t queue_family) {
+    spk::device_queue_create_info queue_create_info;
+    queue_create_info.set_queue_family_index(queue_family);
+    queue_create_info.set_queue_priorities({&queue_priority, 1});
+    for (auto& q : queue_create_infos)
+      if (q.queue_family_index() == queue_create_info.queue_family_index())
+        return;
+    queue_create_infos.push_back(queue_create_info);
+  };
+
+  add_family(graphics_queue_family);
+  add_family(present_queue_family);
+  add_family(transfer_queue_family);
 
   create_info.set_queue_create_infos(
-      {queue_create_info, same_queue_family ? 1u : 2u});
+      {queue_create_infos.data(), queue_create_infos.size()});
 
   spk::physical_device_features physical_device_features;
+  physical_device_features.set_sampler_anisotropy(true);
   create_info.set_p_enabled_features(&physical_device_features);
 
   const char* layers[] = {"VK_LAYER_LUNARG_standard_validation"};
@@ -278,10 +309,12 @@ program::program(int argc, char** argv)
       graphics_queue_family_(select_graphics_queue_family(physical_device_)),
       present_queue_family_(
           select_present_queue_family(physical_device_, surface_)),
+      transfer_queue_family_(select_transfer_queue_family(physical_device_)),
       device_(create_device(physical_device_, graphics_queue_family_,
-                            present_queue_family_)),
+                            present_queue_family_, transfer_queue_family_)),
       graphics_queue_(device_.queue(graphics_queue_family_, 0)),
-      present_queue_(device_.queue(present_queue_family_, 0)) {}
+      present_queue_(device_.queue(present_queue_family_, 0)),
+      transfer_queue_(device_.queue(transfer_queue_family_, 0)) {}
 
 glm::ivec2 program::window_size() { return get_window_size(window_.get()); }
 

@@ -26,9 +26,12 @@ class program {
   spk::surface_khr& surface() { return surface_; }
   spk::device& device() { return device_; }
   uint32_t graphics_queue_family() { return graphics_queue_family_; }
+  uint32_t transfer_queue_family() { return transfer_queue_family_; }
+  uint32_t present_queue_family() { return present_queue_family_; }
   glm::ivec2 window_size();
   spk::queue& graphics_queue() { return graphics_queue_; }
   spk::queue& present_queue() { return present_queue_; }
+  spk::queue& transfer_queue() { return transfer_queue_; }
 
   virtual void quit(const quit_event&) { shutdown(); }
   virtual void key_down(const keyboard_event& event) {
@@ -62,9 +65,10 @@ class program {
   spk::debug_utils_messenger_ext debug_utils_messenger_;
   spk::surface_khr surface_;
   spk::physical_device physical_device_;
-  uint32_t graphics_queue_family_, present_queue_family_;
+  uint32_t graphics_queue_family_, present_queue_family_,
+      transfer_queue_family_;
   spk::device device_;
-  spk::queue graphics_queue_, present_queue_;
+  spk::queue graphics_queue_, present_queue_, transfer_queue_;
   bool shutdown_ = false;
 };
 
