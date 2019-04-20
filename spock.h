@@ -803,6 +803,8 @@ enum class format_feature_flags {
       VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR,
   disjoint_khr = VK_FORMAT_FEATURE_DISJOINT_BIT_KHR,
   cosited_chroma_samples_khr = VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT_KHR,
+  sampled_image_filter_cubic_ext =
+      VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT,
   fragment_density_map_ext = VK_FORMAT_FEATURE_FRAGMENT_DENSITY_MAP_BIT_EXT,
 };
 SPK_DEFINE_BITMASK_BITWISE_OPS(format_feature_flags);
@@ -862,6 +864,8 @@ inline std::ostream& operator<<(std::ostream& o, format_feature_flags e) {
   SPK_BITMASK_OUTPUT_ENUMERATOR(format_feature_flags, disjoint_khr)
   SPK_BITMASK_OUTPUT_ENUMERATOR(format_feature_flags,
                                 cosited_chroma_samples_khr)
+  SPK_BITMASK_OUTPUT_ENUMERATOR(format_feature_flags,
+                                sampled_image_filter_cubic_ext)
   SPK_BITMASK_OUTPUT_ENUMERATOR(format_feature_flags, fragment_density_map_ext)
   SPK_END_BITMASK_OUTPUT(format_feature_flags)
 }
@@ -2016,6 +2020,36 @@ inline std::ostream& operator<<(std::ostream& o, component_swizzle e) {
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_swizzle, a)
   SPK_END_ENUMERATION_OUTPUT(component_swizzle)
 }
+// enumeration VkComponentTypeNV
+enum class component_type_nv {
+  float16_nv = VK_COMPONENT_TYPE_FLOAT16_NV,
+  float32_nv = VK_COMPONENT_TYPE_FLOAT32_NV,
+  float64_nv = VK_COMPONENT_TYPE_FLOAT64_NV,
+  sint8_nv = VK_COMPONENT_TYPE_SINT8_NV,
+  sint16_nv = VK_COMPONENT_TYPE_SINT16_NV,
+  sint32_nv = VK_COMPONENT_TYPE_SINT32_NV,
+  sint64_nv = VK_COMPONENT_TYPE_SINT64_NV,
+  uint8_nv = VK_COMPONENT_TYPE_UINT8_NV,
+  uint16_nv = VK_COMPONENT_TYPE_UINT16_NV,
+  uint32_nv = VK_COMPONENT_TYPE_UINT32_NV,
+  uint64_nv = VK_COMPONENT_TYPE_UINT64_NV,
+};
+
+inline std::ostream& operator<<(std::ostream& o, component_type_nv e) {
+  SPK_BEGIN_ENUMERATION_OUTPUT(component_type_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, float16_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, float32_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, float64_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, sint8_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, sint16_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, sint32_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, sint64_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, uint8_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, uint16_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, uint32_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(component_type_nv, uint64_nv)
+  SPK_END_ENUMERATION_OUTPUT(component_type_nv)
+}
 // enumeration VkConservativeRasterizationModeEXT
 enum class conservative_rasterization_mode_ext {
   disabled_ext = VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT,
@@ -2373,6 +2407,7 @@ enum class filter {
   nearest = VK_FILTER_NEAREST,
   linear = VK_FILTER_LINEAR,
   cubic_img = VK_FILTER_CUBIC_IMG,
+  cubic_ext = VK_FILTER_CUBIC_EXT,
 };
 
 inline std::ostream& operator<<(std::ostream& o, filter e) {
@@ -2380,6 +2415,7 @@ inline std::ostream& operator<<(std::ostream& o, filter e) {
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(filter, nearest)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(filter, linear)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(filter, cubic_img)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(filter, cubic_ext)
   SPK_END_ENUMERATION_OUTPUT(filter)
 }
 // enumeration VkFormat
@@ -3758,6 +3794,22 @@ inline std::ostream& operator<<(std::ostream& o, sampler_ycbcr_range e) {
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(sampler_ycbcr_range, itu_narrow_khr)
   SPK_END_ENUMERATION_OUTPUT(sampler_ycbcr_range)
 }
+// enumeration VkScopeNV
+enum class scope_nv {
+  device_nv = VK_SCOPE_DEVICE_NV,
+  workgroup_nv = VK_SCOPE_WORKGROUP_NV,
+  subgroup_nv = VK_SCOPE_SUBGROUP_NV,
+  queue_family_nv = VK_SCOPE_QUEUE_FAMILY_NV,
+};
+
+inline std::ostream& operator<<(std::ostream& o, scope_nv e) {
+  SPK_BEGIN_ENUMERATION_OUTPUT(scope_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(scope_nv, device_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(scope_nv, workgroup_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(scope_nv, subgroup_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(scope_nv, queue_family_nv)
+  SPK_END_ENUMERATION_OUTPUT(scope_nv)
+}
 // enumeration VkShaderInfoTypeAMD
 enum class shader_info_type_amd {
   statistics_amd = VK_SHADER_INFO_TYPE_STATISTICS_AMD,
@@ -4238,6 +4290,10 @@ enum class structure_type {
       VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CONSERVATIVE_RASTERIZATION_PROPERTIES_EXT,
   pipeline_rasterization_conservative_state_create_info_ext =
       VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_CONSERVATIVE_STATE_CREATE_INFO_EXT,
+  physical_device_depth_clip_enable_features_ext =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT,
+  pipeline_rasterization_depth_clip_state_create_info_ext =
+      VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT,
   hdr_metadata_ext = VK_STRUCTURE_TYPE_HDR_METADATA_EXT,
   attachment_description_2_khr = VK_STRUCTURE_TYPE_ATTACHMENT_DESCRIPTION_2_KHR,
   attachment_reference_2_khr = VK_STRUCTURE_TYPE_ATTACHMENT_REFERENCE_2_KHR,
@@ -4427,6 +4483,10 @@ enum class structure_type {
       VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_3_PROPERTIES_KHR,
   descriptor_set_layout_support_khr =
       VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_SUPPORT_KHR,
+  physical_device_image_view_image_format_info_ext =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT,
+  filter_cubic_image_view_image_format_properties_ext =
+      VK_STRUCTURE_TYPE_FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT,
   device_queue_global_priority_create_info_ext =
       VK_STRUCTURE_TYPE_DEVICE_QUEUE_GLOBAL_PRIORITY_CREATE_INFO_EXT,
   physical_device_8bit_storage_features_khr =
@@ -4496,6 +4556,8 @@ enum class structure_type {
       VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MEMORY_PRIORITY_FEATURES_EXT,
   memory_priority_allocate_info_ext =
       VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT,
+  physical_device_dedicated_allocation_image_aliasing_features_nv =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV,
   physical_device_buffer_address_features_ext =
       VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_BUFFER_ADDRESS_FEATURES_EXT,
   buffer_device_address_info_ext =
@@ -4505,6 +4567,12 @@ enum class structure_type {
   image_stencil_usage_create_info_ext =
       VK_STRUCTURE_TYPE_IMAGE_STENCIL_USAGE_CREATE_INFO_EXT,
   validation_features_ext = VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT,
+  physical_device_cooperative_matrix_features_nv =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV,
+  cooperative_matrix_properties_nv =
+      VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV,
+  physical_device_cooperative_matrix_properties_nv =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV,
 };
 
 inline std::ostream& operator<<(std::ostream& o, structure_type e) {
@@ -4896,6 +4964,10 @@ inline std::ostream& operator<<(std::ostream& o, structure_type e) {
       structure_type, physical_device_conservative_rasterization_properties_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(
       structure_type, pipeline_rasterization_conservative_state_create_info_ext)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type, physical_device_depth_clip_enable_features_ext)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type, pipeline_rasterization_depth_clip_state_create_info_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type, hdr_metadata_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
                                     attachment_description_2_khr)
@@ -5092,6 +5164,10 @@ inline std::ostream& operator<<(std::ostream& o, structure_type e) {
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
                                     descriptor_set_layout_support_khr)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type, physical_device_image_view_image_format_info_ext)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type, filter_cubic_image_view_image_format_properties_ext)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
       structure_type, device_queue_global_priority_create_info_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
                                     physical_device_8bit_storage_features_khr)
@@ -5160,6 +5236,9 @@ inline std::ostream& operator<<(std::ostream& o, structure_type e) {
       structure_type, physical_device_memory_priority_features_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
                                     memory_priority_allocate_info_ext)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type,
+      physical_device_dedicated_allocation_image_aliasing_features_nv)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
                                     physical_device_buffer_address_features_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
@@ -5169,6 +5248,12 @@ inline std::ostream& operator<<(std::ostream& o, structure_type e) {
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
                                     image_stencil_usage_create_info_ext)
   SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type, validation_features_ext)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type, physical_device_cooperative_matrix_features_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(structure_type,
+                                    cooperative_matrix_properties_nv)
+  SPK_ENUMERATION_OUTPUT_ENUMERATOR(
+      structure_type, physical_device_cooperative_matrix_properties_nv)
   SPK_END_ENUMERATION_OUTPUT(structure_type)
 }
 // enumeration VkSubpassContents
@@ -5478,6 +5563,10 @@ constexpr auto ext_debug_report_spec_version = VK_EXT_DEBUG_REPORT_SPEC_VERSION;
 constexpr auto ext_debug_utils_extension_name =
     VK_EXT_DEBUG_UTILS_EXTENSION_NAME;
 constexpr auto ext_debug_utils_spec_version = VK_EXT_DEBUG_UTILS_SPEC_VERSION;
+constexpr auto ext_depth_clip_enable_extension_name =
+    VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME;
+constexpr auto ext_depth_clip_enable_spec_version =
+    VK_EXT_DEPTH_CLIP_ENABLE_SPEC_VERSION;
 constexpr auto ext_depth_range_unrestricted_extension_name =
     VK_EXT_DEPTH_RANGE_UNRESTRICTED_EXTENSION_NAME;
 constexpr auto ext_depth_range_unrestricted_spec_version =
@@ -5510,6 +5599,9 @@ constexpr auto ext_external_memory_host_extension_name =
     VK_EXT_EXTERNAL_MEMORY_HOST_EXTENSION_NAME;
 constexpr auto ext_external_memory_host_spec_version =
     VK_EXT_EXTERNAL_MEMORY_HOST_SPEC_VERSION;
+constexpr auto ext_filter_cubic_extension_name =
+    VK_EXT_FILTER_CUBIC_EXTENSION_NAME;
+constexpr auto ext_filter_cubic_spec_version = VK_EXT_FILTER_CUBIC_SPEC_VERSION;
 constexpr auto ext_fragment_density_map_extension_name =
     VK_EXT_FRAGMENT_DENSITY_MAP_EXTENSION_NAME;
 constexpr auto ext_fragment_density_map_spec_version =
@@ -5916,12 +6008,20 @@ constexpr auto nv_compute_shader_derivatives_extension_name =
     VK_NV_COMPUTE_SHADER_DERIVATIVES_EXTENSION_NAME;
 constexpr auto nv_compute_shader_derivatives_spec_version =
     VK_NV_COMPUTE_SHADER_DERIVATIVES_SPEC_VERSION;
+constexpr auto nv_cooperative_matrix_extension_name =
+    VK_NV_COOPERATIVE_MATRIX_EXTENSION_NAME;
+constexpr auto nv_cooperative_matrix_spec_version =
+    VK_NV_COOPERATIVE_MATRIX_SPEC_VERSION;
 constexpr auto nv_corner_sampled_image_extension_name =
     VK_NV_CORNER_SAMPLED_IMAGE_EXTENSION_NAME;
 constexpr auto nv_corner_sampled_image_spec_version =
     VK_NV_CORNER_SAMPLED_IMAGE_SPEC_VERSION;
 constexpr auto nv_dedicated_allocation_extension_name =
     VK_NV_DEDICATED_ALLOCATION_EXTENSION_NAME;
+constexpr auto nv_dedicated_allocation_image_aliasing_extension_name =
+    VK_NV_DEDICATED_ALLOCATION_IMAGE_ALIASING_EXTENSION_NAME;
+constexpr auto nv_dedicated_allocation_image_aliasing_spec_version =
+    VK_NV_DEDICATED_ALLOCATION_IMAGE_ALIASING_SPEC_VERSION;
 constexpr auto nv_dedicated_allocation_spec_version =
     VK_NV_DEDICATED_ALLOCATION_SPEC_VERSION;
 constexpr auto nv_device_diagnostic_checkpoints_extension_name =
@@ -6119,6 +6219,7 @@ class command_pool_create_info;
 class component_mapping;
 class conditional_rendering_begin_info_ext;
 class conformance_version_khr;
+class cooperative_matrix_properties_nv;
 class copy_descriptor_set;
 #ifdef VK_USE_PLATFORM_WIN32_KHR
 class d3d12fence_submit_info_khr;
@@ -6209,6 +6310,7 @@ class fence_get_fd_info_khr;
 #ifdef VK_USE_PLATFORM_WIN32_KHR
 class fence_get_win_32handle_info_khr;
 #endif
+class filter_cubic_image_view_image_format_properties_ext;
 class format_properties;
 class framebuffer_create_info;
 class geometry_aabbnv;
@@ -6303,7 +6405,11 @@ class physical_device_buffer_address_features_ext;
 class physical_device_compute_shader_derivatives_features_nv;
 class physical_device_conditional_rendering_features_ext;
 class physical_device_conservative_rasterization_properties_ext;
+class physical_device_cooperative_matrix_features_nv;
+class physical_device_cooperative_matrix_properties_nv;
 class physical_device_corner_sampled_image_features_nv;
+class physical_device_dedicated_allocation_image_aliasing_features_nv;
+class physical_device_depth_clip_enable_features_ext;
 class physical_device_depth_stencil_resolve_properties_khr;
 class physical_device_descriptor_indexing_features_ext;
 class physical_device_descriptor_indexing_properties_ext;
@@ -6323,6 +6429,7 @@ class physical_device_group_properties;
 class physical_device_id_properties;
 class physical_device_image_drm_format_modifier_info_ext;
 class physical_device_image_format_info_2;
+class physical_device_image_view_image_format_info_ext;
 class physical_device_inline_uniform_block_features_ext;
 class physical_device_inline_uniform_block_properties_ext;
 class physical_device_limits;
@@ -6371,6 +6478,7 @@ class pipeline_input_assembly_state_create_info;
 class pipeline_layout_create_info;
 class pipeline_multisample_state_create_info;
 class pipeline_rasterization_conservative_state_create_info_ext;
+class pipeline_rasterization_depth_clip_state_create_info_ext;
 class pipeline_rasterization_state_create_info;
 class pipeline_rasterization_state_rasterization_order_amd;
 class pipeline_rasterization_state_stream_create_info_ext;
@@ -7972,6 +8080,48 @@ class conformance_version_khr {
 };
 static_assert(sizeof(conformance_version_khr) ==
               sizeof(conformance_version_khr::underlying_type));
+
+class cooperative_matrix_properties_nv {
+ public:
+  using underlying_type = VkCooperativeMatrixPropertiesNV;
+
+  // mutators
+  void set_m_size(uint32_t value) { m_size_ = value; }
+  void set_n_size(uint32_t value) { n_size_ = value; }
+  void set_k_size(uint32_t value) { k_size_ = value; }
+  void set_a_type(spk::component_type_nv value) { a_type_ = value; }
+  void set_b_type(spk::component_type_nv value) { b_type_ = value; }
+  void set_c_type(spk::component_type_nv value) { c_type_ = value; }
+  void set_d_type(spk::component_type_nv value) { d_type_ = value; }
+  void set_scope(spk::scope_nv value) { scope_ = value; }
+
+  // accessors
+  uint32_t m_size() const { return m_size_; }
+  uint32_t n_size() const { return n_size_; }
+  uint32_t k_size() const { return k_size_; }
+  spk::component_type_nv a_type() const { return a_type_; }
+  spk::component_type_nv b_type() const { return b_type_; }
+  spk::component_type_nv c_type() const { return c_type_; }
+  spk::component_type_nv d_type() const { return d_type_; }
+  spk::scope_nv scope() const { return scope_; }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ = VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_NV;
+  void* p_next_ = nullptr;
+
+  uint32_t m_size_ = 0;
+  uint32_t n_size_ = 0;
+  uint32_t k_size_ = 0;
+  spk::component_type_nv a_type_ = spk::component_type_nv(0);
+  spk::component_type_nv b_type_ = spk::component_type_nv(0);
+  spk::component_type_nv c_type_ = spk::component_type_nv(0);
+  spk::component_type_nv d_type_ = spk::component_type_nv(0);
+  spk::scope_nv scope_ = spk::scope_nv(0);
+};
+static_assert(sizeof(cooperative_matrix_properties_nv) ==
+              sizeof(cooperative_matrix_properties_nv::underlying_type));
 
 class copy_descriptor_set {
  public:
@@ -10279,6 +10429,33 @@ static_assert(sizeof(fence_get_win_32handle_info_khr) ==
               sizeof(fence_get_win_32handle_info_khr::underlying_type));
 #endif
 
+class filter_cubic_image_view_image_format_properties_ext {
+ public:
+  using underlying_type = VkFilterCubicImageViewImageFormatPropertiesEXT;
+
+  // mutators
+  void set_filter_cubic(bool val) { filter_cubic_ = val; }
+  void set_filter_cubic_minmax(bool val) { filter_cubic_minmax_ = val; }
+
+  // accessors
+  bool filter_cubic() const { return filter_cubic_; }
+  bool filter_cubic_minmax() const { return filter_cubic_minmax_; }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_FILTER_CUBIC_IMAGE_VIEW_IMAGE_FORMAT_PROPERTIES_EXT;
+  void* p_next_ = nullptr;
+
+  spk::bool32_t filter_cubic_ = 0;
+  spk::bool32_t filter_cubic_minmax_ = 0;
+};
+static_assert(
+    sizeof(filter_cubic_image_view_image_format_properties_ext) ==
+    sizeof(
+        filter_cubic_image_view_image_format_properties_ext::underlying_type));
+
 class format_properties {
  public:
   using underlying_type = VkFormatProperties;
@@ -12583,6 +12760,64 @@ static_assert(
     sizeof(physical_device_conservative_rasterization_properties_ext::
                underlying_type));
 
+class physical_device_cooperative_matrix_features_nv {
+ public:
+  using underlying_type = VkPhysicalDeviceCooperativeMatrixFeaturesNV;
+
+  // mutators
+  void set_cooperative_matrix(bool val) { cooperative_matrix_ = val; }
+  void set_cooperative_matrix_robust_buffer_access(bool val) {
+    cooperative_matrix_robust_buffer_access_ = val;
+  }
+
+  // accessors
+  bool cooperative_matrix() const { return cooperative_matrix_; }
+  bool cooperative_matrix_robust_buffer_access() const {
+    return cooperative_matrix_robust_buffer_access_;
+  }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_FEATURES_NV;
+  void* p_next_ = nullptr;
+
+  spk::bool32_t cooperative_matrix_ = 0;
+  spk::bool32_t cooperative_matrix_robust_buffer_access_ = 0;
+};
+static_assert(
+    sizeof(physical_device_cooperative_matrix_features_nv) ==
+    sizeof(physical_device_cooperative_matrix_features_nv::underlying_type));
+
+class physical_device_cooperative_matrix_properties_nv {
+ public:
+  using underlying_type = VkPhysicalDeviceCooperativeMatrixPropertiesNV;
+
+  // mutators
+  void set_cooperative_matrix_supported_stages(spk::shader_stage_flags value) {
+    cooperative_matrix_supported_stages_ = value;
+  }
+
+  // accessors
+  spk::shader_stage_flags cooperative_matrix_supported_stages() const {
+    return cooperative_matrix_supported_stages_;
+  }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_NV;
+  void* p_next_ = nullptr;
+
+  spk::shader_stage_flags cooperative_matrix_supported_stages_ =
+      spk::shader_stage_flags(0);
+};
+static_assert(
+    sizeof(physical_device_cooperative_matrix_properties_nv) ==
+    sizeof(physical_device_cooperative_matrix_properties_nv::underlying_type));
+
 class physical_device_corner_sampled_image_features_nv {
  public:
   using underlying_type = VkPhysicalDeviceCornerSampledImageFeaturesNV;
@@ -12605,6 +12840,58 @@ class physical_device_corner_sampled_image_features_nv {
 static_assert(
     sizeof(physical_device_corner_sampled_image_features_nv) ==
     sizeof(physical_device_corner_sampled_image_features_nv::underlying_type));
+
+class physical_device_dedicated_allocation_image_aliasing_features_nv {
+ public:
+  using underlying_type =
+      VkPhysicalDeviceDedicatedAllocationImageAliasingFeaturesNV;
+
+  // mutators
+  void set_dedicated_allocation_image_aliasing(bool val) {
+    dedicated_allocation_image_aliasing_ = val;
+  }
+
+  // accessors
+  bool dedicated_allocation_image_aliasing() const {
+    return dedicated_allocation_image_aliasing_;
+  }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEDICATED_ALLOCATION_IMAGE_ALIASING_FEATURES_NV;
+  void* p_next_ = nullptr;
+
+  spk::bool32_t dedicated_allocation_image_aliasing_ = 0;
+};
+static_assert(
+    sizeof(physical_device_dedicated_allocation_image_aliasing_features_nv) ==
+    sizeof(physical_device_dedicated_allocation_image_aliasing_features_nv::
+               underlying_type));
+
+class physical_device_depth_clip_enable_features_ext {
+ public:
+  using underlying_type = VkPhysicalDeviceDepthClipEnableFeaturesEXT;
+
+  // mutators
+  void set_depth_clip_enable(bool val) { depth_clip_enable_ = val; }
+
+  // accessors
+  bool depth_clip_enable() const { return depth_clip_enable_; }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLIP_ENABLE_FEATURES_EXT;
+  void* p_next_ = nullptr;
+
+  spk::bool32_t depth_clip_enable_ = 0;
+};
+static_assert(
+    sizeof(physical_device_depth_clip_enable_features_ext) ==
+    sizeof(physical_device_depth_clip_enable_features_ext::underlying_type));
 
 class physical_device_depth_stencil_resolve_properties_khr {
  public:
@@ -13842,6 +14129,31 @@ static_assert(sizeof(physical_device_image_format_info_2) ==
               sizeof(physical_device_image_format_info_2::underlying_type));
 using physical_device_image_format_info_2khr =
     physical_device_image_format_info_2;
+
+class physical_device_image_view_image_format_info_ext {
+ public:
+  using underlying_type = VkPhysicalDeviceImageViewImageFormatInfoEXT;
+
+  // mutators
+  void set_image_view_type(spk::image_view_type value) {
+    image_view_type_ = value;
+  }
+
+  // accessors
+  spk::image_view_type image_view_type() const { return image_view_type_; }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT;
+  void* p_next_ = nullptr;
+
+  spk::image_view_type image_view_type_ = spk::image_view_type(0);
+};
+static_assert(
+    sizeof(physical_device_image_view_image_format_info_ext) ==
+    sizeof(physical_device_image_view_image_format_info_ext::underlying_type));
 
 class physical_device_inline_uniform_block_features_ext {
  public:
@@ -15803,11 +16115,17 @@ class physical_device_vulkan_memory_model_features_khr {
   void set_vulkan_memory_model_device_scope(bool val) {
     vulkan_memory_model_device_scope_ = val;
   }
+  void set_vulkan_memory_model_availability_visibility_chains(bool val) {
+    vulkan_memory_model_availability_visibility_chains_ = val;
+  }
 
   // accessors
   bool vulkan_memory_model() const { return vulkan_memory_model_; }
   bool vulkan_memory_model_device_scope() const {
     return vulkan_memory_model_device_scope_;
+  }
+  bool vulkan_memory_model_availability_visibility_chains() const {
+    return vulkan_memory_model_availability_visibility_chains_;
   }
 
   void set_next(void* next) { p_next_ = next; }
@@ -15819,6 +16137,7 @@ class physical_device_vulkan_memory_model_features_khr {
 
   spk::bool32_t vulkan_memory_model_ = 0;
   spk::bool32_t vulkan_memory_model_device_scope_ = 0;
+  spk::bool32_t vulkan_memory_model_availability_visibility_chains_ = 0;
 };
 static_assert(
     sizeof(physical_device_vulkan_memory_model_features_khr) ==
@@ -16024,7 +16343,7 @@ class pipeline_coverage_modulation_state_create_info_nv {
   spk::coverage_modulation_mode_nv coverage_modulation_mode_ =
       spk::coverage_modulation_mode_nv(0);
   spk::bool32_t coverage_modulation_table_enable_ = 0;
-  uint32_t coverage_modulation_table_count_ = 0;
+  uint32_t coverage_modulation_table_count_ = 0;  // optional
   float const* p_coverage_modulation_table_ = 0;  // optional
 };
 static_assert(
@@ -16281,6 +16600,30 @@ static_assert(
     sizeof(pipeline_rasterization_conservative_state_create_info_ext) ==
     sizeof(pipeline_rasterization_conservative_state_create_info_ext::
                underlying_type));
+
+class pipeline_rasterization_depth_clip_state_create_info_ext {
+ public:
+  using underlying_type = VkPipelineRasterizationDepthClipStateCreateInfoEXT;
+
+  // mutators
+  void set_depth_clip_enable(bool val) { depth_clip_enable_ = val; }
+
+  // accessors
+  bool depth_clip_enable() const { return depth_clip_enable_; }
+
+  void set_next(void* next) { p_next_ = next; }
+
+ private:
+  VkStructureType s_type_ =
+      VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_DEPTH_CLIP_STATE_CREATE_INFO_EXT;
+  void* p_next_ = nullptr;
+
+  VkFlags flags_ = {};  // reserved
+  spk::bool32_t depth_clip_enable_ = 0;
+};
+static_assert(sizeof(pipeline_rasterization_depth_clip_state_create_info_ext) ==
+              sizeof(pipeline_rasterization_depth_clip_state_create_info_ext::
+                         underlying_type));
 
 class pipeline_rasterization_state_create_info {
  public:
@@ -21490,17 +21833,6 @@ using sparse_image_memory_requirements_2khr =
 
 struct global_dispatch_table {
   // spock commands
-  void enumerate_instance_version(uint32_t* pApiVersion) const {
-    const VkResult res = vkEnumerateInstanceVersion((uint32_t*)pApiVersion);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkEnumerateInstanceVersion");
-    }
-  }
-
   [[nodiscard]] spk::result enumerate_instance_extension_properties(
       char const* pLayerName, uint32_t* pPropertyCount,
       spk::extension_properties* pProperties) const {
@@ -21521,6 +21853,25 @@ struct global_dispatch_table {
       default:
         throw spk::unexpected_command_result(
             (spk::result)res, "vkEnumerateInstanceExtensionProperties");
+    }
+  }
+
+  [[nodiscard]] spk::result enumerate_instance_layer_properties(
+      uint32_t* pPropertyCount, spk::layer_properties* pProperties) const {
+    const VkResult res = vkEnumerateInstanceLayerProperties(
+        (uint32_t*)pPropertyCount, (VkLayerProperties*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkEnumerateInstanceLayerProperties");
     }
   }
 
@@ -21551,10 +21902,50 @@ struct global_dispatch_table {
     }
   }
 
-  [[nodiscard]] spk::result enumerate_instance_layer_properties(
-      uint32_t* pPropertyCount, spk::layer_properties* pProperties) const {
-    const VkResult res = vkEnumerateInstanceLayerProperties(
-        (uint32_t*)pPropertyCount, (VkLayerProperties*)pProperties);
+  void enumerate_instance_version(uint32_t* pApiVersion) const {
+    const VkResult res = vkEnumerateInstanceVersion((uint32_t*)pApiVersion);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkEnumerateInstanceVersion");
+    }
+  }
+
+  // vulkan commands
+  PFN_vkEnumerateInstanceExtensionProperties
+      vkEnumerateInstanceExtensionProperties = nullptr;
+  PFN_vkEnumerateInstanceLayerProperties vkEnumerateInstanceLayerProperties =
+      nullptr;
+  PFN_vkCreateInstance vkCreateInstance = nullptr;
+  PFN_vkEnumerateInstanceVersion vkEnumerateInstanceVersion = nullptr;
+};
+
+template <class Visitor>
+void visit_dispatch_table(global_dispatch_table& dispatch_table,
+                          const Visitor& V) {
+  V(dispatch_table,
+    &global_dispatch_table::vkEnumerateInstanceExtensionProperties,
+    "vkEnumerateInstanceExtensionProperties");
+  V(dispatch_table, &global_dispatch_table::vkEnumerateInstanceLayerProperties,
+    "vkEnumerateInstanceLayerProperties");
+  V(dispatch_table, &global_dispatch_table::vkCreateInstance,
+    "vkCreateInstance");
+  V(dispatch_table, &global_dispatch_table::vkEnumerateInstanceVersion,
+    "vkEnumerateInstanceVersion");
+}
+
+struct instance_dispatch_table {
+  spk::instance_ref instance;
+  // spock commands
+  [[nodiscard]] spk::result
+  get_physical_device_cooperative_matrix_properties_nv(
+      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
+      spk::cooperative_matrix_properties_nv* pProperties) const {
+    const VkResult res = vkGetPhysicalDeviceCooperativeMatrixPropertiesNV(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
+        (VkCooperativeMatrixPropertiesNV*)pProperties);
     switch (res) {
       case VK_SUCCESS:
         return spk::result::success;
@@ -21566,45 +21957,40 @@ struct global_dispatch_table {
         throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result(
-            (spk::result)res, "vkEnumerateInstanceLayerProperties");
+            (spk::result)res,
+            "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
     }
   }
 
-  // vulkan commands
-  PFN_vkEnumerateInstanceVersion vkEnumerateInstanceVersion = nullptr;
-  PFN_vkEnumerateInstanceExtensionProperties
-      vkEnumerateInstanceExtensionProperties = nullptr;
-  PFN_vkCreateInstance vkCreateInstance = nullptr;
-  PFN_vkEnumerateInstanceLayerProperties vkEnumerateInstanceLayerProperties =
-      nullptr;
-};
+  [[nodiscard]] spk::result get_physical_device_calibrateable_time_domains_ext(
+      spk::physical_device_ref physicalDevice, uint32_t* pTimeDomainCount,
+      spk::time_domain_ext* pTimeDomains) const {
+    const VkResult res = vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pTimeDomainCount,
+        (VkTimeDomainEXT*)pTimeDomains);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+    }
+  }
 
-template <class Visitor>
-void visit_dispatch_table(global_dispatch_table& dispatch_table,
-                          const Visitor& V) {
-  V(dispatch_table, &global_dispatch_table::vkEnumerateInstanceVersion,
-    "vkEnumerateInstanceVersion");
-  V(dispatch_table,
-    &global_dispatch_table::vkEnumerateInstanceExtensionProperties,
-    "vkEnumerateInstanceExtensionProperties");
-  V(dispatch_table, &global_dispatch_table::vkCreateInstance,
-    "vkCreateInstance");
-  V(dispatch_table, &global_dispatch_table::vkEnumerateInstanceLayerProperties,
-    "vkEnumerateInstanceLayerProperties");
-}
-
-struct instance_dispatch_table {
-  spk::instance_ref instance;
-  // spock commands
-#ifdef VK_USE_PLATFORM_XLIB_KHR
-  void create_xlib_surface_khr(
-      spk::instance_ref instance,
-      spk::xlib_surface_create_info_khr const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateXlibSurfaceKHR(
-        (VkInstance)instance, (VkXlibSurfaceCreateInfoKHR const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
+  void get_display_plane_capabilities_2khr(
+      spk::physical_device_ref physicalDevice,
+      spk::display_plane_info_2khr const* pDisplayPlaneInfo,
+      spk::display_plane_capabilities_2khr* pCapabilities) const {
+    const VkResult res = vkGetDisplayPlaneCapabilities2KHR(
+        (VkPhysicalDevice)physicalDevice,
+        (VkDisplayPlaneInfo2KHR const*)pDisplayPlaneInfo,
+        (VkDisplayPlaneCapabilities2KHR*)pCapabilities);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -21613,20 +21999,91 @@ struct instance_dispatch_table {
       case VK_ERROR_OUT_OF_DEVICE_MEMORY:
         throw spk::error_out_of_device_memory();
       default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateXlibSurfaceKHR");
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetDisplayPlaneCapabilities2KHR");
     }
   }
-#endif
 
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  void create_wayland_surface_khr(
+  [[nodiscard]] spk::result get_display_mode_properties_2khr(
+      spk::physical_device_ref physicalDevice, spk::display_khr_ref display,
+      uint32_t* pPropertyCount,
+      spk::display_mode_properties_2khr* pProperties) const {
+    const VkResult res = vkGetDisplayModeProperties2KHR(
+        (VkPhysicalDevice)physicalDevice, (VkDisplayKHR)display,
+        (uint32_t*)pPropertyCount, (VkDisplayModeProperties2KHR*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetDisplayModeProperties2KHR");
+    }
+  }
+
+  [[nodiscard]] spk::result get_physical_device_display_plane_properties_2khr(
+      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
+      spk::display_plane_properties_2khr* pProperties) const {
+    const VkResult res = vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
+        (VkDisplayPlaneProperties2KHR*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+    }
+  }
+
+  [[nodiscard]] spk::result get_physical_device_display_properties_2khr(
+      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
+      spk::display_properties_2khr* pProperties) const {
+    const VkResult res = vkGetPhysicalDeviceDisplayProperties2KHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
+        (VkDisplayProperties2KHR*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceDisplayProperties2KHR");
+    }
+  }
+
+  void destroy_debug_utils_messenger_ext(
+      spk::instance_ref instance, spk::debug_utils_messenger_ext_ref messenger,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDebugUtilsMessengerEXT((VkInstance)instance,
+                                    (VkDebugUtilsMessengerEXT)messenger,
+                                    (VkAllocationCallbacks const*)pAllocator);
+  }
+
+#ifdef VK_USE_PLATFORM_MACOS_MVK
+  void create_mac_os_surface_mvk(
       spk::instance_ref instance,
-      spk::wayland_surface_create_info_khr const* pCreateInfo,
+      spk::mac_os_surface_create_info_mvk const* pCreateInfo,
       spk::allocation_callbacks const* pAllocator,
       spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateWaylandSurfaceKHR(
-        (VkInstance)instance, (VkWaylandSurfaceCreateInfoKHR const*)pCreateInfo,
+    const VkResult res = vkCreateMacOSSurfaceMVK(
+        (VkInstance)instance, (VkMacOSSurfaceCreateInfoMVK const*)pCreateInfo,
         (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
     switch (res) {
       case VK_SUCCESS:
@@ -21635,20 +22092,232 @@ struct instance_dispatch_table {
         throw spk::error_out_of_host_memory();
       case VK_ERROR_OUT_OF_DEVICE_MEMORY:
         throw spk::error_out_of_device_memory();
+      case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
+        throw spk::error_native_window_in_use_khr();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateWaylandSurfaceKHR");
+                                             "vkCreateMacOSSurfaceMVK");
     }
   }
 #endif
 
-  [[nodiscard]] spk::result get_physical_device_surface_formats_khr(
+#ifdef VK_USE_PLATFORM_IOS_MVK
+  void create_ios_surface_mvk(
+      spk::instance_ref instance,
+      spk::ios_surface_create_info_mvk const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::surface_khr_ref* pSurface) const {
+    const VkResult res = vkCreateIOSSurfaceMVK(
+        (VkInstance)instance, (VkIOSSurfaceCreateInfoMVK const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
+        throw spk::error_native_window_in_use_khr();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateIOSSurfaceMVK");
+    }
+  }
+#endif
+
+  [[nodiscard]] spk::result get_physical_device_present_rectangles_khr(
       spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
-      uint32_t* pSurfaceFormatCount,
-      spk::surface_format_khr* pSurfaceFormats) const {
-    const VkResult res = vkGetPhysicalDeviceSurfaceFormatsKHR(
+      uint32_t* pRectCount, spk::rect_2d* pRects) const {
+    const VkResult res = vkGetPhysicalDevicePresentRectanglesKHR(
         (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
-        (uint32_t*)pSurfaceFormatCount, (VkSurfaceFormatKHR*)pSurfaceFormats);
+        (uint32_t*)pRectCount, (VkRect2D*)pRects);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDevicePresentRectanglesKHR");
+    }
+  }
+
+  void get_physical_device_surface_capabilities_2ext(
+      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
+      spk::surface_capabilities_2ext* pSurfaceCapabilities) const {
+    const VkResult res = vkGetPhysicalDeviceSurfaceCapabilities2EXT(
+        (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
+        (VkSurfaceCapabilities2EXT*)pSurfaceCapabilities);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+    }
+  }
+
+  [[nodiscard]] spk::result enumerate_physical_device_groups_khr(
+      spk::instance_ref instance, uint32_t* pPhysicalDeviceGroupCount,
+      spk::physical_device_group_properties* pPhysicalDeviceGroupProperties)
+      const {
+    const VkResult res = vkEnumeratePhysicalDeviceGroups(
+        (VkInstance)instance, (uint32_t*)pPhysicalDeviceGroupCount,
+        (VkPhysicalDeviceGroupProperties*)pPhysicalDeviceGroupProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INITIALIZATION_FAILED:
+        throw spk::error_initialization_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkEnumeratePhysicalDeviceGroups");
+    }
+  }
+
+  [[nodiscard]] spk::result enumerate_physical_device_groups(
+      spk::instance_ref instance, uint32_t* pPhysicalDeviceGroupCount,
+      spk::physical_device_group_properties* pPhysicalDeviceGroupProperties)
+      const {
+    const VkResult res = vkEnumeratePhysicalDeviceGroups(
+        (VkInstance)instance, (uint32_t*)pPhysicalDeviceGroupCount,
+        (VkPhysicalDeviceGroupProperties*)pPhysicalDeviceGroupProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INITIALIZATION_FAILED:
+        throw spk::error_initialization_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkEnumeratePhysicalDeviceGroups");
+    }
+  }
+
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  void acquire_xlib_display_ext(spk::physical_device_ref physicalDevice,
+                                Display* dpy,
+                                spk::display_khr_ref display) const {
+    const VkResult res = vkAcquireXlibDisplayEXT(
+        (VkPhysicalDevice)physicalDevice, (Display*)dpy, (VkDisplayKHR)display);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_INITIALIZATION_FAILED:
+        throw spk::error_initialization_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkAcquireXlibDisplayEXT");
+    }
+  }
+#endif
+
+  void release_display_ext(spk::physical_device_ref physicalDevice,
+                           spk::display_khr_ref display) const {
+    const VkResult res = vkReleaseDisplayEXT((VkPhysicalDevice)physicalDevice,
+                                             (VkDisplayKHR)display);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkReleaseDisplayEXT");
+    }
+  }
+
+  void get_physical_device_external_fence_properties(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_external_fence_info const* pExternalFenceInfo,
+      spk::external_fence_properties* pExternalFenceProperties) const {
+    vkGetPhysicalDeviceExternalFenceProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceExternalFenceInfo const*)pExternalFenceInfo,
+        (VkExternalFenceProperties*)pExternalFenceProperties);
+  }
+
+  void get_physical_device_external_fence_properties_khr(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_external_fence_info const* pExternalFenceInfo,
+      spk::external_fence_properties* pExternalFenceProperties) const {
+    vkGetPhysicalDeviceExternalFenceProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceExternalFenceInfo const*)pExternalFenceInfo,
+        (VkExternalFenceProperties*)pExternalFenceProperties);
+  }
+
+  void get_physical_device_external_semaphore_properties_khr(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_external_semaphore_info const*
+          pExternalSemaphoreInfo,
+      spk::external_semaphore_properties* pExternalSemaphoreProperties) const {
+    vkGetPhysicalDeviceExternalSemaphoreProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceExternalSemaphoreInfo const*)pExternalSemaphoreInfo,
+        (VkExternalSemaphoreProperties*)pExternalSemaphoreProperties);
+  }
+
+  void get_physical_device_external_semaphore_properties(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_external_semaphore_info const*
+          pExternalSemaphoreInfo,
+      spk::external_semaphore_properties* pExternalSemaphoreProperties) const {
+    vkGetPhysicalDeviceExternalSemaphoreProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceExternalSemaphoreInfo const*)pExternalSemaphoreInfo,
+        (VkExternalSemaphoreProperties*)pExternalSemaphoreProperties);
+  }
+
+  void get_physical_device_external_buffer_properties(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
+      spk::external_buffer_properties* pExternalBufferProperties) const {
+    vkGetPhysicalDeviceExternalBufferProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceExternalBufferInfo const*)pExternalBufferInfo,
+        (VkExternalBufferProperties*)pExternalBufferProperties);
+  }
+
+  void get_physical_device_external_buffer_properties_khr(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
+      spk::external_buffer_properties* pExternalBufferProperties) const {
+    vkGetPhysicalDeviceExternalBufferProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceExternalBufferInfo const*)pExternalBufferInfo,
+        (VkExternalBufferProperties*)pExternalBufferProperties);
+  }
+
+  [[nodiscard]] spk::result get_physical_device_surface_formats_2khr(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_surface_info_2khr const* pSurfaceInfo,
+      uint32_t* pSurfaceFormatCount,
+      spk::surface_format_2khr* pSurfaceFormats) const {
+    const VkResult res = vkGetPhysicalDeviceSurfaceFormats2KHR(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceSurfaceInfo2KHR const*)pSurfaceInfo,
+        (uint32_t*)pSurfaceFormatCount, (VkSurfaceFormat2KHR*)pSurfaceFormats);
     switch (res) {
       case VK_SUCCESS:
         return spk::result::success;
@@ -21662,18 +22331,23 @@ struct instance_dispatch_table {
         throw spk::error_surface_lost_khr();
       default:
         throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceSurfaceFormatsKHR");
+            (spk::result)res, "vkGetPhysicalDeviceSurfaceFormats2KHR");
     }
   }
 
-#ifdef VK_USE_PLATFORM_VI_NN
-  void create_vi_surface_nn(spk::instance_ref instance,
-                            spk::vi_surface_create_info_nn const* pCreateInfo,
-                            spk::allocation_callbacks const* pAllocator,
-                            spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateViSurfaceNN(
-        (VkInstance)instance, (VkViSurfaceCreateInfoNN const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
+  void get_physical_device_external_image_format_properties_nv(
+      spk::physical_device_ref physicalDevice, spk::format format,
+      spk::image_type type, spk::image_tiling tiling,
+      spk::image_usage_flags usage, spk::image_create_flags flags,
+      spk::external_memory_handle_type_flags_nv externalHandleType,
+      spk::external_image_format_properties_nv* pExternalImageFormatProperties)
+      const {
+    const VkResult res = vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
+        (VkPhysicalDevice)physicalDevice, (VkFormat)format, (VkImageType)type,
+        (VkImageTiling)tiling, (VkImageUsageFlags)usage,
+        (VkImageCreateFlags)flags,
+        (VkExternalMemoryHandleTypeFlagsNV)externalHandleType,
+        (VkExternalImageFormatPropertiesNV*)pExternalImageFormatProperties);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -21681,54 +22355,12 @@ struct instance_dispatch_table {
         throw spk::error_out_of_host_memory();
       case VK_ERROR_OUT_OF_DEVICE_MEMORY:
         throw spk::error_out_of_device_memory();
-      case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
-        throw spk::error_native_window_in_use_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateViSurfaceNN");
-    }
-  }
-#endif
-
-  void create_display_plane_surface_khr(
-      spk::instance_ref instance,
-      spk::display_surface_create_info_khr const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateDisplayPlaneSurfaceKHR(
-        (VkInstance)instance, (VkDisplaySurfaceCreateInfoKHR const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateDisplayPlaneSurfaceKHR");
-    }
-  }
-
-  [[nodiscard]] spk::result get_display_plane_supported_displays_khr(
-      spk::physical_device_ref physicalDevice, uint32_t planeIndex,
-      uint32_t* pDisplayCount, spk::display_khr_ref* pDisplays) const {
-    const VkResult res = vkGetDisplayPlaneSupportedDisplaysKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t)planeIndex,
-        (uint32_t*)pDisplayCount, (VkDisplayKHR*)pDisplays);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
+      case VK_ERROR_FORMAT_NOT_SUPPORTED:
+        throw spk::error_format_not_supported();
       default:
         throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetDisplayPlaneSupportedDisplaysKHR");
+            (spk::result)res,
+            "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
     }
   }
 
@@ -21755,124 +22387,6 @@ struct instance_dispatch_table {
     }
   }
 
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  spk::bool32_t get_physical_device_wayland_presentation_support_khr(
-      spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
-      wl_display* display) const {
-    return (spk::bool32_t)(vkGetPhysicalDeviceWaylandPresentationSupportKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex,
-        (wl_display*)display));
-  }
-#endif
-
-  [[nodiscard]] spk::result get_physical_device_display_properties_khr(
-      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
-      spk::display_properties_khr* pProperties) const {
-    const VkResult res = vkGetPhysicalDeviceDisplayPropertiesKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
-        (VkDisplayPropertiesKHR*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceDisplayPropertiesKHR");
-    }
-  }
-
-  void get_physical_device_surface_support_khr(
-      spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
-      spk::surface_khr_ref surface, spk::bool32_t* pSupported) const {
-    const VkResult res = vkGetPhysicalDeviceSurfaceSupportKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex,
-        (VkSurfaceKHR)surface, (VkBool32*)pSupported);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceSurfaceSupportKHR");
-    }
-  }
-
-  void get_physical_device_features_2(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_features_2* pFeatures) const {
-    vkGetPhysicalDeviceFeatures2((VkPhysicalDevice)physicalDevice,
-                                 (VkPhysicalDeviceFeatures2*)pFeatures);
-  }
-
-  void get_physical_device_features_2khr(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_features_2* pFeatures) const {
-    vkGetPhysicalDeviceFeatures2((VkPhysicalDevice)physicalDevice,
-                                 (VkPhysicalDeviceFeatures2*)pFeatures);
-  }
-
-  void create_display_mode_khr(
-      spk::physical_device_ref physicalDevice, spk::display_khr_ref display,
-      spk::display_mode_create_info_khr const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::display_mode_khr_ref* pMode) const {
-    const VkResult res = vkCreateDisplayModeKHR(
-        (VkPhysicalDevice)physicalDevice, (VkDisplayKHR)display,
-        (VkDisplayModeCreateInfoKHR const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkDisplayModeKHR*)pMode);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INITIALIZATION_FAILED:
-        throw spk::error_initialization_failed();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateDisplayModeKHR");
-    }
-  }
-
-  [[nodiscard]] spk::result enumerate_device_layer_properties(
-      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
-      spk::layer_properties* pProperties) const {
-    const VkResult res = vkEnumerateDeviceLayerProperties(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
-        (VkLayerProperties*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkEnumerateDeviceLayerProperties");
-    }
-  }
-
-  void destroy_surface_khr(spk::instance_ref instance,
-                           spk::surface_khr_ref surface,
-                           spk::allocation_callbacks const* pAllocator) const {
-    vkDestroySurfaceKHR((VkInstance)instance, (VkSurfaceKHR)surface,
-                        (VkAllocationCallbacks const*)pAllocator);
-  }
-
 #ifdef VK_USE_PLATFORM_ANDROID_KHR
   void create_android_surface_khr(
       spk::instance_ref instance,
@@ -21897,6 +22411,63 @@ struct instance_dispatch_table {
     }
   }
 #endif
+
+  void get_physical_device_generated_commands_properties_nvx(
+      spk::physical_device_ref physicalDevice,
+      spk::device_generated_commands_features_nvx* pFeatures,
+      spk::device_generated_commands_limits_nvx* pLimits) const {
+    vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX(
+        (VkPhysicalDevice)physicalDevice,
+        (VkDeviceGeneratedCommandsFeaturesNVX*)pFeatures,
+        (VkDeviceGeneratedCommandsLimitsNVX*)pLimits);
+  }
+
+  [[nodiscard]] spk::result enumerate_physical_devices(
+      spk::instance_ref instance, uint32_t* pPhysicalDeviceCount,
+      spk::physical_device_ref* pPhysicalDevices) const {
+    const VkResult res = vkEnumeratePhysicalDevices(
+        (VkInstance)instance, (uint32_t*)pPhysicalDeviceCount,
+        (VkPhysicalDevice*)pPhysicalDevices);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INITIALIZATION_FAILED:
+        throw spk::error_initialization_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkEnumeratePhysicalDevices");
+    }
+  }
+
+  void get_physical_device_format_properties_2khr(
+      spk::physical_device_ref physicalDevice, spk::format format,
+      spk::format_properties_2* pFormatProperties) const {
+    vkGetPhysicalDeviceFormatProperties2(
+        (VkPhysicalDevice)physicalDevice, (VkFormat)format,
+        (VkFormatProperties2*)pFormatProperties);
+  }
+
+  void get_physical_device_format_properties_2(
+      spk::physical_device_ref physicalDevice, spk::format format,
+      spk::format_properties_2* pFormatProperties) const {
+    vkGetPhysicalDeviceFormatProperties2(
+        (VkPhysicalDevice)physicalDevice, (VkFormat)format,
+        (VkFormatProperties2*)pFormatProperties);
+  }
+
+  void get_physical_device_format_properties(
+      spk::physical_device_ref physicalDevice, spk::format format,
+      spk::format_properties* pFormatProperties) const {
+    vkGetPhysicalDeviceFormatProperties((VkPhysicalDevice)physicalDevice,
+                                        (VkFormat)format,
+                                        (VkFormatProperties*)pFormatProperties);
+  }
 
   void create_device(spk::physical_device_ref physicalDevice,
                      spk::device_create_info const* pCreateInfo,
@@ -21929,91 +22500,12 @@ struct instance_dispatch_table {
     }
   }
 
-  [[nodiscard]] spk::result get_display_mode_properties_khr(
-      spk::physical_device_ref physicalDevice, spk::display_khr_ref display,
-      uint32_t* pPropertyCount,
-      spk::display_mode_properties_khr* pProperties) const {
-    const VkResult res = vkGetDisplayModePropertiesKHR(
-        (VkPhysicalDevice)physicalDevice, (VkDisplayKHR)display,
-        (uint32_t*)pPropertyCount, (VkDisplayModePropertiesKHR*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetDisplayModePropertiesKHR");
-    }
-  }
-
-  [[nodiscard]] spk::result enumerate_physical_device_groups(
-      spk::instance_ref instance, uint32_t* pPhysicalDeviceGroupCount,
-      spk::physical_device_group_properties* pPhysicalDeviceGroupProperties)
-      const {
-    const VkResult res = vkEnumeratePhysicalDeviceGroups(
-        (VkInstance)instance, (uint32_t*)pPhysicalDeviceGroupCount,
-        (VkPhysicalDeviceGroupProperties*)pPhysicalDeviceGroupProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INITIALIZATION_FAILED:
-        throw spk::error_initialization_failed();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkEnumeratePhysicalDeviceGroups");
-    }
-  }
-
-  [[nodiscard]] spk::result enumerate_physical_device_groups_khr(
-      spk::instance_ref instance, uint32_t* pPhysicalDeviceGroupCount,
-      spk::physical_device_group_properties* pPhysicalDeviceGroupProperties)
-      const {
-    const VkResult res = vkEnumeratePhysicalDeviceGroups(
-        (VkInstance)instance, (uint32_t*)pPhysicalDeviceGroupCount,
-        (VkPhysicalDeviceGroupProperties*)pPhysicalDeviceGroupProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INITIALIZATION_FAILED:
-        throw spk::error_initialization_failed();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkEnumeratePhysicalDeviceGroups");
-    }
-  }
-
-  void get_physical_device_queue_family_properties(
-      spk::physical_device_ref physicalDevice,
-      uint32_t* pQueueFamilyPropertyCount,
-      spk::queue_family_properties* pQueueFamilyProperties) const {
-    vkGetPhysicalDeviceQueueFamilyProperties(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pQueueFamilyPropertyCount,
-        (VkQueueFamilyProperties*)pQueueFamilyProperties);
-  }
-
-  [[nodiscard]] spk::result get_physical_device_present_rectangles_khr(
-      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
-      uint32_t* pRectCount, spk::rect_2d* pRects) const {
-    const VkResult res = vkGetPhysicalDevicePresentRectanglesKHR(
-        (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
-        (uint32_t*)pRectCount, (VkRect2D*)pRects);
+  [[nodiscard]] spk::result enumerate_device_layer_properties(
+      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
+      spk::layer_properties* pProperties) const {
+    const VkResult res = vkEnumerateDeviceLayerProperties(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
+        (VkLayerProperties*)pProperties);
     switch (res) {
       case VK_SUCCESS:
         return spk::result::success;
@@ -22025,21 +22517,130 @@ struct instance_dispatch_table {
         throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDevicePresentRectanglesKHR");
+            (spk::result)res, "vkEnumerateDeviceLayerProperties");
     }
   }
 
-  void get_physical_device_sparse_image_format_properties(
+  [[nodiscard]] spk::result enumerate_device_extension_properties(
+      spk::physical_device_ref physicalDevice, char const* pLayerName,
+      uint32_t* pPropertyCount, spk::extension_properties* pProperties) const {
+    const VkResult res = vkEnumerateDeviceExtensionProperties(
+        (VkPhysicalDevice)physicalDevice, (char const*)pLayerName,
+        (uint32_t*)pPropertyCount, (VkExtensionProperties*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_LAYER_NOT_PRESENT:
+        throw spk::error_layer_not_present();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkEnumerateDeviceExtensionProperties");
+    }
+  }
+
+  [[nodiscard]] spk::result get_physical_device_surface_formats_khr(
+      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
+      uint32_t* pSurfaceFormatCount,
+      spk::surface_format_khr* pSurfaceFormats) const {
+    const VkResult res = vkGetPhysicalDeviceSurfaceFormatsKHR(
+        (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
+        (uint32_t*)pSurfaceFormatCount, (VkSurfaceFormatKHR*)pSurfaceFormats);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceSurfaceFormatsKHR");
+    }
+  }
+
+  void get_physical_device_image_format_properties(
       spk::physical_device_ref physicalDevice, spk::format format,
-      spk::image_type type, spk::sample_count_flags samples,
-      spk::image_usage_flags usage, spk::image_tiling tiling,
-      uint32_t* pPropertyCount,
-      spk::sparse_image_format_properties* pProperties) const {
-    vkGetPhysicalDeviceSparseImageFormatProperties(
+      spk::image_type type, spk::image_tiling tiling,
+      spk::image_usage_flags usage, spk::image_create_flags flags,
+      spk::image_format_properties* pImageFormatProperties) const {
+    const VkResult res = vkGetPhysicalDeviceImageFormatProperties(
         (VkPhysicalDevice)physicalDevice, (VkFormat)format, (VkImageType)type,
-        (VkSampleCountFlagBits)samples, (VkImageUsageFlags)usage,
-        (VkImageTiling)tiling, (uint32_t*)pPropertyCount,
-        (VkSparseImageFormatProperties*)pProperties);
+        (VkImageTiling)tiling, (VkImageUsageFlags)usage,
+        (VkImageCreateFlags)flags,
+        (VkImageFormatProperties*)pImageFormatProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_FORMAT_NOT_SUPPORTED:
+        throw spk::error_format_not_supported();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceImageFormatProperties");
+    }
+  }
+
+  void get_physical_device_memory_properties(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_memory_properties* pMemoryProperties) const {
+    vkGetPhysicalDeviceMemoryProperties(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceMemoryProperties*)pMemoryProperties);
+  }
+
+  [[nodiscard]] spk::result get_display_plane_supported_displays_khr(
+      spk::physical_device_ref physicalDevice, uint32_t planeIndex,
+      uint32_t* pDisplayCount, spk::display_khr_ref* pDisplays) const {
+    const VkResult res = vkGetDisplayPlaneSupportedDisplaysKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t)planeIndex,
+        (uint32_t*)pDisplayCount, (VkDisplayKHR*)pDisplays);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetDisplayPlaneSupportedDisplaysKHR");
+    }
+  }
+
+  void get_physical_device_surface_capabilities_khr(
+      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
+      spk::surface_capabilities_khr* pSurfaceCapabilities) const {
+    const VkResult res = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
+        (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
+        (VkSurfaceCapabilitiesKHR*)pSurfaceCapabilities);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
+    }
   }
 
 #ifdef VK_USE_PLATFORM_WIN32_KHR
@@ -22071,12 +22672,37 @@ struct instance_dispatch_table {
                       (VkAllocationCallbacks const*)pAllocator);
   }
 
-  void get_physical_device_memory_properties(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_memory_properties* pMemoryProperties) const {
-    vkGetPhysicalDeviceMemoryProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceMemoryProperties*)pMemoryProperties);
+  void submit_debug_utils_message_ext(
+      spk::instance_ref instance,
+      spk::debug_utils_message_severity_flags_ext messageSeverity,
+      spk::debug_utils_message_type_flags_ext messageTypes,
+      spk::debug_utils_messenger_callback_data_ext const* pCallbackData) const {
+    vkSubmitDebugUtilsMessageEXT(
+        (VkInstance)instance,
+        (VkDebugUtilsMessageSeverityFlagBitsEXT)messageSeverity,
+        (VkDebugUtilsMessageTypeFlagsEXT)messageTypes,
+        (VkDebugUtilsMessengerCallbackDataEXT const*)pCallbackData);
+  }
+
+  [[nodiscard]] spk::result get_physical_device_display_plane_properties_khr(
+      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
+      spk::display_plane_properties_khr* pProperties) const {
+    const VkResult res = vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
+        (VkDisplayPlanePropertiesKHR*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
+    }
   }
 
   void get_physical_device_features(
@@ -22084,294 +22710,6 @@ struct instance_dispatch_table {
       spk::physical_device_features* pFeatures) const {
     vkGetPhysicalDeviceFeatures((VkPhysicalDevice)physicalDevice,
                                 (VkPhysicalDeviceFeatures*)pFeatures);
-  }
-
-  PFN_vkVoidFunction get_instance_proc_addr(spk::instance_ref instance,
-                                            char const* pName) const {
-    return (PFN_vkVoidFunction)(
-        vkGetInstanceProcAddr((VkInstance)instance, (char const*)pName));
-  }
-
-  [[nodiscard]] spk::result enumerate_physical_devices(
-      spk::instance_ref instance, uint32_t* pPhysicalDeviceCount,
-      spk::physical_device_ref* pPhysicalDevices) const {
-    const VkResult res = vkEnumeratePhysicalDevices(
-        (VkInstance)instance, (uint32_t*)pPhysicalDeviceCount,
-        (VkPhysicalDevice*)pPhysicalDevices);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INITIALIZATION_FAILED:
-        throw spk::error_initialization_failed();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkEnumeratePhysicalDevices");
-    }
-  }
-
-  void get_physical_device_memory_properties_2(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_memory_properties_2* pMemoryProperties) const {
-    vkGetPhysicalDeviceMemoryProperties2(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceMemoryProperties2*)pMemoryProperties);
-  }
-
-  void get_physical_device_memory_properties_2khr(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_memory_properties_2* pMemoryProperties) const {
-    vkGetPhysicalDeviceMemoryProperties2(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceMemoryProperties2*)pMemoryProperties);
-  }
-
-  [[nodiscard]] spk::result enumerate_device_extension_properties(
-      spk::physical_device_ref physicalDevice, char const* pLayerName,
-      uint32_t* pPropertyCount, spk::extension_properties* pProperties) const {
-    const VkResult res = vkEnumerateDeviceExtensionProperties(
-        (VkPhysicalDevice)physicalDevice, (char const*)pLayerName,
-        (uint32_t*)pPropertyCount, (VkExtensionProperties*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_LAYER_NOT_PRESENT:
-        throw spk::error_layer_not_present();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkEnumerateDeviceExtensionProperties");
-    }
-  }
-
-  void get_physical_device_properties(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_properties* pProperties) const {
-    vkGetPhysicalDeviceProperties((VkPhysicalDevice)physicalDevice,
-                                  (VkPhysicalDeviceProperties*)pProperties);
-  }
-
-  void get_physical_device_image_format_properties(
-      spk::physical_device_ref physicalDevice, spk::format format,
-      spk::image_type type, spk::image_tiling tiling,
-      spk::image_usage_flags usage, spk::image_create_flags flags,
-      spk::image_format_properties* pImageFormatProperties) const {
-    const VkResult res = vkGetPhysicalDeviceImageFormatProperties(
-        (VkPhysicalDevice)physicalDevice, (VkFormat)format, (VkImageType)type,
-        (VkImageTiling)tiling, (VkImageUsageFlags)usage,
-        (VkImageCreateFlags)flags,
-        (VkImageFormatProperties*)pImageFormatProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_FORMAT_NOT_SUPPORTED:
-        throw spk::error_format_not_supported();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceImageFormatProperties");
-    }
-  }
-
-  void release_display_ext(spk::physical_device_ref physicalDevice,
-                           spk::display_khr_ref display) const {
-    const VkResult res = vkReleaseDisplayEXT((VkPhysicalDevice)physicalDevice,
-                                             (VkDisplayKHR)display);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkReleaseDisplayEXT");
-    }
-  }
-
-  void get_physical_device_queue_family_properties_2(
-      spk::physical_device_ref physicalDevice,
-      uint32_t* pQueueFamilyPropertyCount,
-      spk::queue_family_properties_2* pQueueFamilyProperties) const {
-    vkGetPhysicalDeviceQueueFamilyProperties2(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pQueueFamilyPropertyCount,
-        (VkQueueFamilyProperties2*)pQueueFamilyProperties);
-  }
-
-  void get_physical_device_queue_family_properties_2khr(
-      spk::physical_device_ref physicalDevice,
-      uint32_t* pQueueFamilyPropertyCount,
-      spk::queue_family_properties_2* pQueueFamilyProperties) const {
-    vkGetPhysicalDeviceQueueFamilyProperties2(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pQueueFamilyPropertyCount,
-        (VkQueueFamilyProperties2*)pQueueFamilyProperties);
-  }
-
-  void get_physical_device_format_properties(
-      spk::physical_device_ref physicalDevice, spk::format format,
-      spk::format_properties* pFormatProperties) const {
-    vkGetPhysicalDeviceFormatProperties((VkPhysicalDevice)physicalDevice,
-                                        (VkFormat)format,
-                                        (VkFormatProperties*)pFormatProperties);
-  }
-
-  void get_display_plane_capabilities_2khr(
-      spk::physical_device_ref physicalDevice,
-      spk::display_plane_info_2khr const* pDisplayPlaneInfo,
-      spk::display_plane_capabilities_2khr* pCapabilities) const {
-    const VkResult res = vkGetDisplayPlaneCapabilities2KHR(
-        (VkPhysicalDevice)physicalDevice,
-        (VkDisplayPlaneInfo2KHR const*)pDisplayPlaneInfo,
-        (VkDisplayPlaneCapabilities2KHR*)pCapabilities);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetDisplayPlaneCapabilities2KHR");
-    }
-  }
-
-  void get_physical_device_surface_capabilities_khr(
-      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
-      spk::surface_capabilities_khr* pSurfaceCapabilities) const {
-    const VkResult res = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(
-        (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
-        (VkSurfaceCapabilitiesKHR*)pSurfaceCapabilities);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_XCB_KHR
-  spk::bool32_t get_physical_device_xcb_presentation_support_khr(
-      spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
-      xcb_connection_t* connection, xcb_visualid_t visual_id) const {
-    return (spk::bool32_t)(vkGetPhysicalDeviceXcbPresentationSupportKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex,
-        (xcb_connection_t*)connection, (xcb_visualid_t)visual_id));
-  }
-#endif
-
-  void debug_report_message_ext(spk::instance_ref instance,
-                                spk::debug_report_flags_ext flags,
-                                spk::debug_report_object_type_ext objectType,
-                                uint64_t object, size_t location,
-                                int32_t messageCode, char const* pLayerPrefix,
-                                char const* pMessage) const {
-    vkDebugReportMessageEXT((VkInstance)instance, (VkDebugReportFlagsEXT)flags,
-                            (VkDebugReportObjectTypeEXT)objectType,
-                            (uint64_t)object, (size_t)location,
-                            (int32_t)messageCode, (char const*)pLayerPrefix,
-                            (char const*)pMessage);
-  }
-
-  void get_physical_device_external_image_format_properties_nv(
-      spk::physical_device_ref physicalDevice, spk::format format,
-      spk::image_type type, spk::image_tiling tiling,
-      spk::image_usage_flags usage, spk::image_create_flags flags,
-      spk::external_memory_handle_type_flags_nv externalHandleType,
-      spk::external_image_format_properties_nv* pExternalImageFormatProperties)
-      const {
-    const VkResult res = vkGetPhysicalDeviceExternalImageFormatPropertiesNV(
-        (VkPhysicalDevice)physicalDevice, (VkFormat)format, (VkImageType)type,
-        (VkImageTiling)tiling, (VkImageUsageFlags)usage,
-        (VkImageCreateFlags)flags,
-        (VkExternalMemoryHandleTypeFlagsNV)externalHandleType,
-        (VkExternalImageFormatPropertiesNV*)pExternalImageFormatProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_FORMAT_NOT_SUPPORTED:
-        throw spk::error_format_not_supported();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res,
-            "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_FUCHSIA
-  void create_image_pipe_surface_fuchsia(
-      spk::instance_ref instance,
-      spk::image_pipe_surface_create_info_fuchsia const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateImagePipeSurfaceFUCHSIA(
-        (VkInstance)instance,
-        (VkImagePipeSurfaceCreateInfoFUCHSIA const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateImagePipeSurfaceFUCHSIA");
-    }
-  }
-#endif
-
-  [[nodiscard]] spk::result get_physical_device_display_plane_properties_2khr(
-      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
-      spk::display_plane_properties_2khr* pProperties) const {
-    const VkResult res = vkGetPhysicalDeviceDisplayPlaneProperties2KHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
-        (VkDisplayPlaneProperties2KHR*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
-    }
-  }
-
-  void get_physical_device_generated_commands_properties_nvx(
-      spk::physical_device_ref physicalDevice,
-      spk::device_generated_commands_features_nvx* pFeatures,
-      spk::device_generated_commands_limits_nvx* pLimits) const {
-    vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX(
-        (VkPhysicalDevice)physicalDevice,
-        (VkDeviceGeneratedCommandsFeaturesNVX*)pFeatures,
-        (VkDeviceGeneratedCommandsLimitsNVX*)pLimits);
   }
 
   void get_physical_device_properties_2khr(
@@ -22388,157 +22726,20 @@ struct instance_dispatch_table {
                                    (VkPhysicalDeviceProperties2*)pProperties);
   }
 
-  void destroy_debug_report_callback_ext(
-      spk::instance_ref instance, spk::debug_report_callback_ext_ref callback,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDebugReportCallbackEXT((VkInstance)instance,
-                                    (VkDebugReportCallbackEXT)callback,
-                                    (VkAllocationCallbacks const*)pAllocator);
-  }
-
-#ifdef VK_USE_PLATFORM_MACOS_MVK
-  void create_mac_os_surface_mvk(
-      spk::instance_ref instance,
-      spk::mac_os_surface_create_info_mvk const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateMacOSSurfaceMVK(
-        (VkInstance)instance, (VkMacOSSurfaceCreateInfoMVK const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR:
-        throw spk::error_native_window_in_use_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateMacOSSurfaceMVK");
-    }
-  }
-#endif
-
-  void get_physical_device_sparse_image_format_properties_2khr(
+  void get_physical_device_properties(
       spk::physical_device_ref physicalDevice,
-      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
-      uint32_t* pPropertyCount,
-      spk::sparse_image_format_properties_2* pProperties) const {
-    vkGetPhysicalDeviceSparseImageFormatProperties2(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceSparseImageFormatInfo2 const*)pFormatInfo,
-        (uint32_t*)pPropertyCount,
-        (VkSparseImageFormatProperties2*)pProperties);
+      spk::physical_device_properties* pProperties) const {
+    vkGetPhysicalDeviceProperties((VkPhysicalDevice)physicalDevice,
+                                  (VkPhysicalDeviceProperties*)pProperties);
   }
 
-  void get_physical_device_sparse_image_format_properties_2(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
-      uint32_t* pPropertyCount,
-      spk::sparse_image_format_properties_2* pProperties) const {
-    vkGetPhysicalDeviceSparseImageFormatProperties2(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceSparseImageFormatInfo2 const*)pFormatInfo,
-        (uint32_t*)pPropertyCount,
-        (VkSparseImageFormatProperties2*)pProperties);
-  }
-
-  void get_physical_device_external_buffer_properties(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
-      spk::external_buffer_properties* pExternalBufferProperties) const {
-    vkGetPhysicalDeviceExternalBufferProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceExternalBufferInfo const*)pExternalBufferInfo,
-        (VkExternalBufferProperties*)pExternalBufferProperties);
-  }
-
-  void get_physical_device_external_buffer_properties_khr(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_external_buffer_info const* pExternalBufferInfo,
-      spk::external_buffer_properties* pExternalBufferProperties) const {
-    vkGetPhysicalDeviceExternalBufferProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceExternalBufferInfo const*)pExternalBufferInfo,
-        (VkExternalBufferProperties*)pExternalBufferProperties);
-  }
-
-  void get_physical_device_external_semaphore_properties_khr(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_external_semaphore_info const*
-          pExternalSemaphoreInfo,
-      spk::external_semaphore_properties* pExternalSemaphoreProperties) const {
-    vkGetPhysicalDeviceExternalSemaphoreProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceExternalSemaphoreInfo const*)pExternalSemaphoreInfo,
-        (VkExternalSemaphoreProperties*)pExternalSemaphoreProperties);
-  }
-
-  void get_physical_device_external_semaphore_properties(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_external_semaphore_info const*
-          pExternalSemaphoreInfo,
-      spk::external_semaphore_properties* pExternalSemaphoreProperties) const {
-    vkGetPhysicalDeviceExternalSemaphoreProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceExternalSemaphoreInfo const*)pExternalSemaphoreInfo,
-        (VkExternalSemaphoreProperties*)pExternalSemaphoreProperties);
-  }
-
-  void get_physical_device_external_fence_properties(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_external_fence_info const* pExternalFenceInfo,
-      spk::external_fence_properties* pExternalFenceProperties) const {
-    vkGetPhysicalDeviceExternalFenceProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceExternalFenceInfo const*)pExternalFenceInfo,
-        (VkExternalFenceProperties*)pExternalFenceProperties);
-  }
-
-  void get_physical_device_external_fence_properties_khr(
-      spk::physical_device_ref physicalDevice,
-      spk::physical_device_external_fence_info const* pExternalFenceInfo,
-      spk::external_fence_properties* pExternalFenceProperties) const {
-    vkGetPhysicalDeviceExternalFenceProperties(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceExternalFenceInfo const*)pExternalFenceInfo,
-        (VkExternalFenceProperties*)pExternalFenceProperties);
-  }
-
-#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  void acquire_xlib_display_ext(spk::physical_device_ref physicalDevice,
-                                Display* dpy,
-                                spk::display_khr_ref display) const {
-    const VkResult res = vkAcquireXlibDisplayEXT(
-        (VkPhysicalDevice)physicalDevice, (Display*)dpy, (VkDisplayKHR)display);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_INITIALIZATION_FAILED:
-        throw spk::error_initialization_failed();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkAcquireXlibDisplayEXT");
-    }
-  }
-#endif
-
-#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  void get_rand_r_output_display_ext(spk::physical_device_ref physicalDevice,
-                                     Display* dpy, RROutput rrOutput,
-                                     spk::display_khr_ref* pDisplay) const {
-    const VkResult res = vkGetRandROutputDisplayEXT(
-        (VkPhysicalDevice)physicalDevice, (Display*)dpy, (RROutput)rrOutput,
-        (VkDisplayKHR*)pDisplay);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetRandROutputDisplayEXT");
-    }
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  spk::bool32_t get_physical_device_wayland_presentation_support_khr(
+      spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
+      wl_display* display) const {
+    return (spk::bool32_t)(vkGetPhysicalDeviceWaylandPresentationSupportKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex,
+        (wl_display*)display));
   }
 #endif
 
@@ -22563,6 +22764,175 @@ struct instance_dispatch_table {
     }
   }
 
+  void get_physical_device_queue_family_properties(
+      spk::physical_device_ref physicalDevice,
+      uint32_t* pQueueFamilyPropertyCount,
+      spk::queue_family_properties* pQueueFamilyProperties) const {
+    vkGetPhysicalDeviceQueueFamilyProperties(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pQueueFamilyPropertyCount,
+        (VkQueueFamilyProperties*)pQueueFamilyProperties);
+  }
+
+  void get_display_plane_capabilities_khr(
+      spk::physical_device_ref physicalDevice, spk::display_mode_khr_ref mode,
+      uint32_t planeIndex,
+      spk::display_plane_capabilities_khr* pCapabilities) const {
+    const VkResult res = vkGetDisplayPlaneCapabilitiesKHR(
+        (VkPhysicalDevice)physicalDevice, (VkDisplayModeKHR)mode,
+        (uint32_t)planeIndex, (VkDisplayPlaneCapabilitiesKHR*)pCapabilities);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetDisplayPlaneCapabilitiesKHR");
+    }
+  }
+
+  void get_physical_device_sparse_image_format_properties(
+      spk::physical_device_ref physicalDevice, spk::format format,
+      spk::image_type type, spk::sample_count_flags samples,
+      spk::image_usage_flags usage, spk::image_tiling tiling,
+      uint32_t* pPropertyCount,
+      spk::sparse_image_format_properties* pProperties) const {
+    vkGetPhysicalDeviceSparseImageFormatProperties(
+        (VkPhysicalDevice)physicalDevice, (VkFormat)format, (VkImageType)type,
+        (VkSampleCountFlagBits)samples, (VkImageUsageFlags)usage,
+        (VkImageTiling)tiling, (uint32_t*)pPropertyCount,
+        (VkSparseImageFormatProperties*)pProperties);
+  }
+
+  PFN_vkVoidFunction get_instance_proc_addr(spk::instance_ref instance,
+                                            char const* pName) const {
+    return (PFN_vkVoidFunction)(
+        vkGetInstanceProcAddr((VkInstance)instance, (char const*)pName));
+  }
+
+  void create_display_plane_surface_khr(
+      spk::instance_ref instance,
+      spk::display_surface_create_info_khr const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::surface_khr_ref* pSurface) const {
+    const VkResult res = vkCreateDisplayPlaneSurfaceKHR(
+        (VkInstance)instance, (VkDisplaySurfaceCreateInfoKHR const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateDisplayPlaneSurfaceKHR");
+    }
+  }
+
+  [[nodiscard]] spk::result get_physical_device_display_properties_khr(
+      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
+      spk::display_properties_khr* pProperties) const {
+    const VkResult res = vkGetPhysicalDeviceDisplayPropertiesKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
+        (VkDisplayPropertiesKHR*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPhysicalDeviceDisplayPropertiesKHR");
+    }
+  }
+
+  void destroy_debug_report_callback_ext(
+      spk::instance_ref instance, spk::debug_report_callback_ext_ref callback,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDebugReportCallbackEXT((VkInstance)instance,
+                                    (VkDebugReportCallbackEXT)callback,
+                                    (VkAllocationCallbacks const*)pAllocator);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  spk::bool32_t get_physical_device_win_32presentation_support_khr(
+      spk::physical_device_ref physicalDevice,
+      uint32_t queueFamilyIndex) const {
+    return (spk::bool32_t)(vkGetPhysicalDeviceWin32PresentationSupportKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex));
+  }
+#endif
+
+  void get_physical_device_memory_properties_2khr(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_memory_properties_2* pMemoryProperties) const {
+    vkGetPhysicalDeviceMemoryProperties2(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceMemoryProperties2*)pMemoryProperties);
+  }
+
+  void get_physical_device_memory_properties_2(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_memory_properties_2* pMemoryProperties) const {
+    vkGetPhysicalDeviceMemoryProperties2(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceMemoryProperties2*)pMemoryProperties);
+  }
+
+  [[nodiscard]] spk::result get_display_mode_properties_khr(
+      spk::physical_device_ref physicalDevice, spk::display_khr_ref display,
+      uint32_t* pPropertyCount,
+      spk::display_mode_properties_khr* pProperties) const {
+    const VkResult res = vkGetDisplayModePropertiesKHR(
+        (VkPhysicalDevice)physicalDevice, (VkDisplayKHR)display,
+        (uint32_t*)pPropertyCount, (VkDisplayModePropertiesKHR*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetDisplayModePropertiesKHR");
+    }
+  }
+
+  void create_display_mode_khr(
+      spk::physical_device_ref physicalDevice, spk::display_khr_ref display,
+      spk::display_mode_create_info_khr const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::display_mode_khr_ref* pMode) const {
+    const VkResult res = vkCreateDisplayModeKHR(
+        (VkPhysicalDevice)physicalDevice, (VkDisplayKHR)display,
+        (VkDisplayModeCreateInfoKHR const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkDisplayModeKHR*)pMode);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INITIALIZATION_FAILED:
+        throw spk::error_initialization_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateDisplayModeKHR");
+    }
+  }
+
 #ifdef VK_USE_PLATFORM_XLIB_KHR
   spk::bool32_t get_physical_device_xlib_presentation_support_khr(
       spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
@@ -22573,12 +22943,19 @@ struct instance_dispatch_table {
   }
 #endif
 
-  void get_physical_device_surface_capabilities_2ext(
-      spk::physical_device_ref physicalDevice, spk::surface_khr_ref surface,
-      spk::surface_capabilities_2ext* pSurfaceCapabilities) const {
-    const VkResult res = vkGetPhysicalDeviceSurfaceCapabilities2EXT(
-        (VkPhysicalDevice)physicalDevice, (VkSurfaceKHR)surface,
-        (VkSurfaceCapabilities2EXT*)pSurfaceCapabilities);
+  void destroy_surface_khr(spk::instance_ref instance,
+                           spk::surface_khr_ref surface,
+                           spk::allocation_callbacks const* pAllocator) const {
+    vkDestroySurfaceKHR((VkInstance)instance, (VkSurfaceKHR)surface,
+                        (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void get_physical_device_surface_support_khr(
+      spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
+      spk::surface_khr_ref surface, spk::bool32_t* pSupported) const {
+    const VkResult res = vkGetPhysicalDeviceSurfaceSupportKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex,
+        (VkSurfaceKHR)surface, (VkBool32*)pSupported);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -22590,44 +22967,31 @@ struct instance_dispatch_table {
         throw spk::error_surface_lost_khr();
       default:
         throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+            (spk::result)res, "vkGetPhysicalDeviceSurfaceSupportKHR");
     }
   }
 
-  [[nodiscard]] spk::result get_physical_device_surface_formats_2khr(
+  void get_physical_device_features_2khr(
       spk::physical_device_ref physicalDevice,
-      spk::physical_device_surface_info_2khr const* pSurfaceInfo,
-      uint32_t* pSurfaceFormatCount,
-      spk::surface_format_2khr* pSurfaceFormats) const {
-    const VkResult res = vkGetPhysicalDeviceSurfaceFormats2KHR(
-        (VkPhysicalDevice)physicalDevice,
-        (VkPhysicalDeviceSurfaceInfo2KHR const*)pSurfaceInfo,
-        (uint32_t*)pSurfaceFormatCount, (VkSurfaceFormat2KHR*)pSurfaceFormats);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceSurfaceFormats2KHR");
-    }
+      spk::physical_device_features_2* pFeatures) const {
+    vkGetPhysicalDeviceFeatures2((VkPhysicalDevice)physicalDevice,
+                                 (VkPhysicalDeviceFeatures2*)pFeatures);
   }
 
-#ifdef VK_USE_PLATFORM_IOS_MVK
-  void create_ios_surface_mvk(
-      spk::instance_ref instance,
-      spk::ios_surface_create_info_mvk const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::surface_khr_ref* pSurface) const {
-    const VkResult res = vkCreateIOSSurfaceMVK(
-        (VkInstance)instance, (VkIOSSurfaceCreateInfoMVK const*)pCreateInfo,
+  void get_physical_device_features_2(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_features_2* pFeatures) const {
+    vkGetPhysicalDeviceFeatures2((VkPhysicalDevice)physicalDevice,
+                                 (VkPhysicalDeviceFeatures2*)pFeatures);
+  }
+
+#ifdef VK_USE_PLATFORM_VI_NN
+  void create_vi_surface_nn(spk::instance_ref instance,
+                            spk::vi_surface_create_info_nn const* pCreateInfo,
+                            spk::allocation_callbacks const* pAllocator,
+                            spk::surface_khr_ref* pSurface) const {
+    const VkResult res = vkCreateViSurfaceNN(
+        (VkInstance)instance, (VkViSurfaceCreateInfoNN const*)pCreateInfo,
         (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
     switch (res) {
       case VK_SUCCESS:
@@ -22640,60 +23004,10 @@ struct instance_dispatch_table {
         throw spk::error_native_window_in_use_khr();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateIOSSurfaceMVK");
+                                             "vkCreateViSurfaceNN");
     }
   }
 #endif
-
-  [[nodiscard]] spk::result get_physical_device_display_properties_2khr(
-      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
-      spk::display_properties_2khr* pProperties) const {
-    const VkResult res = vkGetPhysicalDeviceDisplayProperties2KHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
-        (VkDisplayProperties2KHR*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceDisplayProperties2KHR");
-    }
-  }
-
-  void get_physical_device_multisample_properties_ext(
-      spk::physical_device_ref physicalDevice, spk::sample_count_flags samples,
-      spk::multisample_properties_ext* pMultisampleProperties) const {
-    vkGetPhysicalDeviceMultisamplePropertiesEXT(
-        (VkPhysicalDevice)physicalDevice, (VkSampleCountFlagBits)samples,
-        (VkMultisamplePropertiesEXT*)pMultisampleProperties);
-  }
-
-  void create_debug_report_callback_ext(
-      spk::instance_ref instance,
-      spk::debug_report_callback_create_info_ext const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::debug_report_callback_ext_ref* pCallback) const {
-    const VkResult res = vkCreateDebugReportCallbackEXT(
-        (VkInstance)instance,
-        (VkDebugReportCallbackCreateInfoEXT const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkDebugReportCallbackEXT*)pCallback);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateDebugReportCallbackEXT");
-    }
-  }
 
   void get_physical_device_surface_capabilities_2khr(
       spk::physical_device_ref physicalDevice,
@@ -22718,34 +23032,43 @@ struct instance_dispatch_table {
     }
   }
 
-  [[nodiscard]] spk::result get_display_mode_properties_2khr(
-      spk::physical_device_ref physicalDevice, spk::display_khr_ref display,
-      uint32_t* pPropertyCount,
-      spk::display_mode_properties_2khr* pProperties) const {
-    const VkResult res = vkGetDisplayModeProperties2KHR(
-        (VkPhysicalDevice)physicalDevice, (VkDisplayKHR)display,
-        (uint32_t*)pPropertyCount, (VkDisplayModeProperties2KHR*)pProperties);
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  void get_rand_r_output_display_ext(spk::physical_device_ref physicalDevice,
+                                     Display* dpy, RROutput rrOutput,
+                                     spk::display_khr_ref* pDisplay) const {
+    const VkResult res = vkGetRandROutputDisplayEXT(
+        (VkPhysicalDevice)physicalDevice, (Display*)dpy, (RROutput)rrOutput,
+        (VkDisplayKHR*)pDisplay);
     switch (res) {
       case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
+        return;
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetRandROutputDisplayEXT");
+    }
+  }
+#endif
+
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  void create_wayland_surface_khr(
+      spk::instance_ref instance,
+      spk::wayland_surface_create_info_khr const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::surface_khr_ref* pSurface) const {
+    const VkResult res = vkCreateWaylandSurfaceKHR(
+        (VkInstance)instance, (VkWaylandSurfaceCreateInfoKHR const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
       case VK_ERROR_OUT_OF_HOST_MEMORY:
         throw spk::error_out_of_host_memory();
       case VK_ERROR_OUT_OF_DEVICE_MEMORY:
         throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetDisplayModeProperties2KHR");
+                                             "vkCreateWaylandSurfaceKHR");
     }
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  spk::bool32_t get_physical_device_win_32presentation_support_khr(
-      spk::physical_device_ref physicalDevice,
-      uint32_t queueFamilyIndex) const {
-    return (spk::bool32_t)(vkGetPhysicalDeviceWin32PresentationSupportKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex));
   }
 #endif
 
@@ -22772,91 +23095,15 @@ struct instance_dispatch_table {
   }
 #endif
 
-  void get_physical_device_format_properties_2khr(
-      spk::physical_device_ref physicalDevice, spk::format format,
-      spk::format_properties_2* pFormatProperties) const {
-    vkGetPhysicalDeviceFormatProperties2(
-        (VkPhysicalDevice)physicalDevice, (VkFormat)format,
-        (VkFormatProperties2*)pFormatProperties);
-  }
-
-  void get_physical_device_format_properties_2(
-      spk::physical_device_ref physicalDevice, spk::format format,
-      spk::format_properties_2* pFormatProperties) const {
-    vkGetPhysicalDeviceFormatProperties2(
-        (VkPhysicalDevice)physicalDevice, (VkFormat)format,
-        (VkFormatProperties2*)pFormatProperties);
-  }
-
-  [[nodiscard]] spk::result get_physical_device_calibrateable_time_domains_ext(
-      spk::physical_device_ref physicalDevice, uint32_t* pTimeDomainCount,
-      spk::time_domain_ext* pTimeDomains) const {
-    const VkResult res = vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pTimeDomainCount,
-        (VkTimeDomainEXT*)pTimeDomains);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
-    }
-  }
-
-  [[nodiscard]] spk::result get_physical_device_display_plane_properties_khr(
-      spk::physical_device_ref physicalDevice, uint32_t* pPropertyCount,
-      spk::display_plane_properties_khr* pProperties) const {
-    const VkResult res = vkGetPhysicalDeviceDisplayPlanePropertiesKHR(
-        (VkPhysicalDevice)physicalDevice, (uint32_t*)pPropertyCount,
-        (VkDisplayPlanePropertiesKHR*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
-    }
-  }
-
-  void destroy_debug_utils_messenger_ext(
-      spk::instance_ref instance, spk::debug_utils_messenger_ext_ref messenger,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDebugUtilsMessengerEXT((VkInstance)instance,
-                                    (VkDebugUtilsMessengerEXT)messenger,
-                                    (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void submit_debug_utils_message_ext(
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  void create_xlib_surface_khr(
       spk::instance_ref instance,
-      spk::debug_utils_message_severity_flags_ext messageSeverity,
-      spk::debug_utils_message_type_flags_ext messageTypes,
-      spk::debug_utils_messenger_callback_data_ext const* pCallbackData) const {
-    vkSubmitDebugUtilsMessageEXT(
-        (VkInstance)instance,
-        (VkDebugUtilsMessageSeverityFlagBitsEXT)messageSeverity,
-        (VkDebugUtilsMessageTypeFlagsEXT)messageTypes,
-        (VkDebugUtilsMessengerCallbackDataEXT const*)pCallbackData);
-  }
-
-  void get_display_plane_capabilities_khr(
-      spk::physical_device_ref physicalDevice, spk::display_mode_khr_ref mode,
-      uint32_t planeIndex,
-      spk::display_plane_capabilities_khr* pCapabilities) const {
-    const VkResult res = vkGetDisplayPlaneCapabilitiesKHR(
-        (VkPhysicalDevice)physicalDevice, (VkDisplayModeKHR)mode,
-        (uint32_t)planeIndex, (VkDisplayPlaneCapabilitiesKHR*)pCapabilities);
+      spk::xlib_surface_create_info_khr const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::surface_khr_ref* pSurface) const {
+    const VkResult res = vkCreateXlibSurfaceKHR(
+        (VkInstance)instance, (VkXlibSurfaceCreateInfoKHR const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -22865,9 +23112,86 @@ struct instance_dispatch_table {
       case VK_ERROR_OUT_OF_DEVICE_MEMORY:
         throw spk::error_out_of_device_memory();
       default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetDisplayPlaneCapabilitiesKHR");
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateXlibSurfaceKHR");
     }
+  }
+#endif
+
+#ifdef VK_USE_PLATFORM_XCB_KHR
+  spk::bool32_t get_physical_device_xcb_presentation_support_khr(
+      spk::physical_device_ref physicalDevice, uint32_t queueFamilyIndex,
+      xcb_connection_t* connection, xcb_visualid_t visual_id) const {
+    return (spk::bool32_t)(vkGetPhysicalDeviceXcbPresentationSupportKHR(
+        (VkPhysicalDevice)physicalDevice, (uint32_t)queueFamilyIndex,
+        (xcb_connection_t*)connection, (xcb_visualid_t)visual_id));
+  }
+#endif
+
+#ifdef VK_USE_PLATFORM_FUCHSIA
+  void create_image_pipe_surface_fuchsia(
+      spk::instance_ref instance,
+      spk::image_pipe_surface_create_info_fuchsia const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::surface_khr_ref* pSurface) const {
+    const VkResult res = vkCreateImagePipeSurfaceFUCHSIA(
+        (VkInstance)instance,
+        (VkImagePipeSurfaceCreateInfoFUCHSIA const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSurfaceKHR*)pSurface);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateImagePipeSurfaceFUCHSIA");
+    }
+  }
+#endif
+
+  void create_debug_report_callback_ext(
+      spk::instance_ref instance,
+      spk::debug_report_callback_create_info_ext const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::debug_report_callback_ext_ref* pCallback) const {
+    const VkResult res = vkCreateDebugReportCallbackEXT(
+        (VkInstance)instance,
+        (VkDebugReportCallbackCreateInfoEXT const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkDebugReportCallbackEXT*)pCallback);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateDebugReportCallbackEXT");
+    }
+  }
+
+  void debug_report_message_ext(spk::instance_ref instance,
+                                spk::debug_report_flags_ext flags,
+                                spk::debug_report_object_type_ext objectType,
+                                uint64_t object, size_t location,
+                                int32_t messageCode, char const* pLayerPrefix,
+                                char const* pMessage) const {
+    vkDebugReportMessageEXT((VkInstance)instance, (VkDebugReportFlagsEXT)flags,
+                            (VkDebugReportObjectTypeEXT)objectType,
+                            (uint64_t)object, (size_t)location,
+                            (int32_t)messageCode, (char const*)pLayerPrefix,
+                            (char const*)pMessage);
+  }
+
+  void get_physical_device_multisample_properties_ext(
+      spk::physical_device_ref physicalDevice, spk::sample_count_flags samples,
+      spk::multisample_properties_ext* pMultisampleProperties) const {
+    vkGetPhysicalDeviceMultisamplePropertiesEXT(
+        (VkPhysicalDevice)physicalDevice, (VkSampleCountFlagBits)samples,
+        (VkMultisamplePropertiesEXT*)pMultisampleProperties);
   }
 
   void get_physical_device_image_format_properties_2khr(
@@ -22916,365 +23240,420 @@ struct instance_dispatch_table {
     }
   }
 
+  void get_physical_device_queue_family_properties_2khr(
+      spk::physical_device_ref physicalDevice,
+      uint32_t* pQueueFamilyPropertyCount,
+      spk::queue_family_properties_2* pQueueFamilyProperties) const {
+    vkGetPhysicalDeviceQueueFamilyProperties2(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pQueueFamilyPropertyCount,
+        (VkQueueFamilyProperties2*)pQueueFamilyProperties);
+  }
+
+  void get_physical_device_queue_family_properties_2(
+      spk::physical_device_ref physicalDevice,
+      uint32_t* pQueueFamilyPropertyCount,
+      spk::queue_family_properties_2* pQueueFamilyProperties) const {
+    vkGetPhysicalDeviceQueueFamilyProperties2(
+        (VkPhysicalDevice)physicalDevice, (uint32_t*)pQueueFamilyPropertyCount,
+        (VkQueueFamilyProperties2*)pQueueFamilyProperties);
+  }
+
+  void get_physical_device_sparse_image_format_properties_2khr(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
+      uint32_t* pPropertyCount,
+      spk::sparse_image_format_properties_2* pProperties) const {
+    vkGetPhysicalDeviceSparseImageFormatProperties2(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceSparseImageFormatInfo2 const*)pFormatInfo,
+        (uint32_t*)pPropertyCount,
+        (VkSparseImageFormatProperties2*)pProperties);
+  }
+
+  void get_physical_device_sparse_image_format_properties_2(
+      spk::physical_device_ref physicalDevice,
+      spk::physical_device_sparse_image_format_info_2 const* pFormatInfo,
+      uint32_t* pPropertyCount,
+      spk::sparse_image_format_properties_2* pProperties) const {
+    vkGetPhysicalDeviceSparseImageFormatProperties2(
+        (VkPhysicalDevice)physicalDevice,
+        (VkPhysicalDeviceSparseImageFormatInfo2 const*)pFormatInfo,
+        (uint32_t*)pPropertyCount,
+        (VkSparseImageFormatProperties2*)pProperties);
+  }
+
   // vulkan commands
-#ifdef VK_USE_PLATFORM_XLIB_KHR
-  PFN_vkCreateXlibSurfaceKHR vkCreateXlibSurfaceKHR = nullptr;
+  PFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesNV
+      vkGetPhysicalDeviceCooperativeMatrixPropertiesNV = nullptr;
+  PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
+      vkGetPhysicalDeviceCalibrateableTimeDomainsEXT = nullptr;
+  PFN_vkGetDisplayPlaneCapabilities2KHR vkGetDisplayPlaneCapabilities2KHR =
+      nullptr;
+  PFN_vkGetDisplayModeProperties2KHR vkGetDisplayModeProperties2KHR = nullptr;
+  PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR
+      vkGetPhysicalDeviceDisplayPlaneProperties2KHR = nullptr;
+  PFN_vkGetPhysicalDeviceDisplayProperties2KHR
+      vkGetPhysicalDeviceDisplayProperties2KHR = nullptr;
+  PFN_vkDestroyDebugUtilsMessengerEXT vkDestroyDebugUtilsMessengerEXT = nullptr;
+#ifdef VK_USE_PLATFORM_MACOS_MVK
+  PFN_vkCreateMacOSSurfaceMVK vkCreateMacOSSurfaceMVK = nullptr;
 #endif
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  PFN_vkCreateWaylandSurfaceKHR vkCreateWaylandSurfaceKHR = nullptr;
+#ifdef VK_USE_PLATFORM_IOS_MVK
+  PFN_vkCreateIOSSurfaceMVK vkCreateIOSSurfaceMVK = nullptr;
 #endif
-  PFN_vkGetPhysicalDeviceSurfaceFormatsKHR
-      vkGetPhysicalDeviceSurfaceFormatsKHR = nullptr;
-#ifdef VK_USE_PLATFORM_VI_NN
-  PFN_vkCreateViSurfaceNN vkCreateViSurfaceNN = nullptr;
+  PFN_vkGetPhysicalDevicePresentRectanglesKHR
+      vkGetPhysicalDevicePresentRectanglesKHR = nullptr;
+  PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT
+      vkGetPhysicalDeviceSurfaceCapabilities2EXT = nullptr;
+  PFN_vkEnumeratePhysicalDeviceGroups vkEnumeratePhysicalDeviceGroups = nullptr;
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  PFN_vkAcquireXlibDisplayEXT vkAcquireXlibDisplayEXT = nullptr;
 #endif
-  PFN_vkCreateDisplayPlaneSurfaceKHR vkCreateDisplayPlaneSurfaceKHR = nullptr;
-  PFN_vkGetDisplayPlaneSupportedDisplaysKHR
-      vkGetDisplayPlaneSupportedDisplaysKHR = nullptr;
+  PFN_vkReleaseDisplayEXT vkReleaseDisplayEXT = nullptr;
+  PFN_vkGetPhysicalDeviceExternalFenceProperties
+      vkGetPhysicalDeviceExternalFenceProperties = nullptr;
+  PFN_vkGetPhysicalDeviceExternalSemaphoreProperties
+      vkGetPhysicalDeviceExternalSemaphoreProperties = nullptr;
+  PFN_vkGetPhysicalDeviceExternalBufferProperties
+      vkGetPhysicalDeviceExternalBufferProperties = nullptr;
+  PFN_vkGetPhysicalDeviceSurfaceFormats2KHR
+      vkGetPhysicalDeviceSurfaceFormats2KHR = nullptr;
+  PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV
+      vkGetPhysicalDeviceExternalImageFormatPropertiesNV = nullptr;
   PFN_vkGetPhysicalDeviceSurfacePresentModesKHR
       vkGetPhysicalDeviceSurfacePresentModesKHR = nullptr;
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR
-      vkGetPhysicalDeviceWaylandPresentationSupportKHR = nullptr;
-#endif
-  PFN_vkGetPhysicalDeviceDisplayPropertiesKHR
-      vkGetPhysicalDeviceDisplayPropertiesKHR = nullptr;
-  PFN_vkGetPhysicalDeviceSurfaceSupportKHR
-      vkGetPhysicalDeviceSurfaceSupportKHR = nullptr;
-  PFN_vkGetPhysicalDeviceFeatures2 vkGetPhysicalDeviceFeatures2 = nullptr;
-  PFN_vkCreateDisplayModeKHR vkCreateDisplayModeKHR = nullptr;
-  PFN_vkEnumerateDeviceLayerProperties vkEnumerateDeviceLayerProperties =
-      nullptr;
-  PFN_vkDestroySurfaceKHR vkDestroySurfaceKHR = nullptr;
 #ifdef VK_USE_PLATFORM_ANDROID_KHR
   PFN_vkCreateAndroidSurfaceKHR vkCreateAndroidSurfaceKHR = nullptr;
 #endif
+  PFN_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
+      vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX = nullptr;
+  PFN_vkEnumeratePhysicalDevices vkEnumeratePhysicalDevices = nullptr;
+  PFN_vkGetPhysicalDeviceFormatProperties2
+      vkGetPhysicalDeviceFormatProperties2 = nullptr;
+  PFN_vkGetPhysicalDeviceFormatProperties vkGetPhysicalDeviceFormatProperties =
+      nullptr;
   PFN_vkCreateDevice vkCreateDevice = nullptr;
-  PFN_vkGetDisplayModePropertiesKHR vkGetDisplayModePropertiesKHR = nullptr;
-  PFN_vkEnumeratePhysicalDeviceGroups vkEnumeratePhysicalDeviceGroups = nullptr;
-  PFN_vkGetPhysicalDeviceQueueFamilyProperties
-      vkGetPhysicalDeviceQueueFamilyProperties = nullptr;
-  PFN_vkGetPhysicalDevicePresentRectanglesKHR
-      vkGetPhysicalDevicePresentRectanglesKHR = nullptr;
-  PFN_vkGetPhysicalDeviceSparseImageFormatProperties
-      vkGetPhysicalDeviceSparseImageFormatProperties = nullptr;
+  PFN_vkEnumerateDeviceLayerProperties vkEnumerateDeviceLayerProperties =
+      nullptr;
+  PFN_vkEnumerateDeviceExtensionProperties
+      vkEnumerateDeviceExtensionProperties = nullptr;
+  PFN_vkGetPhysicalDeviceSurfaceFormatsKHR
+      vkGetPhysicalDeviceSurfaceFormatsKHR = nullptr;
+  PFN_vkGetPhysicalDeviceImageFormatProperties
+      vkGetPhysicalDeviceImageFormatProperties = nullptr;
+  PFN_vkGetPhysicalDeviceMemoryProperties vkGetPhysicalDeviceMemoryProperties =
+      nullptr;
+  PFN_vkGetDisplayPlaneSupportedDisplaysKHR
+      vkGetDisplayPlaneSupportedDisplaysKHR = nullptr;
+  PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR
+      vkGetPhysicalDeviceSurfaceCapabilitiesKHR = nullptr;
 #ifdef VK_USE_PLATFORM_WIN32_KHR
   PFN_vkCreateWin32SurfaceKHR vkCreateWin32SurfaceKHR = nullptr;
 #endif
   PFN_vkDestroyInstance vkDestroyInstance = nullptr;
-  PFN_vkGetPhysicalDeviceMemoryProperties vkGetPhysicalDeviceMemoryProperties =
-      nullptr;
+  PFN_vkSubmitDebugUtilsMessageEXT vkSubmitDebugUtilsMessageEXT = nullptr;
+  PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR
+      vkGetPhysicalDeviceDisplayPlanePropertiesKHR = nullptr;
   PFN_vkGetPhysicalDeviceFeatures vkGetPhysicalDeviceFeatures = nullptr;
-  PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr = nullptr;
-  PFN_vkEnumeratePhysicalDevices vkEnumeratePhysicalDevices = nullptr;
-  PFN_vkGetPhysicalDeviceMemoryProperties2
-      vkGetPhysicalDeviceMemoryProperties2 = nullptr;
-  PFN_vkEnumerateDeviceExtensionProperties
-      vkEnumerateDeviceExtensionProperties = nullptr;
-  PFN_vkGetPhysicalDeviceProperties vkGetPhysicalDeviceProperties = nullptr;
-  PFN_vkGetPhysicalDeviceImageFormatProperties
-      vkGetPhysicalDeviceImageFormatProperties = nullptr;
-  PFN_vkReleaseDisplayEXT vkReleaseDisplayEXT = nullptr;
-  PFN_vkGetPhysicalDeviceQueueFamilyProperties2
-      vkGetPhysicalDeviceQueueFamilyProperties2 = nullptr;
-  PFN_vkGetPhysicalDeviceFormatProperties vkGetPhysicalDeviceFormatProperties =
-      nullptr;
-  PFN_vkGetDisplayPlaneCapabilities2KHR vkGetDisplayPlaneCapabilities2KHR =
-      nullptr;
-  PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR
-      vkGetPhysicalDeviceSurfaceCapabilitiesKHR = nullptr;
-#ifdef VK_USE_PLATFORM_XCB_KHR
-  PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR
-      vkGetPhysicalDeviceXcbPresentationSupportKHR = nullptr;
-#endif
-  PFN_vkDebugReportMessageEXT vkDebugReportMessageEXT = nullptr;
-  PFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV
-      vkGetPhysicalDeviceExternalImageFormatPropertiesNV = nullptr;
-#ifdef VK_USE_PLATFORM_FUCHSIA
-  PFN_vkCreateImagePipeSurfaceFUCHSIA vkCreateImagePipeSurfaceFUCHSIA = nullptr;
-#endif
-  PFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR
-      vkGetPhysicalDeviceDisplayPlaneProperties2KHR = nullptr;
-  PFN_vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX
-      vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX = nullptr;
   PFN_vkGetPhysicalDeviceProperties2 vkGetPhysicalDeviceProperties2 = nullptr;
-  PFN_vkDestroyDebugReportCallbackEXT vkDestroyDebugReportCallbackEXT = nullptr;
-#ifdef VK_USE_PLATFORM_MACOS_MVK
-  PFN_vkCreateMacOSSurfaceMVK vkCreateMacOSSurfaceMVK = nullptr;
-#endif
-  PFN_vkGetPhysicalDeviceSparseImageFormatProperties2
-      vkGetPhysicalDeviceSparseImageFormatProperties2 = nullptr;
-  PFN_vkGetPhysicalDeviceExternalBufferProperties
-      vkGetPhysicalDeviceExternalBufferProperties = nullptr;
-  PFN_vkGetPhysicalDeviceExternalSemaphoreProperties
-      vkGetPhysicalDeviceExternalSemaphoreProperties = nullptr;
-  PFN_vkGetPhysicalDeviceExternalFenceProperties
-      vkGetPhysicalDeviceExternalFenceProperties = nullptr;
-#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  PFN_vkAcquireXlibDisplayEXT vkAcquireXlibDisplayEXT = nullptr;
-#endif
-#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  PFN_vkGetRandROutputDisplayEXT vkGetRandROutputDisplayEXT = nullptr;
+  PFN_vkGetPhysicalDeviceProperties vkGetPhysicalDeviceProperties = nullptr;
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  PFN_vkGetPhysicalDeviceWaylandPresentationSupportKHR
+      vkGetPhysicalDeviceWaylandPresentationSupportKHR = nullptr;
 #endif
   PFN_vkCreateDebugUtilsMessengerEXT vkCreateDebugUtilsMessengerEXT = nullptr;
-#ifdef VK_USE_PLATFORM_XLIB_KHR
-  PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR
-      vkGetPhysicalDeviceXlibPresentationSupportKHR = nullptr;
-#endif
-  PFN_vkGetPhysicalDeviceSurfaceCapabilities2EXT
-      vkGetPhysicalDeviceSurfaceCapabilities2EXT = nullptr;
-  PFN_vkGetPhysicalDeviceSurfaceFormats2KHR
-      vkGetPhysicalDeviceSurfaceFormats2KHR = nullptr;
-#ifdef VK_USE_PLATFORM_IOS_MVK
-  PFN_vkCreateIOSSurfaceMVK vkCreateIOSSurfaceMVK = nullptr;
-#endif
-  PFN_vkGetPhysicalDeviceDisplayProperties2KHR
-      vkGetPhysicalDeviceDisplayProperties2KHR = nullptr;
-  PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT
-      vkGetPhysicalDeviceMultisamplePropertiesEXT = nullptr;
-  PFN_vkCreateDebugReportCallbackEXT vkCreateDebugReportCallbackEXT = nullptr;
-  PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR
-      vkGetPhysicalDeviceSurfaceCapabilities2KHR = nullptr;
-  PFN_vkGetDisplayModeProperties2KHR vkGetDisplayModeProperties2KHR = nullptr;
+  PFN_vkGetPhysicalDeviceQueueFamilyProperties
+      vkGetPhysicalDeviceQueueFamilyProperties = nullptr;
+  PFN_vkGetDisplayPlaneCapabilitiesKHR vkGetDisplayPlaneCapabilitiesKHR =
+      nullptr;
+  PFN_vkGetPhysicalDeviceSparseImageFormatProperties
+      vkGetPhysicalDeviceSparseImageFormatProperties = nullptr;
+  PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr = nullptr;
+  PFN_vkCreateDisplayPlaneSurfaceKHR vkCreateDisplayPlaneSurfaceKHR = nullptr;
+  PFN_vkGetPhysicalDeviceDisplayPropertiesKHR
+      vkGetPhysicalDeviceDisplayPropertiesKHR = nullptr;
+  PFN_vkDestroyDebugReportCallbackEXT vkDestroyDebugReportCallbackEXT = nullptr;
 #ifdef VK_USE_PLATFORM_WIN32_KHR
   PFN_vkGetPhysicalDeviceWin32PresentationSupportKHR
       vkGetPhysicalDeviceWin32PresentationSupportKHR = nullptr;
 #endif
+  PFN_vkGetPhysicalDeviceMemoryProperties2
+      vkGetPhysicalDeviceMemoryProperties2 = nullptr;
+  PFN_vkGetDisplayModePropertiesKHR vkGetDisplayModePropertiesKHR = nullptr;
+  PFN_vkCreateDisplayModeKHR vkCreateDisplayModeKHR = nullptr;
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  PFN_vkGetPhysicalDeviceXlibPresentationSupportKHR
+      vkGetPhysicalDeviceXlibPresentationSupportKHR = nullptr;
+#endif
+  PFN_vkDestroySurfaceKHR vkDestroySurfaceKHR = nullptr;
+  PFN_vkGetPhysicalDeviceSurfaceSupportKHR
+      vkGetPhysicalDeviceSurfaceSupportKHR = nullptr;
+  PFN_vkGetPhysicalDeviceFeatures2 vkGetPhysicalDeviceFeatures2 = nullptr;
+#ifdef VK_USE_PLATFORM_VI_NN
+  PFN_vkCreateViSurfaceNN vkCreateViSurfaceNN = nullptr;
+#endif
+  PFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR
+      vkGetPhysicalDeviceSurfaceCapabilities2KHR = nullptr;
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  PFN_vkGetRandROutputDisplayEXT vkGetRandROutputDisplayEXT = nullptr;
+#endif
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  PFN_vkCreateWaylandSurfaceKHR vkCreateWaylandSurfaceKHR = nullptr;
+#endif
 #ifdef VK_USE_PLATFORM_XCB_KHR
   PFN_vkCreateXcbSurfaceKHR vkCreateXcbSurfaceKHR = nullptr;
 #endif
-  PFN_vkGetPhysicalDeviceFormatProperties2
-      vkGetPhysicalDeviceFormatProperties2 = nullptr;
-  PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
-      vkGetPhysicalDeviceCalibrateableTimeDomainsEXT = nullptr;
-  PFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR
-      vkGetPhysicalDeviceDisplayPlanePropertiesKHR = nullptr;
-  PFN_vkDestroyDebugUtilsMessengerEXT vkDestroyDebugUtilsMessengerEXT = nullptr;
-  PFN_vkSubmitDebugUtilsMessageEXT vkSubmitDebugUtilsMessageEXT = nullptr;
-  PFN_vkGetDisplayPlaneCapabilitiesKHR vkGetDisplayPlaneCapabilitiesKHR =
-      nullptr;
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  PFN_vkCreateXlibSurfaceKHR vkCreateXlibSurfaceKHR = nullptr;
+#endif
+#ifdef VK_USE_PLATFORM_XCB_KHR
+  PFN_vkGetPhysicalDeviceXcbPresentationSupportKHR
+      vkGetPhysicalDeviceXcbPresentationSupportKHR = nullptr;
+#endif
+#ifdef VK_USE_PLATFORM_FUCHSIA
+  PFN_vkCreateImagePipeSurfaceFUCHSIA vkCreateImagePipeSurfaceFUCHSIA = nullptr;
+#endif
+  PFN_vkCreateDebugReportCallbackEXT vkCreateDebugReportCallbackEXT = nullptr;
+  PFN_vkDebugReportMessageEXT vkDebugReportMessageEXT = nullptr;
+  PFN_vkGetPhysicalDeviceMultisamplePropertiesEXT
+      vkGetPhysicalDeviceMultisamplePropertiesEXT = nullptr;
   PFN_vkGetPhysicalDeviceImageFormatProperties2
       vkGetPhysicalDeviceImageFormatProperties2 = nullptr;
+  PFN_vkGetPhysicalDeviceQueueFamilyProperties2
+      vkGetPhysicalDeviceQueueFamilyProperties2 = nullptr;
+  PFN_vkGetPhysicalDeviceSparseImageFormatProperties2
+      vkGetPhysicalDeviceSparseImageFormatProperties2 = nullptr;
 };
 
 template <class Visitor>
 void visit_dispatch_table(instance_dispatch_table& dispatch_table,
                           const Visitor& V) {
-#ifdef VK_USE_PLATFORM_XLIB_KHR
-  V(dispatch_table, &instance_dispatch_table::vkCreateXlibSurfaceKHR,
-    "vkCreateXlibSurfaceKHR");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceCooperativeMatrixPropertiesNV,
+    "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT,
+    "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+  V(dispatch_table, &instance_dispatch_table::vkGetDisplayPlaneCapabilities2KHR,
+    "vkGetDisplayPlaneCapabilities2KHR");
+  V(dispatch_table, &instance_dispatch_table::vkGetDisplayModeProperties2KHR,
+    "vkGetDisplayModeProperties2KHR");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceDisplayPlaneProperties2KHR,
+    "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceDisplayProperties2KHR,
+    "vkGetPhysicalDeviceDisplayProperties2KHR");
+  V(dispatch_table, &instance_dispatch_table::vkDestroyDebugUtilsMessengerEXT,
+    "vkDestroyDebugUtilsMessengerEXT");
+#ifdef VK_USE_PLATFORM_MACOS_MVK
+  V(dispatch_table, &instance_dispatch_table::vkCreateMacOSSurfaceMVK,
+    "vkCreateMacOSSurfaceMVK");
 #endif
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  V(dispatch_table, &instance_dispatch_table::vkCreateWaylandSurfaceKHR,
-    "vkCreateWaylandSurfaceKHR");
+#ifdef VK_USE_PLATFORM_IOS_MVK
+  V(dispatch_table, &instance_dispatch_table::vkCreateIOSSurfaceMVK,
+    "vkCreateIOSSurfaceMVK");
 #endif
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceFormatsKHR,
-    "vkGetPhysicalDeviceSurfaceFormatsKHR");
-#ifdef VK_USE_PLATFORM_VI_NN
-  V(dispatch_table, &instance_dispatch_table::vkCreateViSurfaceNN,
-    "vkCreateViSurfaceNN");
-#endif
-  V(dispatch_table, &instance_dispatch_table::vkCreateDisplayPlaneSurfaceKHR,
-    "vkCreateDisplayPlaneSurfaceKHR");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetDisplayPlaneSupportedDisplaysKHR,
-    "vkGetDisplayPlaneSupportedDisplaysKHR");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfacePresentModesKHR,
-    "vkGetPhysicalDeviceSurfacePresentModesKHR");
-#ifdef VK_USE_PLATFORM_WAYLAND_KHR
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceWaylandPresentationSupportKHR,
-    "vkGetPhysicalDeviceWaylandPresentationSupportKHR");
-#endif
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceDisplayPropertiesKHR,
-    "vkGetPhysicalDeviceDisplayPropertiesKHR");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceSupportKHR,
-    "vkGetPhysicalDeviceSurfaceSupportKHR");
-  V(dispatch_table, &instance_dispatch_table::vkGetPhysicalDeviceFeatures2,
-    "vkGetPhysicalDeviceFeatures2");
-  V(dispatch_table, &instance_dispatch_table::vkCreateDisplayModeKHR,
-    "vkCreateDisplayModeKHR");
-  V(dispatch_table, &instance_dispatch_table::vkEnumerateDeviceLayerProperties,
-    "vkEnumerateDeviceLayerProperties");
-  V(dispatch_table, &instance_dispatch_table::vkDestroySurfaceKHR,
-    "vkDestroySurfaceKHR");
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-  V(dispatch_table, &instance_dispatch_table::vkCreateAndroidSurfaceKHR,
-    "vkCreateAndroidSurfaceKHR");
-#endif
-  V(dispatch_table, &instance_dispatch_table::vkCreateDevice, "vkCreateDevice");
-  V(dispatch_table, &instance_dispatch_table::vkGetDisplayModePropertiesKHR,
-    "vkGetDisplayModePropertiesKHR");
-  V(dispatch_table, &instance_dispatch_table::vkEnumeratePhysicalDeviceGroups,
-    "vkEnumeratePhysicalDeviceGroups");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceQueueFamilyProperties,
-    "vkGetPhysicalDeviceQueueFamilyProperties");
   V(dispatch_table,
     &instance_dispatch_table::vkGetPhysicalDevicePresentRectanglesKHR,
     "vkGetPhysicalDevicePresentRectanglesKHR");
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSparseImageFormatProperties,
-    "vkGetPhysicalDeviceSparseImageFormatProperties");
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceCapabilities2EXT,
+    "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+  V(dispatch_table, &instance_dispatch_table::vkEnumeratePhysicalDeviceGroups,
+    "vkEnumeratePhysicalDeviceGroups");
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  V(dispatch_table, &instance_dispatch_table::vkAcquireXlibDisplayEXT,
+    "vkAcquireXlibDisplayEXT");
+#endif
+  V(dispatch_table, &instance_dispatch_table::vkReleaseDisplayEXT,
+    "vkReleaseDisplayEXT");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceExternalFenceProperties,
+    "vkGetPhysicalDeviceExternalFenceProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceExternalSemaphoreProperties,
+    "vkGetPhysicalDeviceExternalSemaphoreProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceExternalBufferProperties,
+    "vkGetPhysicalDeviceExternalBufferProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceFormats2KHR,
+    "vkGetPhysicalDeviceSurfaceFormats2KHR");
+  V(dispatch_table,
+    &instance_dispatch_table::
+        vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
+    "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfacePresentModesKHR,
+    "vkGetPhysicalDeviceSurfacePresentModesKHR");
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  V(dispatch_table, &instance_dispatch_table::vkCreateAndroidSurfaceKHR,
+    "vkCreateAndroidSurfaceKHR");
+#endif
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
+    "vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX");
+  V(dispatch_table, &instance_dispatch_table::vkEnumeratePhysicalDevices,
+    "vkEnumeratePhysicalDevices");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceFormatProperties2,
+    "vkGetPhysicalDeviceFormatProperties2");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceFormatProperties,
+    "vkGetPhysicalDeviceFormatProperties");
+  V(dispatch_table, &instance_dispatch_table::vkCreateDevice, "vkCreateDevice");
+  V(dispatch_table, &instance_dispatch_table::vkEnumerateDeviceLayerProperties,
+    "vkEnumerateDeviceLayerProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkEnumerateDeviceExtensionProperties,
+    "vkEnumerateDeviceExtensionProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceFormatsKHR,
+    "vkGetPhysicalDeviceSurfaceFormatsKHR");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceImageFormatProperties,
+    "vkGetPhysicalDeviceImageFormatProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceMemoryProperties,
+    "vkGetPhysicalDeviceMemoryProperties");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetDisplayPlaneSupportedDisplaysKHR,
+    "vkGetDisplayPlaneSupportedDisplaysKHR");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
+    "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
 #ifdef VK_USE_PLATFORM_WIN32_KHR
   V(dispatch_table, &instance_dispatch_table::vkCreateWin32SurfaceKHR,
     "vkCreateWin32SurfaceKHR");
 #endif
   V(dispatch_table, &instance_dispatch_table::vkDestroyInstance,
     "vkDestroyInstance");
+  V(dispatch_table, &instance_dispatch_table::vkSubmitDebugUtilsMessageEXT,
+    "vkSubmitDebugUtilsMessageEXT");
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceMemoryProperties,
-    "vkGetPhysicalDeviceMemoryProperties");
+    &instance_dispatch_table::vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
+    "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
   V(dispatch_table, &instance_dispatch_table::vkGetPhysicalDeviceFeatures,
     "vkGetPhysicalDeviceFeatures");
-  V(dispatch_table, &instance_dispatch_table::vkGetInstanceProcAddr,
-    "vkGetInstanceProcAddr");
-  V(dispatch_table, &instance_dispatch_table::vkEnumeratePhysicalDevices,
-    "vkEnumeratePhysicalDevices");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceMemoryProperties2,
-    "vkGetPhysicalDeviceMemoryProperties2");
-  V(dispatch_table,
-    &instance_dispatch_table::vkEnumerateDeviceExtensionProperties,
-    "vkEnumerateDeviceExtensionProperties");
-  V(dispatch_table, &instance_dispatch_table::vkGetPhysicalDeviceProperties,
-    "vkGetPhysicalDeviceProperties");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceImageFormatProperties,
-    "vkGetPhysicalDeviceImageFormatProperties");
-  V(dispatch_table, &instance_dispatch_table::vkReleaseDisplayEXT,
-    "vkReleaseDisplayEXT");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceQueueFamilyProperties2,
-    "vkGetPhysicalDeviceQueueFamilyProperties2");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceFormatProperties,
-    "vkGetPhysicalDeviceFormatProperties");
-  V(dispatch_table, &instance_dispatch_table::vkGetDisplayPlaneCapabilities2KHR,
-    "vkGetDisplayPlaneCapabilities2KHR");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceCapabilitiesKHR,
-    "vkGetPhysicalDeviceSurfaceCapabilitiesKHR");
-#ifdef VK_USE_PLATFORM_XCB_KHR
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceXcbPresentationSupportKHR,
-    "vkGetPhysicalDeviceXcbPresentationSupportKHR");
-#endif
-  V(dispatch_table, &instance_dispatch_table::vkDebugReportMessageEXT,
-    "vkDebugReportMessageEXT");
-  V(dispatch_table,
-    &instance_dispatch_table::
-        vkGetPhysicalDeviceExternalImageFormatPropertiesNV,
-    "vkGetPhysicalDeviceExternalImageFormatPropertiesNV");
-#ifdef VK_USE_PLATFORM_FUCHSIA
-  V(dispatch_table, &instance_dispatch_table::vkCreateImagePipeSurfaceFUCHSIA,
-    "vkCreateImagePipeSurfaceFUCHSIA");
-#endif
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceDisplayPlaneProperties2KHR,
-    "vkGetPhysicalDeviceDisplayPlaneProperties2KHR");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX,
-    "vkGetPhysicalDeviceGeneratedCommandsPropertiesNVX");
   V(dispatch_table, &instance_dispatch_table::vkGetPhysicalDeviceProperties2,
     "vkGetPhysicalDeviceProperties2");
-  V(dispatch_table, &instance_dispatch_table::vkDestroyDebugReportCallbackEXT,
-    "vkDestroyDebugReportCallbackEXT");
-#ifdef VK_USE_PLATFORM_MACOS_MVK
-  V(dispatch_table, &instance_dispatch_table::vkCreateMacOSSurfaceMVK,
-    "vkCreateMacOSSurfaceMVK");
-#endif
+  V(dispatch_table, &instance_dispatch_table::vkGetPhysicalDeviceProperties,
+    "vkGetPhysicalDeviceProperties");
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSparseImageFormatProperties2,
-    "vkGetPhysicalDeviceSparseImageFormatProperties2");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceExternalBufferProperties,
-    "vkGetPhysicalDeviceExternalBufferProperties");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceExternalSemaphoreProperties,
-    "vkGetPhysicalDeviceExternalSemaphoreProperties");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceExternalFenceProperties,
-    "vkGetPhysicalDeviceExternalFenceProperties");
-#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  V(dispatch_table, &instance_dispatch_table::vkAcquireXlibDisplayEXT,
-    "vkAcquireXlibDisplayEXT");
-#endif
-#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
-  V(dispatch_table, &instance_dispatch_table::vkGetRandROutputDisplayEXT,
-    "vkGetRandROutputDisplayEXT");
+    &instance_dispatch_table::vkGetPhysicalDeviceWaylandPresentationSupportKHR,
+    "vkGetPhysicalDeviceWaylandPresentationSupportKHR");
 #endif
   V(dispatch_table, &instance_dispatch_table::vkCreateDebugUtilsMessengerEXT,
     "vkCreateDebugUtilsMessengerEXT");
-#ifdef VK_USE_PLATFORM_XLIB_KHR
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceXlibPresentationSupportKHR,
-    "vkGetPhysicalDeviceXlibPresentationSupportKHR");
-#endif
+    &instance_dispatch_table::vkGetPhysicalDeviceQueueFamilyProperties,
+    "vkGetPhysicalDeviceQueueFamilyProperties");
+  V(dispatch_table, &instance_dispatch_table::vkGetDisplayPlaneCapabilitiesKHR,
+    "vkGetDisplayPlaneCapabilitiesKHR");
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceCapabilities2EXT,
-    "vkGetPhysicalDeviceSurfaceCapabilities2EXT");
+    &instance_dispatch_table::vkGetPhysicalDeviceSparseImageFormatProperties,
+    "vkGetPhysicalDeviceSparseImageFormatProperties");
+  V(dispatch_table, &instance_dispatch_table::vkGetInstanceProcAddr,
+    "vkGetInstanceProcAddr");
+  V(dispatch_table, &instance_dispatch_table::vkCreateDisplayPlaneSurfaceKHR,
+    "vkCreateDisplayPlaneSurfaceKHR");
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceFormats2KHR,
-    "vkGetPhysicalDeviceSurfaceFormats2KHR");
-#ifdef VK_USE_PLATFORM_IOS_MVK
-  V(dispatch_table, &instance_dispatch_table::vkCreateIOSSurfaceMVK,
-    "vkCreateIOSSurfaceMVK");
-#endif
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceDisplayProperties2KHR,
-    "vkGetPhysicalDeviceDisplayProperties2KHR");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceMultisamplePropertiesEXT,
-    "vkGetPhysicalDeviceMultisamplePropertiesEXT");
-  V(dispatch_table, &instance_dispatch_table::vkCreateDebugReportCallbackEXT,
-    "vkCreateDebugReportCallbackEXT");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceCapabilities2KHR,
-    "vkGetPhysicalDeviceSurfaceCapabilities2KHR");
-  V(dispatch_table, &instance_dispatch_table::vkGetDisplayModeProperties2KHR,
-    "vkGetDisplayModeProperties2KHR");
+    &instance_dispatch_table::vkGetPhysicalDeviceDisplayPropertiesKHR,
+    "vkGetPhysicalDeviceDisplayPropertiesKHR");
+  V(dispatch_table, &instance_dispatch_table::vkDestroyDebugReportCallbackEXT,
+    "vkDestroyDebugReportCallbackEXT");
 #ifdef VK_USE_PLATFORM_WIN32_KHR
   V(dispatch_table,
     &instance_dispatch_table::vkGetPhysicalDeviceWin32PresentationSupportKHR,
     "vkGetPhysicalDeviceWin32PresentationSupportKHR");
 #endif
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceMemoryProperties2,
+    "vkGetPhysicalDeviceMemoryProperties2");
+  V(dispatch_table, &instance_dispatch_table::vkGetDisplayModePropertiesKHR,
+    "vkGetDisplayModePropertiesKHR");
+  V(dispatch_table, &instance_dispatch_table::vkCreateDisplayModeKHR,
+    "vkCreateDisplayModeKHR");
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceXlibPresentationSupportKHR,
+    "vkGetPhysicalDeviceXlibPresentationSupportKHR");
+#endif
+  V(dispatch_table, &instance_dispatch_table::vkDestroySurfaceKHR,
+    "vkDestroySurfaceKHR");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceSupportKHR,
+    "vkGetPhysicalDeviceSurfaceSupportKHR");
+  V(dispatch_table, &instance_dispatch_table::vkGetPhysicalDeviceFeatures2,
+    "vkGetPhysicalDeviceFeatures2");
+#ifdef VK_USE_PLATFORM_VI_NN
+  V(dispatch_table, &instance_dispatch_table::vkCreateViSurfaceNN,
+    "vkCreateViSurfaceNN");
+#endif
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSurfaceCapabilities2KHR,
+    "vkGetPhysicalDeviceSurfaceCapabilities2KHR");
+#ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
+  V(dispatch_table, &instance_dispatch_table::vkGetRandROutputDisplayEXT,
+    "vkGetRandROutputDisplayEXT");
+#endif
+#ifdef VK_USE_PLATFORM_WAYLAND_KHR
+  V(dispatch_table, &instance_dispatch_table::vkCreateWaylandSurfaceKHR,
+    "vkCreateWaylandSurfaceKHR");
+#endif
 #ifdef VK_USE_PLATFORM_XCB_KHR
   V(dispatch_table, &instance_dispatch_table::vkCreateXcbSurfaceKHR,
     "vkCreateXcbSurfaceKHR");
 #endif
+#ifdef VK_USE_PLATFORM_XLIB_KHR
+  V(dispatch_table, &instance_dispatch_table::vkCreateXlibSurfaceKHR,
+    "vkCreateXlibSurfaceKHR");
+#endif
+#ifdef VK_USE_PLATFORM_XCB_KHR
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceFormatProperties2,
-    "vkGetPhysicalDeviceFormatProperties2");
+    &instance_dispatch_table::vkGetPhysicalDeviceXcbPresentationSupportKHR,
+    "vkGetPhysicalDeviceXcbPresentationSupportKHR");
+#endif
+#ifdef VK_USE_PLATFORM_FUCHSIA
+  V(dispatch_table, &instance_dispatch_table::vkCreateImagePipeSurfaceFUCHSIA,
+    "vkCreateImagePipeSurfaceFUCHSIA");
+#endif
+  V(dispatch_table, &instance_dispatch_table::vkCreateDebugReportCallbackEXT,
+    "vkCreateDebugReportCallbackEXT");
+  V(dispatch_table, &instance_dispatch_table::vkDebugReportMessageEXT,
+    "vkDebugReportMessageEXT");
   V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT,
-    "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
-  V(dispatch_table,
-    &instance_dispatch_table::vkGetPhysicalDeviceDisplayPlanePropertiesKHR,
-    "vkGetPhysicalDeviceDisplayPlanePropertiesKHR");
-  V(dispatch_table, &instance_dispatch_table::vkDestroyDebugUtilsMessengerEXT,
-    "vkDestroyDebugUtilsMessengerEXT");
-  V(dispatch_table, &instance_dispatch_table::vkSubmitDebugUtilsMessageEXT,
-    "vkSubmitDebugUtilsMessageEXT");
-  V(dispatch_table, &instance_dispatch_table::vkGetDisplayPlaneCapabilitiesKHR,
-    "vkGetDisplayPlaneCapabilitiesKHR");
+    &instance_dispatch_table::vkGetPhysicalDeviceMultisamplePropertiesEXT,
+    "vkGetPhysicalDeviceMultisamplePropertiesEXT");
   V(dispatch_table,
     &instance_dispatch_table::vkGetPhysicalDeviceImageFormatProperties2,
     "vkGetPhysicalDeviceImageFormatProperties2");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceQueueFamilyProperties2,
+    "vkGetPhysicalDeviceQueueFamilyProperties2");
+  V(dispatch_table,
+    &instance_dispatch_table::vkGetPhysicalDeviceSparseImageFormatProperties2,
+    "vkGetPhysicalDeviceSparseImageFormatProperties2");
 }
 
 struct device_dispatch_table {
   spk::device_ref device;
   // spock commands
-  void cmd_reset_query_pool(spk::command_buffer_ref commandBuffer,
-                            spk::query_pool_ref queryPool, uint32_t firstQuery,
-                            uint32_t queryCount) const {
-    vkCmdResetQueryPool((VkCommandBuffer)commandBuffer, (VkQueryPool)queryPool,
-                        (uint32_t)firstQuery, (uint32_t)queryCount);
+  void get_image_drm_format_modifier_properties_ext(
+      spk::device_ref device, spk::image_ref image,
+      spk::image_drm_format_modifier_properties_ext* pProperties) const {
+    const VkResult res = vkGetImageDrmFormatModifierPropertiesEXT(
+        (VkDevice)device, (VkImage)image,
+        (VkImageDrmFormatModifierPropertiesEXT*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetImageDrmFormatModifierPropertiesEXT");
+    }
   }
 
   void get_acceleration_structure_handle_nv(
@@ -23297,6 +23676,47 @@ struct device_dispatch_table {
     }
   }
 
+  void cmd_write_acceleration_structures_properties_nv(
+      spk::command_buffer_ref commandBuffer,
+      uint32_t accelerationStructureCount,
+      spk::acceleration_structure_nv_ref const* pAccelerationStructures,
+      spk::query_type queryType, spk::query_pool_ref queryPool,
+      uint32_t firstQuery) const {
+    vkCmdWriteAccelerationStructuresPropertiesNV(
+        (VkCommandBuffer)commandBuffer, (uint32_t)accelerationStructureCount,
+        (VkAccelerationStructureNV const*)pAccelerationStructures,
+        (VkQueryType)queryType, (VkQueryPool)queryPool, (uint32_t)firstQuery);
+  }
+
+  void bind_acceleration_structure_memory_nv(
+      spk::device_ref device, uint32_t bindInfoCount,
+      spk::bind_acceleration_structure_memory_info_nv const* pBindInfos) const {
+    const VkResult res = vkBindAccelerationStructureMemoryNV(
+        (VkDevice)device, (uint32_t)bindInfoCount,
+        (VkBindAccelerationStructureMemoryInfoNV const*)pBindInfos);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkBindAccelerationStructureMemoryNV");
+    }
+  }
+
+  void get_acceleration_structure_memory_requirements_nv(
+      spk::device_ref device,
+      spk::acceleration_structure_memory_requirements_info_nv const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) const {
+    vkGetAccelerationStructureMemoryRequirementsNV(
+        (VkDevice)device,
+        (VkAccelerationStructureMemoryRequirementsInfoNV const*)pInfo,
+        (VkMemoryRequirements2*)pMemoryRequirements);
+  }
+
   void cmd_draw_mesh_tasks_indirect_count_nv(
       spk::command_buffer_ref commandBuffer, spk::buffer_ref buffer,
       uint64_t offset, spk::buffer_ref countBuffer, uint64_t countBufferOffset,
@@ -23305,6 +23725,2157 @@ struct device_dispatch_table {
         (VkCommandBuffer)commandBuffer, (VkBuffer)buffer, (VkDeviceSize)offset,
         (VkBuffer)countBuffer, (VkDeviceSize)countBufferOffset,
         (uint32_t)maxDrawCount, (uint32_t)stride);
+  }
+
+  void cmd_draw_mesh_tasks_indirect_nv(spk::command_buffer_ref commandBuffer,
+                                       spk::buffer_ref buffer, uint64_t offset,
+                                       uint32_t drawCount,
+                                       uint32_t stride) const {
+    vkCmdDrawMeshTasksIndirectNV((VkCommandBuffer)commandBuffer,
+                                 (VkBuffer)buffer, (VkDeviceSize)offset,
+                                 (uint32_t)drawCount, (uint32_t)stride);
+  }
+
+  void cmd_draw_mesh_tasks_nv(spk::command_buffer_ref commandBuffer,
+                              uint32_t taskCount, uint32_t firstTask) const {
+    vkCmdDrawMeshTasksNV((VkCommandBuffer)commandBuffer, (uint32_t)taskCount,
+                         (uint32_t)firstTask);
+  }
+
+  void cmd_set_coarse_sample_order_nv(
+      spk::command_buffer_ref commandBuffer,
+      spk::coarse_sample_order_type_nv sampleOrderType,
+      uint32_t customSampleOrderCount,
+      spk::coarse_sample_order_custom_nv const* pCustomSampleOrders) const {
+    vkCmdSetCoarseSampleOrderNV(
+        (VkCommandBuffer)commandBuffer,
+        (VkCoarseSampleOrderTypeNV)sampleOrderType,
+        (uint32_t)customSampleOrderCount,
+        (VkCoarseSampleOrderCustomNV const*)pCustomSampleOrders);
+  }
+
+  void cmd_set_exclusive_scissor_nv(
+      spk::command_buffer_ref commandBuffer, uint32_t firstExclusiveScissor,
+      uint32_t exclusiveScissorCount,
+      spk::rect_2d const* pExclusiveScissors) const {
+    vkCmdSetExclusiveScissorNV(
+        (VkCommandBuffer)commandBuffer, (uint32_t)firstExclusiveScissor,
+        (uint32_t)exclusiveScissorCount, (VkRect2D const*)pExclusiveScissors);
+  }
+
+  void cmd_draw_indirect_byte_count_ext(spk::command_buffer_ref commandBuffer,
+                                        uint32_t instanceCount,
+                                        uint32_t firstInstance,
+                                        spk::buffer_ref counterBuffer,
+                                        uint64_t counterBufferOffset,
+                                        uint32_t counterOffset,
+                                        uint32_t vertexStride) const {
+    vkCmdDrawIndirectByteCountEXT(
+        (VkCommandBuffer)commandBuffer, (uint32_t)instanceCount,
+        (uint32_t)firstInstance, (VkBuffer)counterBuffer,
+        (VkDeviceSize)counterBufferOffset, (uint32_t)counterOffset,
+        (uint32_t)vertexStride);
+  }
+
+  void cmd_begin_query_indexed_ext(spk::command_buffer_ref commandBuffer,
+                                   spk::query_pool_ref queryPool,
+                                   uint32_t query,
+                                   spk::query_control_flags flags,
+                                   uint32_t index) const {
+    vkCmdBeginQueryIndexedEXT((VkCommandBuffer)commandBuffer,
+                              (VkQueryPool)queryPool, (uint32_t)query,
+                              (VkQueryControlFlags)flags, (uint32_t)index);
+  }
+
+  void cmd_draw_indexed_indirect_count_khr(
+      spk::command_buffer_ref commandBuffer, spk::buffer_ref buffer,
+      uint64_t offset, spk::buffer_ref countBuffer, uint64_t countBufferOffset,
+      uint32_t maxDrawCount, uint32_t stride) const {
+    vkCmdDrawIndexedIndirectCountKHR(
+        (VkCommandBuffer)commandBuffer, (VkBuffer)buffer, (VkDeviceSize)offset,
+        (VkBuffer)countBuffer, (VkDeviceSize)countBufferOffset,
+        (uint32_t)maxDrawCount, (uint32_t)stride);
+  }
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  void get_memory_android_hardware_buffer_android(
+      spk::device_ref device,
+      spk::memory_get_android_hardware_buffer_info_android const* pInfo,
+      AHardwareBuffer** pBuffer) const {
+    const VkResult res = vkGetMemoryAndroidHardwareBufferANDROID(
+        (VkDevice)device,
+        (VkMemoryGetAndroidHardwareBufferInfoANDROID const*)pInfo,
+        (AHardwareBuffer**)pBuffer);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetMemoryAndroidHardwareBufferANDROID");
+    }
+  }
+#endif
+
+  void cmd_set_viewport_shading_rate_palette_nv(
+      spk::command_buffer_ref commandBuffer, uint32_t firstViewport,
+      uint32_t viewportCount,
+      spk::shading_rate_palette_nv const* pShadingRatePalettes) const {
+    vkCmdSetViewportShadingRatePaletteNV(
+        (VkCommandBuffer)commandBuffer, (uint32_t)firstViewport,
+        (uint32_t)viewportCount,
+        (VkShadingRatePaletteNV const*)pShadingRatePalettes);
+  }
+
+  void cmd_end_render_pass_2khr(
+      spk::command_buffer_ref commandBuffer,
+      spk::subpass_end_info_khr const* pSubpassEndInfo) const {
+    vkCmdEndRenderPass2KHR((VkCommandBuffer)commandBuffer,
+                           (VkSubpassEndInfoKHR const*)pSubpassEndInfo);
+  }
+
+  void cmd_next_subpass_2khr(
+      spk::command_buffer_ref commandBuffer,
+      spk::subpass_begin_info_khr const* pSubpassBeginInfo,
+      spk::subpass_end_info_khr const* pSubpassEndInfo) const {
+    vkCmdNextSubpass2KHR((VkCommandBuffer)commandBuffer,
+                         (VkSubpassBeginInfoKHR const*)pSubpassBeginInfo,
+                         (VkSubpassEndInfoKHR const*)pSubpassEndInfo);
+  }
+
+  void create_render_pass_2khr(
+      spk::device_ref device,
+      spk::render_pass_create_info_2khr const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::render_pass_ref* pRenderPass) const {
+    const VkResult res = vkCreateRenderPass2KHR(
+        (VkDevice)device, (VkRenderPassCreateInfo2KHR const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkRenderPass*)pRenderPass);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateRenderPass2KHR");
+    }
+  }
+
+  void get_memory_host_pointer_properties_ext(
+      spk::device_ref device, spk::external_memory_handle_type_flags handleType,
+      void const* pHostPointer,
+      spk::memory_host_pointer_properties_ext* pMemoryHostPointerProperties)
+      const {
+    const VkResult res = vkGetMemoryHostPointerPropertiesEXT(
+        (VkDevice)device, (VkExternalMemoryHandleTypeFlagBits)handleType,
+        (void const*)pHostPointer,
+        (VkMemoryHostPointerPropertiesEXT*)pMemoryHostPointerProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetMemoryHostPointerPropertiesEXT");
+    }
+  }
+
+  void cmd_begin_debug_utils_label_ext(
+      spk::command_buffer_ref commandBuffer,
+      spk::debug_utils_label_ext const* pLabelInfo) const {
+    vkCmdBeginDebugUtilsLabelEXT((VkCommandBuffer)commandBuffer,
+                                 (VkDebugUtilsLabelEXT const*)pLabelInfo);
+  }
+
+  void queue_insert_debug_utils_label_ext(
+      spk::queue_ref queue,
+      spk::debug_utils_label_ext const* pLabelInfo) const {
+    vkQueueInsertDebugUtilsLabelEXT((VkQueue)queue,
+                                    (VkDebugUtilsLabelEXT const*)pLabelInfo);
+  }
+
+  void queue_end_debug_utils_label_ext(spk::queue_ref queue) const {
+    vkQueueEndDebugUtilsLabelEXT((VkQueue)queue);
+  }
+
+  void set_debug_utils_object_name_ext(
+      spk::device_ref device,
+      spk::debug_utils_object_name_info_ext const* pNameInfo) const {
+    const VkResult res = vkSetDebugUtilsObjectNameEXT(
+        (VkDevice)device, (VkDebugUtilsObjectNameInfoEXT const*)pNameInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkSetDebugUtilsObjectNameEXT");
+    }
+  }
+
+  void get_calibrated_timestamps_ext(
+      spk::device_ref device, uint32_t timestampCount,
+      spk::calibrated_timestamp_info_ext const* pTimestampInfos,
+      uint64_t* pTimestamps, uint64_t* pMaxDeviation) const {
+    const VkResult res = vkGetCalibratedTimestampsEXT(
+        (VkDevice)device, (uint32_t)timestampCount,
+        (VkCalibratedTimestampInfoEXT const*)pTimestampInfos,
+        (uint64_t*)pTimestamps, (uint64_t*)pMaxDeviation);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetCalibratedTimestampsEXT");
+    }
+  }
+
+  [[nodiscard]] spk::result get_shader_info_amd(
+      spk::device_ref device, spk::pipeline_ref pipeline,
+      spk::shader_stage_flags shaderStage, spk::shader_info_type_amd infoType,
+      size_t* pInfoSize, void* pInfo) const {
+    const VkResult res = vkGetShaderInfoAMD(
+        (VkDevice)device, (VkPipeline)pipeline,
+        (VkShaderStageFlagBits)shaderStage, (VkShaderInfoTypeAMD)infoType,
+        (size_t*)pInfoSize, (void*)pInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_FEATURE_NOT_PRESENT:
+        throw spk::error_feature_not_present();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetShaderInfoAMD");
+    }
+  }
+
+  void get_descriptor_set_layout_support(
+      spk::device_ref device,
+      spk::descriptor_set_layout_create_info const* pCreateInfo,
+      spk::descriptor_set_layout_support* pSupport) const {
+    vkGetDescriptorSetLayoutSupport(
+        (VkDevice)device, (VkDescriptorSetLayoutCreateInfo const*)pCreateInfo,
+        (VkDescriptorSetLayoutSupport*)pSupport);
+  }
+
+  void get_descriptor_set_layout_support_khr(
+      spk::device_ref device,
+      spk::descriptor_set_layout_create_info const* pCreateInfo,
+      spk::descriptor_set_layout_support* pSupport) const {
+    vkGetDescriptorSetLayoutSupport(
+        (VkDevice)device, (VkDescriptorSetLayoutCreateInfo const*)pCreateInfo,
+        (VkDescriptorSetLayoutSupport*)pSupport);
+  }
+
+  void merge_validation_caches_ext(
+      spk::device_ref device, spk::validation_cache_ext_ref dstCache,
+      uint32_t srcCacheCount,
+      spk::validation_cache_ext_ref const* pSrcCaches) const {
+    const VkResult res = vkMergeValidationCachesEXT(
+        (VkDevice)device, (VkValidationCacheEXT)dstCache,
+        (uint32_t)srcCacheCount, (VkValidationCacheEXT const*)pSrcCaches);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkMergeValidationCachesEXT");
+    }
+  }
+
+  void destroy_validation_cache_ext(
+      spk::device_ref device, spk::validation_cache_ext_ref validationCache,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyValidationCacheEXT((VkDevice)device,
+                                (VkValidationCacheEXT)validationCache,
+                                (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void get_device_queue_2(spk::device_ref device,
+                          spk::device_queue_info_2 const* pQueueInfo,
+                          spk::queue_ref* pQueue) const {
+    vkGetDeviceQueue2((VkDevice)device, (VkDeviceQueueInfo2 const*)pQueueInfo,
+                      (VkQueue*)pQueue);
+  }
+
+  void create_sampler_ycbcr_conversion(
+      spk::device_ref device,
+      spk::sampler_ycbcr_conversion_create_info const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::sampler_ycbcr_conversion_ref* pYcbcrConversion) const {
+    const VkResult res = vkCreateSamplerYcbcrConversion(
+        (VkDevice)device,
+        (VkSamplerYcbcrConversionCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkSamplerYcbcrConversion*)pYcbcrConversion);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateSamplerYcbcrConversion");
+    }
+  }
+
+  void create_sampler_ycbcr_conversion_khr(
+      spk::device_ref device,
+      spk::sampler_ycbcr_conversion_create_info const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::sampler_ycbcr_conversion_ref* pYcbcrConversion) const {
+    const VkResult res = vkCreateSamplerYcbcrConversion(
+        (VkDevice)device,
+        (VkSamplerYcbcrConversionCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkSamplerYcbcrConversion*)pYcbcrConversion);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateSamplerYcbcrConversion");
+    }
+  }
+
+  void get_image_sparse_memory_requirements_2khr(
+      spk::device_ref device,
+      spk::image_sparse_memory_requirements_info_2 const* pInfo,
+      uint32_t* pSparseMemoryRequirementCount,
+      spk::sparse_image_memory_requirements_2* pSparseMemoryRequirements)
+      const {
+    vkGetImageSparseMemoryRequirements2(
+        (VkDevice)device, (VkImageSparseMemoryRequirementsInfo2 const*)pInfo,
+        (uint32_t*)pSparseMemoryRequirementCount,
+        (VkSparseImageMemoryRequirements2*)pSparseMemoryRequirements);
+  }
+
+  void get_image_sparse_memory_requirements_2(
+      spk::device_ref device,
+      spk::image_sparse_memory_requirements_info_2 const* pInfo,
+      uint32_t* pSparseMemoryRequirementCount,
+      spk::sparse_image_memory_requirements_2* pSparseMemoryRequirements)
+      const {
+    vkGetImageSparseMemoryRequirements2(
+        (VkDevice)device, (VkImageSparseMemoryRequirementsInfo2 const*)pInfo,
+        (uint32_t*)pSparseMemoryRequirementCount,
+        (VkSparseImageMemoryRequirements2*)pSparseMemoryRequirements);
+  }
+
+  void get_image_memory_requirements_2(
+      spk::device_ref device,
+      spk::image_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) const {
+    vkGetImageMemoryRequirements2((VkDevice)device,
+                                  (VkImageMemoryRequirementsInfo2 const*)pInfo,
+                                  (VkMemoryRequirements2*)pMemoryRequirements);
+  }
+
+  void get_image_memory_requirements_2khr(
+      spk::device_ref device,
+      spk::image_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) const {
+    vkGetImageMemoryRequirements2((VkDevice)device,
+                                  (VkImageMemoryRequirementsInfo2 const*)pInfo,
+                                  (VkMemoryRequirements2*)pMemoryRequirements);
+  }
+
+  void get_buffer_memory_requirements_2khr(
+      spk::device_ref device,
+      spk::buffer_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) const {
+    vkGetBufferMemoryRequirements2(
+        (VkDevice)device, (VkBufferMemoryRequirementsInfo2 const*)pInfo,
+        (VkMemoryRequirements2*)pMemoryRequirements);
+  }
+
+  void get_buffer_memory_requirements_2(
+      spk::device_ref device,
+      spk::buffer_memory_requirements_info_2 const* pInfo,
+      spk::memory_requirements_2* pMemoryRequirements) const {
+    vkGetBufferMemoryRequirements2(
+        (VkDevice)device, (VkBufferMemoryRequirementsInfo2 const*)pInfo,
+        (VkMemoryRequirements2*)pMemoryRequirements);
+  }
+
+  void cmd_set_viewport_w_scaling_nv(
+      spk::command_buffer_ref commandBuffer, uint32_t firstViewport,
+      uint32_t viewportCount,
+      spk::viewport_w_scaling_nv const* pViewportWScalings) const {
+    vkCmdSetViewportWScalingNV((VkCommandBuffer)commandBuffer,
+                               (uint32_t)firstViewport, (uint32_t)viewportCount,
+                               (VkViewportWScalingNV const*)pViewportWScalings);
+  }
+
+  [[nodiscard]] spk::result get_past_presentation_timing_google(
+      spk::device_ref device, spk::swapchain_khr_ref swapchain,
+      uint32_t* pPresentationTimingCount,
+      spk::past_presentation_timing_google* pPresentationTimings) const {
+    const VkResult res = vkGetPastPresentationTimingGOOGLE(
+        (VkDevice)device, (VkSwapchainKHR)swapchain,
+        (uint32_t*)pPresentationTimingCount,
+        (VkPastPresentationTimingGOOGLE*)pPresentationTimings);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      case VK_ERROR_OUT_OF_DATE_KHR:
+        throw spk::error_out_of_date_khr();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetPastPresentationTimingGOOGLE");
+    }
+  }
+
+  void get_refresh_cycle_duration_google(
+      spk::device_ref device, spk::swapchain_khr_ref swapchain,
+      spk::refresh_cycle_duration_google* pDisplayTimingProperties) const {
+    const VkResult res = vkGetRefreshCycleDurationGOOGLE(
+        (VkDevice)device, (VkSwapchainKHR)swapchain,
+        (VkRefreshCycleDurationGOOGLE*)pDisplayTimingProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetRefreshCycleDurationGOOGLE");
+    }
+  }
+
+  [[nodiscard]] spk::result get_swapchain_status_khr(
+      spk::device_ref device, spk::swapchain_khr_ref swapchain) const {
+    const VkResult res =
+        vkGetSwapchainStatusKHR((VkDevice)device, (VkSwapchainKHR)swapchain);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_SUBOPTIMAL_KHR:
+        return spk::result::suboptimal_khr;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      case VK_ERROR_OUT_OF_DATE_KHR:
+        throw spk::error_out_of_date_khr();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetSwapchainStatusKHR");
+    }
+  }
+
+  void set_hdr_metadata_ext(spk::device_ref device, uint32_t swapchainCount,
+                            spk::swapchain_khr_ref const* pSwapchains,
+                            spk::hdr_metadata_ext const* pMetadata) const {
+    vkSetHdrMetadataEXT((VkDevice)device, (uint32_t)swapchainCount,
+                        (VkSwapchainKHR const*)pSwapchains,
+                        (VkHdrMetadataEXT const*)pMetadata);
+  }
+
+  void get_ray_tracing_shader_group_handles_nv(
+      spk::device_ref device, spk::pipeline_ref pipeline, uint32_t firstGroup,
+      uint32_t groupCount, size_t dataSize, void* pData) const {
+    const VkResult res = vkGetRayTracingShaderGroupHandlesNV(
+        (VkDevice)device, (VkPipeline)pipeline, (uint32_t)firstGroup,
+        (uint32_t)groupCount, (size_t)dataSize, (void*)pData);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetRayTracingShaderGroupHandlesNV");
+    }
+  }
+
+  void cmd_dispatch_base(spk::command_buffer_ref commandBuffer,
+                         uint32_t baseGroupX, uint32_t baseGroupY,
+                         uint32_t baseGroupZ, uint32_t groupCountX,
+                         uint32_t groupCountY, uint32_t groupCountZ) const {
+    vkCmdDispatchBase((VkCommandBuffer)commandBuffer, (uint32_t)baseGroupX,
+                      (uint32_t)baseGroupY, (uint32_t)baseGroupZ,
+                      (uint32_t)groupCountX, (uint32_t)groupCountY,
+                      (uint32_t)groupCountZ);
+  }
+
+  void cmd_dispatch_base_khr(spk::command_buffer_ref commandBuffer,
+                             uint32_t baseGroupX, uint32_t baseGroupY,
+                             uint32_t baseGroupZ, uint32_t groupCountX,
+                             uint32_t groupCountY, uint32_t groupCountZ) const {
+    vkCmdDispatchBase((VkCommandBuffer)commandBuffer, (uint32_t)baseGroupX,
+                      (uint32_t)baseGroupY, (uint32_t)baseGroupZ,
+                      (uint32_t)groupCountX, (uint32_t)groupCountY,
+                      (uint32_t)groupCountZ);
+  }
+
+  [[nodiscard]] spk::result acquire_next_image_2khr(
+      spk::device_ref device,
+      spk::acquire_next_image_info_khr const* pAcquireInfo,
+      uint32_t* pImageIndex) const {
+    const VkResult res = vkAcquireNextImage2KHR(
+        (VkDevice)device, (VkAcquireNextImageInfoKHR const*)pAcquireInfo,
+        (uint32_t*)pImageIndex);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_TIMEOUT:
+        return spk::result::timeout;
+      case VK_NOT_READY:
+        return spk::result::not_ready;
+      case VK_SUBOPTIMAL_KHR:
+        return spk::result::suboptimal_khr;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      case VK_ERROR_OUT_OF_DATE_KHR:
+        throw spk::error_out_of_date_khr();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkAcquireNextImage2KHR");
+    }
+  }
+
+  void create_ray_tracing_pipelines_nv(
+      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
+      uint32_t createInfoCount,
+      spk::ray_tracing_pipeline_create_info_nv const* pCreateInfos,
+      spk::allocation_callbacks const* pAllocator,
+      spk::pipeline_ref* pPipelines) const {
+    const VkResult res = vkCreateRayTracingPipelinesNV(
+        (VkDevice)device, (VkPipelineCache)pipelineCache,
+        (uint32_t)createInfoCount,
+        (VkRayTracingPipelineCreateInfoNV const*)pCreateInfos,
+        (VkAllocationCallbacks const*)pAllocator, (VkPipeline*)pPipelines);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INVALID_SHADER_NV:
+        throw spk::error_invalid_shader_nv();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateRayTracingPipelinesNV");
+    }
+  }
+
+  void create_acceleration_structure_nv(
+      spk::device_ref device,
+      spk::acceleration_structure_create_info_nv const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::acceleration_structure_nv_ref* pAccelerationStructure) const {
+    const VkResult res = vkCreateAccelerationStructureNV(
+        (VkDevice)device,
+        (VkAccelerationStructureCreateInfoNV const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkAccelerationStructureNV*)pAccelerationStructure);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateAccelerationStructureNV");
+    }
+  }
+
+  void get_device_group_present_capabilities_khr(
+      spk::device_ref device, spk::device_group_present_capabilities_khr*
+                                  pDeviceGroupPresentCapabilities) const {
+    const VkResult res = vkGetDeviceGroupPresentCapabilitiesKHR(
+        (VkDevice)device,
+        (VkDeviceGroupPresentCapabilitiesKHR*)pDeviceGroupPresentCapabilities);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetDeviceGroupPresentCapabilitiesKHR");
+    }
+  }
+
+  void cmd_set_device_mask_khr(spk::command_buffer_ref commandBuffer,
+                               uint32_t deviceMask) const {
+    vkCmdSetDeviceMask((VkCommandBuffer)commandBuffer, (uint32_t)deviceMask);
+  }
+
+  void cmd_set_device_mask(spk::command_buffer_ref commandBuffer,
+                           uint32_t deviceMask) const {
+    vkCmdSetDeviceMask((VkCommandBuffer)commandBuffer, (uint32_t)deviceMask);
+  }
+
+  void bind_image_memory_2(
+      spk::device_ref device, uint32_t bindInfoCount,
+      spk::bind_image_memory_info const* pBindInfos) const {
+    const VkResult res =
+        vkBindImageMemory2((VkDevice)device, (uint32_t)bindInfoCount,
+                           (VkBindImageMemoryInfo const*)pBindInfos);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkBindImageMemory2");
+    }
+  }
+
+  void bind_image_memory_2khr(
+      spk::device_ref device, uint32_t bindInfoCount,
+      spk::bind_image_memory_info const* pBindInfos) const {
+    const VkResult res =
+        vkBindImageMemory2((VkDevice)device, (uint32_t)bindInfoCount,
+                           (VkBindImageMemoryInfo const*)pBindInfos);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkBindImageMemory2");
+    }
+  }
+
+  void get_swapchain_counter_ext(spk::device_ref device,
+                                 spk::swapchain_khr_ref swapchain,
+                                 spk::surface_counter_flags_ext counter,
+                                 uint64_t* pCounterValue) const {
+    const VkResult res = vkGetSwapchainCounterEXT(
+        (VkDevice)device, (VkSwapchainKHR)swapchain,
+        (VkSurfaceCounterFlagBitsEXT)counter, (uint64_t*)pCounterValue);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      case VK_ERROR_OUT_OF_DATE_KHR:
+        throw spk::error_out_of_date_khr();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetSwapchainCounterEXT");
+    }
+  }
+
+  void cmd_build_acceleration_structure_nv(
+      spk::command_buffer_ref commandBuffer,
+      spk::acceleration_structure_info_nv const* pInfo,
+      spk::buffer_ref instanceData, uint64_t instanceOffset,
+      spk::bool32_t update, spk::acceleration_structure_nv_ref dst,
+      spk::acceleration_structure_nv_ref src, spk::buffer_ref scratch,
+      uint64_t scratchOffset) const {
+    vkCmdBuildAccelerationStructureNV(
+        (VkCommandBuffer)commandBuffer,
+        (VkAccelerationStructureInfoNV const*)pInfo, (VkBuffer)instanceData,
+        (VkDeviceSize)instanceOffset, (VkBool32)update,
+        (VkAccelerationStructureNV)dst, (VkAccelerationStructureNV)src,
+        (VkBuffer)scratch, (VkDeviceSize)scratchOffset);
+  }
+
+  void register_display_event_ext(
+      spk::device_ref device, spk::display_khr_ref display,
+      spk::display_event_info_ext const* pDisplayEventInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::fence_ref* pFence) const {
+    const VkResult res = vkRegisterDisplayEventEXT(
+        (VkDevice)device, (VkDisplayKHR)display,
+        (VkDisplayEventInfoEXT const*)pDisplayEventInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkFence*)pFence);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkRegisterDisplayEventEXT");
+    }
+  }
+
+  void cmd_bind_shading_rate_image_nv(spk::command_buffer_ref commandBuffer,
+                                      spk::image_view_ref imageView,
+                                      spk::image_layout imageLayout) const {
+    vkCmdBindShadingRateImageNV((VkCommandBuffer)commandBuffer,
+                                (VkImageView)imageView,
+                                (VkImageLayout)imageLayout);
+  }
+
+  void get_fence_fd_khr(spk::device_ref device,
+                        spk::fence_get_fd_info_khr const* pGetFdInfo,
+                        int* pFd) const {
+    const VkResult res = vkGetFenceFdKHR(
+        (VkDevice)device, (VkFenceGetFdInfoKHR const*)pGetFdInfo, (int*)pFd);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetFenceFdKHR");
+    }
+  }
+
+  void cmd_bind_transform_feedback_buffers_ext(
+      spk::command_buffer_ref commandBuffer, uint32_t firstBinding,
+      uint32_t bindingCount, spk::buffer_ref const* pBuffers,
+      uint64_t const* pOffsets, uint64_t const* pSizes) const {
+    vkCmdBindTransformFeedbackBuffersEXT(
+        (VkCommandBuffer)commandBuffer, (uint32_t)firstBinding,
+        (uint32_t)bindingCount, (VkBuffer const*)pBuffers,
+        (VkDeviceSize const*)pOffsets, (VkDeviceSize const*)pSizes);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_fence_win_32handle_khr(
+      spk::device_ref device,
+      spk::fence_get_win_32handle_info_khr const* pGetWin32HandleInfo,
+      HANDLE* pHandle) const {
+    const VkResult res = vkGetFenceWin32HandleKHR(
+        (VkDevice)device,
+        (VkFenceGetWin32HandleInfoKHR const*)pGetWin32HandleInfo,
+        (HANDLE*)pHandle);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetFenceWin32HandleKHR");
+    }
+  }
+#endif
+
+  void get_semaphore_fd_khr(spk::device_ref device,
+                            spk::semaphore_get_fd_info_khr const* pGetFdInfo,
+                            int* pFd) const {
+    const VkResult res = vkGetSemaphoreFdKHR(
+        (VkDevice)device, (VkSemaphoreGetFdInfoKHR const*)pGetFdInfo,
+        (int*)pFd);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetSemaphoreFdKHR");
+    }
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void import_semaphore_win_32handle_khr(
+      spk::device_ref device, spk::import_semaphore_win_32handle_info_khr const*
+                                  pImportSemaphoreWin32HandleInfo) const {
+    const VkResult res = vkImportSemaphoreWin32HandleKHR(
+        (VkDevice)device, (VkImportSemaphoreWin32HandleInfoKHR const*)
+                              pImportSemaphoreWin32HandleInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkImportSemaphoreWin32HandleKHR");
+    }
+  }
+#endif
+
+  VkDeviceAddress get_buffer_device_address_ext(
+      spk::device_ref device,
+      spk::buffer_device_address_info_ext const* pInfo) const {
+    return (VkDeviceAddress)(vkGetBufferDeviceAddressEXT(
+        (VkDevice)device, (VkBufferDeviceAddressInfoEXT const*)pInfo));
+  }
+
+  void get_memory_fd_properties_khr(
+      spk::device_ref device, spk::external_memory_handle_type_flags handleType,
+      int fd, spk::memory_fd_properties_khr* pMemoryFdProperties) const {
+    const VkResult res = vkGetMemoryFdPropertiesKHR(
+        (VkDevice)device, (VkExternalMemoryHandleTypeFlagBits)handleType,
+        (int)fd, (VkMemoryFdPropertiesKHR*)pMemoryFdProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetMemoryFdPropertiesKHR");
+    }
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_memory_win_32handle_khr(
+      spk::device_ref device,
+      spk::memory_get_win_32handle_info_khr const* pGetWin32HandleInfo,
+      HANDLE* pHandle) const {
+    const VkResult res = vkGetMemoryWin32HandleKHR(
+        (VkDevice)device,
+        (VkMemoryGetWin32HandleInfoKHR const*)pGetWin32HandleInfo,
+        (HANDLE*)pHandle);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetMemoryWin32HandleKHR");
+    }
+  }
+#endif
+
+  void cmd_end_debug_utils_label_ext(
+      spk::command_buffer_ref commandBuffer) const {
+    vkCmdEndDebugUtilsLabelEXT((VkCommandBuffer)commandBuffer);
+  }
+
+  void cmd_bind_pipeline(spk::command_buffer_ref commandBuffer,
+                         spk::pipeline_bind_point pipelineBindPoint,
+                         spk::pipeline_ref pipeline) const {
+    vkCmdBindPipeline((VkCommandBuffer)commandBuffer,
+                      (VkPipelineBindPoint)pipelineBindPoint,
+                      (VkPipeline)pipeline);
+  }
+
+  void end_command_buffer(spk::command_buffer_ref commandBuffer) const {
+    const VkResult res = vkEndCommandBuffer((VkCommandBuffer)commandBuffer);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkEndCommandBuffer");
+    }
+  }
+
+  void cmd_set_scissor(spk::command_buffer_ref commandBuffer,
+                       uint32_t firstScissor, uint32_t scissorCount,
+                       spk::rect_2d const* pScissors) const {
+    vkCmdSetScissor((VkCommandBuffer)commandBuffer, (uint32_t)firstScissor,
+                    (uint32_t)scissorCount, (VkRect2D const*)pScissors);
+  }
+
+  void cmd_begin_render_pass_2khr(
+      spk::command_buffer_ref commandBuffer,
+      spk::render_pass_begin_info const* pRenderPassBegin,
+      spk::subpass_begin_info_khr const* pSubpassBeginInfo) const {
+    vkCmdBeginRenderPass2KHR((VkCommandBuffer)commandBuffer,
+                             (VkRenderPassBeginInfo const*)pRenderPassBegin,
+                             (VkSubpassBeginInfoKHR const*)pSubpassBeginInfo);
+  }
+
+  void set_debug_utils_object_tag_ext(
+      spk::device_ref device,
+      spk::debug_utils_object_tag_info_ext const* pTagInfo) const {
+    const VkResult res = vkSetDebugUtilsObjectTagEXT(
+        (VkDevice)device, (VkDebugUtilsObjectTagInfoEXT const*)pTagInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkSetDebugUtilsObjectTagEXT");
+    }
+  }
+
+  void reset_fences(spk::device_ref device, uint32_t fenceCount,
+                    spk::fence_ref const* pFences) const {
+    const VkResult res = vkResetFences((VkDevice)device, (uint32_t)fenceCount,
+                                       (VkFence const*)pFences);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkResetFences");
+    }
+  }
+
+  void free_command_buffers(
+      spk::device_ref device, spk::command_pool_ref commandPool,
+      uint32_t commandBufferCount,
+      spk::command_buffer_ref const* pCommandBuffers) const {
+    vkFreeCommandBuffers((VkDevice)device, (VkCommandPool)commandPool,
+                         (uint32_t)commandBufferCount,
+                         (VkCommandBuffer const*)pCommandBuffers);
+  }
+
+  void cmd_execute_commands(
+      spk::command_buffer_ref commandBuffer, uint32_t commandBufferCount,
+      spk::command_buffer_ref const* pCommandBuffers) const {
+    vkCmdExecuteCommands((VkCommandBuffer)commandBuffer,
+                         (uint32_t)commandBufferCount,
+                         (VkCommandBuffer const*)pCommandBuffers);
+  }
+
+  void create_render_pass(spk::device_ref device,
+                          spk::render_pass_create_info const* pCreateInfo,
+                          spk::allocation_callbacks const* pAllocator,
+                          spk::render_pass_ref* pRenderPass) const {
+    const VkResult res = vkCreateRenderPass(
+        (VkDevice)device, (VkRenderPassCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkRenderPass*)pRenderPass);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateRenderPass");
+    }
+  }
+
+  void free_descriptor_sets(
+      spk::device_ref device, spk::descriptor_pool_ref descriptorPool,
+      uint32_t descriptorSetCount,
+      spk::descriptor_set_ref const* pDescriptorSets) const {
+    const VkResult res = vkFreeDescriptorSets(
+        (VkDevice)device, (VkDescriptorPool)descriptorPool,
+        (uint32_t)descriptorSetCount, (VkDescriptorSet const*)pDescriptorSets);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkFreeDescriptorSets");
+    }
+  }
+
+  void cmd_insert_debug_utils_label_ext(
+      spk::command_buffer_ref commandBuffer,
+      spk::debug_utils_label_ext const* pLabelInfo) const {
+    vkCmdInsertDebugUtilsLabelEXT((VkCommandBuffer)commandBuffer,
+                                  (VkDebugUtilsLabelEXT const*)pLabelInfo);
+  }
+
+  void import_semaphore_fd_khr(
+      spk::device_ref device,
+      spk::import_semaphore_fd_info_khr const* pImportSemaphoreFdInfo) const {
+    const VkResult res = vkImportSemaphoreFdKHR(
+        (VkDevice)device,
+        (VkImportSemaphoreFdInfoKHR const*)pImportSemaphoreFdInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkImportSemaphoreFdKHR");
+    }
+  }
+
+  void create_descriptor_pool(
+      spk::device_ref device,
+      spk::descriptor_pool_create_info const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::descriptor_pool_ref* pDescriptorPool) const {
+    const VkResult res = vkCreateDescriptorPool(
+        (VkDevice)device, (VkDescriptorPoolCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkDescriptorPool*)pDescriptorPool);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_FRAGMENTATION_EXT:
+        throw spk::error_fragmentation_ext();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateDescriptorPool");
+    }
+  }
+
+  void destroy_descriptor_set_layout(
+      spk::device_ref device,
+      spk::descriptor_set_layout_ref descriptorSetLayout,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDescriptorSetLayout((VkDevice)device,
+                                 (VkDescriptorSetLayout)descriptorSetLayout,
+                                 (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void create_graphics_pipelines(
+      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
+      uint32_t createInfoCount,
+      spk::graphics_pipeline_create_info const* pCreateInfos,
+      spk::allocation_callbacks const* pAllocator,
+      spk::pipeline_ref* pPipelines) const {
+    const VkResult res = vkCreateGraphicsPipelines(
+        (VkDevice)device, (VkPipelineCache)pipelineCache,
+        (uint32_t)createInfoCount,
+        (VkGraphicsPipelineCreateInfo const*)pCreateInfos,
+        (VkAllocationCallbacks const*)pAllocator, (VkPipeline*)pPipelines);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INVALID_SHADER_NV:
+        throw spk::error_invalid_shader_nv();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateGraphicsPipelines");
+    }
+  }
+
+  [[nodiscard]] spk::result get_pipeline_cache_data(
+      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
+      size_t* pDataSize, void* pData) const {
+    const VkResult res =
+        vkGetPipelineCacheData((VkDevice)device, (VkPipelineCache)pipelineCache,
+                               (size_t*)pDataSize, (void*)pData);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetPipelineCacheData");
+    }
+  }
+
+  void compile_deferred_nv(spk::device_ref device, spk::pipeline_ref pipeline,
+                           uint32_t shader) const {
+    const VkResult res = vkCompileDeferredNV(
+        (VkDevice)device, (VkPipeline)pipeline, (uint32_t)shader);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCompileDeferredNV");
+    }
+  }
+
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  void get_android_hardware_buffer_properties_android(
+      spk::device_ref device, AHardwareBuffer const* buffer,
+      spk::android_hardware_buffer_properties_android* pProperties) const {
+    const VkResult res = vkGetAndroidHardwareBufferPropertiesANDROID(
+        (VkDevice)device, (AHardwareBuffer const*)buffer,
+        (VkAndroidHardwareBufferPropertiesANDROID*)pProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR:
+        throw spk::error_invalid_external_handle_khr();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetAndroidHardwareBufferPropertiesANDROID");
+    }
+  }
+#endif
+
+  void get_render_area_granularity(spk::device_ref device,
+                                   spk::render_pass_ref renderPass,
+                                   spk::extent_2d* pGranularity) const {
+    vkGetRenderAreaGranularity((VkDevice)device, (VkRenderPass)renderPass,
+                               (VkExtent2D*)pGranularity);
+  }
+
+  void destroy_command_pool(spk::device_ref device,
+                            spk::command_pool_ref commandPool,
+                            spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyCommandPool((VkDevice)device, (VkCommandPool)commandPool,
+                         (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void get_device_memory_commitment(spk::device_ref device,
+                                    spk::device_memory_ref memory,
+                                    uint64_t* pCommittedMemoryInBytes) const {
+    vkGetDeviceMemoryCommitment((VkDevice)device, (VkDeviceMemory)memory,
+                                (VkDeviceSize*)pCommittedMemoryInBytes);
+  }
+
+  void cmd_set_viewport(spk::command_buffer_ref commandBuffer,
+                        uint32_t firstViewport, uint32_t viewportCount,
+                        spk::viewport const* pViewports) const {
+    vkCmdSetViewport((VkCommandBuffer)commandBuffer, (uint32_t)firstViewport,
+                     (uint32_t)viewportCount, (VkViewport const*)pViewports);
+  }
+
+  void destroy_pipeline_cache(
+      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyPipelineCache((VkDevice)device, (VkPipelineCache)pipelineCache,
+                           (VkAllocationCallbacks const*)pAllocator);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_semaphore_win_32handle_khr(
+      spk::device_ref device,
+      spk::semaphore_get_win_32handle_info_khr const* pGetWin32HandleInfo,
+      HANDLE* pHandle) const {
+    const VkResult res = vkGetSemaphoreWin32HandleKHR(
+        (VkDevice)device,
+        (VkSemaphoreGetWin32HandleInfoKHR const*)pGetWin32HandleInfo,
+        (HANDLE*)pHandle);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetSemaphoreWin32HandleKHR");
+    }
+  }
+#endif
+
+  void get_image_subresource_layout(spk::device_ref device,
+                                    spk::image_ref image,
+                                    spk::image_subresource const* pSubresource,
+                                    spk::subresource_layout* pLayout) const {
+    vkGetImageSubresourceLayout((VkDevice)device, (VkImage)image,
+                                (VkImageSubresource const*)pSubresource,
+                                (VkSubresourceLayout*)pLayout);
+  }
+
+  void allocate_command_buffers(
+      spk::device_ref device,
+      spk::command_buffer_allocate_info const* pAllocateInfo,
+      spk::command_buffer_ref* pCommandBuffers) const {
+    const VkResult res = vkAllocateCommandBuffers(
+        (VkDevice)device, (VkCommandBufferAllocateInfo const*)pAllocateInfo,
+        (VkCommandBuffer*)pCommandBuffers);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkAllocateCommandBuffers");
+    }
+  }
+
+  void destroy_buffer(spk::device_ref device, spk::buffer_ref buffer,
+                      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyBuffer((VkDevice)device, (VkBuffer)buffer,
+                    (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void create_buffer(spk::device_ref device,
+                     spk::buffer_create_info const* pCreateInfo,
+                     spk::allocation_callbacks const* pAllocator,
+                     spk::buffer_ref* pBuffer) const {
+    const VkResult res = vkCreateBuffer(
+        (VkDevice)device, (VkBufferCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkBuffer*)pBuffer);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INVALID_DEVICE_ADDRESS_EXT:
+        throw spk::error_invalid_device_address_ext();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateBuffer");
+    }
+  }
+
+  void cmd_begin_query(spk::command_buffer_ref commandBuffer,
+                       spk::query_pool_ref queryPool, uint32_t query,
+                       spk::query_control_flags flags) const {
+    vkCmdBeginQuery((VkCommandBuffer)commandBuffer, (VkQueryPool)queryPool,
+                    (uint32_t)query, (VkQueryControlFlags)flags);
+  }
+
+  void create_framebuffer(spk::device_ref device,
+                          spk::framebuffer_create_info const* pCreateInfo,
+                          spk::allocation_callbacks const* pAllocator,
+                          spk::framebuffer_ref* pFramebuffer) const {
+    const VkResult res = vkCreateFramebuffer(
+        (VkDevice)device, (VkFramebufferCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkFramebuffer*)pFramebuffer);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateFramebuffer");
+    }
+  }
+
+  void create_fence(spk::device_ref device,
+                    spk::fence_create_info const* pCreateInfo,
+                    spk::allocation_callbacks const* pAllocator,
+                    spk::fence_ref* pFence) const {
+    const VkResult res = vkCreateFence(
+        (VkDevice)device, (VkFenceCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkFence*)pFence);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkCreateFence");
+    }
+  }
+
+  void destroy_query_pool(spk::device_ref device, spk::query_pool_ref queryPool,
+                          spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyQueryPool((VkDevice)device, (VkQueryPool)queryPool,
+                       (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void bind_buffer_memory_2khr(
+      spk::device_ref device, uint32_t bindInfoCount,
+      spk::bind_buffer_memory_info const* pBindInfos) const {
+    const VkResult res =
+        vkBindBufferMemory2((VkDevice)device, (uint32_t)bindInfoCount,
+                            (VkBindBufferMemoryInfo const*)pBindInfos);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkBindBufferMemory2");
+    }
+  }
+
+  void bind_buffer_memory_2(
+      spk::device_ref device, uint32_t bindInfoCount,
+      spk::bind_buffer_memory_info const* pBindInfos) const {
+    const VkResult res =
+        vkBindBufferMemory2((VkDevice)device, (uint32_t)bindInfoCount,
+                            (VkBindBufferMemoryInfo const*)pBindInfos);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkBindBufferMemory2");
+    }
+  }
+
+  void cmd_trace_rays_nv(spk::command_buffer_ref commandBuffer,
+                         spk::buffer_ref raygenShaderBindingTableBuffer,
+                         uint64_t raygenShaderBindingOffset,
+                         spk::buffer_ref missShaderBindingTableBuffer,
+                         uint64_t missShaderBindingOffset,
+                         uint64_t missShaderBindingStride,
+                         spk::buffer_ref hitShaderBindingTableBuffer,
+                         uint64_t hitShaderBindingOffset,
+                         uint64_t hitShaderBindingStride,
+                         spk::buffer_ref callableShaderBindingTableBuffer,
+                         uint64_t callableShaderBindingOffset,
+                         uint64_t callableShaderBindingStride, uint32_t width,
+                         uint32_t height, uint32_t depth) const {
+    vkCmdTraceRaysNV((VkCommandBuffer)commandBuffer,
+                     (VkBuffer)raygenShaderBindingTableBuffer,
+                     (VkDeviceSize)raygenShaderBindingOffset,
+                     (VkBuffer)missShaderBindingTableBuffer,
+                     (VkDeviceSize)missShaderBindingOffset,
+                     (VkDeviceSize)missShaderBindingStride,
+                     (VkBuffer)hitShaderBindingTableBuffer,
+                     (VkDeviceSize)hitShaderBindingOffset,
+                     (VkDeviceSize)hitShaderBindingStride,
+                     (VkBuffer)callableShaderBindingTableBuffer,
+                     (VkDeviceSize)callableShaderBindingOffset,
+                     (VkDeviceSize)callableShaderBindingStride, (uint32_t)width,
+                     (uint32_t)height, (uint32_t)depth);
+  }
+
+  void merge_pipeline_caches(spk::device_ref device,
+                             spk::pipeline_cache_ref dstCache,
+                             uint32_t srcCacheCount,
+                             spk::pipeline_cache_ref const* pSrcCaches) const {
+    const VkResult res = vkMergePipelineCaches(
+        (VkDevice)device, (VkPipelineCache)dstCache, (uint32_t)srcCacheCount,
+        (VkPipelineCache const*)pSrcCaches);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkMergePipelineCaches");
+    }
+  }
+
+  void create_pipeline_layout(
+      spk::device_ref device,
+      spk::pipeline_layout_create_info const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::pipeline_layout_ref* pPipelineLayout) const {
+    const VkResult res = vkCreatePipelineLayout(
+        (VkDevice)device, (VkPipelineLayoutCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkPipelineLayout*)pPipelineLayout);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreatePipelineLayout");
+    }
+  }
+
+  void cmd_write_timestamp(spk::command_buffer_ref commandBuffer,
+                           spk::pipeline_stage_flags pipelineStage,
+                           spk::query_pool_ref queryPool,
+                           uint32_t query) const {
+    vkCmdWriteTimestamp((VkCommandBuffer)commandBuffer,
+                        (VkPipelineStageFlagBits)pipelineStage,
+                        (VkQueryPool)queryPool, (uint32_t)query);
+  }
+
+  void get_queue_checkpoint_data_nv(
+      spk::queue_ref queue, uint32_t* pCheckpointDataCount,
+      spk::checkpoint_data_nv* pCheckpointData) const {
+    vkGetQueueCheckpointDataNV((VkQueue)queue, (uint32_t*)pCheckpointDataCount,
+                               (VkCheckpointDataNV*)pCheckpointData);
+  }
+
+  [[nodiscard]] spk::result get_query_pool_results(
+      spk::device_ref device, spk::query_pool_ref queryPool,
+      uint32_t firstQuery, uint32_t queryCount, size_t dataSize, void* pData,
+      uint64_t stride, spk::query_result_flags flags) const {
+    const VkResult res = vkGetQueryPoolResults(
+        (VkDevice)device, (VkQueryPool)queryPool, (uint32_t)firstQuery,
+        (uint32_t)queryCount, (size_t)dataSize, (void*)pData,
+        (VkDeviceSize)stride, (VkQueryResultFlags)flags);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_NOT_READY:
+        return spk::result::not_ready;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetQueryPoolResults");
+    }
+  }
+
+  void queue_submit(spk::queue_ref queue, uint32_t submitCount,
+                    spk::submit_info const* pSubmits,
+                    spk::fence_ref fence) const {
+    const VkResult res =
+        vkQueueSubmit((VkQueue)queue, (uint32_t)submitCount,
+                      (VkSubmitInfo const*)pSubmits, (VkFence)fence);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkQueueSubmit");
+    }
+  }
+
+  void get_buffer_memory_requirements(
+      spk::device_ref device, spk::buffer_ref buffer,
+      spk::memory_requirements* pMemoryRequirements) const {
+    vkGetBufferMemoryRequirements((VkDevice)device, (VkBuffer)buffer,
+                                  (VkMemoryRequirements*)pMemoryRequirements);
+  }
+
+  void destroy_descriptor_update_template_khr(
+      spk::device_ref device,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDescriptorUpdateTemplate(
+        (VkDevice)device, (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
+        (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void destroy_descriptor_update_template(
+      spk::device_ref device,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDescriptorUpdateTemplate(
+        (VkDevice)device, (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
+        (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void destroy_render_pass(spk::device_ref device,
+                           spk::render_pass_ref renderPass,
+                           spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyRenderPass((VkDevice)device, (VkRenderPass)renderPass,
+                        (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void create_descriptor_set_layout(
+      spk::device_ref device,
+      spk::descriptor_set_layout_create_info const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::descriptor_set_layout_ref* pSetLayout) const {
+    const VkResult res = vkCreateDescriptorSetLayout(
+        (VkDevice)device, (VkDescriptorSetLayoutCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkDescriptorSetLayout*)pSetLayout);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateDescriptorSetLayout");
+    }
+  }
+
+  void free_memory(spk::device_ref device, spk::device_memory_ref memory,
+                   spk::allocation_callbacks const* pAllocator) const {
+    vkFreeMemory((VkDevice)device, (VkDeviceMemory)memory,
+                 (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void destroy_framebuffer(spk::device_ref device,
+                           spk::framebuffer_ref framebuffer,
+                           spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyFramebuffer((VkDevice)device, (VkFramebuffer)framebuffer,
+                         (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  [[nodiscard]] spk::result wait_for_fences(spk::device_ref device,
+                                            uint32_t fenceCount,
+                                            spk::fence_ref const* pFences,
+                                            spk::bool32_t waitAll,
+                                            uint64_t timeout) const {
+    const VkResult res = vkWaitForFences((VkDevice)device, (uint32_t)fenceCount,
+                                         (VkFence const*)pFences,
+                                         (VkBool32)waitAll, (uint64_t)timeout);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_TIMEOUT:
+        return spk::result::timeout;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkWaitForFences");
+    }
+  }
+
+  void cmd_end_transform_feedback_ext(
+      spk::command_buffer_ref commandBuffer, uint32_t firstCounterBuffer,
+      uint32_t counterBufferCount, spk::buffer_ref const* pCounterBuffers,
+      uint64_t const* pCounterBufferOffsets) const {
+    vkCmdEndTransformFeedbackEXT(
+        (VkCommandBuffer)commandBuffer, (uint32_t)firstCounterBuffer,
+        (uint32_t)counterBufferCount, (VkBuffer const*)pCounterBuffers,
+        (VkDeviceSize const*)pCounterBufferOffsets);
+  }
+
+  void cmd_update_buffer(spk::command_buffer_ref commandBuffer,
+                         spk::buffer_ref dstBuffer, uint64_t dstOffset,
+                         uint64_t dataSize, void const* pData) const {
+    vkCmdUpdateBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)dstBuffer,
+                      (VkDeviceSize)dstOffset, (VkDeviceSize)dataSize,
+                      (void const*)pData);
+  }
+
+  void create_pipeline_cache(spk::device_ref device,
+                             spk::pipeline_cache_create_info const* pCreateInfo,
+                             spk::allocation_callbacks const* pAllocator,
+                             spk::pipeline_cache_ref* pPipelineCache) const {
+    const VkResult res = vkCreatePipelineCache(
+        (VkDevice)device, (VkPipelineCacheCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkPipelineCache*)pPipelineCache);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreatePipelineCache");
+    }
+  }
+
+  void cmd_debug_marker_end_ext(spk::command_buffer_ref commandBuffer) const {
+    vkCmdDebugMarkerEndEXT((VkCommandBuffer)commandBuffer);
+  }
+
+  void destroy_device(spk::device_ref device,
+                      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDevice((VkDevice)device, (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  [[nodiscard]] spk::result get_validation_cache_data_ext(
+      spk::device_ref device, spk::validation_cache_ext_ref validationCache,
+      size_t* pDataSize, void* pData) const {
+    const VkResult res = vkGetValidationCacheDataEXT(
+        (VkDevice)device, (VkValidationCacheEXT)validationCache,
+        (size_t*)pDataSize, (void*)pData);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetValidationCacheDataEXT");
+    }
+  }
+
+  void cmd_set_sample_locations_ext(
+      spk::command_buffer_ref commandBuffer,
+      spk::sample_locations_info_ext const* pSampleLocationsInfo) const {
+    vkCmdSetSampleLocationsEXT(
+        (VkCommandBuffer)commandBuffer,
+        (VkSampleLocationsInfoEXT const*)pSampleLocationsInfo);
+  }
+
+  void create_compute_pipelines(
+      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
+      uint32_t createInfoCount,
+      spk::compute_pipeline_create_info const* pCreateInfos,
+      spk::allocation_callbacks const* pAllocator,
+      spk::pipeline_ref* pPipelines) const {
+    const VkResult res = vkCreateComputePipelines(
+        (VkDevice)device, (VkPipelineCache)pipelineCache,
+        (uint32_t)createInfoCount,
+        (VkComputePipelineCreateInfo const*)pCreateInfos,
+        (VkAllocationCallbacks const*)pAllocator, (VkPipeline*)pPipelines);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INVALID_SHADER_NV:
+        throw spk::error_invalid_shader_nv();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateComputePipelines");
+    }
+  }
+
+  void cmd_blit_image(spk::command_buffer_ref commandBuffer,
+                      spk::image_ref srcImage, spk::image_layout srcImageLayout,
+                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
+                      uint32_t regionCount, spk::image_blit const* pRegions,
+                      spk::filter filter) const {
+    vkCmdBlitImage((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
+                   (VkImageLayout)srcImageLayout, (VkImage)dstImage,
+                   (VkImageLayout)dstImageLayout, (uint32_t)regionCount,
+                   (VkImageBlit const*)pRegions, (VkFilter)filter);
+  }
+
+  void create_shader_module(spk::device_ref device,
+                            spk::shader_module_create_info const* pCreateInfo,
+                            spk::allocation_callbacks const* pAllocator,
+                            spk::shader_module_ref* pShaderModule) const {
+    const VkResult res = vkCreateShaderModule(
+        (VkDevice)device, (VkShaderModuleCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkShaderModule*)pShaderModule);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_INVALID_SHADER_NV:
+        throw spk::error_invalid_shader_nv();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateShaderModule");
+    }
+  }
+
+  void create_image(spk::device_ref device,
+                    spk::image_create_info const* pCreateInfo,
+                    spk::allocation_callbacks const* pAllocator,
+                    spk::image_ref* pImage) const {
+    const VkResult res = vkCreateImage(
+        (VkDevice)device, (VkImageCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkImage*)pImage);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkCreateImage");
+    }
+  }
+
+  void cmd_copy_buffer_to_image(spk::command_buffer_ref commandBuffer,
+                                spk::buffer_ref srcBuffer,
+                                spk::image_ref dstImage,
+                                spk::image_layout dstImageLayout,
+                                uint32_t regionCount,
+                                spk::buffer_image_copy const* pRegions) const {
+    vkCmdCopyBufferToImage((VkCommandBuffer)commandBuffer, (VkBuffer)srcBuffer,
+                           (VkImage)dstImage, (VkImageLayout)dstImageLayout,
+                           (uint32_t)regionCount,
+                           (VkBufferImageCopy const*)pRegions);
+  }
+
+  void register_device_event_ext(
+      spk::device_ref device,
+      spk::device_event_info_ext const* pDeviceEventInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::fence_ref* pFence) const {
+    const VkResult res = vkRegisterDeviceEventEXT(
+        (VkDevice)device, (VkDeviceEventInfoEXT const*)pDeviceEventInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkFence*)pFence);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkRegisterDeviceEventEXT");
+    }
+  }
+
+  [[nodiscard]] spk::result get_fence_status(spk::device_ref device,
+                                             spk::fence_ref fence) const {
+    const VkResult res = vkGetFenceStatus((VkDevice)device, (VkFence)fence);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_NOT_READY:
+        return spk::result::not_ready;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetFenceStatus");
+    }
+  }
+
+  PFN_vkVoidFunction get_device_proc_addr(spk::device_ref device,
+                                          char const* pName) const {
+    return (PFN_vkVoidFunction)(
+        vkGetDeviceProcAddr((VkDevice)device, (char const*)pName));
+  }
+
+  void reset_event(spk::device_ref device, spk::event_ref event) const {
+    const VkResult res = vkResetEvent((VkDevice)device, (VkEvent)event);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkResetEvent");
+    }
+  }
+
+  void cmd_debug_marker_begin_ext(
+      spk::command_buffer_ref commandBuffer,
+      spk::debug_marker_marker_info_ext const* pMarkerInfo) const {
+    vkCmdDebugMarkerBeginEXT((VkCommandBuffer)commandBuffer,
+                             (VkDebugMarkerMarkerInfoEXT const*)pMarkerInfo);
+  }
+
+  void create_semaphore(spk::device_ref device,
+                        spk::semaphore_create_info const* pCreateInfo,
+                        spk::allocation_callbacks const* pAllocator,
+                        spk::semaphore_ref* pSemaphore) const {
+    const VkResult res = vkCreateSemaphore(
+        (VkDevice)device, (VkSemaphoreCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSemaphore*)pSemaphore);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateSemaphore");
+    }
+  }
+
+  void cmd_bind_descriptor_sets(spk::command_buffer_ref commandBuffer,
+                                spk::pipeline_bind_point pipelineBindPoint,
+                                spk::pipeline_layout_ref layout,
+                                uint32_t firstSet, uint32_t descriptorSetCount,
+                                spk::descriptor_set_ref const* pDescriptorSets,
+                                uint32_t dynamicOffsetCount,
+                                uint32_t const* pDynamicOffsets) const {
+    vkCmdBindDescriptorSets(
+        (VkCommandBuffer)commandBuffer, (VkPipelineBindPoint)pipelineBindPoint,
+        (VkPipelineLayout)layout, (uint32_t)firstSet,
+        (uint32_t)descriptorSetCount, (VkDescriptorSet const*)pDescriptorSets,
+        (uint32_t)dynamicOffsetCount, (uint32_t const*)pDynamicOffsets);
+  }
+
+  void destroy_sampler_ycbcr_conversion_khr(
+      spk::device_ref device, spk::sampler_ycbcr_conversion_ref ycbcrConversion,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroySamplerYcbcrConversion((VkDevice)device,
+                                    (VkSamplerYcbcrConversion)ycbcrConversion,
+                                    (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void destroy_sampler_ycbcr_conversion(
+      spk::device_ref device, spk::sampler_ycbcr_conversion_ref ycbcrConversion,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroySamplerYcbcrConversion((VkDevice)device,
+                                    (VkSamplerYcbcrConversion)ycbcrConversion,
+                                    (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void cmd_clear_attachments(spk::command_buffer_ref commandBuffer,
+                             uint32_t attachmentCount,
+                             spk::clear_attachment const* pAttachments,
+                             uint32_t rectCount,
+                             spk::clear_rect const* pRects) const {
+    vkCmdClearAttachments((VkCommandBuffer)commandBuffer,
+                          (uint32_t)attachmentCount,
+                          (VkClearAttachment const*)pAttachments,
+                          (uint32_t)rectCount, (VkClearRect const*)pRects);
+  }
+
+  void cmd_draw_indirect_count_khr(spk::command_buffer_ref commandBuffer,
+                                   spk::buffer_ref buffer, uint64_t offset,
+                                   spk::buffer_ref countBuffer,
+                                   uint64_t countBufferOffset,
+                                   uint32_t maxDrawCount,
+                                   uint32_t stride) const {
+    vkCmdDrawIndirectCountKHR((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
+                              (VkDeviceSize)offset, (VkBuffer)countBuffer,
+                              (VkDeviceSize)countBufferOffset,
+                              (uint32_t)maxDrawCount, (uint32_t)stride);
+  }
+
+  void get_device_queue(spk::device_ref device, uint32_t queueFamilyIndex,
+                        uint32_t queueIndex, spk::queue_ref* pQueue) const {
+    vkGetDeviceQueue((VkDevice)device, (uint32_t)queueFamilyIndex,
+                     (uint32_t)queueIndex, (VkQueue*)pQueue);
+  }
+
+  void reset_descriptor_pool(spk::device_ref device,
+                             spk::descriptor_pool_ref descriptorPool) const {
+    const VkResult res = vkResetDescriptorPool(
+        (VkDevice)device, (VkDescriptorPool)descriptorPool,
+        (VkDescriptorPoolResetFlags)0 /*flags*/
+    );
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkResetDescriptorPool");
+    }
+  }
+
+  void cmd_dispatch(spk::command_buffer_ref commandBuffer, uint32_t groupCountX,
+                    uint32_t groupCountY, uint32_t groupCountZ) const {
+    vkCmdDispatch((VkCommandBuffer)commandBuffer, (uint32_t)groupCountX,
+                  (uint32_t)groupCountY, (uint32_t)groupCountZ);
+  }
+
+  void create_command_pool(spk::device_ref device,
+                           spk::command_pool_create_info const* pCreateInfo,
+                           spk::allocation_callbacks const* pAllocator,
+                           spk::command_pool_ref* pCommandPool) const {
+    const VkResult res = vkCreateCommandPool(
+        (VkDevice)device, (VkCommandPoolCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkCommandPool*)pCommandPool);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateCommandPool");
+    }
+  }
+
+  void cmd_resolve_image(spk::command_buffer_ref commandBuffer,
+                         spk::image_ref srcImage,
+                         spk::image_layout srcImageLayout,
+                         spk::image_ref dstImage,
+                         spk::image_layout dstImageLayout, uint32_t regionCount,
+                         spk::image_resolve const* pRegions) const {
+    vkCmdResolveImage((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
+                      (VkImageLayout)srcImageLayout, (VkImage)dstImage,
+                      (VkImageLayout)dstImageLayout, (uint32_t)regionCount,
+                      (VkImageResolve const*)pRegions);
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_memory_win_32handle_properties_khr(
+      spk::device_ref device, spk::external_memory_handle_type_flags handleType,
+      HANDLE handle,
+      spk::memory_win_32handle_properties_khr* pMemoryWin32HandleProperties)
+      const {
+    const VkResult res = vkGetMemoryWin32HandlePropertiesKHR(
+        (VkDevice)device, (VkExternalMemoryHandleTypeFlagBits)handleType,
+        (HANDLE)handle,
+        (VkMemoryWin32HandlePropertiesKHR*)pMemoryWin32HandleProperties);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetMemoryWin32HandlePropertiesKHR");
+    }
+  }
+#endif
+
+  [[nodiscard]] spk::result get_swapchain_images_khr(
+      spk::device_ref device, spk::swapchain_khr_ref swapchain,
+      uint32_t* pSwapchainImageCount, spk::image_ref* pSwapchainImages) const {
+    const VkResult res = vkGetSwapchainImagesKHR(
+        (VkDevice)device, (VkSwapchainKHR)swapchain,
+        (uint32_t*)pSwapchainImageCount, (VkImage*)pSwapchainImages);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_INCOMPLETE:
+        return spk::result::incomplete;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetSwapchainImagesKHR");
+    }
+  }
+
+  void destroy_sampler(spk::device_ref device, spk::sampler_ref sampler,
+                       spk::allocation_callbacks const* pAllocator) const {
+    vkDestroySampler((VkDevice)device, (VkSampler)sampler,
+                     (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void destroy_descriptor_pool(
+      spk::device_ref device, spk::descriptor_pool_ref descriptorPool,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyDescriptorPool((VkDevice)device, (VkDescriptorPool)descriptorPool,
+                            (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void unmap_memory(spk::device_ref device,
+                    spk::device_memory_ref memory) const {
+    vkUnmapMemory((VkDevice)device, (VkDeviceMemory)memory);
+  }
+
+  void destroy_semaphore(spk::device_ref device, spk::semaphore_ref semaphore,
+                         spk::allocation_callbacks const* pAllocator) const {
+    vkDestroySemaphore((VkDevice)device, (VkSemaphore)semaphore,
+                       (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void invalidate_mapped_memory_ranges(
+      spk::device_ref device, uint32_t memoryRangeCount,
+      spk::mapped_memory_range const* pMemoryRanges) const {
+    const VkResult res = vkInvalidateMappedMemoryRanges(
+        (VkDevice)device, (uint32_t)memoryRangeCount,
+        (VkMappedMemoryRange const*)pMemoryRanges);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkInvalidateMappedMemoryRanges");
+    }
+  }
+
+  void cmd_copy_query_pool_results(spk::command_buffer_ref commandBuffer,
+                                   spk::query_pool_ref queryPool,
+                                   uint32_t firstQuery, uint32_t queryCount,
+                                   spk::buffer_ref dstBuffer,
+                                   uint64_t dstOffset, uint64_t stride,
+                                   spk::query_result_flags flags) const {
+    vkCmdCopyQueryPoolResults((VkCommandBuffer)commandBuffer,
+                              (VkQueryPool)queryPool, (uint32_t)firstQuery,
+                              (uint32_t)queryCount, (VkBuffer)dstBuffer,
+                              (VkDeviceSize)dstOffset, (VkDeviceSize)stride,
+                              (VkQueryResultFlags)flags);
+  }
+
+  void begin_command_buffer(
+      spk::command_buffer_ref commandBuffer,
+      spk::command_buffer_begin_info const* pBeginInfo) const {
+    const VkResult res =
+        vkBeginCommandBuffer((VkCommandBuffer)commandBuffer,
+                             (VkCommandBufferBeginInfo const*)pBeginInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkBeginCommandBuffer");
+    }
+  }
+
+  void map_memory(spk::device_ref device, spk::device_memory_ref memory,
+                  uint64_t offset, uint64_t size, void** ppData) const {
+    const VkResult res = vkMapMemory(
+        (VkDevice)device, (VkDeviceMemory)memory, (VkDeviceSize)offset,
+        (VkDeviceSize)size, (VkMemoryMapFlags)0 /*flags*/, (void**)ppData);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_MEMORY_MAP_FAILED:
+        throw spk::error_memory_map_failed();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkMapMemory");
+    }
+  }
+
+  void cmd_write_buffer_marker_amd(spk::command_buffer_ref commandBuffer,
+                                   spk::pipeline_stage_flags pipelineStage,
+                                   spk::buffer_ref dstBuffer,
+                                   uint64_t dstOffset, uint32_t marker) const {
+    vkCmdWriteBufferMarkerAMD(
+        (VkCommandBuffer)commandBuffer, (VkPipelineStageFlagBits)pipelineStage,
+        (VkBuffer)dstBuffer, (VkDeviceSize)dstOffset, (uint32_t)marker);
+  }
+
+  [[nodiscard]] spk::result queue_present_khr(
+      spk::queue_ref queue, spk::present_info_khr const* pPresentInfo) const {
+    const VkResult res = vkQueuePresentKHR(
+        (VkQueue)queue, (VkPresentInfoKHR const*)pPresentInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return spk::result::success;
+      case VK_SUBOPTIMAL_KHR:
+        return spk::result::suboptimal_khr;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      case VK_ERROR_OUT_OF_DATE_KHR:
+        throw spk::error_out_of_date_khr();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkQueuePresentKHR");
+    }
+  }
+
+  void get_image_memory_requirements(
+      spk::device_ref device, spk::image_ref image,
+      spk::memory_requirements* pMemoryRequirements) const {
+    vkGetImageMemoryRequirements((VkDevice)device, (VkImage)image,
+                                 (VkMemoryRequirements*)pMemoryRequirements);
+  }
+
+  void queue_wait_idle(spk::queue_ref queue) const {
+    const VkResult res = vkQueueWaitIdle((VkQueue)queue);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkQueueWaitIdle");
+    }
+  }
+
+  void set_event(spk::device_ref device, spk::event_ref event) const {
+    const VkResult res = vkSetEvent((VkDevice)device, (VkEvent)event);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkSetEvent");
+    }
   }
 
   [[nodiscard]] spk::result acquire_next_image_khr(
@@ -23339,6 +25910,148 @@ struct device_dispatch_table {
     }
   }
 
+  void destroy_buffer_view(spk::device_ref device,
+                           spk::buffer_view_ref bufferView,
+                           spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyBufferView((VkDevice)device, (VkBufferView)bufferView,
+                        (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void create_validation_cache_ext(
+      spk::device_ref device,
+      spk::validation_cache_create_info_ext const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::validation_cache_ext_ref* pValidationCache) const {
+    const VkResult res = vkCreateValidationCacheEXT(
+        (VkDevice)device, (VkValidationCacheCreateInfoEXT const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkValidationCacheEXT*)pValidationCache);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateValidationCacheEXT");
+    }
+  }
+
+  void bind_image_memory(spk::device_ref device, spk::image_ref image,
+                         spk::device_memory_ref memory,
+                         uint64_t memoryOffset) const {
+    const VkResult res =
+        vkBindImageMemory((VkDevice)device, (VkImage)image,
+                          (VkDeviceMemory)memory, (VkDeviceSize)memoryOffset);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkBindImageMemory");
+    }
+  }
+
+  void reset_command_buffer(spk::command_buffer_ref commandBuffer,
+                            spk::command_buffer_reset_flags flags) const {
+    const VkResult res = vkResetCommandBuffer((VkCommandBuffer)commandBuffer,
+                                              (VkCommandBufferResetFlags)flags);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkResetCommandBuffer");
+    }
+  }
+
+  void destroy_image_view(spk::device_ref device, spk::image_view_ref imageView,
+                          spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyImageView((VkDevice)device, (VkImageView)imageView,
+                       (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void queue_bind_sparse(spk::queue_ref queue, uint32_t bindInfoCount,
+                         spk::bind_sparse_info const* pBindInfo,
+                         spk::fence_ref fence) const {
+    const VkResult res =
+        vkQueueBindSparse((VkQueue)queue, (uint32_t)bindInfoCount,
+                          (VkBindSparseInfo const*)pBindInfo, (VkFence)fence);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkQueueBindSparse");
+    }
+  }
+
+  void cmd_fill_buffer(spk::command_buffer_ref commandBuffer,
+                       spk::buffer_ref dstBuffer, uint64_t dstOffset,
+                       uint64_t size, uint32_t data) const {
+    vkCmdFillBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)dstBuffer,
+                    (VkDeviceSize)dstOffset, (VkDeviceSize)size,
+                    (uint32_t)data);
+  }
+
+  void device_wait_idle(spk::device_ref device) const {
+    const VkResult res = vkDeviceWaitIdle((VkDevice)device);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkDeviceWaitIdle");
+    }
+  }
+
+  void destroy_fence(spk::device_ref device, spk::fence_ref fence,
+                     spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyFence((VkDevice)device, (VkFence)fence,
+                   (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void get_device_group_surface_present_modes_khr(
+      spk::device_ref device, spk::surface_khr_ref surface,
+      spk::device_group_present_mode_flags_khr* pModes) const {
+    const VkResult res = vkGetDeviceGroupSurfacePresentModesKHR(
+        (VkDevice)device, (VkSurfaceKHR)surface,
+        (VkDeviceGroupPresentModeFlagsKHR*)pModes);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_SURFACE_LOST_KHR:
+        throw spk::error_surface_lost_khr();
+      default:
+        throw spk::unexpected_command_result(
+            (spk::result)res, "vkGetDeviceGroupSurfacePresentModesKHR");
+    }
+  }
+
   void update_descriptor_sets(
       spk::device_ref device, uint32_t descriptorWriteCount,
       spk::write_descriptor_set const* pDescriptorWrites,
@@ -23350,135 +26063,234 @@ struct device_dispatch_table {
                            (VkCopyDescriptorSet const*)pDescriptorCopies);
   }
 
-  void cmd_end_query_indexed_ext(spk::command_buffer_ref commandBuffer,
-                                 spk::query_pool_ref queryPool, uint32_t query,
-                                 uint32_t index) const {
-    vkCmdEndQueryIndexedEXT((VkCommandBuffer)commandBuffer,
-                            (VkQueryPool)queryPool, (uint32_t)query,
-                            (uint32_t)index);
+  void cmd_end_query(spk::command_buffer_ref commandBuffer,
+                     spk::query_pool_ref queryPool, uint32_t query) const {
+    vkCmdEndQuery((VkCommandBuffer)commandBuffer, (VkQueryPool)queryPool,
+                  (uint32_t)query);
   }
 
-  void import_semaphore_fd_khr(
+  void cmd_copy_acceleration_structure_nv(
+      spk::command_buffer_ref commandBuffer,
+      spk::acceleration_structure_nv_ref dst,
+      spk::acceleration_structure_nv_ref src,
+      spk::copy_acceleration_structure_mode_nv mode) const {
+    vkCmdCopyAccelerationStructureNV((VkCommandBuffer)commandBuffer,
+                                     (VkAccelerationStructureNV)dst,
+                                     (VkAccelerationStructureNV)src,
+                                     (VkCopyAccelerationStructureModeNV)mode);
+  }
+
+  void cmd_process_commands_nvx(
+      spk::command_buffer_ref commandBuffer,
+      spk::cmd_process_commands_info_nvx const* pProcessCommandsInfo) const {
+    vkCmdProcessCommandsNVX(
+        (VkCommandBuffer)commandBuffer,
+        (VkCmdProcessCommandsInfoNVX const*)pProcessCommandsInfo);
+  }
+
+  void queue_begin_debug_utils_label_ext(
+      spk::queue_ref queue,
+      spk::debug_utils_label_ext const* pLabelInfo) const {
+    vkQueueBeginDebugUtilsLabelEXT((VkQueue)queue,
+                                   (VkDebugUtilsLabelEXT const*)pLabelInfo);
+  }
+
+  void register_objects_nvx(
+      spk::device_ref device, spk::object_table_nvx_ref objectTable,
+      uint32_t objectCount,
+      spk::object_table_entry_nvx const* const* ppObjectTableEntries,
+      uint32_t const* pObjectIndices) const {
+    const VkResult res = vkRegisterObjectsNVX(
+        (VkDevice)device, (VkObjectTableNVX)objectTable, (uint32_t)objectCount,
+        (VkObjectTableEntryNVX const* const*)ppObjectTableEntries,
+        (uint32_t const*)pObjectIndices);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkRegisterObjectsNVX");
+    }
+  }
+
+  void flush_mapped_memory_ranges(
+      spk::device_ref device, uint32_t memoryRangeCount,
+      spk::mapped_memory_range const* pMemoryRanges) const {
+    const VkResult res =
+        vkFlushMappedMemoryRanges((VkDevice)device, (uint32_t)memoryRangeCount,
+                                  (VkMappedMemoryRange const*)pMemoryRanges);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkFlushMappedMemoryRanges");
+    }
+  }
+
+  void create_event(spk::device_ref device,
+                    spk::event_create_info const* pCreateInfo,
+                    spk::allocation_callbacks const* pAllocator,
+                    spk::event_ref* pEvent) const {
+    const VkResult res = vkCreateEvent(
+        (VkDevice)device, (VkEventCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkEvent*)pEvent);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res, "vkCreateEvent");
+    }
+  }
+
+  void cmd_set_stencil_compare_mask(spk::command_buffer_ref commandBuffer,
+                                    spk::stencil_face_flags faceMask,
+                                    uint32_t compareMask) const {
+    vkCmdSetStencilCompareMask((VkCommandBuffer)commandBuffer,
+                               (VkStencilFaceFlags)faceMask,
+                               (uint32_t)compareMask);
+  }
+
+  void cmd_set_line_width(spk::command_buffer_ref commandBuffer,
+                          float lineWidth) const {
+    vkCmdSetLineWidth((VkCommandBuffer)commandBuffer, (float)lineWidth);
+  }
+
+  void cmd_push_descriptor_set_with_template_khr(
+      spk::command_buffer_ref commandBuffer,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      spk::pipeline_layout_ref layout, uint32_t set, void const* pData) const {
+    vkCmdPushDescriptorSetWithTemplateKHR(
+        (VkCommandBuffer)commandBuffer,
+        (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
+        (VkPipelineLayout)layout, (uint32_t)set, (void const*)pData);
+  }
+
+  void cmd_set_depth_bias(spk::command_buffer_ref commandBuffer,
+                          float depthBiasConstantFactor, float depthBiasClamp,
+                          float depthBiasSlopeFactor) const {
+    vkCmdSetDepthBias((VkCommandBuffer)commandBuffer,
+                      (float)depthBiasConstantFactor, (float)depthBiasClamp,
+                      (float)depthBiasSlopeFactor);
+  }
+
+  void cmd_set_blend_constants(
+      spk::command_buffer_ref commandBuffer,
+      std::array<float const, 4> blendConstants) const {
+    vkCmdSetBlendConstants((VkCommandBuffer)commandBuffer,
+                           blendConstants.data());
+  }
+
+  void cmd_set_depth_bounds(spk::command_buffer_ref commandBuffer,
+                            float minDepthBounds, float maxDepthBounds) const {
+    vkCmdSetDepthBounds((VkCommandBuffer)commandBuffer, (float)minDepthBounds,
+                        (float)maxDepthBounds);
+  }
+
+  void cmd_set_stencil_write_mask(spk::command_buffer_ref commandBuffer,
+                                  spk::stencil_face_flags faceMask,
+                                  uint32_t writeMask) const {
+    vkCmdSetStencilWriteMask((VkCommandBuffer)commandBuffer,
+                             (VkStencilFaceFlags)faceMask, (uint32_t)writeMask);
+  }
+
+  void cmd_bind_index_buffer(spk::command_buffer_ref commandBuffer,
+                             spk::buffer_ref buffer, uint64_t offset,
+                             spk::index_type indexType) const {
+    vkCmdBindIndexBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
+                         (VkDeviceSize)offset, (VkIndexType)indexType);
+  }
+
+  void destroy_acceleration_structure_nv(
       spk::device_ref device,
-      spk::import_semaphore_fd_info_khr const* pImportSemaphoreFdInfo) const {
-    const VkResult res = vkImportSemaphoreFdKHR(
-        (VkDevice)device,
-        (VkImportSemaphoreFdInfoKHR const*)pImportSemaphoreFdInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkImportSemaphoreFdKHR");
-    }
-  }
-
-  void create_ray_tracing_pipelines_nv(
-      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
-      uint32_t createInfoCount,
-      spk::ray_tracing_pipeline_create_info_nv const* pCreateInfos,
-      spk::allocation_callbacks const* pAllocator,
-      spk::pipeline_ref* pPipelines) const {
-    const VkResult res = vkCreateRayTracingPipelinesNV(
-        (VkDevice)device, (VkPipelineCache)pipelineCache,
-        (uint32_t)createInfoCount,
-        (VkRayTracingPipelineCreateInfoNV const*)pCreateInfos,
-        (VkAllocationCallbacks const*)pAllocator, (VkPipeline*)pPipelines);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INVALID_SHADER_NV:
-        throw spk::error_invalid_shader_nv();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateRayTracingPipelinesNV");
-    }
-  }
-
-  void cmd_execute_commands(
-      spk::command_buffer_ref commandBuffer, uint32_t commandBufferCount,
-      spk::command_buffer_ref const* pCommandBuffers) const {
-    vkCmdExecuteCommands((VkCommandBuffer)commandBuffer,
-                         (uint32_t)commandBufferCount,
-                         (VkCommandBuffer const*)pCommandBuffers);
-  }
-
-  [[nodiscard]] spk::result get_event_status(spk::device_ref device,
-                                             spk::event_ref event) const {
-    const VkResult res = vkGetEventStatus((VkDevice)device, (VkEvent)event);
-    switch (res) {
-      case VK_EVENT_SET:
-        return spk::result::event_set;
-      case VK_EVENT_RESET:
-        return spk::result::event_reset;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetEventStatus");
-    }
-  }
-
-  void cmd_push_constants(spk::command_buffer_ref commandBuffer,
-                          spk::pipeline_layout_ref layout,
-                          spk::shader_stage_flags stageFlags, uint32_t offset,
-                          uint32_t size, void const* pValues) const {
-    vkCmdPushConstants((VkCommandBuffer)commandBuffer, (VkPipelineLayout)layout,
-                       (VkShaderStageFlags)stageFlags, (uint32_t)offset,
-                       (uint32_t)size, (void const*)pValues);
-  }
-
-  void destroy_shader_module(
-      spk::device_ref device, spk::shader_module_ref shaderModule,
+      spk::acceleration_structure_nv_ref accelerationStructure,
       spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyShaderModule((VkDevice)device, (VkShaderModule)shaderModule,
-                          (VkAllocationCallbacks const*)pAllocator);
+    vkDestroyAccelerationStructureNV(
+        (VkDevice)device, (VkAccelerationStructureNV)accelerationStructure,
+        (VkAllocationCallbacks const*)pAllocator);
   }
 
-  void cmd_copy_image_to_buffer(spk::command_buffer_ref commandBuffer,
-                                spk::image_ref srcImage,
-                                spk::image_layout srcImageLayout,
-                                spk::buffer_ref dstBuffer, uint32_t regionCount,
-                                spk::buffer_image_copy const* pRegions) const {
-    vkCmdCopyImageToBuffer((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
-                           (VkImageLayout)srcImageLayout, (VkBuffer)dstBuffer,
-                           (uint32_t)regionCount,
-                           (VkBufferImageCopy const*)pRegions);
-  }
-
-  void create_indirect_commands_layout_nvx(
-      spk::device_ref device,
-      spk::indirect_commands_layout_create_info_nvx const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::indirect_commands_layout_nvx_ref* pIndirectCommandsLayout) const {
-    const VkResult res = vkCreateIndirectCommandsLayoutNVX(
-        (VkDevice)device,
-        (VkIndirectCommandsLayoutCreateInfoNVX const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkIndirectCommandsLayoutNVX*)pIndirectCommandsLayout);
+  void get_memory_fd_khr(spk::device_ref device,
+                         spk::memory_get_fd_info_khr const* pGetFdInfo,
+                         int* pFd) const {
+    const VkResult res = vkGetMemoryFdKHR(
+        (VkDevice)device, (VkMemoryGetFdInfoKHR const*)pGetFdInfo, (int*)pFd);
     switch (res) {
       case VK_SUCCESS:
         return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
       case VK_ERROR_OUT_OF_HOST_MEMORY:
         throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
       default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkCreateIndirectCommandsLayoutNVX");
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetMemoryFdKHR");
     }
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void get_memory_win_32handle_nv(
+      spk::device_ref device, spk::device_memory_ref memory,
+      spk::external_memory_handle_type_flags_nv handleType,
+      HANDLE* pHandle) const {
+    const VkResult res = vkGetMemoryWin32HandleNV(
+        (VkDevice)device, (VkDeviceMemory)memory,
+        (VkExternalMemoryHandleTypeFlagsNV)handleType, (HANDLE*)pHandle);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetMemoryWin32HandleNV");
+    }
+  }
+#endif
+
+  void cmd_draw_indirect_count_amd(spk::command_buffer_ref commandBuffer,
+                                   spk::buffer_ref buffer, uint64_t offset,
+                                   spk::buffer_ref countBuffer,
+                                   uint64_t countBufferOffset,
+                                   uint32_t maxDrawCount,
+                                   uint32_t stride) const {
+    vkCmdDrawIndirectCountAMD((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
+                              (VkDeviceSize)offset, (VkBuffer)countBuffer,
+                              (VkDeviceSize)countBufferOffset,
+                              (uint32_t)maxDrawCount, (uint32_t)stride);
+  }
+
+  void cmd_bind_vertex_buffers(spk::command_buffer_ref commandBuffer,
+                               uint32_t firstBinding, uint32_t bindingCount,
+                               spk::buffer_ref const* pBuffers,
+                               uint64_t const* pOffsets) const {
+    vkCmdBindVertexBuffers((VkCommandBuffer)commandBuffer,
+                           (uint32_t)firstBinding, (uint32_t)bindingCount,
+                           (VkBuffer const*)pBuffers,
+                           (VkDeviceSize const*)pOffsets);
+  }
+
+  void cmd_set_discard_rectangle_ext(
+      spk::command_buffer_ref commandBuffer, uint32_t firstDiscardRectangle,
+      uint32_t discardRectangleCount,
+      spk::rect_2d const* pDiscardRectangles) const {
+    vkCmdSetDiscardRectangleEXT(
+        (VkCommandBuffer)commandBuffer, (uint32_t)firstDiscardRectangle,
+        (uint32_t)discardRectangleCount, (VkRect2D const*)pDiscardRectangles);
   }
 
   void create_descriptor_update_template(
@@ -23527,9 +26339,24 @@ struct device_dispatch_table {
     }
   }
 
-  void cmd_end_conditional_rendering_ext(
-      spk::command_buffer_ref commandBuffer) const {
-    vkCmdEndConditionalRenderingEXT((VkCommandBuffer)commandBuffer);
+  void cmd_set_checkpoint_nv(spk::command_buffer_ref commandBuffer,
+                             void const* pCheckpointMarker) const {
+    vkCmdSetCheckpointNV((VkCommandBuffer)commandBuffer,
+                         (void const*)pCheckpointMarker);
+  }
+
+  void cmd_draw(spk::command_buffer_ref commandBuffer, uint32_t vertexCount,
+                uint32_t instanceCount, uint32_t firstVertex,
+                uint32_t firstInstance) const {
+    vkCmdDraw((VkCommandBuffer)commandBuffer, (uint32_t)vertexCount,
+              (uint32_t)instanceCount, (uint32_t)firstVertex,
+              (uint32_t)firstInstance);
+  }
+
+  void destroy_event(spk::device_ref device, spk::event_ref event,
+                     spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyEvent((VkDevice)device, (VkEvent)event,
+                   (VkAllocationCallbacks const*)pAllocator);
   }
 
   void cmd_begin_conditional_rendering_ext(
@@ -23541,10 +26368,24 @@ struct device_dispatch_table {
         (VkConditionalRenderingBeginInfoEXT const*)pConditionalRenderingBegin);
   }
 
-  void cmd_end_query(spk::command_buffer_ref commandBuffer,
-                     spk::query_pool_ref queryPool, uint32_t query) const {
-    vkCmdEndQuery((VkCommandBuffer)commandBuffer, (VkQueryPool)queryPool,
-                  (uint32_t)query);
+  void create_buffer_view(spk::device_ref device,
+                          spk::buffer_view_create_info const* pCreateInfo,
+                          spk::allocation_callbacks const* pAllocator,
+                          spk::buffer_view_ref* pView) const {
+    const VkResult res = vkCreateBufferView(
+        (VkDevice)device, (VkBufferViewCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkBufferView*)pView);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateBufferView");
+    }
   }
 
   void bind_buffer_memory(spk::device_ref device, spk::buffer_ref buffer,
@@ -23566,43 +26407,88 @@ struct device_dispatch_table {
     }
   }
 
-  void create_render_pass_2khr(
-      spk::device_ref device,
-      spk::render_pass_create_info_2khr const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::render_pass_ref* pRenderPass) const {
-    const VkResult res = vkCreateRenderPass2KHR(
-        (VkDevice)device, (VkRenderPassCreateInfo2KHR const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkRenderPass*)pRenderPass);
+  void cmd_draw_indirect(spk::command_buffer_ref commandBuffer,
+                         spk::buffer_ref buffer, uint64_t offset,
+                         uint32_t drawCount, uint32_t stride) const {
+    vkCmdDrawIndirect((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
+                      (VkDeviceSize)offset, (uint32_t)drawCount,
+                      (uint32_t)stride);
+  }
+
+  void display_power_control_ext(
+      spk::device_ref device, spk::display_khr_ref display,
+      spk::display_power_info_ext const* pDisplayPowerInfo) const {
+    const VkResult res = vkDisplayPowerControlEXT(
+        (VkDevice)device, (VkDisplayKHR)display,
+        (VkDisplayPowerInfoEXT const*)pDisplayPowerInfo);
     switch (res) {
       case VK_SUCCESS:
         return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateRenderPass2KHR");
+                                             "vkDisplayPowerControlEXT");
     }
   }
 
-  void cmd_clear_attachments(spk::command_buffer_ref commandBuffer,
-                             uint32_t attachmentCount,
-                             spk::clear_attachment const* pAttachments,
-                             uint32_t rectCount,
-                             spk::clear_rect const* pRects) const {
-    vkCmdClearAttachments((VkCommandBuffer)commandBuffer,
-                          (uint32_t)attachmentCount,
-                          (VkClearAttachment const*)pAttachments,
-                          (uint32_t)rectCount, (VkClearRect const*)pRects);
+  void cmd_dispatch_indirect(spk::command_buffer_ref commandBuffer,
+                             spk::buffer_ref buffer, uint64_t offset) const {
+    vkCmdDispatchIndirect((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
+                          (VkDeviceSize)offset);
   }
 
-  void cmd_set_viewport(spk::command_buffer_ref commandBuffer,
-                        uint32_t firstViewport, uint32_t viewportCount,
-                        spk::viewport const* pViewports) const {
-    vkCmdSetViewport((VkCommandBuffer)commandBuffer, (uint32_t)firstViewport,
-                     (uint32_t)viewportCount, (VkViewport const*)pViewports);
+  void cmd_draw_indexed_indirect(spk::command_buffer_ref commandBuffer,
+                                 spk::buffer_ref buffer, uint64_t offset,
+                                 uint32_t drawCount, uint32_t stride) const {
+    vkCmdDrawIndexedIndirect((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
+                             (VkDeviceSize)offset, (uint32_t)drawCount,
+                             (uint32_t)stride);
+  }
+
+  void cmd_copy_buffer(spk::command_buffer_ref commandBuffer,
+                       spk::buffer_ref srcBuffer, spk::buffer_ref dstBuffer,
+                       uint32_t regionCount,
+                       spk::buffer_copy const* pRegions) const {
+    vkCmdCopyBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)srcBuffer,
+                    (VkBuffer)dstBuffer, (uint32_t)regionCount,
+                    (VkBufferCopy const*)pRegions);
+  }
+
+  void cmd_copy_image(spk::command_buffer_ref commandBuffer,
+                      spk::image_ref srcImage, spk::image_layout srcImageLayout,
+                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
+                      uint32_t regionCount,
+                      spk::image_copy const* pRegions) const {
+    vkCmdCopyImage((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
+                   (VkImageLayout)srcImageLayout, (VkImage)dstImage,
+                   (VkImageLayout)dstImageLayout, (uint32_t)regionCount,
+                   (VkImageCopy const*)pRegions);
+  }
+
+  void destroy_pipeline(spk::device_ref device, spk::pipeline_ref pipeline,
+                        spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyPipeline((VkDevice)device, (VkPipeline)pipeline,
+                      (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void cmd_copy_image_to_buffer(spk::command_buffer_ref commandBuffer,
+                                spk::image_ref srcImage,
+                                spk::image_layout srcImageLayout,
+                                spk::buffer_ref dstBuffer, uint32_t regionCount,
+                                spk::buffer_image_copy const* pRegions) const {
+    vkCmdCopyImageToBuffer((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
+                           (VkImageLayout)srcImageLayout, (VkBuffer)dstBuffer,
+                           (uint32_t)regionCount,
+                           (VkBufferImageCopy const*)pRegions);
+  }
+
+  void cmd_clear_color_image(
+      spk::command_buffer_ref commandBuffer, spk::image_ref image,
+      spk::image_layout imageLayout, spk::clear_color_value const* pColor,
+      uint32_t rangeCount, spk::image_subresource_range const* pRanges) const {
+    vkCmdClearColorImage((VkCommandBuffer)commandBuffer, (VkImage)image,
+                         (VkImageLayout)imageLayout,
+                         (VkClearColorValue const*)pColor, (uint32_t)rangeCount,
+                         (VkImageSubresourceRange const*)pRanges);
   }
 
   void cmd_clear_depth_stencil_image(
@@ -23617,91 +26503,82 @@ struct device_dispatch_table {
                                 (VkImageSubresourceRange const*)pRanges);
   }
 
-  void cmd_fill_buffer(spk::command_buffer_ref commandBuffer,
-                       spk::buffer_ref dstBuffer, uint64_t dstOffset,
-                       uint64_t size, uint32_t data) const {
-    vkCmdFillBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)dstBuffer,
-                    (VkDeviceSize)dstOffset, (VkDeviceSize)size,
-                    (uint32_t)data);
+  void cmd_set_event(spk::command_buffer_ref commandBuffer,
+                     spk::event_ref event,
+                     spk::pipeline_stage_flags stageMask) const {
+    vkCmdSetEvent((VkCommandBuffer)commandBuffer, (VkEvent)event,
+                  (VkPipelineStageFlags)stageMask);
   }
 
-  void create_compute_pipelines(
-      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
-      uint32_t createInfoCount,
-      spk::compute_pipeline_create_info const* pCreateInfos,
-      spk::allocation_callbacks const* pAllocator,
-      spk::pipeline_ref* pPipelines) const {
-    const VkResult res = vkCreateComputePipelines(
-        (VkDevice)device, (VkPipelineCache)pipelineCache,
-        (uint32_t)createInfoCount,
-        (VkComputePipelineCreateInfo const*)pCreateInfos,
-        (VkAllocationCallbacks const*)pAllocator, (VkPipeline*)pPipelines);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INVALID_SHADER_NV:
-        throw spk::error_invalid_shader_nv();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateComputePipelines");
-    }
+  void destroy_indirect_commands_layout_nvx(
+      spk::device_ref device,
+      spk::indirect_commands_layout_nvx_ref indirectCommandsLayout,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyIndirectCommandsLayoutNVX(
+        (VkDevice)device, (VkIndirectCommandsLayoutNVX)indirectCommandsLayout,
+        (VkAllocationCallbacks const*)pAllocator);
   }
 
-  void cmd_blit_image(spk::command_buffer_ref commandBuffer,
-                      spk::image_ref srcImage, spk::image_layout srcImageLayout,
-                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
-                      uint32_t regionCount, spk::image_blit const* pRegions,
-                      spk::filter filter) const {
-    vkCmdBlitImage((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
-                   (VkImageLayout)srcImageLayout, (VkImage)dstImage,
-                   (VkImageLayout)dstImageLayout, (uint32_t)regionCount,
-                   (VkImageBlit const*)pRegions, (VkFilter)filter);
+  void cmd_push_descriptor_set_khr(
+      spk::command_buffer_ref commandBuffer,
+      spk::pipeline_bind_point pipelineBindPoint,
+      spk::pipeline_layout_ref layout, uint32_t set,
+      uint32_t descriptorWriteCount,
+      spk::write_descriptor_set const* pDescriptorWrites) const {
+    vkCmdPushDescriptorSetKHR(
+        (VkCommandBuffer)commandBuffer, (VkPipelineBindPoint)pipelineBindPoint,
+        (VkPipelineLayout)layout, (uint32_t)set, (uint32_t)descriptorWriteCount,
+        (VkWriteDescriptorSet const*)pDescriptorWrites);
   }
 
-  void cmd_set_line_width(spk::command_buffer_ref commandBuffer,
-                          float lineWidth) const {
-    vkCmdSetLineWidth((VkCommandBuffer)commandBuffer, (float)lineWidth);
+  void update_descriptor_set_with_template_khr(
+      spk::device_ref device, spk::descriptor_set_ref descriptorSet,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      void const* pData) const {
+    vkUpdateDescriptorSetWithTemplate(
+        (VkDevice)device, (VkDescriptorSet)descriptorSet,
+        (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
+        (void const*)pData);
   }
 
-  void destroy_framebuffer(spk::device_ref device,
-                           spk::framebuffer_ref framebuffer,
-                           spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyFramebuffer((VkDevice)device, (VkFramebuffer)framebuffer,
-                         (VkAllocationCallbacks const*)pAllocator);
+  void update_descriptor_set_with_template(
+      spk::device_ref device, spk::descriptor_set_ref descriptorSet,
+      spk::descriptor_update_template_ref descriptorUpdateTemplate,
+      void const* pData) const {
+    vkUpdateDescriptorSetWithTemplate(
+        (VkDevice)device, (VkDescriptorSet)descriptorSet,
+        (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
+        (void const*)pData);
   }
 
-  void destroy_query_pool(spk::device_ref device, spk::query_pool_ref queryPool,
-                          spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyQueryPool((VkDevice)device, (VkQueryPool)queryPool,
-                       (VkAllocationCallbacks const*)pAllocator);
+  void cmd_end_conditional_rendering_ext(
+      spk::command_buffer_ref commandBuffer) const {
+    vkCmdEndConditionalRenderingEXT((VkCommandBuffer)commandBuffer);
   }
 
-  void cmd_set_viewport_shading_rate_palette_nv(
-      spk::command_buffer_ref commandBuffer, uint32_t firstViewport,
-      uint32_t viewportCount,
-      spk::shading_rate_palette_nv const* pShadingRatePalettes) const {
-    vkCmdSetViewportShadingRatePaletteNV(
-        (VkCommandBuffer)commandBuffer, (uint32_t)firstViewport,
-        (uint32_t)viewportCount,
-        (VkShadingRatePaletteNV const*)pShadingRatePalettes);
+  void cmd_reset_query_pool(spk::command_buffer_ref commandBuffer,
+                            spk::query_pool_ref queryPool, uint32_t firstQuery,
+                            uint32_t queryCount) const {
+    vkCmdResetQueryPool((VkCommandBuffer)commandBuffer, (VkQueryPool)queryPool,
+                        (uint32_t)firstQuery, (uint32_t)queryCount);
   }
 
-  void cmd_draw_indirect(spk::command_buffer_ref commandBuffer,
-                         spk::buffer_ref buffer, uint64_t offset,
-                         uint32_t drawCount, uint32_t stride) const {
-    vkCmdDrawIndirect((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
-                      (VkDeviceSize)offset, (uint32_t)drawCount,
-                      (uint32_t)stride);
+  void cmd_push_constants(spk::command_buffer_ref commandBuffer,
+                          spk::pipeline_layout_ref layout,
+                          spk::shader_stage_flags stageFlags, uint32_t offset,
+                          uint32_t size, void const* pValues) const {
+    vkCmdPushConstants((VkCommandBuffer)commandBuffer, (VkPipelineLayout)layout,
+                       (VkShaderStageFlags)stageFlags, (uint32_t)offset,
+                       (uint32_t)size, (void const*)pValues);
   }
 
-  void destroy_event(spk::device_ref device, spk::event_ref event,
-                     spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyEvent((VkDevice)device, (VkEvent)event,
-                   (VkAllocationCallbacks const*)pAllocator);
+  void cmd_begin_render_pass(
+      spk::command_buffer_ref commandBuffer,
+      spk::render_pass_begin_info const* pRenderPassBegin,
+      spk::subpass_contents contents) const {
+    vkCmdBeginRenderPass((VkCommandBuffer)commandBuffer,
+                         (VkRenderPassBeginInfo const*)pRenderPassBegin,
+                         (VkSubpassContents)contents);
   }
 
   void cmd_set_stencil_reference(spk::command_buffer_ref commandBuffer,
@@ -23711,50 +26588,11 @@ struct device_dispatch_table {
                              (VkStencilFaceFlags)faceMask, (uint32_t)reference);
   }
 
-  void destroy_device(spk::device_ref device,
-                      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDevice((VkDevice)device, (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void destroy_semaphore(spk::device_ref device, spk::semaphore_ref semaphore,
-                         spk::allocation_callbacks const* pAllocator) const {
-    vkDestroySemaphore((VkDevice)device, (VkSemaphore)semaphore,
-                       (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_set_stencil_write_mask(spk::command_buffer_ref commandBuffer,
-                                  spk::stencil_face_flags faceMask,
-                                  uint32_t writeMask) const {
-    vkCmdSetStencilWriteMask((VkCommandBuffer)commandBuffer,
-                             (VkStencilFaceFlags)faceMask, (uint32_t)writeMask);
-  }
-
-  void begin_command_buffer(
-      spk::command_buffer_ref commandBuffer,
-      spk::command_buffer_begin_info const* pBeginInfo) const {
-    const VkResult res =
-        vkBeginCommandBuffer((VkCommandBuffer)commandBuffer,
-                             (VkCommandBufferBeginInfo const*)pBeginInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkBeginCommandBuffer");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void import_fence_win_32handle_khr(
-      spk::device_ref device, spk::import_fence_win_32handle_info_khr const*
-                                  pImportFenceWin32HandleInfo) const {
-    const VkResult res = vkImportFenceWin32HandleKHR(
-        (VkDevice)device,
-        (VkImportFenceWin32HandleInfoKHR const*)pImportFenceWin32HandleInfo);
+  void import_fence_fd_khr(
+      spk::device_ref device,
+      spk::import_fence_fd_info_khr const* pImportFenceFdInfo) const {
+    const VkResult res = vkImportFenceFdKHR(
+        (VkDevice)device, (VkImportFenceFdInfoKHR const*)pImportFenceFdInfo);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -23764,64 +26602,27 @@ struct device_dispatch_table {
         throw spk::error_invalid_external_handle();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkImportFenceWin32HandleKHR");
-    }
-  }
-#endif
-
-  void cmd_set_stencil_compare_mask(spk::command_buffer_ref commandBuffer,
-                                    spk::stencil_face_flags faceMask,
-                                    uint32_t compareMask) const {
-    vkCmdSetStencilCompareMask((VkCommandBuffer)commandBuffer,
-                               (VkStencilFaceFlags)faceMask,
-                               (uint32_t)compareMask);
-  }
-
-  void cmd_set_depth_bounds(spk::command_buffer_ref commandBuffer,
-                            float minDepthBounds, float maxDepthBounds) const {
-    vkCmdSetDepthBounds((VkCommandBuffer)commandBuffer, (float)minDepthBounds,
-                        (float)maxDepthBounds);
-  }
-
-  void cmd_set_depth_bias(spk::command_buffer_ref commandBuffer,
-                          float depthBiasConstantFactor, float depthBiasClamp,
-                          float depthBiasSlopeFactor) const {
-    vkCmdSetDepthBias((VkCommandBuffer)commandBuffer,
-                      (float)depthBiasConstantFactor, (float)depthBiasClamp,
-                      (float)depthBiasSlopeFactor);
-  }
-
-  void queue_wait_idle(spk::queue_ref queue) const {
-    const VkResult res = vkQueueWaitIdle((VkQueue)queue);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkQueueWaitIdle");
+                                             "vkImportFenceFdKHR");
     }
   }
 
-  void cmd_resolve_image(spk::command_buffer_ref commandBuffer,
-                         spk::image_ref srcImage,
-                         spk::image_layout srcImageLayout,
-                         spk::image_ref dstImage,
-                         spk::image_layout dstImageLayout, uint32_t regionCount,
-                         spk::image_resolve const* pRegions) const {
-    vkCmdResolveImage((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
-                      (VkImageLayout)srcImageLayout, (VkImage)dstImage,
-                      (VkImageLayout)dstImageLayout, (uint32_t)regionCount,
-                      (VkImageResolve const*)pRegions);
+  void cmd_end_render_pass(spk::command_buffer_ref commandBuffer) const {
+    vkCmdEndRenderPass((VkCommandBuffer)commandBuffer);
   }
 
-  void end_command_buffer(spk::command_buffer_ref commandBuffer) const {
-    const VkResult res = vkEndCommandBuffer((VkCommandBuffer)commandBuffer);
+  void cmd_reset_event(spk::command_buffer_ref commandBuffer,
+                       spk::event_ref event,
+                       spk::pipeline_stage_flags stageMask) const {
+    vkCmdResetEvent((VkCommandBuffer)commandBuffer, (VkEvent)event,
+                    (VkPipelineStageFlags)stageMask);
+  }
+
+  void reset_command_pool(spk::device_ref device,
+                          spk::command_pool_ref commandPool,
+                          spk::command_pool_reset_flags flags) const {
+    const VkResult res =
+        vkResetCommandPool((VkDevice)device, (VkCommandPool)commandPool,
+                           (VkCommandPoolResetFlags)flags);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -23831,63 +26632,8 @@ struct device_dispatch_table {
         throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkEndCommandBuffer");
+                                             "vkResetCommandPool");
     }
-  }
-
-  void cmd_begin_render_pass_2khr(
-      spk::command_buffer_ref commandBuffer,
-      spk::render_pass_begin_info const* pRenderPassBegin,
-      spk::subpass_begin_info_khr const* pSubpassBeginInfo) const {
-    vkCmdBeginRenderPass2KHR((VkCommandBuffer)commandBuffer,
-                             (VkRenderPassBeginInfo const*)pRenderPassBegin,
-                             (VkSubpassBeginInfoKHR const*)pSubpassBeginInfo);
-  }
-
-  void cmd_begin_query(spk::command_buffer_ref commandBuffer,
-                       spk::query_pool_ref queryPool, uint32_t query,
-                       spk::query_control_flags flags) const {
-    vkCmdBeginQuery((VkCommandBuffer)commandBuffer, (VkQueryPool)queryPool,
-                    (uint32_t)query, (VkQueryControlFlags)flags);
-  }
-
-  void debug_marker_set_object_tag_ext(
-      spk::device_ref device,
-      spk::debug_marker_object_tag_info_ext const* pTagInfo) const {
-    const VkResult res = vkDebugMarkerSetObjectTagEXT(
-        (VkDevice)device, (VkDebugMarkerObjectTagInfoEXT const*)pTagInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkDebugMarkerSetObjectTagEXT");
-    }
-  }
-
-  void cmd_bind_pipeline(spk::command_buffer_ref commandBuffer,
-                         spk::pipeline_bind_point pipelineBindPoint,
-                         spk::pipeline_ref pipeline) const {
-    vkCmdBindPipeline((VkCommandBuffer)commandBuffer,
-                      (VkPipelineBindPoint)pipelineBindPoint,
-                      (VkPipeline)pipeline);
-  }
-
-  void cmd_copy_query_pool_results(spk::command_buffer_ref commandBuffer,
-                                   spk::query_pool_ref queryPool,
-                                   uint32_t firstQuery, uint32_t queryCount,
-                                   spk::buffer_ref dstBuffer,
-                                   uint64_t dstOffset, uint64_t stride,
-                                   spk::query_result_flags flags) const {
-    vkCmdCopyQueryPoolResults((VkCommandBuffer)commandBuffer,
-                              (VkQueryPool)queryPool, (uint32_t)firstQuery,
-                              (uint32_t)queryCount, (VkBuffer)dstBuffer,
-                              (VkDeviceSize)dstOffset, (VkDeviceSize)stride,
-                              (VkQueryResultFlags)flags);
   }
 
   void create_shared_swapchains_khr(
@@ -23918,96 +26664,6 @@ struct device_dispatch_table {
     }
   }
 
-  void free_command_buffers(
-      spk::device_ref device, spk::command_pool_ref commandPool,
-      uint32_t commandBufferCount,
-      spk::command_buffer_ref const* pCommandBuffers) const {
-    vkFreeCommandBuffers((VkDevice)device, (VkCommandPool)commandPool,
-                         (uint32_t)commandBufferCount,
-                         (VkCommandBuffer const*)pCommandBuffers);
-  }
-
-  void bind_acceleration_structure_memory_nv(
-      spk::device_ref device, uint32_t bindInfoCount,
-      spk::bind_acceleration_structure_memory_info_nv const* pBindInfos) const {
-    const VkResult res = vkBindAccelerationStructureMemoryNV(
-        (VkDevice)device, (uint32_t)bindInfoCount,
-        (VkBindAccelerationStructureMemoryInfoNV const*)pBindInfos);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkBindAccelerationStructureMemoryNV");
-    }
-  }
-
-  void create_command_pool(spk::device_ref device,
-                           spk::command_pool_create_info const* pCreateInfo,
-                           spk::allocation_callbacks const* pAllocator,
-                           spk::command_pool_ref* pCommandPool) const {
-    const VkResult res = vkCreateCommandPool(
-        (VkDevice)device, (VkCommandPoolCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkCommandPool*)pCommandPool);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateCommandPool");
-    }
-  }
-
-  void cmd_write_buffer_marker_amd(spk::command_buffer_ref commandBuffer,
-                                   spk::pipeline_stage_flags pipelineStage,
-                                   spk::buffer_ref dstBuffer,
-                                   uint64_t dstOffset, uint32_t marker) const {
-    vkCmdWriteBufferMarkerAMD(
-        (VkCommandBuffer)commandBuffer, (VkPipelineStageFlagBits)pipelineStage,
-        (VkBuffer)dstBuffer, (VkDeviceSize)dstOffset, (uint32_t)marker);
-  }
-
-  void destroy_render_pass(spk::device_ref device,
-                           spk::render_pass_ref renderPass,
-                           spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyRenderPass((VkDevice)device, (VkRenderPass)renderPass,
-                        (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_draw_indexed_indirect(spk::command_buffer_ref commandBuffer,
-                                 spk::buffer_ref buffer, uint64_t offset,
-                                 uint32_t drawCount, uint32_t stride) const {
-    vkCmdDrawIndexedIndirect((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
-                             (VkDeviceSize)offset, (uint32_t)drawCount,
-                             (uint32_t)stride);
-  }
-
-  void cmd_update_buffer(spk::command_buffer_ref commandBuffer,
-                         spk::buffer_ref dstBuffer, uint64_t dstOffset,
-                         uint64_t dataSize, void const* pData) const {
-    vkCmdUpdateBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)dstBuffer,
-                      (VkDeviceSize)dstOffset, (VkDeviceSize)dataSize,
-                      (void const*)pData);
-  }
-
-  void cmd_clear_color_image(
-      spk::command_buffer_ref commandBuffer, spk::image_ref image,
-      spk::image_layout imageLayout, spk::clear_color_value const* pColor,
-      uint32_t rangeCount, spk::image_subresource_range const* pRanges) const {
-    vkCmdClearColorImage((VkCommandBuffer)commandBuffer, (VkImage)image,
-                         (VkImageLayout)imageLayout,
-                         (VkClearColorValue const*)pColor, (uint32_t)rangeCount,
-                         (VkImageSubresourceRange const*)pRanges);
-  }
-
   void allocate_descriptor_sets(
       spk::device_ref device,
       spk::descriptor_set_allocate_info const* pAllocateInfo,
@@ -24030,2425 +26686,6 @@ struct device_dispatch_table {
         throw spk::unexpected_command_result((spk::result)res,
                                              "vkAllocateDescriptorSets");
     }
-  }
-
-  void get_image_sparse_memory_requirements(
-      spk::device_ref device, spk::image_ref image,
-      uint32_t* pSparseMemoryRequirementCount,
-      spk::sparse_image_memory_requirements* pSparseMemoryRequirements) const {
-    vkGetImageSparseMemoryRequirements(
-        (VkDevice)device, (VkImage)image,
-        (uint32_t*)pSparseMemoryRequirementCount,
-        (VkSparseImageMemoryRequirements*)pSparseMemoryRequirements);
-  }
-
-  void cmd_copy_image(spk::command_buffer_ref commandBuffer,
-                      spk::image_ref srcImage, spk::image_layout srcImageLayout,
-                      spk::image_ref dstImage, spk::image_layout dstImageLayout,
-                      uint32_t regionCount,
-                      spk::image_copy const* pRegions) const {
-    vkCmdCopyImage((VkCommandBuffer)commandBuffer, (VkImage)srcImage,
-                   (VkImageLayout)srcImageLayout, (VkImage)dstImage,
-                   (VkImageLayout)dstImageLayout, (uint32_t)regionCount,
-                   (VkImageCopy const*)pRegions);
-  }
-
-  void get_image_memory_requirements(
-      spk::device_ref device, spk::image_ref image,
-      spk::memory_requirements* pMemoryRequirements) const {
-    vkGetImageMemoryRequirements((VkDevice)device, (VkImage)image,
-                                 (VkMemoryRequirements*)pMemoryRequirements);
-  }
-
-  [[nodiscard]] spk::result get_fence_status(spk::device_ref device,
-                                             spk::fence_ref fence) const {
-    const VkResult res = vkGetFenceStatus((VkDevice)device, (VkFence)fence);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_NOT_READY:
-        return spk::result::not_ready;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetFenceStatus");
-    }
-  }
-
-  void create_validation_cache_ext(
-      spk::device_ref device,
-      spk::validation_cache_create_info_ext const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::validation_cache_ext_ref* pValidationCache) const {
-    const VkResult res = vkCreateValidationCacheEXT(
-        (VkDevice)device, (VkValidationCacheCreateInfoEXT const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkValidationCacheEXT*)pValidationCache);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateValidationCacheEXT");
-    }
-  }
-
-  void set_debug_utils_object_name_ext(
-      spk::device_ref device,
-      spk::debug_utils_object_name_info_ext const* pNameInfo) const {
-    const VkResult res = vkSetDebugUtilsObjectNameEXT(
-        (VkDevice)device, (VkDebugUtilsObjectNameInfoEXT const*)pNameInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkSetDebugUtilsObjectNameEXT");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_memory_win_32handle_khr(
-      spk::device_ref device,
-      spk::memory_get_win_32handle_info_khr const* pGetWin32HandleInfo,
-      HANDLE* pHandle) const {
-    const VkResult res = vkGetMemoryWin32HandleKHR(
-        (VkDevice)device,
-        (VkMemoryGetWin32HandleInfoKHR const*)pGetWin32HandleInfo,
-        (HANDLE*)pHandle);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetMemoryWin32HandleKHR");
-    }
-  }
-#endif
-
-  void import_fence_fd_khr(
-      spk::device_ref device,
-      spk::import_fence_fd_info_khr const* pImportFenceFdInfo) const {
-    const VkResult res = vkImportFenceFdKHR(
-        (VkDevice)device, (VkImportFenceFdInfoKHR const*)pImportFenceFdInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkImportFenceFdKHR");
-    }
-  }
-
-  void cmd_bind_descriptor_sets(spk::command_buffer_ref commandBuffer,
-                                spk::pipeline_bind_point pipelineBindPoint,
-                                spk::pipeline_layout_ref layout,
-                                uint32_t firstSet, uint32_t descriptorSetCount,
-                                spk::descriptor_set_ref const* pDescriptorSets,
-                                uint32_t dynamicOffsetCount,
-                                uint32_t const* pDynamicOffsets) const {
-    vkCmdBindDescriptorSets(
-        (VkCommandBuffer)commandBuffer, (VkPipelineBindPoint)pipelineBindPoint,
-        (VkPipelineLayout)layout, (uint32_t)firstSet,
-        (uint32_t)descriptorSetCount, (VkDescriptorSet const*)pDescriptorSets,
-        (uint32_t)dynamicOffsetCount, (uint32_t const*)pDynamicOffsets);
-  }
-
-  void create_render_pass(spk::device_ref device,
-                          spk::render_pass_create_info const* pCreateInfo,
-                          spk::allocation_callbacks const* pAllocator,
-                          spk::render_pass_ref* pRenderPass) const {
-    const VkResult res = vkCreateRenderPass(
-        (VkDevice)device, (VkRenderPassCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkRenderPass*)pRenderPass);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateRenderPass");
-    }
-  }
-
-  void reset_command_buffer(spk::command_buffer_ref commandBuffer,
-                            spk::command_buffer_reset_flags flags) const {
-    const VkResult res = vkResetCommandBuffer((VkCommandBuffer)commandBuffer,
-                                              (VkCommandBufferResetFlags)flags);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkResetCommandBuffer");
-    }
-  }
-
-  void get_memory_fd_khr(spk::device_ref device,
-                         spk::memory_get_fd_info_khr const* pGetFdInfo,
-                         int* pFd) const {
-    const VkResult res = vkGetMemoryFdKHR(
-        (VkDevice)device, (VkMemoryGetFdInfoKHR const*)pGetFdInfo, (int*)pFd);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetMemoryFdKHR");
-    }
-  }
-
-  void destroy_swapchain_khr(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroySwapchainKHR((VkDevice)device, (VkSwapchainKHR)swapchain,
-                          (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void register_device_event_ext(
-      spk::device_ref device,
-      spk::device_event_info_ext const* pDeviceEventInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::fence_ref* pFence) const {
-    const VkResult res = vkRegisterDeviceEventEXT(
-        (VkDevice)device, (VkDeviceEventInfoEXT const*)pDeviceEventInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkFence*)pFence);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkRegisterDeviceEventEXT");
-    }
-  }
-
-  void free_descriptor_sets(
-      spk::device_ref device, spk::descriptor_pool_ref descriptorPool,
-      uint32_t descriptorSetCount,
-      spk::descriptor_set_ref const* pDescriptorSets) const {
-    const VkResult res = vkFreeDescriptorSets(
-        (VkDevice)device, (VkDescriptorPool)descriptorPool,
-        (uint32_t)descriptorSetCount, (VkDescriptorSet const*)pDescriptorSets);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkFreeDescriptorSets");
-    }
-  }
-
-  void set_debug_utils_object_tag_ext(
-      spk::device_ref device,
-      spk::debug_utils_object_tag_info_ext const* pTagInfo) const {
-    const VkResult res = vkSetDebugUtilsObjectTagEXT(
-        (VkDevice)device, (VkDebugUtilsObjectTagInfoEXT const*)pTagInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkSetDebugUtilsObjectTagEXT");
-    }
-  }
-
-  void allocate_memory(spk::device_ref device,
-                       spk::memory_allocate_info const* pAllocateInfo,
-                       spk::allocation_callbacks const* pAllocator,
-                       spk::device_memory_ref* pMemory) const {
-    const VkResult res = vkAllocateMemory(
-        (VkDevice)device, (VkMemoryAllocateInfo const*)pAllocateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkDeviceMemory*)pMemory);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkAllocateMemory");
-    }
-  }
-
-  void queue_submit(spk::queue_ref queue, uint32_t submitCount,
-                    spk::submit_info const* pSubmits,
-                    spk::fence_ref fence) const {
-    const VkResult res =
-        vkQueueSubmit((VkQueue)queue, (uint32_t)submitCount,
-                      (VkSubmitInfo const*)pSubmits, (VkFence)fence);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkQueueSubmit");
-    }
-  }
-
-  void cmd_end_render_pass_2khr(
-      spk::command_buffer_ref commandBuffer,
-      spk::subpass_end_info_khr const* pSubpassEndInfo) const {
-    vkCmdEndRenderPass2KHR((VkCommandBuffer)commandBuffer,
-                           (VkSubpassEndInfoKHR const*)pSubpassEndInfo);
-  }
-
-  void free_memory(spk::device_ref device, spk::device_memory_ref memory,
-                   spk::allocation_callbacks const* pAllocator) const {
-    vkFreeMemory((VkDevice)device, (VkDeviceMemory)memory,
-                 (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void create_descriptor_pool(
-      spk::device_ref device,
-      spk::descriptor_pool_create_info const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::descriptor_pool_ref* pDescriptorPool) const {
-    const VkResult res = vkCreateDescriptorPool(
-        (VkDevice)device, (VkDescriptorPoolCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkDescriptorPool*)pDescriptorPool);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_FRAGMENTATION_EXT:
-        throw spk::error_fragmentation_ext();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateDescriptorPool");
-    }
-  }
-
-  void cmd_set_scissor(spk::command_buffer_ref commandBuffer,
-                       uint32_t firstScissor, uint32_t scissorCount,
-                       spk::rect_2d const* pScissors) const {
-    vkCmdSetScissor((VkCommandBuffer)commandBuffer, (uint32_t)firstScissor,
-                    (uint32_t)scissorCount, (VkRect2D const*)pScissors);
-  }
-
-  void destroy_command_pool(spk::device_ref device,
-                            spk::command_pool_ref commandPool,
-                            spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyCommandPool((VkDevice)device, (VkCommandPool)commandPool,
-                         (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void get_render_area_granularity(spk::device_ref device,
-                                   spk::render_pass_ref renderPass,
-                                   spk::extent_2d* pGranularity) const {
-    vkGetRenderAreaGranularity((VkDevice)device, (VkRenderPass)renderPass,
-                               (VkExtent2D*)pGranularity);
-  }
-
-  void flush_mapped_memory_ranges(
-      spk::device_ref device, uint32_t memoryRangeCount,
-      spk::mapped_memory_range const* pMemoryRanges) const {
-    const VkResult res =
-        vkFlushMappedMemoryRanges((VkDevice)device, (uint32_t)memoryRangeCount,
-                                  (VkMappedMemoryRange const*)pMemoryRanges);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkFlushMappedMemoryRanges");
-    }
-  }
-
-  void destroy_sampler(spk::device_ref device, spk::sampler_ref sampler,
-                       spk::allocation_callbacks const* pAllocator) const {
-    vkDestroySampler((VkDevice)device, (VkSampler)sampler,
-                     (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_wait_events(
-      spk::command_buffer_ref commandBuffer, uint32_t eventCount,
-      spk::event_ref const* pEvents, spk::pipeline_stage_flags srcStageMask,
-      spk::pipeline_stage_flags dstStageMask, uint32_t memoryBarrierCount,
-      spk::memory_barrier const* pMemoryBarriers,
-      uint32_t bufferMemoryBarrierCount,
-      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
-      uint32_t imageMemoryBarrierCount,
-      spk::image_memory_barrier const* pImageMemoryBarriers) const {
-    vkCmdWaitEvents((VkCommandBuffer)commandBuffer, (uint32_t)eventCount,
-                    (VkEvent const*)pEvents, (VkPipelineStageFlags)srcStageMask,
-                    (VkPipelineStageFlags)dstStageMask,
-                    (uint32_t)memoryBarrierCount,
-                    (VkMemoryBarrier const*)pMemoryBarriers,
-                    (uint32_t)bufferMemoryBarrierCount,
-                    (VkBufferMemoryBarrier const*)pBufferMemoryBarriers,
-                    (uint32_t)imageMemoryBarrierCount,
-                    (VkImageMemoryBarrier const*)pImageMemoryBarriers);
-  }
-
-  [[nodiscard]] spk::result wait_for_fences(spk::device_ref device,
-                                            uint32_t fenceCount,
-                                            spk::fence_ref const* pFences,
-                                            spk::bool32_t waitAll,
-                                            uint64_t timeout) const {
-    const VkResult res = vkWaitForFences((VkDevice)device, (uint32_t)fenceCount,
-                                         (VkFence const*)pFences,
-                                         (VkBool32)waitAll, (uint64_t)timeout);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_TIMEOUT:
-        return spk::result::timeout;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkWaitForFences");
-    }
-  }
-
-  PFN_vkVoidFunction get_device_proc_addr(spk::device_ref device,
-                                          char const* pName) const {
-    return (PFN_vkVoidFunction)(
-        vkGetDeviceProcAddr((VkDevice)device, (char const*)pName));
-  }
-
-  void cmd_reset_event(spk::command_buffer_ref commandBuffer,
-                       spk::event_ref event,
-                       spk::pipeline_stage_flags stageMask) const {
-    vkCmdResetEvent((VkCommandBuffer)commandBuffer, (VkEvent)event,
-                    (VkPipelineStageFlags)stageMask);
-  }
-
-  [[nodiscard]] spk::result queue_present_khr(
-      spk::queue_ref queue, spk::present_info_khr const* pPresentInfo) const {
-    const VkResult res = vkQueuePresentKHR(
-        (VkQueue)queue, (VkPresentInfoKHR const*)pPresentInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_SUBOPTIMAL_KHR:
-        return spk::result::suboptimal_khr;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      case VK_ERROR_OUT_OF_DATE_KHR:
-        throw spk::error_out_of_date_khr();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkQueuePresentKHR");
-    }
-  }
-
-  void cmd_end_render_pass(spk::command_buffer_ref commandBuffer) const {
-    vkCmdEndRenderPass((VkCommandBuffer)commandBuffer);
-  }
-
-  void get_queue_checkpoint_data_nv(
-      spk::queue_ref queue, uint32_t* pCheckpointDataCount,
-      spk::checkpoint_data_nv* pCheckpointData) const {
-    vkGetQueueCheckpointDataNV((VkQueue)queue, (uint32_t*)pCheckpointDataCount,
-                               (VkCheckpointDataNV*)pCheckpointData);
-  }
-
-  void get_buffer_memory_requirements(
-      spk::device_ref device, spk::buffer_ref buffer,
-      spk::memory_requirements* pMemoryRequirements) const {
-    vkGetBufferMemoryRequirements((VkDevice)device, (VkBuffer)buffer,
-                                  (VkMemoryRequirements*)pMemoryRequirements);
-  }
-
-  void get_device_queue(spk::device_ref device, uint32_t queueFamilyIndex,
-                        uint32_t queueIndex, spk::queue_ref* pQueue) const {
-    vkGetDeviceQueue((VkDevice)device, (uint32_t)queueFamilyIndex,
-                     (uint32_t)queueIndex, (VkQueue*)pQueue);
-  }
-
-  void map_memory(spk::device_ref device, spk::device_memory_ref memory,
-                  uint64_t offset, uint64_t size, void** ppData) const {
-    const VkResult res = vkMapMemory(
-        (VkDevice)device, (VkDeviceMemory)memory, (VkDeviceSize)offset,
-        (VkDeviceSize)size, (VkMemoryMapFlags)0 /*flags*/, (void**)ppData);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_MEMORY_MAP_FAILED:
-        throw spk::error_memory_map_failed();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkMapMemory");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_fence_win_32handle_khr(
-      spk::device_ref device,
-      spk::fence_get_win_32handle_info_khr const* pGetWin32HandleInfo,
-      HANDLE* pHandle) const {
-    const VkResult res = vkGetFenceWin32HandleKHR(
-        (VkDevice)device,
-        (VkFenceGetWin32HandleInfoKHR const*)pGetWin32HandleInfo,
-        (HANDLE*)pHandle);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetFenceWin32HandleKHR");
-    }
-  }
-#endif
-
-  void get_fence_fd_khr(spk::device_ref device,
-                        spk::fence_get_fd_info_khr const* pGetFdInfo,
-                        int* pFd) const {
-    const VkResult res = vkGetFenceFdKHR(
-        (VkDevice)device, (VkFenceGetFdInfoKHR const*)pGetFdInfo, (int*)pFd);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetFenceFdKHR");
-    }
-  }
-
-  void bind_buffer_memory_2khr(
-      spk::device_ref device, uint32_t bindInfoCount,
-      spk::bind_buffer_memory_info const* pBindInfos) const {
-    const VkResult res =
-        vkBindBufferMemory2((VkDevice)device, (uint32_t)bindInfoCount,
-                            (VkBindBufferMemoryInfo const*)pBindInfos);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkBindBufferMemory2");
-    }
-  }
-
-  void bind_buffer_memory_2(
-      spk::device_ref device, uint32_t bindInfoCount,
-      spk::bind_buffer_memory_info const* pBindInfos) const {
-    const VkResult res =
-        vkBindBufferMemory2((VkDevice)device, (uint32_t)bindInfoCount,
-                            (VkBindBufferMemoryInfo const*)pBindInfos);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkBindBufferMemory2");
-    }
-  }
-
-  void cmd_bind_vertex_buffers(spk::command_buffer_ref commandBuffer,
-                               uint32_t firstBinding, uint32_t bindingCount,
-                               spk::buffer_ref const* pBuffers,
-                               uint64_t const* pOffsets) const {
-    vkCmdBindVertexBuffers((VkCommandBuffer)commandBuffer,
-                           (uint32_t)firstBinding, (uint32_t)bindingCount,
-                           (VkBuffer const*)pBuffers,
-                           (VkDeviceSize const*)pOffsets);
-  }
-
-  void allocate_command_buffers(
-      spk::device_ref device,
-      spk::command_buffer_allocate_info const* pAllocateInfo,
-      spk::command_buffer_ref* pCommandBuffers) const {
-    const VkResult res = vkAllocateCommandBuffers(
-        (VkDevice)device, (VkCommandBufferAllocateInfo const*)pAllocateInfo,
-        (VkCommandBuffer*)pCommandBuffers);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkAllocateCommandBuffers");
-    }
-  }
-
-  void destroy_validation_cache_ext(
-      spk::device_ref device, spk::validation_cache_ext_ref validationCache,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyValidationCacheEXT((VkDevice)device,
-                                (VkValidationCacheEXT)validationCache,
-                                (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_process_commands_nvx(
-      spk::command_buffer_ref commandBuffer,
-      spk::cmd_process_commands_info_nvx const* pProcessCommandsInfo) const {
-    vkCmdProcessCommandsNVX(
-        (VkCommandBuffer)commandBuffer,
-        (VkCmdProcessCommandsInfoNVX const*)pProcessCommandsInfo);
-  }
-
-  void create_buffer_view(spk::device_ref device,
-                          spk::buffer_view_create_info const* pCreateInfo,
-                          spk::allocation_callbacks const* pAllocator,
-                          spk::buffer_view_ref* pView) const {
-    const VkResult res = vkCreateBufferView(
-        (VkDevice)device, (VkBufferViewCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkBufferView*)pView);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateBufferView");
-    }
-  }
-
-  void cmd_dispatch(spk::command_buffer_ref commandBuffer, uint32_t groupCountX,
-                    uint32_t groupCountY, uint32_t groupCountZ) const {
-    vkCmdDispatch((VkCommandBuffer)commandBuffer, (uint32_t)groupCountX,
-                  (uint32_t)groupCountY, (uint32_t)groupCountZ);
-  }
-
-  void destroy_buffer_view(spk::device_ref device,
-                           spk::buffer_view_ref bufferView,
-                           spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyBufferView((VkDevice)device, (VkBufferView)bufferView,
-                        (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_draw_indexed(spk::command_buffer_ref commandBuffer,
-                        uint32_t indexCount, uint32_t instanceCount,
-                        uint32_t firstIndex, int32_t vertexOffset,
-                        uint32_t firstInstance) const {
-    vkCmdDrawIndexed((VkCommandBuffer)commandBuffer, (uint32_t)indexCount,
-                     (uint32_t)instanceCount, (uint32_t)firstIndex,
-                     (int32_t)vertexOffset, (uint32_t)firstInstance);
-  }
-
-  void create_fence(spk::device_ref device,
-                    spk::fence_create_info const* pCreateInfo,
-                    spk::allocation_callbacks const* pAllocator,
-                    spk::fence_ref* pFence) const {
-    const VkResult res = vkCreateFence(
-        (VkDevice)device, (VkFenceCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkFence*)pFence);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkCreateFence");
-    }
-  }
-
-  void create_framebuffer(spk::device_ref device,
-                          spk::framebuffer_create_info const* pCreateInfo,
-                          spk::allocation_callbacks const* pAllocator,
-                          spk::framebuffer_ref* pFramebuffer) const {
-    const VkResult res = vkCreateFramebuffer(
-        (VkDevice)device, (VkFramebufferCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkFramebuffer*)pFramebuffer);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateFramebuffer");
-    }
-  }
-
-  void create_buffer(spk::device_ref device,
-                     spk::buffer_create_info const* pCreateInfo,
-                     spk::allocation_callbacks const* pAllocator,
-                     spk::buffer_ref* pBuffer) const {
-    const VkResult res = vkCreateBuffer(
-        (VkDevice)device, (VkBufferCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkBuffer*)pBuffer);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INVALID_DEVICE_ADDRESS_EXT:
-        throw spk::error_invalid_device_address_ext();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateBuffer");
-    }
-  }
-
-  void cmd_copy_buffer_to_image(spk::command_buffer_ref commandBuffer,
-                                spk::buffer_ref srcBuffer,
-                                spk::image_ref dstImage,
-                                spk::image_layout dstImageLayout,
-                                uint32_t regionCount,
-                                spk::buffer_image_copy const* pRegions) const {
-    vkCmdCopyBufferToImage((VkCommandBuffer)commandBuffer, (VkBuffer)srcBuffer,
-                           (VkImage)dstImage, (VkImageLayout)dstImageLayout,
-                           (uint32_t)regionCount,
-                           (VkBufferImageCopy const*)pRegions);
-  }
-
-  void create_shader_module(spk::device_ref device,
-                            spk::shader_module_create_info const* pCreateInfo,
-                            spk::allocation_callbacks const* pAllocator,
-                            spk::shader_module_ref* pShaderModule) const {
-    const VkResult res = vkCreateShaderModule(
-        (VkDevice)device, (VkShaderModuleCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkShaderModule*)pShaderModule);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INVALID_SHADER_NV:
-        throw spk::error_invalid_shader_nv();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateShaderModule");
-    }
-  }
-
-  void cmd_set_checkpoint_nv(spk::command_buffer_ref commandBuffer,
-                             void const* pCheckpointMarker) const {
-    vkCmdSetCheckpointNV((VkCommandBuffer)commandBuffer,
-                         (void const*)pCheckpointMarker);
-  }
-
-  void destroy_fence(spk::device_ref device, spk::fence_ref fence,
-                     spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyFence((VkDevice)device, (VkFence)fence,
-                   (VkAllocationCallbacks const*)pAllocator);
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_memory_win_32handle_nv(
-      spk::device_ref device, spk::device_memory_ref memory,
-      spk::external_memory_handle_type_flags_nv handleType,
-      HANDLE* pHandle) const {
-    const VkResult res = vkGetMemoryWin32HandleNV(
-        (VkDevice)device, (VkDeviceMemory)memory,
-        (VkExternalMemoryHandleTypeFlagsNV)handleType, (HANDLE*)pHandle);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetMemoryWin32HandleNV");
-    }
-  }
-#endif
-
-  void cmd_draw_indexed_indirect_count_khr(
-      spk::command_buffer_ref commandBuffer, spk::buffer_ref buffer,
-      uint64_t offset, spk::buffer_ref countBuffer, uint64_t countBufferOffset,
-      uint32_t maxDrawCount, uint32_t stride) const {
-    vkCmdDrawIndexedIndirectCountKHR(
-        (VkCommandBuffer)commandBuffer, (VkBuffer)buffer, (VkDeviceSize)offset,
-        (VkBuffer)countBuffer, (VkDeviceSize)countBufferOffset,
-        (uint32_t)maxDrawCount, (uint32_t)stride);
-  }
-
-  void cmd_draw(spk::command_buffer_ref commandBuffer, uint32_t vertexCount,
-                uint32_t instanceCount, uint32_t firstVertex,
-                uint32_t firstInstance) const {
-    vkCmdDraw((VkCommandBuffer)commandBuffer, (uint32_t)vertexCount,
-              (uint32_t)instanceCount, (uint32_t)firstVertex,
-              (uint32_t)firstInstance);
-  }
-
-  void cmd_set_sample_locations_ext(
-      spk::command_buffer_ref commandBuffer,
-      spk::sample_locations_info_ext const* pSampleLocationsInfo) const {
-    vkCmdSetSampleLocationsEXT(
-        (VkCommandBuffer)commandBuffer,
-        (VkSampleLocationsInfoEXT const*)pSampleLocationsInfo);
-  }
-
-  void cmd_set_blend_constants(
-      spk::command_buffer_ref commandBuffer,
-      std::array<float const, 4> blendConstants) const {
-    vkCmdSetBlendConstants((VkCommandBuffer)commandBuffer,
-                           blendConstants.data());
-  }
-
-  void destroy_pipeline(spk::device_ref device, spk::pipeline_ref pipeline,
-                        spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyPipeline((VkDevice)device, (VkPipeline)pipeline,
-                      (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void create_semaphore(spk::device_ref device,
-                        spk::semaphore_create_info const* pCreateInfo,
-                        spk::allocation_callbacks const* pAllocator,
-                        spk::semaphore_ref* pSemaphore) const {
-    const VkResult res = vkCreateSemaphore(
-        (VkDevice)device, (VkSemaphoreCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSemaphore*)pSemaphore);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateSemaphore");
-    }
-  }
-
-  [[nodiscard]] spk::result get_query_pool_results(
-      spk::device_ref device, spk::query_pool_ref queryPool,
-      uint32_t firstQuery, uint32_t queryCount, size_t dataSize, void* pData,
-      uint64_t stride, spk::query_result_flags flags) const {
-    const VkResult res = vkGetQueryPoolResults(
-        (VkDevice)device, (VkQueryPool)queryPool, (uint32_t)firstQuery,
-        (uint32_t)queryCount, (size_t)dataSize, (void*)pData,
-        (VkDeviceSize)stride, (VkQueryResultFlags)flags);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_NOT_READY:
-        return spk::result::not_ready;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetQueryPoolResults");
-    }
-  }
-
-  void cmd_copy_buffer(spk::command_buffer_ref commandBuffer,
-                       spk::buffer_ref srcBuffer, spk::buffer_ref dstBuffer,
-                       uint32_t regionCount,
-                       spk::buffer_copy const* pRegions) const {
-    vkCmdCopyBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)srcBuffer,
-                    (VkBuffer)dstBuffer, (uint32_t)regionCount,
-                    (VkBufferCopy const*)pRegions);
-  }
-
-  void destroy_image(spk::device_ref device, spk::image_ref image,
-                     spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyImage((VkDevice)device, (VkImage)image,
-                   (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void create_image_view(spk::device_ref device,
-                         spk::image_view_create_info const* pCreateInfo,
-                         spk::allocation_callbacks const* pAllocator,
-                         spk::image_view_ref* pView) const {
-    const VkResult res = vkCreateImageView(
-        (VkDevice)device, (VkImageViewCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkImageView*)pView);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateImageView");
-    }
-  }
-
-  void create_query_pool(spk::device_ref device,
-                         spk::query_pool_create_info const* pCreateInfo,
-                         spk::allocation_callbacks const* pAllocator,
-                         spk::query_pool_ref* pQueryPool) const {
-    const VkResult res = vkCreateQueryPool(
-        (VkDevice)device, (VkQueryPoolCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkQueryPool*)pQueryPool);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateQueryPool");
-    }
-  }
-
-  void bind_image_memory(spk::device_ref device, spk::image_ref image,
-                         spk::device_memory_ref memory,
-                         uint64_t memoryOffset) const {
-    const VkResult res =
-        vkBindImageMemory((VkDevice)device, (VkImage)image,
-                          (VkDeviceMemory)memory, (VkDeviceSize)memoryOffset);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkBindImageMemory");
-    }
-  }
-
-  void set_event(spk::device_ref device, spk::event_ref event) const {
-    const VkResult res = vkSetEvent((VkDevice)device, (VkEvent)event);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkSetEvent");
-    }
-  }
-
-  void create_sampler(spk::device_ref device,
-                      spk::sampler_create_info const* pCreateInfo,
-                      spk::allocation_callbacks const* pAllocator,
-                      spk::sampler_ref* pSampler) const {
-    const VkResult res = vkCreateSampler(
-        (VkDevice)device, (VkSamplerCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkSampler*)pSampler);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateSampler");
-    }
-  }
-
-  void destroy_descriptor_pool(
-      spk::device_ref device, spk::descriptor_pool_ref descriptorPool,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDescriptorPool((VkDevice)device, (VkDescriptorPool)descriptorPool,
-                            (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_set_event(spk::command_buffer_ref commandBuffer,
-                     spk::event_ref event,
-                     spk::pipeline_stage_flags stageMask) const {
-    vkCmdSetEvent((VkCommandBuffer)commandBuffer, (VkEvent)event,
-                  (VkPipelineStageFlags)stageMask);
-  }
-
-  void cmd_begin_query_indexed_ext(spk::command_buffer_ref commandBuffer,
-                                   spk::query_pool_ref queryPool,
-                                   uint32_t query,
-                                   spk::query_control_flags flags,
-                                   uint32_t index) const {
-    vkCmdBeginQueryIndexedEXT((VkCommandBuffer)commandBuffer,
-                              (VkQueryPool)queryPool, (uint32_t)query,
-                              (VkQueryControlFlags)flags, (uint32_t)index);
-  }
-
-  void cmd_draw_mesh_tasks_nv(spk::command_buffer_ref commandBuffer,
-                              uint32_t taskCount, uint32_t firstTask) const {
-    vkCmdDrawMeshTasksNV((VkCommandBuffer)commandBuffer, (uint32_t)taskCount,
-                         (uint32_t)firstTask);
-  }
-
-  void destroy_buffer(spk::device_ref device, spk::buffer_ref buffer,
-                      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyBuffer((VkDevice)device, (VkBuffer)buffer,
-                    (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void bind_image_memory_2(
-      spk::device_ref device, uint32_t bindInfoCount,
-      spk::bind_image_memory_info const* pBindInfos) const {
-    const VkResult res =
-        vkBindImageMemory2((VkDevice)device, (uint32_t)bindInfoCount,
-                           (VkBindImageMemoryInfo const*)pBindInfos);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkBindImageMemory2");
-    }
-  }
-
-  void bind_image_memory_2khr(
-      spk::device_ref device, uint32_t bindInfoCount,
-      spk::bind_image_memory_info const* pBindInfos) const {
-    const VkResult res =
-        vkBindImageMemory2((VkDevice)device, (uint32_t)bindInfoCount,
-                           (VkBindImageMemoryInfo const*)pBindInfos);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkBindImageMemory2");
-    }
-  }
-
-  void create_pipeline_cache(spk::device_ref device,
-                             spk::pipeline_cache_create_info const* pCreateInfo,
-                             spk::allocation_callbacks const* pAllocator,
-                             spk::pipeline_cache_ref* pPipelineCache) const {
-    const VkResult res = vkCreatePipelineCache(
-        (VkDevice)device, (VkPipelineCacheCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkPipelineCache*)pPipelineCache);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreatePipelineCache");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-  void get_android_hardware_buffer_properties_android(
-      spk::device_ref device, AHardwareBuffer const* buffer,
-      spk::android_hardware_buffer_properties_android* pProperties) const {
-    const VkResult res = vkGetAndroidHardwareBufferPropertiesANDROID(
-        (VkDevice)device, (AHardwareBuffer const*)buffer,
-        (VkAndroidHardwareBufferPropertiesANDROID*)pProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR:
-        throw spk::error_invalid_external_handle_khr();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetAndroidHardwareBufferPropertiesANDROID");
-    }
-  }
-#endif
-
-  void get_image_subresource_layout(spk::device_ref device,
-                                    spk::image_ref image,
-                                    spk::image_subresource const* pSubresource,
-                                    spk::subresource_layout* pLayout) const {
-    vkGetImageSubresourceLayout((VkDevice)device, (VkImage)image,
-                                (VkImageSubresource const*)pSubresource,
-                                (VkSubresourceLayout*)pLayout);
-  }
-
-  void unmap_memory(spk::device_ref device,
-                    spk::device_memory_ref memory) const {
-    vkUnmapMemory((VkDevice)device, (VkDeviceMemory)memory);
-  }
-
-  void reset_descriptor_pool(spk::device_ref device,
-                             spk::descriptor_pool_ref descriptorPool) const {
-    const VkResult res = vkResetDescriptorPool(
-        (VkDevice)device, (VkDescriptorPool)descriptorPool,
-        (VkDescriptorPoolResetFlags)0 /*flags*/
-    );
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkResetDescriptorPool");
-    }
-  }
-
-  void get_buffer_memory_requirements_2(
-      spk::device_ref device,
-      spk::buffer_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) const {
-    vkGetBufferMemoryRequirements2(
-        (VkDevice)device, (VkBufferMemoryRequirementsInfo2 const*)pInfo,
-        (VkMemoryRequirements2*)pMemoryRequirements);
-  }
-
-  void get_buffer_memory_requirements_2khr(
-      spk::device_ref device,
-      spk::buffer_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) const {
-    vkGetBufferMemoryRequirements2(
-        (VkDevice)device, (VkBufferMemoryRequirementsInfo2 const*)pInfo,
-        (VkMemoryRequirements2*)pMemoryRequirements);
-  }
-
-  void destroy_image_view(spk::device_ref device, spk::image_view_ref imageView,
-                          spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyImageView((VkDevice)device, (VkImageView)imageView,
-                       (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_write_timestamp(spk::command_buffer_ref commandBuffer,
-                           spk::pipeline_stage_flags pipelineStage,
-                           spk::query_pool_ref queryPool,
-                           uint32_t query) const {
-    vkCmdWriteTimestamp((VkCommandBuffer)commandBuffer,
-                        (VkPipelineStageFlagBits)pipelineStage,
-                        (VkQueryPool)queryPool, (uint32_t)query);
-  }
-
-  void update_descriptor_set_with_template_khr(
-      spk::device_ref device, spk::descriptor_set_ref descriptorSet,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      void const* pData) const {
-    vkUpdateDescriptorSetWithTemplate(
-        (VkDevice)device, (VkDescriptorSet)descriptorSet,
-        (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
-        (void const*)pData);
-  }
-
-  void update_descriptor_set_with_template(
-      spk::device_ref device, spk::descriptor_set_ref descriptorSet,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      void const* pData) const {
-    vkUpdateDescriptorSetWithTemplate(
-        (VkDevice)device, (VkDescriptorSet)descriptorSet,
-        (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
-        (void const*)pData);
-  }
-
-  void device_wait_idle(spk::device_ref device) const {
-    const VkResult res = vkDeviceWaitIdle((VkDevice)device);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkDeviceWaitIdle");
-    }
-  }
-
-  void queue_bind_sparse(spk::queue_ref queue, uint32_t bindInfoCount,
-                         spk::bind_sparse_info const* pBindInfo,
-                         spk::fence_ref fence) const {
-    const VkResult res =
-        vkQueueBindSparse((VkQueue)queue, (uint32_t)bindInfoCount,
-                          (VkBindSparseInfo const*)pBindInfo, (VkFence)fence);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkQueueBindSparse");
-    }
-  }
-
-  [[nodiscard]] spk::result get_pipeline_cache_data(
-      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
-      size_t* pDataSize, void* pData) const {
-    const VkResult res =
-        vkGetPipelineCacheData((VkDevice)device, (VkPipelineCache)pipelineCache,
-                               (size_t*)pDataSize, (void*)pData);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetPipelineCacheData");
-    }
-  }
-
-  void create_graphics_pipelines(
-      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
-      uint32_t createInfoCount,
-      spk::graphics_pipeline_create_info const* pCreateInfos,
-      spk::allocation_callbacks const* pAllocator,
-      spk::pipeline_ref* pPipelines) const {
-    const VkResult res = vkCreateGraphicsPipelines(
-        (VkDevice)device, (VkPipelineCache)pipelineCache,
-        (uint32_t)createInfoCount,
-        (VkGraphicsPipelineCreateInfo const*)pCreateInfos,
-        (VkAllocationCallbacks const*)pAllocator, (VkPipeline*)pPipelines);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_INVALID_SHADER_NV:
-        throw spk::error_invalid_shader_nv();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateGraphicsPipelines");
-    }
-  }
-
-  void merge_pipeline_caches(spk::device_ref device,
-                             spk::pipeline_cache_ref dstCache,
-                             uint32_t srcCacheCount,
-                             spk::pipeline_cache_ref const* pSrcCaches) const {
-    const VkResult res = vkMergePipelineCaches(
-        (VkDevice)device, (VkPipelineCache)dstCache, (uint32_t)srcCacheCount,
-        (VkPipelineCache const*)pSrcCaches);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkMergePipelineCaches");
-    }
-  }
-
-  void cmd_set_exclusive_scissor_nv(
-      spk::command_buffer_ref commandBuffer, uint32_t firstExclusiveScissor,
-      uint32_t exclusiveScissorCount,
-      spk::rect_2d const* pExclusiveScissors) const {
-    vkCmdSetExclusiveScissorNV(
-        (VkCommandBuffer)commandBuffer, (uint32_t)firstExclusiveScissor,
-        (uint32_t)exclusiveScissorCount, (VkRect2D const*)pExclusiveScissors);
-  }
-
-  void destroy_descriptor_set_layout(
-      spk::device_ref device,
-      spk::descriptor_set_layout_ref descriptorSetLayout,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDescriptorSetLayout((VkDevice)device,
-                                 (VkDescriptorSetLayout)descriptorSetLayout,
-                                 (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void invalidate_mapped_memory_ranges(
-      spk::device_ref device, uint32_t memoryRangeCount,
-      spk::mapped_memory_range const* pMemoryRanges) const {
-    const VkResult res = vkInvalidateMappedMemoryRanges(
-        (VkDevice)device, (uint32_t)memoryRangeCount,
-        (VkMappedMemoryRange const*)pMemoryRanges);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkInvalidateMappedMemoryRanges");
-    }
-  }
-
-  void create_pipeline_layout(
-      spk::device_ref device,
-      spk::pipeline_layout_create_info const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::pipeline_layout_ref* pPipelineLayout) const {
-    const VkResult res = vkCreatePipelineLayout(
-        (VkDevice)device, (VkPipelineLayoutCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkPipelineLayout*)pPipelineLayout);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreatePipelineLayout");
-    }
-  }
-
-  void reset_command_pool(spk::device_ref device,
-                          spk::command_pool_ref commandPool,
-                          spk::command_pool_reset_flags flags) const {
-    const VkResult res =
-        vkResetCommandPool((VkDevice)device, (VkCommandPool)commandPool,
-                           (VkCommandPoolResetFlags)flags);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkResetCommandPool");
-    }
-  }
-
-  void cmd_bind_transform_feedback_buffers_ext(
-      spk::command_buffer_ref commandBuffer, uint32_t firstBinding,
-      uint32_t bindingCount, spk::buffer_ref const* pBuffers,
-      uint64_t const* pOffsets, uint64_t const* pSizes) const {
-    vkCmdBindTransformFeedbackBuffersEXT(
-        (VkCommandBuffer)commandBuffer, (uint32_t)firstBinding,
-        (uint32_t)bindingCount, (VkBuffer const*)pBuffers,
-        (VkDeviceSize const*)pOffsets, (VkDeviceSize const*)pSizes);
-  }
-
-  void create_descriptor_set_layout(
-      spk::device_ref device,
-      spk::descriptor_set_layout_create_info const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::descriptor_set_layout_ref* pSetLayout) const {
-    const VkResult res = vkCreateDescriptorSetLayout(
-        (VkDevice)device, (VkDescriptorSetLayoutCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkDescriptorSetLayout*)pSetLayout);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateDescriptorSetLayout");
-    }
-  }
-
-  void cmd_next_subpass(spk::command_buffer_ref commandBuffer,
-                        spk::subpass_contents contents) const {
-    vkCmdNextSubpass((VkCommandBuffer)commandBuffer,
-                     (VkSubpassContents)contents);
-  }
-
-  void debug_marker_set_object_name_ext(
-      spk::device_ref device,
-      spk::debug_marker_object_name_info_ext const* pNameInfo) const {
-    const VkResult res = vkDebugMarkerSetObjectNameEXT(
-        (VkDevice)device, (VkDebugMarkerObjectNameInfoEXT const*)pNameInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkDebugMarkerSetObjectNameEXT");
-    }
-  }
-
-  void destroy_indirect_commands_layout_nvx(
-      spk::device_ref device,
-      spk::indirect_commands_layout_nvx_ref indirectCommandsLayout,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyIndirectCommandsLayoutNVX(
-        (VkDevice)device, (VkIndirectCommandsLayoutNVX)indirectCommandsLayout,
-        (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void queue_insert_debug_utils_label_ext(
-      spk::queue_ref queue,
-      spk::debug_utils_label_ext const* pLabelInfo) const {
-    vkQueueInsertDebugUtilsLabelEXT((VkQueue)queue,
-                                    (VkDebugUtilsLabelEXT const*)pLabelInfo);
-  }
-
-  void cmd_draw_indirect_count_amd(spk::command_buffer_ref commandBuffer,
-                                   spk::buffer_ref buffer, uint64_t offset,
-                                   spk::buffer_ref countBuffer,
-                                   uint64_t countBufferOffset,
-                                   uint32_t maxDrawCount,
-                                   uint32_t stride) const {
-    vkCmdDrawIndirectCountAMD((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
-                              (VkDeviceSize)offset, (VkBuffer)countBuffer,
-                              (VkDeviceSize)countBufferOffset,
-                              (uint32_t)maxDrawCount, (uint32_t)stride);
-  }
-
-  void cmd_begin_transform_feedback_ext(
-      spk::command_buffer_ref commandBuffer, uint32_t firstCounterBuffer,
-      uint32_t counterBufferCount, spk::buffer_ref const* pCounterBuffers,
-      uint64_t const* pCounterBufferOffsets) const {
-    vkCmdBeginTransformFeedbackEXT(
-        (VkCommandBuffer)commandBuffer, (uint32_t)firstCounterBuffer,
-        (uint32_t)counterBufferCount, (VkBuffer const*)pCounterBuffers,
-        (VkDeviceSize const*)pCounterBufferOffsets);
-  }
-
-  void cmd_bind_index_buffer(spk::command_buffer_ref commandBuffer,
-                             spk::buffer_ref buffer, uint64_t offset,
-                             spk::index_type indexType) const {
-    vkCmdBindIndexBuffer((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
-                         (VkDeviceSize)offset, (VkIndexType)indexType);
-  }
-
-  void cmd_draw_indexed_indirect_count_amd(
-      spk::command_buffer_ref commandBuffer, spk::buffer_ref buffer,
-      uint64_t offset, spk::buffer_ref countBuffer, uint64_t countBufferOffset,
-      uint32_t maxDrawCount, uint32_t stride) const {
-    vkCmdDrawIndexedIndirectCountAMD(
-        (VkCommandBuffer)commandBuffer, (VkBuffer)buffer, (VkDeviceSize)offset,
-        (VkBuffer)countBuffer, (VkDeviceSize)countBufferOffset,
-        (uint32_t)maxDrawCount, (uint32_t)stride);
-  }
-
-  void cmd_begin_render_pass(
-      spk::command_buffer_ref commandBuffer,
-      spk::render_pass_begin_info const* pRenderPassBegin,
-      spk::subpass_contents contents) const {
-    vkCmdBeginRenderPass((VkCommandBuffer)commandBuffer,
-                         (VkRenderPassBeginInfo const*)pRenderPassBegin,
-                         (VkSubpassContents)contents);
-  }
-
-  void cmd_reserve_space_for_commands_nvx(
-      spk::command_buffer_ref commandBuffer,
-      spk::cmd_reserve_space_for_commands_info_nvx const* pReserveSpaceInfo)
-      const {
-    vkCmdReserveSpaceForCommandsNVX(
-        (VkCommandBuffer)commandBuffer,
-        (VkCmdReserveSpaceForCommandsInfoNVX const*)pReserveSpaceInfo);
-  }
-
-  void create_object_table_nvx(
-      spk::device_ref device,
-      spk::object_table_create_info_nvx const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::object_table_nvx_ref* pObjectTable) const {
-    const VkResult res = vkCreateObjectTableNVX(
-        (VkDevice)device, (VkObjectTableCreateInfoNVX const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkObjectTableNVX*)pObjectTable);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateObjectTableNVX");
-    }
-  }
-
-  void destroy_object_table_nvx(
-      spk::device_ref device, spk::object_table_nvx_ref objectTable,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyObjectTableNVX((VkDevice)device, (VkObjectTableNVX)objectTable,
-                            (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void register_objects_nvx(
-      spk::device_ref device, spk::object_table_nvx_ref objectTable,
-      uint32_t objectCount,
-      spk::object_table_entry_nvx const* const* ppObjectTableEntries,
-      uint32_t const* pObjectIndices) const {
-    const VkResult res = vkRegisterObjectsNVX(
-        (VkDevice)device, (VkObjectTableNVX)objectTable, (uint32_t)objectCount,
-        (VkObjectTableEntryNVX const* const*)ppObjectTableEntries,
-        (uint32_t const*)pObjectIndices);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkRegisterObjectsNVX");
-    }
-  }
-
-  void unregister_objects_nvx(
-      spk::device_ref device, spk::object_table_nvx_ref objectTable,
-      uint32_t objectCount, spk::object_entry_type_nvx const* pObjectEntryTypes,
-      uint32_t const* pObjectIndices) const {
-    const VkResult res = vkUnregisterObjectsNVX(
-        (VkDevice)device, (VkObjectTableNVX)objectTable, (uint32_t)objectCount,
-        (VkObjectEntryTypeNVX const*)pObjectEntryTypes,
-        (uint32_t const*)pObjectIndices);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkUnregisterObjectsNVX");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void import_semaphore_win_32handle_khr(
-      spk::device_ref device, spk::import_semaphore_win_32handle_info_khr const*
-                                  pImportSemaphoreWin32HandleInfo) const {
-    const VkResult res = vkImportSemaphoreWin32HandleKHR(
-        (VkDevice)device, (VkImportSemaphoreWin32HandleInfoKHR const*)
-                              pImportSemaphoreWin32HandleInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkImportSemaphoreWin32HandleKHR");
-    }
-  }
-#endif
-
-  void cmd_push_descriptor_set_khr(
-      spk::command_buffer_ref commandBuffer,
-      spk::pipeline_bind_point pipelineBindPoint,
-      spk::pipeline_layout_ref layout, uint32_t set,
-      uint32_t descriptorWriteCount,
-      spk::write_descriptor_set const* pDescriptorWrites) const {
-    vkCmdPushDescriptorSetKHR(
-        (VkCommandBuffer)commandBuffer, (VkPipelineBindPoint)pipelineBindPoint,
-        (VkPipelineLayout)layout, (uint32_t)set, (uint32_t)descriptorWriteCount,
-        (VkWriteDescriptorSet const*)pDescriptorWrites);
-  }
-
-  void cmd_begin_debug_utils_label_ext(
-      spk::command_buffer_ref commandBuffer,
-      spk::debug_utils_label_ext const* pLabelInfo) const {
-    vkCmdBeginDebugUtilsLabelEXT((VkCommandBuffer)commandBuffer,
-                                 (VkDebugUtilsLabelEXT const*)pLabelInfo);
-  }
-
-  void cmd_dispatch_indirect(spk::command_buffer_ref commandBuffer,
-                             spk::buffer_ref buffer, uint64_t offset) const {
-    vkCmdDispatchIndirect((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
-                          (VkDeviceSize)offset);
-  }
-
-  void trim_command_pool(spk::device_ref device,
-                         spk::command_pool_ref commandPool) const {
-    vkTrimCommandPool((VkDevice)device, (VkCommandPool)commandPool,
-                      (VkCommandPoolTrimFlags)0 /*flags*/
-    );
-  }
-
-  void trim_command_pool_khr(spk::device_ref device,
-                             spk::command_pool_ref commandPool) const {
-    vkTrimCommandPool((VkDevice)device, (VkCommandPool)commandPool,
-                      (VkCommandPoolTrimFlags)0 /*flags*/
-    );
-  }
-
-  void destroy_pipeline_cache(
-      spk::device_ref device, spk::pipeline_cache_ref pipelineCache,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyPipelineCache((VkDevice)device, (VkPipelineCache)pipelineCache,
-                           (VkAllocationCallbacks const*)pAllocator);
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_memory_win_32handle_properties_khr(
-      spk::device_ref device, spk::external_memory_handle_type_flags handleType,
-      HANDLE handle,
-      spk::memory_win_32handle_properties_khr* pMemoryWin32HandleProperties)
-      const {
-    const VkResult res = vkGetMemoryWin32HandlePropertiesKHR(
-        (VkDevice)device, (VkExternalMemoryHandleTypeFlagBits)handleType,
-        (HANDLE)handle,
-        (VkMemoryWin32HandlePropertiesKHR*)pMemoryWin32HandleProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetMemoryWin32HandlePropertiesKHR");
-    }
-  }
-#endif
-
-  void get_memory_fd_properties_khr(
-      spk::device_ref device, spk::external_memory_handle_type_flags handleType,
-      int fd, spk::memory_fd_properties_khr* pMemoryFdProperties) const {
-    const VkResult res = vkGetMemoryFdPropertiesKHR(
-        (VkDevice)device, (VkExternalMemoryHandleTypeFlagBits)handleType,
-        (int)fd, (VkMemoryFdPropertiesKHR*)pMemoryFdProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetMemoryFdPropertiesKHR");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  void get_semaphore_win_32handle_khr(
-      spk::device_ref device,
-      spk::semaphore_get_win_32handle_info_khr const* pGetWin32HandleInfo,
-      HANDLE* pHandle) const {
-    const VkResult res = vkGetSemaphoreWin32HandleKHR(
-        (VkDevice)device,
-        (VkSemaphoreGetWin32HandleInfoKHR const*)pGetWin32HandleInfo,
-        (HANDLE*)pHandle);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetSemaphoreWin32HandleKHR");
-    }
-  }
-#endif
-
-  void get_device_group_peer_memory_features_khr(
-      spk::device_ref device, uint32_t heapIndex, uint32_t localDeviceIndex,
-      uint32_t remoteDeviceIndex,
-      spk::peer_memory_feature_flags* pPeerMemoryFeatures) const {
-    vkGetDeviceGroupPeerMemoryFeatures(
-        (VkDevice)device, (uint32_t)heapIndex, (uint32_t)localDeviceIndex,
-        (uint32_t)remoteDeviceIndex,
-        (VkPeerMemoryFeatureFlags*)pPeerMemoryFeatures);
-  }
-
-  void get_device_group_peer_memory_features(
-      spk::device_ref device, uint32_t heapIndex, uint32_t localDeviceIndex,
-      uint32_t remoteDeviceIndex,
-      spk::peer_memory_feature_flags* pPeerMemoryFeatures) const {
-    vkGetDeviceGroupPeerMemoryFeatures(
-        (VkDevice)device, (uint32_t)heapIndex, (uint32_t)localDeviceIndex,
-        (uint32_t)remoteDeviceIndex,
-        (VkPeerMemoryFeatureFlags*)pPeerMemoryFeatures);
-  }
-
-  void cmd_debug_marker_end_ext(spk::command_buffer_ref commandBuffer) const {
-    vkCmdDebugMarkerEndEXT((VkCommandBuffer)commandBuffer);
-  }
-
-  void get_semaphore_fd_khr(spk::device_ref device,
-                            spk::semaphore_get_fd_info_khr const* pGetFdInfo,
-                            int* pFd) const {
-    const VkResult res = vkGetSemaphoreFdKHR(
-        (VkDevice)device, (VkSemaphoreGetFdInfoKHR const*)pGetFdInfo,
-        (int*)pFd);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetSemaphoreFdKHR");
-    }
-  }
-
-  void destroy_sampler_ycbcr_conversion_khr(
-      spk::device_ref device, spk::sampler_ycbcr_conversion_ref ycbcrConversion,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroySamplerYcbcrConversion((VkDevice)device,
-                                    (VkSamplerYcbcrConversion)ycbcrConversion,
-                                    (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void destroy_sampler_ycbcr_conversion(
-      spk::device_ref device, spk::sampler_ycbcr_conversion_ref ycbcrConversion,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroySamplerYcbcrConversion((VkDevice)device,
-                                    (VkSamplerYcbcrConversion)ycbcrConversion,
-                                    (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_trace_rays_nv(spk::command_buffer_ref commandBuffer,
-                         spk::buffer_ref raygenShaderBindingTableBuffer,
-                         uint64_t raygenShaderBindingOffset,
-                         spk::buffer_ref missShaderBindingTableBuffer,
-                         uint64_t missShaderBindingOffset,
-                         uint64_t missShaderBindingStride,
-                         spk::buffer_ref hitShaderBindingTableBuffer,
-                         uint64_t hitShaderBindingOffset,
-                         uint64_t hitShaderBindingStride,
-                         spk::buffer_ref callableShaderBindingTableBuffer,
-                         uint64_t callableShaderBindingOffset,
-                         uint64_t callableShaderBindingStride, uint32_t width,
-                         uint32_t height, uint32_t depth) const {
-    vkCmdTraceRaysNV((VkCommandBuffer)commandBuffer,
-                     (VkBuffer)raygenShaderBindingTableBuffer,
-                     (VkDeviceSize)raygenShaderBindingOffset,
-                     (VkBuffer)missShaderBindingTableBuffer,
-                     (VkDeviceSize)missShaderBindingOffset,
-                     (VkDeviceSize)missShaderBindingStride,
-                     (VkBuffer)hitShaderBindingTableBuffer,
-                     (VkDeviceSize)hitShaderBindingOffset,
-                     (VkDeviceSize)hitShaderBindingStride,
-                     (VkBuffer)callableShaderBindingTableBuffer,
-                     (VkDeviceSize)callableShaderBindingOffset,
-                     (VkDeviceSize)callableShaderBindingStride, (uint32_t)width,
-                     (uint32_t)height, (uint32_t)depth);
-  }
-
-  [[nodiscard]] spk::result get_past_presentation_timing_google(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain,
-      uint32_t* pPresentationTimingCount,
-      spk::past_presentation_timing_google* pPresentationTimings) const {
-    const VkResult res = vkGetPastPresentationTimingGOOGLE(
-        (VkDevice)device, (VkSwapchainKHR)swapchain,
-        (uint32_t*)pPresentationTimingCount,
-        (VkPastPresentationTimingGOOGLE*)pPresentationTimings);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      case VK_ERROR_OUT_OF_DATE_KHR:
-        throw spk::error_out_of_date_khr();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetPastPresentationTimingGOOGLE");
-    }
-  }
-
-  void display_power_control_ext(
-      spk::device_ref device, spk::display_khr_ref display,
-      spk::display_power_info_ext const* pDisplayPowerInfo) const {
-    const VkResult res = vkDisplayPowerControlEXT(
-        (VkDevice)device, (VkDisplayKHR)display,
-        (VkDisplayPowerInfoEXT const*)pDisplayPowerInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkDisplayPowerControlEXT");
-    }
-  }
-
-  void get_descriptor_set_layout_support_khr(
-      spk::device_ref device,
-      spk::descriptor_set_layout_create_info const* pCreateInfo,
-      spk::descriptor_set_layout_support* pSupport) const {
-    vkGetDescriptorSetLayoutSupport(
-        (VkDevice)device, (VkDescriptorSetLayoutCreateInfo const*)pCreateInfo,
-        (VkDescriptorSetLayoutSupport*)pSupport);
-  }
-
-  void get_descriptor_set_layout_support(
-      spk::device_ref device,
-      spk::descriptor_set_layout_create_info const* pCreateInfo,
-      spk::descriptor_set_layout_support* pSupport) const {
-    vkGetDescriptorSetLayoutSupport(
-        (VkDevice)device, (VkDescriptorSetLayoutCreateInfo const*)pCreateInfo,
-        (VkDescriptorSetLayoutSupport*)pSupport);
-  }
-
-  void get_swapchain_counter_ext(spk::device_ref device,
-                                 spk::swapchain_khr_ref swapchain,
-                                 spk::surface_counter_flags_ext counter,
-                                 uint64_t* pCounterValue) const {
-    const VkResult res = vkGetSwapchainCounterEXT(
-        (VkDevice)device, (VkSwapchainKHR)swapchain,
-        (VkSurfaceCounterFlagBitsEXT)counter, (uint64_t*)pCounterValue);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      case VK_ERROR_OUT_OF_DATE_KHR:
-        throw spk::error_out_of_date_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetSwapchainCounterEXT");
-    }
-  }
-
-  void cmd_pipeline_barrier(
-      spk::command_buffer_ref commandBuffer,
-      spk::pipeline_stage_flags srcStageMask,
-      spk::pipeline_stage_flags dstStageMask,
-      spk::dependency_flags dependencyFlags, uint32_t memoryBarrierCount,
-      spk::memory_barrier const* pMemoryBarriers,
-      uint32_t bufferMemoryBarrierCount,
-      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
-      uint32_t imageMemoryBarrierCount,
-      spk::image_memory_barrier const* pImageMemoryBarriers) const {
-    vkCmdPipelineBarrier(
-        (VkCommandBuffer)commandBuffer, (VkPipelineStageFlags)srcStageMask,
-        (VkPipelineStageFlags)dstStageMask, (VkDependencyFlags)dependencyFlags,
-        (uint32_t)memoryBarrierCount, (VkMemoryBarrier const*)pMemoryBarriers,
-        (uint32_t)bufferMemoryBarrierCount,
-        (VkBufferMemoryBarrier const*)pBufferMemoryBarriers,
-        (uint32_t)imageMemoryBarrierCount,
-        (VkImageMemoryBarrier const*)pImageMemoryBarriers);
-  }
-
-  void cmd_set_device_mask(spk::command_buffer_ref commandBuffer,
-                           uint32_t deviceMask) const {
-    vkCmdSetDeviceMask((VkCommandBuffer)commandBuffer, (uint32_t)deviceMask);
-  }
-
-  void cmd_set_device_mask_khr(spk::command_buffer_ref commandBuffer,
-                               uint32_t deviceMask) const {
-    vkCmdSetDeviceMask((VkCommandBuffer)commandBuffer, (uint32_t)deviceMask);
-  }
-
-  void reset_fences(spk::device_ref device, uint32_t fenceCount,
-                    spk::fence_ref const* pFences) const {
-    const VkResult res = vkResetFences((VkDevice)device, (uint32_t)fenceCount,
-                                       (VkFence const*)pFences);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkResetFences");
-    }
-  }
-
-  void get_device_group_present_capabilities_khr(
-      spk::device_ref device, spk::device_group_present_capabilities_khr*
-                                  pDeviceGroupPresentCapabilities) const {
-    const VkResult res = vkGetDeviceGroupPresentCapabilitiesKHR(
-        (VkDevice)device,
-        (VkDeviceGroupPresentCapabilitiesKHR*)pDeviceGroupPresentCapabilities);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetDeviceGroupPresentCapabilitiesKHR");
-    }
-  }
-
-  void get_device_group_surface_present_modes_khr(
-      spk::device_ref device, spk::surface_khr_ref surface,
-      spk::device_group_present_mode_flags_khr* pModes) const {
-    const VkResult res = vkGetDeviceGroupSurfacePresentModesKHR(
-        (VkDevice)device, (VkSurfaceKHR)surface,
-        (VkDeviceGroupPresentModeFlagsKHR*)pModes);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetDeviceGroupSurfacePresentModesKHR");
-    }
-  }
-
-  void cmd_set_viewport_w_scaling_nv(
-      spk::command_buffer_ref commandBuffer, uint32_t firstViewport,
-      uint32_t viewportCount,
-      spk::viewport_w_scaling_nv const* pViewportWScalings) const {
-    vkCmdSetViewportWScalingNV((VkCommandBuffer)commandBuffer,
-                               (uint32_t)firstViewport, (uint32_t)viewportCount,
-                               (VkViewportWScalingNV const*)pViewportWScalings);
-  }
-
-  void cmd_copy_acceleration_structure_nv(
-      spk::command_buffer_ref commandBuffer,
-      spk::acceleration_structure_nv_ref dst,
-      spk::acceleration_structure_nv_ref src,
-      spk::copy_acceleration_structure_mode_nv mode) const {
-    vkCmdCopyAccelerationStructureNV((VkCommandBuffer)commandBuffer,
-                                     (VkAccelerationStructureNV)dst,
-                                     (VkAccelerationStructureNV)src,
-                                     (VkCopyAccelerationStructureModeNV)mode);
-  }
-
-  [[nodiscard]] spk::result acquire_next_image_2khr(
-      spk::device_ref device,
-      spk::acquire_next_image_info_khr const* pAcquireInfo,
-      uint32_t* pImageIndex) const {
-    const VkResult res = vkAcquireNextImage2KHR(
-        (VkDevice)device, (VkAcquireNextImageInfoKHR const*)pAcquireInfo,
-        (uint32_t*)pImageIndex);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_TIMEOUT:
-        return spk::result::timeout;
-      case VK_NOT_READY:
-        return spk::result::not_ready;
-      case VK_SUBOPTIMAL_KHR:
-        return spk::result::suboptimal_khr;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      case VK_ERROR_OUT_OF_DATE_KHR:
-        throw spk::error_out_of_date_khr();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkAcquireNextImage2KHR");
-    }
-  }
-
-  void cmd_dispatch_base(spk::command_buffer_ref commandBuffer,
-                         uint32_t baseGroupX, uint32_t baseGroupY,
-                         uint32_t baseGroupZ, uint32_t groupCountX,
-                         uint32_t groupCountY, uint32_t groupCountZ) const {
-    vkCmdDispatchBase((VkCommandBuffer)commandBuffer, (uint32_t)baseGroupX,
-                      (uint32_t)baseGroupY, (uint32_t)baseGroupZ,
-                      (uint32_t)groupCountX, (uint32_t)groupCountY,
-                      (uint32_t)groupCountZ);
-  }
-
-  void cmd_dispatch_base_khr(spk::command_buffer_ref commandBuffer,
-                             uint32_t baseGroupX, uint32_t baseGroupY,
-                             uint32_t baseGroupZ, uint32_t groupCountX,
-                             uint32_t groupCountY, uint32_t groupCountZ) const {
-    vkCmdDispatchBase((VkCommandBuffer)commandBuffer, (uint32_t)baseGroupX,
-                      (uint32_t)baseGroupY, (uint32_t)baseGroupZ,
-                      (uint32_t)groupCountX, (uint32_t)groupCountY,
-                      (uint32_t)groupCountZ);
-  }
-
-  void create_image(spk::device_ref device,
-                    spk::image_create_info const* pCreateInfo,
-                    spk::allocation_callbacks const* pAllocator,
-                    spk::image_ref* pImage) const {
-    const VkResult res = vkCreateImage(
-        (VkDevice)device, (VkImageCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkImage*)pImage);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkCreateImage");
-    }
-  }
-
-  void destroy_descriptor_update_template_khr(
-      spk::device_ref device,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDescriptorUpdateTemplate(
-        (VkDevice)device, (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
-        (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void destroy_descriptor_update_template(
-      spk::device_ref device,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyDescriptorUpdateTemplate(
-        (VkDevice)device, (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
-        (VkAllocationCallbacks const*)pAllocator);
-  }
-
-  void cmd_push_descriptor_set_with_template_khr(
-      spk::command_buffer_ref commandBuffer,
-      spk::descriptor_update_template_ref descriptorUpdateTemplate,
-      spk::pipeline_layout_ref layout, uint32_t set, void const* pData) const {
-    vkCmdPushDescriptorSetWithTemplateKHR(
-        (VkCommandBuffer)commandBuffer,
-        (VkDescriptorUpdateTemplate)descriptorUpdateTemplate,
-        (VkPipelineLayout)layout, (uint32_t)set, (void const*)pData);
-  }
-
-  void set_hdr_metadata_ext(spk::device_ref device, uint32_t swapchainCount,
-                            spk::swapchain_khr_ref const* pSwapchains,
-                            spk::hdr_metadata_ext const* pMetadata) const {
-    vkSetHdrMetadataEXT((VkDevice)device, (uint32_t)swapchainCount,
-                        (VkSwapchainKHR const*)pSwapchains,
-                        (VkHdrMetadataEXT const*)pMetadata);
-  }
-
-  [[nodiscard]] spk::result get_swapchain_status_khr(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain) const {
-    const VkResult res =
-        vkGetSwapchainStatusKHR((VkDevice)device, (VkSwapchainKHR)swapchain);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_SUBOPTIMAL_KHR:
-        return spk::result::suboptimal_khr;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      case VK_ERROR_OUT_OF_DATE_KHR:
-        throw spk::error_out_of_date_khr();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetSwapchainStatusKHR");
-    }
-  }
-
-  void cmd_set_discard_rectangle_ext(
-      spk::command_buffer_ref commandBuffer, uint32_t firstDiscardRectangle,
-      uint32_t discardRectangleCount,
-      spk::rect_2d const* pDiscardRectangles) const {
-    vkCmdSetDiscardRectangleEXT(
-        (VkCommandBuffer)commandBuffer, (uint32_t)firstDiscardRectangle,
-        (uint32_t)discardRectangleCount, (VkRect2D const*)pDiscardRectangles);
-  }
-
-  void get_refresh_cycle_duration_google(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain,
-      spk::refresh_cycle_duration_google* pDisplayTimingProperties) const {
-    const VkResult res = vkGetRefreshCycleDurationGOOGLE(
-        (VkDevice)device, (VkSwapchainKHR)swapchain,
-        (VkRefreshCycleDurationGOOGLE*)pDisplayTimingProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_DEVICE_LOST:
-        throw spk::error_device_lost();
-      case VK_ERROR_SURFACE_LOST_KHR:
-        throw spk::error_surface_lost_khr();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetRefreshCycleDurationGOOGLE");
-    }
-  }
-
-  void get_image_memory_requirements_2khr(
-      spk::device_ref device,
-      spk::image_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) const {
-    vkGetImageMemoryRequirements2((VkDevice)device,
-                                  (VkImageMemoryRequirementsInfo2 const*)pInfo,
-                                  (VkMemoryRequirements2*)pMemoryRequirements);
-  }
-
-  void get_image_memory_requirements_2(
-      spk::device_ref device,
-      spk::image_memory_requirements_info_2 const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) const {
-    vkGetImageMemoryRequirements2((VkDevice)device,
-                                  (VkImageMemoryRequirementsInfo2 const*)pInfo,
-                                  (VkMemoryRequirements2*)pMemoryRequirements);
-  }
-
-  [[nodiscard]] spk::result get_swapchain_images_khr(
-      spk::device_ref device, spk::swapchain_khr_ref swapchain,
-      uint32_t* pSwapchainImageCount, spk::image_ref* pSwapchainImages) const {
-    const VkResult res = vkGetSwapchainImagesKHR(
-        (VkDevice)device, (VkSwapchainKHR)swapchain,
-        (uint32_t*)pSwapchainImageCount, (VkImage*)pSwapchainImages);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetSwapchainImagesKHR");
-    }
-  }
-
-  void cmd_debug_marker_insert_ext(
-      spk::command_buffer_ref commandBuffer,
-      spk::debug_marker_marker_info_ext const* pMarkerInfo) const {
-    vkCmdDebugMarkerInsertEXT((VkCommandBuffer)commandBuffer,
-                              (VkDebugMarkerMarkerInfoEXT const*)pMarkerInfo);
-  }
-
-  void get_image_sparse_memory_requirements_2khr(
-      spk::device_ref device,
-      spk::image_sparse_memory_requirements_info_2 const* pInfo,
-      uint32_t* pSparseMemoryRequirementCount,
-      spk::sparse_image_memory_requirements_2* pSparseMemoryRequirements)
-      const {
-    vkGetImageSparseMemoryRequirements2(
-        (VkDevice)device, (VkImageSparseMemoryRequirementsInfo2 const*)pInfo,
-        (uint32_t*)pSparseMemoryRequirementCount,
-        (VkSparseImageMemoryRequirements2*)pSparseMemoryRequirements);
-  }
-
-  void get_image_sparse_memory_requirements_2(
-      spk::device_ref device,
-      spk::image_sparse_memory_requirements_info_2 const* pInfo,
-      uint32_t* pSparseMemoryRequirementCount,
-      spk::sparse_image_memory_requirements_2* pSparseMemoryRequirements)
-      const {
-    vkGetImageSparseMemoryRequirements2(
-        (VkDevice)device, (VkImageSparseMemoryRequirementsInfo2 const*)pInfo,
-        (uint32_t*)pSparseMemoryRequirementCount,
-        (VkSparseImageMemoryRequirements2*)pSparseMemoryRequirements);
-  }
-
-  void cmd_set_coarse_sample_order_nv(
-      spk::command_buffer_ref commandBuffer,
-      spk::coarse_sample_order_type_nv sampleOrderType,
-      uint32_t customSampleOrderCount,
-      spk::coarse_sample_order_custom_nv const* pCustomSampleOrders) const {
-    vkCmdSetCoarseSampleOrderNV(
-        (VkCommandBuffer)commandBuffer,
-        (VkCoarseSampleOrderTypeNV)sampleOrderType,
-        (uint32_t)customSampleOrderCount,
-        (VkCoarseSampleOrderCustomNV const*)pCustomSampleOrders);
-  }
-
-  void create_sampler_ycbcr_conversion_khr(
-      spk::device_ref device,
-      spk::sampler_ycbcr_conversion_create_info const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::sampler_ycbcr_conversion_ref* pYcbcrConversion) const {
-    const VkResult res = vkCreateSamplerYcbcrConversion(
-        (VkDevice)device,
-        (VkSamplerYcbcrConversionCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkSamplerYcbcrConversion*)pYcbcrConversion);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateSamplerYcbcrConversion");
-    }
-  }
-
-  void create_sampler_ycbcr_conversion(
-      spk::device_ref device,
-      spk::sampler_ycbcr_conversion_create_info const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::sampler_ycbcr_conversion_ref* pYcbcrConversion) const {
-    const VkResult res = vkCreateSamplerYcbcrConversion(
-        (VkDevice)device,
-        (VkSamplerYcbcrConversionCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkSamplerYcbcrConversion*)pYcbcrConversion);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateSamplerYcbcrConversion");
-    }
-  }
-
-  void get_device_queue_2(spk::device_ref device,
-                          spk::device_queue_info_2 const* pQueueInfo,
-                          spk::queue_ref* pQueue) const {
-    vkGetDeviceQueue2((VkDevice)device, (VkDeviceQueueInfo2 const*)pQueueInfo,
-                      (VkQueue*)pQueue);
-  }
-
-  [[nodiscard]] spk::result get_validation_cache_data_ext(
-      spk::device_ref device, spk::validation_cache_ext_ref validationCache,
-      size_t* pDataSize, void* pData) const {
-    const VkResult res = vkGetValidationCacheDataEXT(
-        (VkDevice)device, (VkValidationCacheEXT)validationCache,
-        (size_t*)pDataSize, (void*)pData);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetValidationCacheDataEXT");
-    }
-  }
-
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-  void get_memory_android_hardware_buffer_android(
-      spk::device_ref device,
-      spk::memory_get_android_hardware_buffer_info_android const* pInfo,
-      AHardwareBuffer** pBuffer) const {
-    const VkResult res = vkGetMemoryAndroidHardwareBufferANDROID(
-        (VkDevice)device,
-        (VkMemoryGetAndroidHardwareBufferInfoANDROID const*)pInfo,
-        (AHardwareBuffer**)pBuffer);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_TOO_MANY_OBJECTS:
-        throw spk::error_too_many_objects();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetMemoryAndroidHardwareBufferANDROID");
-    }
-  }
-#endif
-
-  void merge_validation_caches_ext(
-      spk::device_ref device, spk::validation_cache_ext_ref dstCache,
-      uint32_t srcCacheCount,
-      spk::validation_cache_ext_ref const* pSrcCaches) const {
-    const VkResult res = vkMergeValidationCachesEXT(
-        (VkDevice)device, (VkValidationCacheEXT)dstCache,
-        (uint32_t)srcCacheCount, (VkValidationCacheEXT const*)pSrcCaches);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkMergeValidationCachesEXT");
-    }
-  }
-
-  [[nodiscard]] spk::result get_shader_info_amd(
-      spk::device_ref device, spk::pipeline_ref pipeline,
-      spk::shader_stage_flags shaderStage, spk::shader_info_type_amd infoType,
-      size_t* pInfoSize, void* pInfo) const {
-    const VkResult res = vkGetShaderInfoAMD(
-        (VkDevice)device, (VkPipeline)pipeline,
-        (VkShaderStageFlagBits)shaderStage, (VkShaderInfoTypeAMD)infoType,
-        (size_t*)pInfoSize, (void*)pInfo);
-    switch (res) {
-      case VK_SUCCESS:
-        return spk::result::success;
-      case VK_INCOMPLETE:
-        return spk::result::incomplete;
-      case VK_ERROR_FEATURE_NOT_PRESENT:
-        throw spk::error_feature_not_present();
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetShaderInfoAMD");
-    }
-  }
-
-  void get_calibrated_timestamps_ext(
-      spk::device_ref device, uint32_t timestampCount,
-      spk::calibrated_timestamp_info_ext const* pTimestampInfos,
-      uint64_t* pTimestamps, uint64_t* pMaxDeviation) const {
-    const VkResult res = vkGetCalibratedTimestampsEXT(
-        (VkDevice)device, (uint32_t)timestampCount,
-        (VkCalibratedTimestampInfoEXT const*)pTimestampInfos,
-        (uint64_t*)pTimestamps, (uint64_t*)pMaxDeviation);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkGetCalibratedTimestampsEXT");
-    }
-  }
-
-  void queue_begin_debug_utils_label_ext(
-      spk::queue_ref queue,
-      spk::debug_utils_label_ext const* pLabelInfo) const {
-    vkQueueBeginDebugUtilsLabelEXT((VkQueue)queue,
-                                   (VkDebugUtilsLabelEXT const*)pLabelInfo);
-  }
-
-  void queue_end_debug_utils_label_ext(spk::queue_ref queue) const {
-    vkQueueEndDebugUtilsLabelEXT((VkQueue)queue);
-  }
-
-  void cmd_end_debug_utils_label_ext(
-      spk::command_buffer_ref commandBuffer) const {
-    vkCmdEndDebugUtilsLabelEXT((VkCommandBuffer)commandBuffer);
-  }
-
-  void cmd_insert_debug_utils_label_ext(
-      spk::command_buffer_ref commandBuffer,
-      spk::debug_utils_label_ext const* pLabelInfo) const {
-    vkCmdInsertDebugUtilsLabelEXT((VkCommandBuffer)commandBuffer,
-                                  (VkDebugUtilsLabelEXT const*)pLabelInfo);
-  }
-
-  void cmd_debug_marker_begin_ext(
-      spk::command_buffer_ref commandBuffer,
-      spk::debug_marker_marker_info_ext const* pMarkerInfo) const {
-    vkCmdDebugMarkerBeginEXT((VkCommandBuffer)commandBuffer,
-                             (VkDebugMarkerMarkerInfoEXT const*)pMarkerInfo);
   }
 
   void create_swapchain_khr(spk::device_ref device,
@@ -26477,103 +26714,30 @@ struct device_dispatch_table {
     }
   }
 
-  void cmd_draw_indirect_count_khr(spk::command_buffer_ref commandBuffer,
-                                   spk::buffer_ref buffer, uint64_t offset,
-                                   spk::buffer_ref countBuffer,
-                                   uint64_t countBufferOffset,
-                                   uint32_t maxDrawCount,
-                                   uint32_t stride) const {
-    vkCmdDrawIndirectCountKHR((VkCommandBuffer)commandBuffer, (VkBuffer)buffer,
-                              (VkDeviceSize)offset, (VkBuffer)countBuffer,
-                              (VkDeviceSize)countBufferOffset,
-                              (uint32_t)maxDrawCount, (uint32_t)stride);
+  void cmd_begin_transform_feedback_ext(
+      spk::command_buffer_ref commandBuffer, uint32_t firstCounterBuffer,
+      uint32_t counterBufferCount, spk::buffer_ref const* pCounterBuffers,
+      uint64_t const* pCounterBufferOffsets) const {
+    vkCmdBeginTransformFeedbackEXT(
+        (VkCommandBuffer)commandBuffer, (uint32_t)firstCounterBuffer,
+        (uint32_t)counterBufferCount, (VkBuffer const*)pCounterBuffers,
+        (VkDeviceSize const*)pCounterBufferOffsets);
   }
 
-  void get_memory_host_pointer_properties_ext(
-      spk::device_ref device, spk::external_memory_handle_type_flags handleType,
-      void const* pHostPointer,
-      spk::memory_host_pointer_properties_ext* pMemoryHostPointerProperties)
-      const {
-    const VkResult res = vkGetMemoryHostPointerPropertiesEXT(
-        (VkDevice)device, (VkExternalMemoryHandleTypeFlagBits)handleType,
-        (void const*)pHostPointer,
-        (VkMemoryHostPointerPropertiesEXT*)pMemoryHostPointerProperties);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
-        throw spk::error_invalid_external_handle();
-      default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetMemoryHostPointerPropertiesEXT");
-    }
+  void destroy_swapchain_khr(
+      spk::device_ref device, spk::swapchain_khr_ref swapchain,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroySwapchainKHR((VkDevice)device, (VkSwapchainKHR)swapchain,
+                          (VkAllocationCallbacks const*)pAllocator);
   }
 
-  void cmd_next_subpass_2khr(
-      spk::command_buffer_ref commandBuffer,
-      spk::subpass_begin_info_khr const* pSubpassBeginInfo,
-      spk::subpass_end_info_khr const* pSubpassEndInfo) const {
-    vkCmdNextSubpass2KHR((VkCommandBuffer)commandBuffer,
-                         (VkSubpassBeginInfoKHR const*)pSubpassBeginInfo,
-                         (VkSubpassEndInfoKHR const*)pSubpassEndInfo);
-  }
-
-  VkDeviceAddress get_buffer_device_address_ext(
-      spk::device_ref device,
-      spk::buffer_device_address_info_ext const* pInfo) const {
-    return (VkDeviceAddress)(vkGetBufferDeviceAddressEXT(
-        (VkDevice)device, (VkBufferDeviceAddressInfoEXT const*)pInfo));
-  }
-
-  void cmd_draw_indirect_byte_count_ext(spk::command_buffer_ref commandBuffer,
-                                        uint32_t instanceCount,
-                                        uint32_t firstInstance,
-                                        spk::buffer_ref counterBuffer,
-                                        uint64_t counterBufferOffset,
-                                        uint32_t counterOffset,
-                                        uint32_t vertexStride) const {
-    vkCmdDrawIndirectByteCountEXT(
-        (VkCommandBuffer)commandBuffer, (uint32_t)instanceCount,
-        (uint32_t)firstInstance, (VkBuffer)counterBuffer,
-        (VkDeviceSize)counterBufferOffset, (uint32_t)counterOffset,
-        (uint32_t)vertexStride);
-  }
-
-  void cmd_draw_mesh_tasks_indirect_nv(spk::command_buffer_ref commandBuffer,
-                                       spk::buffer_ref buffer, uint64_t offset,
-                                       uint32_t drawCount,
-                                       uint32_t stride) const {
-    vkCmdDrawMeshTasksIndirectNV((VkCommandBuffer)commandBuffer,
-                                 (VkBuffer)buffer, (VkDeviceSize)offset,
-                                 (uint32_t)drawCount, (uint32_t)stride);
-  }
-
-  void reset_event(spk::device_ref device, spk::event_ref event) const {
-    const VkResult res = vkResetEvent((VkDevice)device, (VkEvent)event);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-        throw spk::error_out_of_device_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res, "vkResetEvent");
-    }
-  }
-
-  void cmd_bind_shading_rate_image_nv(spk::command_buffer_ref commandBuffer,
-                                      spk::image_view_ref imageView,
-                                      spk::image_layout imageLayout) const {
-    vkCmdBindShadingRateImageNV((VkCommandBuffer)commandBuffer,
-                                (VkImageView)imageView,
-                                (VkImageLayout)imageLayout);
-  }
-
-  void compile_deferred_nv(spk::device_ref device, spk::pipeline_ref pipeline,
-                           uint32_t shader) const {
-    const VkResult res = vkCompileDeferredNV(
-        (VkDevice)device, (VkPipeline)pipeline, (uint32_t)shader);
+  void create_query_pool(spk::device_ref device,
+                         spk::query_pool_create_info const* pCreateInfo,
+                         spk::allocation_callbacks const* pAllocator,
+                         spk::query_pool_ref* pQueryPool) const {
+    const VkResult res = vkCreateQueryPool(
+        (VkDevice)device, (VkQueryPoolCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkQueryPool*)pQueryPool);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -26583,53 +26747,7 @@ struct device_dispatch_table {
         throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCompileDeferredNV");
-    }
-  }
-
-  void get_device_memory_commitment(spk::device_ref device,
-                                    spk::device_memory_ref memory,
-                                    uint64_t* pCommittedMemoryInBytes) const {
-    vkGetDeviceMemoryCommitment((VkDevice)device, (VkDeviceMemory)memory,
-                                (VkDeviceSize*)pCommittedMemoryInBytes);
-  }
-
-  void register_display_event_ext(
-      spk::device_ref device, spk::display_khr_ref display,
-      spk::display_event_info_ext const* pDisplayEventInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::fence_ref* pFence) const {
-    const VkResult res = vkRegisterDisplayEventEXT(
-        (VkDevice)device, (VkDisplayKHR)display,
-        (VkDisplayEventInfoEXT const*)pDisplayEventInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkFence*)pFence);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkRegisterDisplayEventEXT");
-    }
-  }
-
-  void create_acceleration_structure_nv(
-      spk::device_ref device,
-      spk::acceleration_structure_create_info_nv const* pCreateInfo,
-      spk::allocation_callbacks const* pAllocator,
-      spk::acceleration_structure_nv_ref* pAccelerationStructure) const {
-    const VkResult res = vkCreateAccelerationStructureNV(
-        (VkDevice)device,
-        (VkAccelerationStructureCreateInfoNV const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator,
-        (VkAccelerationStructureNV*)pAccelerationStructure);
-    switch (res) {
-      case VK_SUCCESS:
-        return;
-      case VK_ERROR_OUT_OF_HOST_MEMORY:
-        throw spk::error_out_of_host_memory();
-      default:
-        throw spk::unexpected_command_result((spk::result)res,
-                                             "vkCreateAccelerationStructureNV");
+                                             "vkCreateQueryPool");
     }
   }
 
@@ -26640,23 +26758,81 @@ struct device_dispatch_table {
                             (VkAllocationCallbacks const*)pAllocator);
   }
 
-  void get_acceleration_structure_memory_requirements_nv(
-      spk::device_ref device,
-      spk::acceleration_structure_memory_requirements_info_nv const* pInfo,
-      spk::memory_requirements_2* pMemoryRequirements) const {
-    vkGetAccelerationStructureMemoryRequirementsNV(
-        (VkDevice)device,
-        (VkAccelerationStructureMemoryRequirementsInfoNV const*)pInfo,
-        (VkMemoryRequirements2*)pMemoryRequirements);
+  void cmd_debug_marker_insert_ext(
+      spk::command_buffer_ref commandBuffer,
+      spk::debug_marker_marker_info_ext const* pMarkerInfo) const {
+    vkCmdDebugMarkerInsertEXT((VkCommandBuffer)commandBuffer,
+                              (VkDebugMarkerMarkerInfoEXT const*)pMarkerInfo);
   }
 
-  void create_event(spk::device_ref device,
-                    spk::event_create_info const* pCreateInfo,
-                    spk::allocation_callbacks const* pAllocator,
-                    spk::event_ref* pEvent) const {
-    const VkResult res = vkCreateEvent(
-        (VkDevice)device, (VkEventCreateInfo const*)pCreateInfo,
-        (VkAllocationCallbacks const*)pAllocator, (VkEvent*)pEvent);
+  void cmd_draw_indexed_indirect_count_amd(
+      spk::command_buffer_ref commandBuffer, spk::buffer_ref buffer,
+      uint64_t offset, spk::buffer_ref countBuffer, uint64_t countBufferOffset,
+      uint32_t maxDrawCount, uint32_t stride) const {
+    vkCmdDrawIndexedIndirectCountAMD(
+        (VkCommandBuffer)commandBuffer, (VkBuffer)buffer, (VkDeviceSize)offset,
+        (VkBuffer)countBuffer, (VkDeviceSize)countBufferOffset,
+        (uint32_t)maxDrawCount, (uint32_t)stride);
+  }
+
+  void cmd_end_query_indexed_ext(spk::command_buffer_ref commandBuffer,
+                                 spk::query_pool_ref queryPool, uint32_t query,
+                                 uint32_t index) const {
+    vkCmdEndQueryIndexedEXT((VkCommandBuffer)commandBuffer,
+                            (VkQueryPool)queryPool, (uint32_t)query,
+                            (uint32_t)index);
+  }
+
+  void cmd_wait_events(
+      spk::command_buffer_ref commandBuffer, uint32_t eventCount,
+      spk::event_ref const* pEvents, spk::pipeline_stage_flags srcStageMask,
+      spk::pipeline_stage_flags dstStageMask, uint32_t memoryBarrierCount,
+      spk::memory_barrier const* pMemoryBarriers,
+      uint32_t bufferMemoryBarrierCount,
+      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
+      uint32_t imageMemoryBarrierCount,
+      spk::image_memory_barrier const* pImageMemoryBarriers) const {
+    vkCmdWaitEvents((VkCommandBuffer)commandBuffer, (uint32_t)eventCount,
+                    (VkEvent const*)pEvents, (VkPipelineStageFlags)srcStageMask,
+                    (VkPipelineStageFlags)dstStageMask,
+                    (uint32_t)memoryBarrierCount,
+                    (VkMemoryBarrier const*)pMemoryBarriers,
+                    (uint32_t)bufferMemoryBarrierCount,
+                    (VkBufferMemoryBarrier const*)pBufferMemoryBarriers,
+                    (uint32_t)imageMemoryBarrierCount,
+                    (VkImageMemoryBarrier const*)pImageMemoryBarriers);
+  }
+
+  void cmd_draw_indexed(spk::command_buffer_ref commandBuffer,
+                        uint32_t indexCount, uint32_t instanceCount,
+                        uint32_t firstIndex, int32_t vertexOffset,
+                        uint32_t firstInstance) const {
+    vkCmdDrawIndexed((VkCommandBuffer)commandBuffer, (uint32_t)indexCount,
+                     (uint32_t)instanceCount, (uint32_t)firstIndex,
+                     (int32_t)vertexOffset, (uint32_t)firstInstance);
+  }
+
+  void trim_command_pool_khr(spk::device_ref device,
+                             spk::command_pool_ref commandPool) const {
+    vkTrimCommandPool((VkDevice)device, (VkCommandPool)commandPool,
+                      (VkCommandPoolTrimFlags)0 /*flags*/
+    );
+  }
+
+  void trim_command_pool(spk::device_ref device,
+                         spk::command_pool_ref commandPool) const {
+    vkTrimCommandPool((VkDevice)device, (VkCommandPool)commandPool,
+                      (VkCommandPoolTrimFlags)0 /*flags*/
+    );
+  }
+
+  void create_image_view(spk::device_ref device,
+                         spk::image_view_create_info const* pCreateInfo,
+                         spk::allocation_callbacks const* pAllocator,
+                         spk::image_view_ref* pView) const {
+    const VkResult res = vkCreateImageView(
+        (VkDevice)device, (VkImageViewCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkImageView*)pView);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -26665,52 +26841,148 @@ struct device_dispatch_table {
       case VK_ERROR_OUT_OF_DEVICE_MEMORY:
         throw spk::error_out_of_device_memory();
       default:
-        throw spk::unexpected_command_result((spk::result)res, "vkCreateEvent");
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateImageView");
     }
   }
 
-  void cmd_write_acceleration_structures_properties_nv(
-      spk::command_buffer_ref commandBuffer,
-      uint32_t accelerationStructureCount,
-      spk::acceleration_structure_nv_ref const* pAccelerationStructures,
-      spk::query_type queryType, spk::query_pool_ref queryPool,
-      uint32_t firstQuery) const {
-    vkCmdWriteAccelerationStructuresPropertiesNV(
-        (VkCommandBuffer)commandBuffer, (uint32_t)accelerationStructureCount,
-        (VkAccelerationStructureNV const*)pAccelerationStructures,
-        (VkQueryType)queryType, (VkQueryPool)queryPool, (uint32_t)firstQuery);
-  }
-
-  void cmd_build_acceleration_structure_nv(
-      spk::command_buffer_ref commandBuffer,
-      spk::acceleration_structure_info_nv const* pInfo,
-      spk::buffer_ref instanceData, uint64_t instanceOffset,
-      spk::bool32_t update, spk::acceleration_structure_nv_ref dst,
-      spk::acceleration_structure_nv_ref src, spk::buffer_ref scratch,
-      uint64_t scratchOffset) const {
-    vkCmdBuildAccelerationStructureNV(
-        (VkCommandBuffer)commandBuffer,
-        (VkAccelerationStructureInfoNV const*)pInfo, (VkBuffer)instanceData,
-        (VkDeviceSize)instanceOffset, (VkBool32)update,
-        (VkAccelerationStructureNV)dst, (VkAccelerationStructureNV)src,
-        (VkBuffer)scratch, (VkDeviceSize)scratchOffset);
-  }
-
-  void destroy_acceleration_structure_nv(
-      spk::device_ref device,
-      spk::acceleration_structure_nv_ref accelerationStructure,
+  void destroy_shader_module(
+      spk::device_ref device, spk::shader_module_ref shaderModule,
       spk::allocation_callbacks const* pAllocator) const {
-    vkDestroyAccelerationStructureNV(
-        (VkDevice)device, (VkAccelerationStructureNV)accelerationStructure,
-        (VkAllocationCallbacks const*)pAllocator);
+    vkDestroyShaderModule((VkDevice)device, (VkShaderModule)shaderModule,
+                          (VkAllocationCallbacks const*)pAllocator);
   }
 
-  void get_ray_tracing_shader_group_handles_nv(
-      spk::device_ref device, spk::pipeline_ref pipeline, uint32_t firstGroup,
-      uint32_t groupCount, size_t dataSize, void* pData) const {
-    const VkResult res = vkGetRayTracingShaderGroupHandlesNV(
-        (VkDevice)device, (VkPipeline)pipeline, (uint32_t)firstGroup,
-        (uint32_t)groupCount, (size_t)dataSize, (void*)pData);
+  void debug_marker_set_object_name_ext(
+      spk::device_ref device,
+      spk::debug_marker_object_name_info_ext const* pNameInfo) const {
+    const VkResult res = vkDebugMarkerSetObjectNameEXT(
+        (VkDevice)device, (VkDebugMarkerObjectNameInfoEXT const*)pNameInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkDebugMarkerSetObjectNameEXT");
+    }
+  }
+
+  void cmd_pipeline_barrier(
+      spk::command_buffer_ref commandBuffer,
+      spk::pipeline_stage_flags srcStageMask,
+      spk::pipeline_stage_flags dstStageMask,
+      spk::dependency_flags dependencyFlags, uint32_t memoryBarrierCount,
+      spk::memory_barrier const* pMemoryBarriers,
+      uint32_t bufferMemoryBarrierCount,
+      spk::buffer_memory_barrier const* pBufferMemoryBarriers,
+      uint32_t imageMemoryBarrierCount,
+      spk::image_memory_barrier const* pImageMemoryBarriers) const {
+    vkCmdPipelineBarrier(
+        (VkCommandBuffer)commandBuffer, (VkPipelineStageFlags)srcStageMask,
+        (VkPipelineStageFlags)dstStageMask, (VkDependencyFlags)dependencyFlags,
+        (uint32_t)memoryBarrierCount, (VkMemoryBarrier const*)pMemoryBarriers,
+        (uint32_t)bufferMemoryBarrierCount,
+        (VkBufferMemoryBarrier const*)pBufferMemoryBarriers,
+        (uint32_t)imageMemoryBarrierCount,
+        (VkImageMemoryBarrier const*)pImageMemoryBarriers);
+  }
+
+  void debug_marker_set_object_tag_ext(
+      spk::device_ref device,
+      spk::debug_marker_object_tag_info_ext const* pTagInfo) const {
+    const VkResult res = vkDebugMarkerSetObjectTagEXT(
+        (VkDevice)device, (VkDebugMarkerObjectTagInfoEXT const*)pTagInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkDebugMarkerSetObjectTagEXT");
+    }
+  }
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  void import_fence_win_32handle_khr(
+      spk::device_ref device, spk::import_fence_win_32handle_info_khr const*
+                                  pImportFenceWin32HandleInfo) const {
+    const VkResult res = vkImportFenceWin32HandleKHR(
+        (VkDevice)device,
+        (VkImportFenceWin32HandleInfoKHR const*)pImportFenceWin32HandleInfo);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkImportFenceWin32HandleKHR");
+    }
+  }
+#endif
+
+  void cmd_reserve_space_for_commands_nvx(
+      spk::command_buffer_ref commandBuffer,
+      spk::cmd_reserve_space_for_commands_info_nvx const* pReserveSpaceInfo)
+      const {
+    vkCmdReserveSpaceForCommandsNVX(
+        (VkCommandBuffer)commandBuffer,
+        (VkCmdReserveSpaceForCommandsInfoNVX const*)pReserveSpaceInfo);
+  }
+
+  void get_image_sparse_memory_requirements(
+      spk::device_ref device, spk::image_ref image,
+      uint32_t* pSparseMemoryRequirementCount,
+      spk::sparse_image_memory_requirements* pSparseMemoryRequirements) const {
+    vkGetImageSparseMemoryRequirements(
+        (VkDevice)device, (VkImage)image,
+        (uint32_t*)pSparseMemoryRequirementCount,
+        (VkSparseImageMemoryRequirements*)pSparseMemoryRequirements);
+  }
+
+  void allocate_memory(spk::device_ref device,
+                       spk::memory_allocate_info const* pAllocateInfo,
+                       spk::allocation_callbacks const* pAllocator,
+                       spk::device_memory_ref* pMemory) const {
+    const VkResult res = vkAllocateMemory(
+        (VkDevice)device, (VkMemoryAllocateInfo const*)pAllocateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkDeviceMemory*)pMemory);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      case VK_ERROR_INVALID_EXTERNAL_HANDLE:
+        throw spk::error_invalid_external_handle();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkAllocateMemory");
+    }
+  }
+
+  void create_indirect_commands_layout_nvx(
+      spk::device_ref device,
+      spk::indirect_commands_layout_create_info_nvx const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::indirect_commands_layout_nvx_ref* pIndirectCommandsLayout) const {
+    const VkResult res = vkCreateIndirectCommandsLayoutNVX(
+        (VkDevice)device,
+        (VkIndirectCommandsLayoutCreateInfoNVX const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkIndirectCommandsLayoutNVX*)pIndirectCommandsLayout);
     switch (res) {
       case VK_SUCCESS:
         return;
@@ -26720,812 +26992,911 @@ struct device_dispatch_table {
         throw spk::error_out_of_device_memory();
       default:
         throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetRayTracingShaderGroupHandlesNV");
+            (spk::result)res, "vkCreateIndirectCommandsLayoutNVX");
     }
   }
 
-  void get_image_drm_format_modifier_properties_ext(
-      spk::device_ref device, spk::image_ref image,
-      spk::image_drm_format_modifier_properties_ext* pProperties) const {
-    const VkResult res = vkGetImageDrmFormatModifierPropertiesEXT(
-        (VkDevice)device, (VkImage)image,
-        (VkImageDrmFormatModifierPropertiesEXT*)pProperties);
+  void destroy_image(spk::device_ref device, spk::image_ref image,
+                     spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyImage((VkDevice)device, (VkImage)image,
+                   (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void cmd_next_subpass(spk::command_buffer_ref commandBuffer,
+                        spk::subpass_contents contents) const {
+    vkCmdNextSubpass((VkCommandBuffer)commandBuffer,
+                     (VkSubpassContents)contents);
+  }
+
+  void create_object_table_nvx(
+      spk::device_ref device,
+      spk::object_table_create_info_nvx const* pCreateInfo,
+      spk::allocation_callbacks const* pAllocator,
+      spk::object_table_nvx_ref* pObjectTable) const {
+    const VkResult res = vkCreateObjectTableNVX(
+        (VkDevice)device, (VkObjectTableCreateInfoNVX const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator,
+        (VkObjectTableNVX*)pObjectTable);
     switch (res) {
       case VK_SUCCESS:
         return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
       default:
-        throw spk::unexpected_command_result(
-            (spk::result)res, "vkGetImageDrmFormatModifierPropertiesEXT");
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateObjectTableNVX");
     }
   }
 
-  void cmd_end_transform_feedback_ext(
-      spk::command_buffer_ref commandBuffer, uint32_t firstCounterBuffer,
-      uint32_t counterBufferCount, spk::buffer_ref const* pCounterBuffers,
-      uint64_t const* pCounterBufferOffsets) const {
-    vkCmdEndTransformFeedbackEXT(
-        (VkCommandBuffer)commandBuffer, (uint32_t)firstCounterBuffer,
-        (uint32_t)counterBufferCount, (VkBuffer const*)pCounterBuffers,
-        (VkDeviceSize const*)pCounterBufferOffsets);
+  [[nodiscard]] spk::result get_event_status(spk::device_ref device,
+                                             spk::event_ref event) const {
+    const VkResult res = vkGetEventStatus((VkDevice)device, (VkEvent)event);
+    switch (res) {
+      case VK_EVENT_SET:
+        return spk::result::event_set;
+      case VK_EVENT_RESET:
+        return spk::result::event_reset;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_DEVICE_LOST:
+        throw spk::error_device_lost();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkGetEventStatus");
+    }
+  }
+
+  void destroy_object_table_nvx(
+      spk::device_ref device, spk::object_table_nvx_ref objectTable,
+      spk::allocation_callbacks const* pAllocator) const {
+    vkDestroyObjectTableNVX((VkDevice)device, (VkObjectTableNVX)objectTable,
+                            (VkAllocationCallbacks const*)pAllocator);
+  }
+
+  void get_device_group_peer_memory_features_khr(
+      spk::device_ref device, uint32_t heapIndex, uint32_t localDeviceIndex,
+      uint32_t remoteDeviceIndex,
+      spk::peer_memory_feature_flags* pPeerMemoryFeatures) const {
+    vkGetDeviceGroupPeerMemoryFeatures(
+        (VkDevice)device, (uint32_t)heapIndex, (uint32_t)localDeviceIndex,
+        (uint32_t)remoteDeviceIndex,
+        (VkPeerMemoryFeatureFlags*)pPeerMemoryFeatures);
+  }
+
+  void get_device_group_peer_memory_features(
+      spk::device_ref device, uint32_t heapIndex, uint32_t localDeviceIndex,
+      uint32_t remoteDeviceIndex,
+      spk::peer_memory_feature_flags* pPeerMemoryFeatures) const {
+    vkGetDeviceGroupPeerMemoryFeatures(
+        (VkDevice)device, (uint32_t)heapIndex, (uint32_t)localDeviceIndex,
+        (uint32_t)remoteDeviceIndex,
+        (VkPeerMemoryFeatureFlags*)pPeerMemoryFeatures);
+  }
+
+  void unregister_objects_nvx(
+      spk::device_ref device, spk::object_table_nvx_ref objectTable,
+      uint32_t objectCount, spk::object_entry_type_nvx const* pObjectEntryTypes,
+      uint32_t const* pObjectIndices) const {
+    const VkResult res = vkUnregisterObjectsNVX(
+        (VkDevice)device, (VkObjectTableNVX)objectTable, (uint32_t)objectCount,
+        (VkObjectEntryTypeNVX const*)pObjectEntryTypes,
+        (uint32_t const*)pObjectIndices);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkUnregisterObjectsNVX");
+    }
+  }
+
+  void create_sampler(spk::device_ref device,
+                      spk::sampler_create_info const* pCreateInfo,
+                      spk::allocation_callbacks const* pAllocator,
+                      spk::sampler_ref* pSampler) const {
+    const VkResult res = vkCreateSampler(
+        (VkDevice)device, (VkSamplerCreateInfo const*)pCreateInfo,
+        (VkAllocationCallbacks const*)pAllocator, (VkSampler*)pSampler);
+    switch (res) {
+      case VK_SUCCESS:
+        return;
+      case VK_ERROR_OUT_OF_HOST_MEMORY:
+        throw spk::error_out_of_host_memory();
+      case VK_ERROR_OUT_OF_DEVICE_MEMORY:
+        throw spk::error_out_of_device_memory();
+      case VK_ERROR_TOO_MANY_OBJECTS:
+        throw spk::error_too_many_objects();
+      default:
+        throw spk::unexpected_command_result((spk::result)res,
+                                             "vkCreateSampler");
+    }
   }
 
   // vulkan commands
-  PFN_vkCmdResetQueryPool vkCmdResetQueryPool = nullptr;
+  PFN_vkGetImageDrmFormatModifierPropertiesEXT
+      vkGetImageDrmFormatModifierPropertiesEXT = nullptr;
   PFN_vkGetAccelerationStructureHandleNV vkGetAccelerationStructureHandleNV =
       nullptr;
-  PFN_vkCmdDrawMeshTasksIndirectCountNV vkCmdDrawMeshTasksIndirectCountNV =
-      nullptr;
-  PFN_vkAcquireNextImageKHR vkAcquireNextImageKHR = nullptr;
-  PFN_vkUpdateDescriptorSets vkUpdateDescriptorSets = nullptr;
-  PFN_vkCmdEndQueryIndexedEXT vkCmdEndQueryIndexedEXT = nullptr;
-  PFN_vkImportSemaphoreFdKHR vkImportSemaphoreFdKHR = nullptr;
-  PFN_vkCreateRayTracingPipelinesNV vkCreateRayTracingPipelinesNV = nullptr;
-  PFN_vkCmdExecuteCommands vkCmdExecuteCommands = nullptr;
-  PFN_vkGetEventStatus vkGetEventStatus = nullptr;
-  PFN_vkCmdPushConstants vkCmdPushConstants = nullptr;
-  PFN_vkDestroyShaderModule vkDestroyShaderModule = nullptr;
-  PFN_vkCmdCopyImageToBuffer vkCmdCopyImageToBuffer = nullptr;
-  PFN_vkCreateIndirectCommandsLayoutNVX vkCreateIndirectCommandsLayoutNVX =
-      nullptr;
-  PFN_vkCreateDescriptorUpdateTemplate vkCreateDescriptorUpdateTemplate =
-      nullptr;
-  PFN_vkCmdEndConditionalRenderingEXT vkCmdEndConditionalRenderingEXT = nullptr;
-  PFN_vkCmdBeginConditionalRenderingEXT vkCmdBeginConditionalRenderingEXT =
-      nullptr;
-  PFN_vkCmdEndQuery vkCmdEndQuery = nullptr;
-  PFN_vkBindBufferMemory vkBindBufferMemory = nullptr;
-  PFN_vkCreateRenderPass2KHR vkCreateRenderPass2KHR = nullptr;
-  PFN_vkCmdClearAttachments vkCmdClearAttachments = nullptr;
-  PFN_vkCmdSetViewport vkCmdSetViewport = nullptr;
-  PFN_vkCmdClearDepthStencilImage vkCmdClearDepthStencilImage = nullptr;
-  PFN_vkCmdFillBuffer vkCmdFillBuffer = nullptr;
-  PFN_vkCreateComputePipelines vkCreateComputePipelines = nullptr;
-  PFN_vkCmdBlitImage vkCmdBlitImage = nullptr;
-  PFN_vkCmdSetLineWidth vkCmdSetLineWidth = nullptr;
-  PFN_vkDestroyFramebuffer vkDestroyFramebuffer = nullptr;
-  PFN_vkDestroyQueryPool vkDestroyQueryPool = nullptr;
-  PFN_vkCmdSetViewportShadingRatePaletteNV
-      vkCmdSetViewportShadingRatePaletteNV = nullptr;
-  PFN_vkCmdDrawIndirect vkCmdDrawIndirect = nullptr;
-  PFN_vkDestroyEvent vkDestroyEvent = nullptr;
-  PFN_vkCmdSetStencilReference vkCmdSetStencilReference = nullptr;
-  PFN_vkDestroyDevice vkDestroyDevice = nullptr;
-  PFN_vkDestroySemaphore vkDestroySemaphore = nullptr;
-  PFN_vkCmdSetStencilWriteMask vkCmdSetStencilWriteMask = nullptr;
-  PFN_vkBeginCommandBuffer vkBeginCommandBuffer = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkImportFenceWin32HandleKHR vkImportFenceWin32HandleKHR = nullptr;
-#endif
-  PFN_vkCmdSetStencilCompareMask vkCmdSetStencilCompareMask = nullptr;
-  PFN_vkCmdSetDepthBounds vkCmdSetDepthBounds = nullptr;
-  PFN_vkCmdSetDepthBias vkCmdSetDepthBias = nullptr;
-  PFN_vkQueueWaitIdle vkQueueWaitIdle = nullptr;
-  PFN_vkCmdResolveImage vkCmdResolveImage = nullptr;
-  PFN_vkEndCommandBuffer vkEndCommandBuffer = nullptr;
-  PFN_vkCmdBeginRenderPass2KHR vkCmdBeginRenderPass2KHR = nullptr;
-  PFN_vkCmdBeginQuery vkCmdBeginQuery = nullptr;
-  PFN_vkDebugMarkerSetObjectTagEXT vkDebugMarkerSetObjectTagEXT = nullptr;
-  PFN_vkCmdBindPipeline vkCmdBindPipeline = nullptr;
-  PFN_vkCmdCopyQueryPoolResults vkCmdCopyQueryPoolResults = nullptr;
-  PFN_vkCreateSharedSwapchainsKHR vkCreateSharedSwapchainsKHR = nullptr;
-  PFN_vkFreeCommandBuffers vkFreeCommandBuffers = nullptr;
+  PFN_vkCmdWriteAccelerationStructuresPropertiesNV
+      vkCmdWriteAccelerationStructuresPropertiesNV = nullptr;
   PFN_vkBindAccelerationStructureMemoryNV vkBindAccelerationStructureMemoryNV =
       nullptr;
-  PFN_vkCreateCommandPool vkCreateCommandPool = nullptr;
-  PFN_vkCmdWriteBufferMarkerAMD vkCmdWriteBufferMarkerAMD = nullptr;
-  PFN_vkDestroyRenderPass vkDestroyRenderPass = nullptr;
-  PFN_vkCmdDrawIndexedIndirect vkCmdDrawIndexedIndirect = nullptr;
-  PFN_vkCmdUpdateBuffer vkCmdUpdateBuffer = nullptr;
-  PFN_vkCmdClearColorImage vkCmdClearColorImage = nullptr;
-  PFN_vkAllocateDescriptorSets vkAllocateDescriptorSets = nullptr;
-  PFN_vkGetImageSparseMemoryRequirements vkGetImageSparseMemoryRequirements =
+  PFN_vkGetAccelerationStructureMemoryRequirementsNV
+      vkGetAccelerationStructureMemoryRequirementsNV = nullptr;
+  PFN_vkCmdDrawMeshTasksIndirectCountNV vkCmdDrawMeshTasksIndirectCountNV =
       nullptr;
-  PFN_vkCmdCopyImage vkCmdCopyImage = nullptr;
-  PFN_vkGetImageMemoryRequirements vkGetImageMemoryRequirements = nullptr;
-  PFN_vkGetFenceStatus vkGetFenceStatus = nullptr;
-  PFN_vkCreateValidationCacheEXT vkCreateValidationCacheEXT = nullptr;
-  PFN_vkSetDebugUtilsObjectNameEXT vkSetDebugUtilsObjectNameEXT = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkGetMemoryWin32HandleKHR vkGetMemoryWin32HandleKHR = nullptr;
-#endif
-  PFN_vkImportFenceFdKHR vkImportFenceFdKHR = nullptr;
-  PFN_vkCmdBindDescriptorSets vkCmdBindDescriptorSets = nullptr;
-  PFN_vkCreateRenderPass vkCreateRenderPass = nullptr;
-  PFN_vkResetCommandBuffer vkResetCommandBuffer = nullptr;
-  PFN_vkGetMemoryFdKHR vkGetMemoryFdKHR = nullptr;
-  PFN_vkDestroySwapchainKHR vkDestroySwapchainKHR = nullptr;
-  PFN_vkRegisterDeviceEventEXT vkRegisterDeviceEventEXT = nullptr;
-  PFN_vkFreeDescriptorSets vkFreeDescriptorSets = nullptr;
-  PFN_vkSetDebugUtilsObjectTagEXT vkSetDebugUtilsObjectTagEXT = nullptr;
-  PFN_vkAllocateMemory vkAllocateMemory = nullptr;
-  PFN_vkQueueSubmit vkQueueSubmit = nullptr;
-  PFN_vkCmdEndRenderPass2KHR vkCmdEndRenderPass2KHR = nullptr;
-  PFN_vkFreeMemory vkFreeMemory = nullptr;
-  PFN_vkCreateDescriptorPool vkCreateDescriptorPool = nullptr;
-  PFN_vkCmdSetScissor vkCmdSetScissor = nullptr;
-  PFN_vkDestroyCommandPool vkDestroyCommandPool = nullptr;
-  PFN_vkGetRenderAreaGranularity vkGetRenderAreaGranularity = nullptr;
-  PFN_vkFlushMappedMemoryRanges vkFlushMappedMemoryRanges = nullptr;
-  PFN_vkDestroySampler vkDestroySampler = nullptr;
-  PFN_vkCmdWaitEvents vkCmdWaitEvents = nullptr;
-  PFN_vkWaitForFences vkWaitForFences = nullptr;
-  PFN_vkGetDeviceProcAddr vkGetDeviceProcAddr = nullptr;
-  PFN_vkCmdResetEvent vkCmdResetEvent = nullptr;
-  PFN_vkQueuePresentKHR vkQueuePresentKHR = nullptr;
-  PFN_vkCmdEndRenderPass vkCmdEndRenderPass = nullptr;
-  PFN_vkGetQueueCheckpointDataNV vkGetQueueCheckpointDataNV = nullptr;
-  PFN_vkGetBufferMemoryRequirements vkGetBufferMemoryRequirements = nullptr;
-  PFN_vkGetDeviceQueue vkGetDeviceQueue = nullptr;
-  PFN_vkMapMemory vkMapMemory = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkGetFenceWin32HandleKHR vkGetFenceWin32HandleKHR = nullptr;
-#endif
-  PFN_vkGetFenceFdKHR vkGetFenceFdKHR = nullptr;
-  PFN_vkBindBufferMemory2 vkBindBufferMemory2 = nullptr;
-  PFN_vkCmdBindVertexBuffers vkCmdBindVertexBuffers = nullptr;
-  PFN_vkAllocateCommandBuffers vkAllocateCommandBuffers = nullptr;
-  PFN_vkDestroyValidationCacheEXT vkDestroyValidationCacheEXT = nullptr;
-  PFN_vkCmdProcessCommandsNVX vkCmdProcessCommandsNVX = nullptr;
-  PFN_vkCreateBufferView vkCreateBufferView = nullptr;
-  PFN_vkCmdDispatch vkCmdDispatch = nullptr;
-  PFN_vkDestroyBufferView vkDestroyBufferView = nullptr;
-  PFN_vkCmdDrawIndexed vkCmdDrawIndexed = nullptr;
-  PFN_vkCreateFence vkCreateFence = nullptr;
-  PFN_vkCreateFramebuffer vkCreateFramebuffer = nullptr;
-  PFN_vkCreateBuffer vkCreateBuffer = nullptr;
-  PFN_vkCmdCopyBufferToImage vkCmdCopyBufferToImage = nullptr;
-  PFN_vkCreateShaderModule vkCreateShaderModule = nullptr;
-  PFN_vkCmdSetCheckpointNV vkCmdSetCheckpointNV = nullptr;
-  PFN_vkDestroyFence vkDestroyFence = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkGetMemoryWin32HandleNV vkGetMemoryWin32HandleNV = nullptr;
-#endif
+  PFN_vkCmdDrawMeshTasksIndirectNV vkCmdDrawMeshTasksIndirectNV = nullptr;
+  PFN_vkCmdDrawMeshTasksNV vkCmdDrawMeshTasksNV = nullptr;
+  PFN_vkCmdSetCoarseSampleOrderNV vkCmdSetCoarseSampleOrderNV = nullptr;
+  PFN_vkCmdSetExclusiveScissorNV vkCmdSetExclusiveScissorNV = nullptr;
+  PFN_vkCmdDrawIndirectByteCountEXT vkCmdDrawIndirectByteCountEXT = nullptr;
+  PFN_vkCmdBeginQueryIndexedEXT vkCmdBeginQueryIndexedEXT = nullptr;
   PFN_vkCmdDrawIndexedIndirectCountKHR vkCmdDrawIndexedIndirectCountKHR =
       nullptr;
-  PFN_vkCmdDraw vkCmdDraw = nullptr;
-  PFN_vkCmdSetSampleLocationsEXT vkCmdSetSampleLocationsEXT = nullptr;
-  PFN_vkCmdSetBlendConstants vkCmdSetBlendConstants = nullptr;
-  PFN_vkDestroyPipeline vkDestroyPipeline = nullptr;
-  PFN_vkCreateSemaphore vkCreateSemaphore = nullptr;
-  PFN_vkGetQueryPoolResults vkGetQueryPoolResults = nullptr;
-  PFN_vkCmdCopyBuffer vkCmdCopyBuffer = nullptr;
-  PFN_vkDestroyImage vkDestroyImage = nullptr;
-  PFN_vkCreateImageView vkCreateImageView = nullptr;
-  PFN_vkCreateQueryPool vkCreateQueryPool = nullptr;
-  PFN_vkBindImageMemory vkBindImageMemory = nullptr;
-  PFN_vkSetEvent vkSetEvent = nullptr;
-  PFN_vkCreateSampler vkCreateSampler = nullptr;
-  PFN_vkDestroyDescriptorPool vkDestroyDescriptorPool = nullptr;
-  PFN_vkCmdSetEvent vkCmdSetEvent = nullptr;
-  PFN_vkCmdBeginQueryIndexedEXT vkCmdBeginQueryIndexedEXT = nullptr;
-  PFN_vkCmdDrawMeshTasksNV vkCmdDrawMeshTasksNV = nullptr;
-  PFN_vkDestroyBuffer vkDestroyBuffer = nullptr;
-  PFN_vkBindImageMemory2 vkBindImageMemory2 = nullptr;
-  PFN_vkCreatePipelineCache vkCreatePipelineCache = nullptr;
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-  PFN_vkGetAndroidHardwareBufferPropertiesANDROID
-      vkGetAndroidHardwareBufferPropertiesANDROID = nullptr;
-#endif
-  PFN_vkGetImageSubresourceLayout vkGetImageSubresourceLayout = nullptr;
-  PFN_vkUnmapMemory vkUnmapMemory = nullptr;
-  PFN_vkResetDescriptorPool vkResetDescriptorPool = nullptr;
-  PFN_vkGetBufferMemoryRequirements2 vkGetBufferMemoryRequirements2 = nullptr;
-  PFN_vkDestroyImageView vkDestroyImageView = nullptr;
-  PFN_vkCmdWriteTimestamp vkCmdWriteTimestamp = nullptr;
-  PFN_vkUpdateDescriptorSetWithTemplate vkUpdateDescriptorSetWithTemplate =
-      nullptr;
-  PFN_vkDeviceWaitIdle vkDeviceWaitIdle = nullptr;
-  PFN_vkQueueBindSparse vkQueueBindSparse = nullptr;
-  PFN_vkGetPipelineCacheData vkGetPipelineCacheData = nullptr;
-  PFN_vkCreateGraphicsPipelines vkCreateGraphicsPipelines = nullptr;
-  PFN_vkMergePipelineCaches vkMergePipelineCaches = nullptr;
-  PFN_vkCmdSetExclusiveScissorNV vkCmdSetExclusiveScissorNV = nullptr;
-  PFN_vkDestroyDescriptorSetLayout vkDestroyDescriptorSetLayout = nullptr;
-  PFN_vkInvalidateMappedMemoryRanges vkInvalidateMappedMemoryRanges = nullptr;
-  PFN_vkCreatePipelineLayout vkCreatePipelineLayout = nullptr;
-  PFN_vkResetCommandPool vkResetCommandPool = nullptr;
-  PFN_vkCmdBindTransformFeedbackBuffersEXT
-      vkCmdBindTransformFeedbackBuffersEXT = nullptr;
-  PFN_vkCreateDescriptorSetLayout vkCreateDescriptorSetLayout = nullptr;
-  PFN_vkCmdNextSubpass vkCmdNextSubpass = nullptr;
-  PFN_vkDebugMarkerSetObjectNameEXT vkDebugMarkerSetObjectNameEXT = nullptr;
-  PFN_vkDestroyIndirectCommandsLayoutNVX vkDestroyIndirectCommandsLayoutNVX =
-      nullptr;
-  PFN_vkQueueInsertDebugUtilsLabelEXT vkQueueInsertDebugUtilsLabelEXT = nullptr;
-  PFN_vkCmdDrawIndirectCountAMD vkCmdDrawIndirectCountAMD = nullptr;
-  PFN_vkCmdBeginTransformFeedbackEXT vkCmdBeginTransformFeedbackEXT = nullptr;
-  PFN_vkCmdBindIndexBuffer vkCmdBindIndexBuffer = nullptr;
-  PFN_vkCmdDrawIndexedIndirectCountAMD vkCmdDrawIndexedIndirectCountAMD =
-      nullptr;
-  PFN_vkCmdBeginRenderPass vkCmdBeginRenderPass = nullptr;
-  PFN_vkCmdReserveSpaceForCommandsNVX vkCmdReserveSpaceForCommandsNVX = nullptr;
-  PFN_vkCreateObjectTableNVX vkCreateObjectTableNVX = nullptr;
-  PFN_vkDestroyObjectTableNVX vkDestroyObjectTableNVX = nullptr;
-  PFN_vkRegisterObjectsNVX vkRegisterObjectsNVX = nullptr;
-  PFN_vkUnregisterObjectsNVX vkUnregisterObjectsNVX = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkImportSemaphoreWin32HandleKHR vkImportSemaphoreWin32HandleKHR = nullptr;
-#endif
-  PFN_vkCmdPushDescriptorSetKHR vkCmdPushDescriptorSetKHR = nullptr;
-  PFN_vkCmdBeginDebugUtilsLabelEXT vkCmdBeginDebugUtilsLabelEXT = nullptr;
-  PFN_vkCmdDispatchIndirect vkCmdDispatchIndirect = nullptr;
-  PFN_vkTrimCommandPool vkTrimCommandPool = nullptr;
-  PFN_vkDestroyPipelineCache vkDestroyPipelineCache = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkGetMemoryWin32HandlePropertiesKHR vkGetMemoryWin32HandlePropertiesKHR =
-      nullptr;
-#endif
-  PFN_vkGetMemoryFdPropertiesKHR vkGetMemoryFdPropertiesKHR = nullptr;
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  PFN_vkGetSemaphoreWin32HandleKHR vkGetSemaphoreWin32HandleKHR = nullptr;
-#endif
-  PFN_vkGetDeviceGroupPeerMemoryFeatures vkGetDeviceGroupPeerMemoryFeatures =
-      nullptr;
-  PFN_vkCmdDebugMarkerEndEXT vkCmdDebugMarkerEndEXT = nullptr;
-  PFN_vkGetSemaphoreFdKHR vkGetSemaphoreFdKHR = nullptr;
-  PFN_vkDestroySamplerYcbcrConversion vkDestroySamplerYcbcrConversion = nullptr;
-  PFN_vkCmdTraceRaysNV vkCmdTraceRaysNV = nullptr;
-  PFN_vkGetPastPresentationTimingGOOGLE vkGetPastPresentationTimingGOOGLE =
-      nullptr;
-  PFN_vkDisplayPowerControlEXT vkDisplayPowerControlEXT = nullptr;
-  PFN_vkGetDescriptorSetLayoutSupport vkGetDescriptorSetLayoutSupport = nullptr;
-  PFN_vkGetSwapchainCounterEXT vkGetSwapchainCounterEXT = nullptr;
-  PFN_vkCmdPipelineBarrier vkCmdPipelineBarrier = nullptr;
-  PFN_vkCmdSetDeviceMask vkCmdSetDeviceMask = nullptr;
-  PFN_vkResetFences vkResetFences = nullptr;
-  PFN_vkGetDeviceGroupPresentCapabilitiesKHR
-      vkGetDeviceGroupPresentCapabilitiesKHR = nullptr;
-  PFN_vkGetDeviceGroupSurfacePresentModesKHR
-      vkGetDeviceGroupSurfacePresentModesKHR = nullptr;
-  PFN_vkCmdSetViewportWScalingNV vkCmdSetViewportWScalingNV = nullptr;
-  PFN_vkCmdCopyAccelerationStructureNV vkCmdCopyAccelerationStructureNV =
-      nullptr;
-  PFN_vkAcquireNextImage2KHR vkAcquireNextImage2KHR = nullptr;
-  PFN_vkCmdDispatchBase vkCmdDispatchBase = nullptr;
-  PFN_vkCreateImage vkCreateImage = nullptr;
-  PFN_vkDestroyDescriptorUpdateTemplate vkDestroyDescriptorUpdateTemplate =
-      nullptr;
-  PFN_vkCmdPushDescriptorSetWithTemplateKHR
-      vkCmdPushDescriptorSetWithTemplateKHR = nullptr;
-  PFN_vkSetHdrMetadataEXT vkSetHdrMetadataEXT = nullptr;
-  PFN_vkGetSwapchainStatusKHR vkGetSwapchainStatusKHR = nullptr;
-  PFN_vkCmdSetDiscardRectangleEXT vkCmdSetDiscardRectangleEXT = nullptr;
-  PFN_vkGetRefreshCycleDurationGOOGLE vkGetRefreshCycleDurationGOOGLE = nullptr;
-  PFN_vkGetImageMemoryRequirements2 vkGetImageMemoryRequirements2 = nullptr;
-  PFN_vkGetSwapchainImagesKHR vkGetSwapchainImagesKHR = nullptr;
-  PFN_vkCmdDebugMarkerInsertEXT vkCmdDebugMarkerInsertEXT = nullptr;
-  PFN_vkGetImageSparseMemoryRequirements2 vkGetImageSparseMemoryRequirements2 =
-      nullptr;
-  PFN_vkCmdSetCoarseSampleOrderNV vkCmdSetCoarseSampleOrderNV = nullptr;
-  PFN_vkCreateSamplerYcbcrConversion vkCreateSamplerYcbcrConversion = nullptr;
-  PFN_vkGetDeviceQueue2 vkGetDeviceQueue2 = nullptr;
-  PFN_vkGetValidationCacheDataEXT vkGetValidationCacheDataEXT = nullptr;
 #ifdef VK_USE_PLATFORM_ANDROID_KHR
   PFN_vkGetMemoryAndroidHardwareBufferANDROID
       vkGetMemoryAndroidHardwareBufferANDROID = nullptr;
 #endif
-  PFN_vkMergeValidationCachesEXT vkMergeValidationCachesEXT = nullptr;
-  PFN_vkGetShaderInfoAMD vkGetShaderInfoAMD = nullptr;
-  PFN_vkGetCalibratedTimestampsEXT vkGetCalibratedTimestampsEXT = nullptr;
-  PFN_vkQueueBeginDebugUtilsLabelEXT vkQueueBeginDebugUtilsLabelEXT = nullptr;
-  PFN_vkQueueEndDebugUtilsLabelEXT vkQueueEndDebugUtilsLabelEXT = nullptr;
-  PFN_vkCmdEndDebugUtilsLabelEXT vkCmdEndDebugUtilsLabelEXT = nullptr;
-  PFN_vkCmdInsertDebugUtilsLabelEXT vkCmdInsertDebugUtilsLabelEXT = nullptr;
-  PFN_vkCmdDebugMarkerBeginEXT vkCmdDebugMarkerBeginEXT = nullptr;
-  PFN_vkCreateSwapchainKHR vkCreateSwapchainKHR = nullptr;
-  PFN_vkCmdDrawIndirectCountKHR vkCmdDrawIndirectCountKHR = nullptr;
+  PFN_vkCmdSetViewportShadingRatePaletteNV
+      vkCmdSetViewportShadingRatePaletteNV = nullptr;
+  PFN_vkCmdEndRenderPass2KHR vkCmdEndRenderPass2KHR = nullptr;
+  PFN_vkCmdNextSubpass2KHR vkCmdNextSubpass2KHR = nullptr;
+  PFN_vkCreateRenderPass2KHR vkCreateRenderPass2KHR = nullptr;
   PFN_vkGetMemoryHostPointerPropertiesEXT vkGetMemoryHostPointerPropertiesEXT =
       nullptr;
-  PFN_vkCmdNextSubpass2KHR vkCmdNextSubpass2KHR = nullptr;
-  PFN_vkGetBufferDeviceAddressEXT vkGetBufferDeviceAddressEXT = nullptr;
-  PFN_vkCmdDrawIndirectByteCountEXT vkCmdDrawIndirectByteCountEXT = nullptr;
-  PFN_vkCmdDrawMeshTasksIndirectNV vkCmdDrawMeshTasksIndirectNV = nullptr;
-  PFN_vkResetEvent vkResetEvent = nullptr;
-  PFN_vkCmdBindShadingRateImageNV vkCmdBindShadingRateImageNV = nullptr;
-  PFN_vkCompileDeferredNV vkCompileDeferredNV = nullptr;
-  PFN_vkGetDeviceMemoryCommitment vkGetDeviceMemoryCommitment = nullptr;
-  PFN_vkRegisterDisplayEventEXT vkRegisterDisplayEventEXT = nullptr;
-  PFN_vkCreateAccelerationStructureNV vkCreateAccelerationStructureNV = nullptr;
-  PFN_vkDestroyPipelineLayout vkDestroyPipelineLayout = nullptr;
-  PFN_vkGetAccelerationStructureMemoryRequirementsNV
-      vkGetAccelerationStructureMemoryRequirementsNV = nullptr;
-  PFN_vkCreateEvent vkCreateEvent = nullptr;
-  PFN_vkCmdWriteAccelerationStructuresPropertiesNV
-      vkCmdWriteAccelerationStructuresPropertiesNV = nullptr;
-  PFN_vkCmdBuildAccelerationStructureNV vkCmdBuildAccelerationStructureNV =
+  PFN_vkCmdBeginDebugUtilsLabelEXT vkCmdBeginDebugUtilsLabelEXT = nullptr;
+  PFN_vkQueueInsertDebugUtilsLabelEXT vkQueueInsertDebugUtilsLabelEXT = nullptr;
+  PFN_vkQueueEndDebugUtilsLabelEXT vkQueueEndDebugUtilsLabelEXT = nullptr;
+  PFN_vkSetDebugUtilsObjectNameEXT vkSetDebugUtilsObjectNameEXT = nullptr;
+  PFN_vkGetCalibratedTimestampsEXT vkGetCalibratedTimestampsEXT = nullptr;
+  PFN_vkGetShaderInfoAMD vkGetShaderInfoAMD = nullptr;
+  PFN_vkGetDescriptorSetLayoutSupport vkGetDescriptorSetLayoutSupport = nullptr;
+  PFN_vkMergeValidationCachesEXT vkMergeValidationCachesEXT = nullptr;
+  PFN_vkDestroyValidationCacheEXT vkDestroyValidationCacheEXT = nullptr;
+  PFN_vkGetDeviceQueue2 vkGetDeviceQueue2 = nullptr;
+  PFN_vkCreateSamplerYcbcrConversion vkCreateSamplerYcbcrConversion = nullptr;
+  PFN_vkGetImageSparseMemoryRequirements2 vkGetImageSparseMemoryRequirements2 =
       nullptr;
-  PFN_vkDestroyAccelerationStructureNV vkDestroyAccelerationStructureNV =
+  PFN_vkGetImageMemoryRequirements2 vkGetImageMemoryRequirements2 = nullptr;
+  PFN_vkGetBufferMemoryRequirements2 vkGetBufferMemoryRequirements2 = nullptr;
+  PFN_vkCmdSetViewportWScalingNV vkCmdSetViewportWScalingNV = nullptr;
+  PFN_vkGetPastPresentationTimingGOOGLE vkGetPastPresentationTimingGOOGLE =
       nullptr;
+  PFN_vkGetRefreshCycleDurationGOOGLE vkGetRefreshCycleDurationGOOGLE = nullptr;
+  PFN_vkGetSwapchainStatusKHR vkGetSwapchainStatusKHR = nullptr;
+  PFN_vkSetHdrMetadataEXT vkSetHdrMetadataEXT = nullptr;
   PFN_vkGetRayTracingShaderGroupHandlesNV vkGetRayTracingShaderGroupHandlesNV =
       nullptr;
-  PFN_vkGetImageDrmFormatModifierPropertiesEXT
-      vkGetImageDrmFormatModifierPropertiesEXT = nullptr;
+  PFN_vkCmdDispatchBase vkCmdDispatchBase = nullptr;
+  PFN_vkAcquireNextImage2KHR vkAcquireNextImage2KHR = nullptr;
+  PFN_vkCreateRayTracingPipelinesNV vkCreateRayTracingPipelinesNV = nullptr;
+  PFN_vkCreateAccelerationStructureNV vkCreateAccelerationStructureNV = nullptr;
+  PFN_vkGetDeviceGroupPresentCapabilitiesKHR
+      vkGetDeviceGroupPresentCapabilitiesKHR = nullptr;
+  PFN_vkCmdSetDeviceMask vkCmdSetDeviceMask = nullptr;
+  PFN_vkBindImageMemory2 vkBindImageMemory2 = nullptr;
+  PFN_vkGetSwapchainCounterEXT vkGetSwapchainCounterEXT = nullptr;
+  PFN_vkCmdBuildAccelerationStructureNV vkCmdBuildAccelerationStructureNV =
+      nullptr;
+  PFN_vkRegisterDisplayEventEXT vkRegisterDisplayEventEXT = nullptr;
+  PFN_vkCmdBindShadingRateImageNV vkCmdBindShadingRateImageNV = nullptr;
+  PFN_vkGetFenceFdKHR vkGetFenceFdKHR = nullptr;
+  PFN_vkCmdBindTransformFeedbackBuffersEXT
+      vkCmdBindTransformFeedbackBuffersEXT = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkGetFenceWin32HandleKHR vkGetFenceWin32HandleKHR = nullptr;
+#endif
+  PFN_vkGetSemaphoreFdKHR vkGetSemaphoreFdKHR = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkImportSemaphoreWin32HandleKHR vkImportSemaphoreWin32HandleKHR = nullptr;
+#endif
+  PFN_vkGetBufferDeviceAddressEXT vkGetBufferDeviceAddressEXT = nullptr;
+  PFN_vkGetMemoryFdPropertiesKHR vkGetMemoryFdPropertiesKHR = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkGetMemoryWin32HandleKHR vkGetMemoryWin32HandleKHR = nullptr;
+#endif
+  PFN_vkCmdEndDebugUtilsLabelEXT vkCmdEndDebugUtilsLabelEXT = nullptr;
+  PFN_vkCmdBindPipeline vkCmdBindPipeline = nullptr;
+  PFN_vkEndCommandBuffer vkEndCommandBuffer = nullptr;
+  PFN_vkCmdSetScissor vkCmdSetScissor = nullptr;
+  PFN_vkCmdBeginRenderPass2KHR vkCmdBeginRenderPass2KHR = nullptr;
+  PFN_vkSetDebugUtilsObjectTagEXT vkSetDebugUtilsObjectTagEXT = nullptr;
+  PFN_vkResetFences vkResetFences = nullptr;
+  PFN_vkFreeCommandBuffers vkFreeCommandBuffers = nullptr;
+  PFN_vkCmdExecuteCommands vkCmdExecuteCommands = nullptr;
+  PFN_vkCreateRenderPass vkCreateRenderPass = nullptr;
+  PFN_vkFreeDescriptorSets vkFreeDescriptorSets = nullptr;
+  PFN_vkCmdInsertDebugUtilsLabelEXT vkCmdInsertDebugUtilsLabelEXT = nullptr;
+  PFN_vkImportSemaphoreFdKHR vkImportSemaphoreFdKHR = nullptr;
+  PFN_vkCreateDescriptorPool vkCreateDescriptorPool = nullptr;
+  PFN_vkDestroyDescriptorSetLayout vkDestroyDescriptorSetLayout = nullptr;
+  PFN_vkCreateGraphicsPipelines vkCreateGraphicsPipelines = nullptr;
+  PFN_vkGetPipelineCacheData vkGetPipelineCacheData = nullptr;
+  PFN_vkCompileDeferredNV vkCompileDeferredNV = nullptr;
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  PFN_vkGetAndroidHardwareBufferPropertiesANDROID
+      vkGetAndroidHardwareBufferPropertiesANDROID = nullptr;
+#endif
+  PFN_vkGetRenderAreaGranularity vkGetRenderAreaGranularity = nullptr;
+  PFN_vkDestroyCommandPool vkDestroyCommandPool = nullptr;
+  PFN_vkGetDeviceMemoryCommitment vkGetDeviceMemoryCommitment = nullptr;
+  PFN_vkCmdSetViewport vkCmdSetViewport = nullptr;
+  PFN_vkDestroyPipelineCache vkDestroyPipelineCache = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkGetSemaphoreWin32HandleKHR vkGetSemaphoreWin32HandleKHR = nullptr;
+#endif
+  PFN_vkGetImageSubresourceLayout vkGetImageSubresourceLayout = nullptr;
+  PFN_vkAllocateCommandBuffers vkAllocateCommandBuffers = nullptr;
+  PFN_vkDestroyBuffer vkDestroyBuffer = nullptr;
+  PFN_vkCreateBuffer vkCreateBuffer = nullptr;
+  PFN_vkCmdBeginQuery vkCmdBeginQuery = nullptr;
+  PFN_vkCreateFramebuffer vkCreateFramebuffer = nullptr;
+  PFN_vkCreateFence vkCreateFence = nullptr;
+  PFN_vkDestroyQueryPool vkDestroyQueryPool = nullptr;
+  PFN_vkBindBufferMemory2 vkBindBufferMemory2 = nullptr;
+  PFN_vkCmdTraceRaysNV vkCmdTraceRaysNV = nullptr;
+  PFN_vkMergePipelineCaches vkMergePipelineCaches = nullptr;
+  PFN_vkCreatePipelineLayout vkCreatePipelineLayout = nullptr;
+  PFN_vkCmdWriteTimestamp vkCmdWriteTimestamp = nullptr;
+  PFN_vkGetQueueCheckpointDataNV vkGetQueueCheckpointDataNV = nullptr;
+  PFN_vkGetQueryPoolResults vkGetQueryPoolResults = nullptr;
+  PFN_vkQueueSubmit vkQueueSubmit = nullptr;
+  PFN_vkGetBufferMemoryRequirements vkGetBufferMemoryRequirements = nullptr;
+  PFN_vkDestroyDescriptorUpdateTemplate vkDestroyDescriptorUpdateTemplate =
+      nullptr;
+  PFN_vkDestroyRenderPass vkDestroyRenderPass = nullptr;
+  PFN_vkCreateDescriptorSetLayout vkCreateDescriptorSetLayout = nullptr;
+  PFN_vkFreeMemory vkFreeMemory = nullptr;
+  PFN_vkDestroyFramebuffer vkDestroyFramebuffer = nullptr;
+  PFN_vkWaitForFences vkWaitForFences = nullptr;
   PFN_vkCmdEndTransformFeedbackEXT vkCmdEndTransformFeedbackEXT = nullptr;
+  PFN_vkCmdUpdateBuffer vkCmdUpdateBuffer = nullptr;
+  PFN_vkCreatePipelineCache vkCreatePipelineCache = nullptr;
+  PFN_vkCmdDebugMarkerEndEXT vkCmdDebugMarkerEndEXT = nullptr;
+  PFN_vkDestroyDevice vkDestroyDevice = nullptr;
+  PFN_vkGetValidationCacheDataEXT vkGetValidationCacheDataEXT = nullptr;
+  PFN_vkCmdSetSampleLocationsEXT vkCmdSetSampleLocationsEXT = nullptr;
+  PFN_vkCreateComputePipelines vkCreateComputePipelines = nullptr;
+  PFN_vkCmdBlitImage vkCmdBlitImage = nullptr;
+  PFN_vkCreateShaderModule vkCreateShaderModule = nullptr;
+  PFN_vkCreateImage vkCreateImage = nullptr;
+  PFN_vkCmdCopyBufferToImage vkCmdCopyBufferToImage = nullptr;
+  PFN_vkRegisterDeviceEventEXT vkRegisterDeviceEventEXT = nullptr;
+  PFN_vkGetFenceStatus vkGetFenceStatus = nullptr;
+  PFN_vkGetDeviceProcAddr vkGetDeviceProcAddr = nullptr;
+  PFN_vkResetEvent vkResetEvent = nullptr;
+  PFN_vkCmdDebugMarkerBeginEXT vkCmdDebugMarkerBeginEXT = nullptr;
+  PFN_vkCreateSemaphore vkCreateSemaphore = nullptr;
+  PFN_vkCmdBindDescriptorSets vkCmdBindDescriptorSets = nullptr;
+  PFN_vkDestroySamplerYcbcrConversion vkDestroySamplerYcbcrConversion = nullptr;
+  PFN_vkCmdClearAttachments vkCmdClearAttachments = nullptr;
+  PFN_vkCmdDrawIndirectCountKHR vkCmdDrawIndirectCountKHR = nullptr;
+  PFN_vkGetDeviceQueue vkGetDeviceQueue = nullptr;
+  PFN_vkResetDescriptorPool vkResetDescriptorPool = nullptr;
+  PFN_vkCmdDispatch vkCmdDispatch = nullptr;
+  PFN_vkCreateCommandPool vkCreateCommandPool = nullptr;
+  PFN_vkCmdResolveImage vkCmdResolveImage = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkGetMemoryWin32HandlePropertiesKHR vkGetMemoryWin32HandlePropertiesKHR =
+      nullptr;
+#endif
+  PFN_vkGetSwapchainImagesKHR vkGetSwapchainImagesKHR = nullptr;
+  PFN_vkDestroySampler vkDestroySampler = nullptr;
+  PFN_vkDestroyDescriptorPool vkDestroyDescriptorPool = nullptr;
+  PFN_vkUnmapMemory vkUnmapMemory = nullptr;
+  PFN_vkDestroySemaphore vkDestroySemaphore = nullptr;
+  PFN_vkInvalidateMappedMemoryRanges vkInvalidateMappedMemoryRanges = nullptr;
+  PFN_vkCmdCopyQueryPoolResults vkCmdCopyQueryPoolResults = nullptr;
+  PFN_vkBeginCommandBuffer vkBeginCommandBuffer = nullptr;
+  PFN_vkMapMemory vkMapMemory = nullptr;
+  PFN_vkCmdWriteBufferMarkerAMD vkCmdWriteBufferMarkerAMD = nullptr;
+  PFN_vkQueuePresentKHR vkQueuePresentKHR = nullptr;
+  PFN_vkGetImageMemoryRequirements vkGetImageMemoryRequirements = nullptr;
+  PFN_vkQueueWaitIdle vkQueueWaitIdle = nullptr;
+  PFN_vkSetEvent vkSetEvent = nullptr;
+  PFN_vkAcquireNextImageKHR vkAcquireNextImageKHR = nullptr;
+  PFN_vkDestroyBufferView vkDestroyBufferView = nullptr;
+  PFN_vkCreateValidationCacheEXT vkCreateValidationCacheEXT = nullptr;
+  PFN_vkBindImageMemory vkBindImageMemory = nullptr;
+  PFN_vkResetCommandBuffer vkResetCommandBuffer = nullptr;
+  PFN_vkDestroyImageView vkDestroyImageView = nullptr;
+  PFN_vkQueueBindSparse vkQueueBindSparse = nullptr;
+  PFN_vkCmdFillBuffer vkCmdFillBuffer = nullptr;
+  PFN_vkDeviceWaitIdle vkDeviceWaitIdle = nullptr;
+  PFN_vkDestroyFence vkDestroyFence = nullptr;
+  PFN_vkGetDeviceGroupSurfacePresentModesKHR
+      vkGetDeviceGroupSurfacePresentModesKHR = nullptr;
+  PFN_vkUpdateDescriptorSets vkUpdateDescriptorSets = nullptr;
+  PFN_vkCmdEndQuery vkCmdEndQuery = nullptr;
+  PFN_vkCmdCopyAccelerationStructureNV vkCmdCopyAccelerationStructureNV =
+      nullptr;
+  PFN_vkCmdProcessCommandsNVX vkCmdProcessCommandsNVX = nullptr;
+  PFN_vkQueueBeginDebugUtilsLabelEXT vkQueueBeginDebugUtilsLabelEXT = nullptr;
+  PFN_vkRegisterObjectsNVX vkRegisterObjectsNVX = nullptr;
+  PFN_vkFlushMappedMemoryRanges vkFlushMappedMemoryRanges = nullptr;
+  PFN_vkCreateEvent vkCreateEvent = nullptr;
+  PFN_vkCmdSetStencilCompareMask vkCmdSetStencilCompareMask = nullptr;
+  PFN_vkCmdSetLineWidth vkCmdSetLineWidth = nullptr;
+  PFN_vkCmdPushDescriptorSetWithTemplateKHR
+      vkCmdPushDescriptorSetWithTemplateKHR = nullptr;
+  PFN_vkCmdSetDepthBias vkCmdSetDepthBias = nullptr;
+  PFN_vkCmdSetBlendConstants vkCmdSetBlendConstants = nullptr;
+  PFN_vkCmdSetDepthBounds vkCmdSetDepthBounds = nullptr;
+  PFN_vkCmdSetStencilWriteMask vkCmdSetStencilWriteMask = nullptr;
+  PFN_vkCmdBindIndexBuffer vkCmdBindIndexBuffer = nullptr;
+  PFN_vkDestroyAccelerationStructureNV vkDestroyAccelerationStructureNV =
+      nullptr;
+  PFN_vkGetMemoryFdKHR vkGetMemoryFdKHR = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkGetMemoryWin32HandleNV vkGetMemoryWin32HandleNV = nullptr;
+#endif
+  PFN_vkCmdDrawIndirectCountAMD vkCmdDrawIndirectCountAMD = nullptr;
+  PFN_vkCmdBindVertexBuffers vkCmdBindVertexBuffers = nullptr;
+  PFN_vkCmdSetDiscardRectangleEXT vkCmdSetDiscardRectangleEXT = nullptr;
+  PFN_vkCreateDescriptorUpdateTemplate vkCreateDescriptorUpdateTemplate =
+      nullptr;
+  PFN_vkCmdSetCheckpointNV vkCmdSetCheckpointNV = nullptr;
+  PFN_vkCmdDraw vkCmdDraw = nullptr;
+  PFN_vkDestroyEvent vkDestroyEvent = nullptr;
+  PFN_vkCmdBeginConditionalRenderingEXT vkCmdBeginConditionalRenderingEXT =
+      nullptr;
+  PFN_vkCreateBufferView vkCreateBufferView = nullptr;
+  PFN_vkBindBufferMemory vkBindBufferMemory = nullptr;
+  PFN_vkCmdDrawIndirect vkCmdDrawIndirect = nullptr;
+  PFN_vkDisplayPowerControlEXT vkDisplayPowerControlEXT = nullptr;
+  PFN_vkCmdDispatchIndirect vkCmdDispatchIndirect = nullptr;
+  PFN_vkCmdDrawIndexedIndirect vkCmdDrawIndexedIndirect = nullptr;
+  PFN_vkCmdCopyBuffer vkCmdCopyBuffer = nullptr;
+  PFN_vkCmdCopyImage vkCmdCopyImage = nullptr;
+  PFN_vkDestroyPipeline vkDestroyPipeline = nullptr;
+  PFN_vkCmdCopyImageToBuffer vkCmdCopyImageToBuffer = nullptr;
+  PFN_vkCmdClearColorImage vkCmdClearColorImage = nullptr;
+  PFN_vkCmdClearDepthStencilImage vkCmdClearDepthStencilImage = nullptr;
+  PFN_vkCmdSetEvent vkCmdSetEvent = nullptr;
+  PFN_vkDestroyIndirectCommandsLayoutNVX vkDestroyIndirectCommandsLayoutNVX =
+      nullptr;
+  PFN_vkCmdPushDescriptorSetKHR vkCmdPushDescriptorSetKHR = nullptr;
+  PFN_vkUpdateDescriptorSetWithTemplate vkUpdateDescriptorSetWithTemplate =
+      nullptr;
+  PFN_vkCmdEndConditionalRenderingEXT vkCmdEndConditionalRenderingEXT = nullptr;
+  PFN_vkCmdResetQueryPool vkCmdResetQueryPool = nullptr;
+  PFN_vkCmdPushConstants vkCmdPushConstants = nullptr;
+  PFN_vkCmdBeginRenderPass vkCmdBeginRenderPass = nullptr;
+  PFN_vkCmdSetStencilReference vkCmdSetStencilReference = nullptr;
+  PFN_vkImportFenceFdKHR vkImportFenceFdKHR = nullptr;
+  PFN_vkCmdEndRenderPass vkCmdEndRenderPass = nullptr;
+  PFN_vkCmdResetEvent vkCmdResetEvent = nullptr;
+  PFN_vkResetCommandPool vkResetCommandPool = nullptr;
+  PFN_vkCreateSharedSwapchainsKHR vkCreateSharedSwapchainsKHR = nullptr;
+  PFN_vkAllocateDescriptorSets vkAllocateDescriptorSets = nullptr;
+  PFN_vkCreateSwapchainKHR vkCreateSwapchainKHR = nullptr;
+  PFN_vkCmdBeginTransformFeedbackEXT vkCmdBeginTransformFeedbackEXT = nullptr;
+  PFN_vkDestroySwapchainKHR vkDestroySwapchainKHR = nullptr;
+  PFN_vkCreateQueryPool vkCreateQueryPool = nullptr;
+  PFN_vkDestroyPipelineLayout vkDestroyPipelineLayout = nullptr;
+  PFN_vkCmdDebugMarkerInsertEXT vkCmdDebugMarkerInsertEXT = nullptr;
+  PFN_vkCmdDrawIndexedIndirectCountAMD vkCmdDrawIndexedIndirectCountAMD =
+      nullptr;
+  PFN_vkCmdEndQueryIndexedEXT vkCmdEndQueryIndexedEXT = nullptr;
+  PFN_vkCmdWaitEvents vkCmdWaitEvents = nullptr;
+  PFN_vkCmdDrawIndexed vkCmdDrawIndexed = nullptr;
+  PFN_vkTrimCommandPool vkTrimCommandPool = nullptr;
+  PFN_vkCreateImageView vkCreateImageView = nullptr;
+  PFN_vkDestroyShaderModule vkDestroyShaderModule = nullptr;
+  PFN_vkDebugMarkerSetObjectNameEXT vkDebugMarkerSetObjectNameEXT = nullptr;
+  PFN_vkCmdPipelineBarrier vkCmdPipelineBarrier = nullptr;
+  PFN_vkDebugMarkerSetObjectTagEXT vkDebugMarkerSetObjectTagEXT = nullptr;
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  PFN_vkImportFenceWin32HandleKHR vkImportFenceWin32HandleKHR = nullptr;
+#endif
+  PFN_vkCmdReserveSpaceForCommandsNVX vkCmdReserveSpaceForCommandsNVX = nullptr;
+  PFN_vkGetImageSparseMemoryRequirements vkGetImageSparseMemoryRequirements =
+      nullptr;
+  PFN_vkAllocateMemory vkAllocateMemory = nullptr;
+  PFN_vkCreateIndirectCommandsLayoutNVX vkCreateIndirectCommandsLayoutNVX =
+      nullptr;
+  PFN_vkDestroyImage vkDestroyImage = nullptr;
+  PFN_vkCmdNextSubpass vkCmdNextSubpass = nullptr;
+  PFN_vkCreateObjectTableNVX vkCreateObjectTableNVX = nullptr;
+  PFN_vkGetEventStatus vkGetEventStatus = nullptr;
+  PFN_vkDestroyObjectTableNVX vkDestroyObjectTableNVX = nullptr;
+  PFN_vkGetDeviceGroupPeerMemoryFeatures vkGetDeviceGroupPeerMemoryFeatures =
+      nullptr;
+  PFN_vkUnregisterObjectsNVX vkUnregisterObjectsNVX = nullptr;
+  PFN_vkCreateSampler vkCreateSampler = nullptr;
 };
 
 template <class Visitor>
 void visit_dispatch_table(device_dispatch_table& dispatch_table,
                           const Visitor& V) {
-  V(dispatch_table, &device_dispatch_table::vkCmdResetQueryPool,
-    "vkCmdResetQueryPool");
+  V(dispatch_table,
+    &device_dispatch_table::vkGetImageDrmFormatModifierPropertiesEXT,
+    "vkGetImageDrmFormatModifierPropertiesEXT");
   V(dispatch_table, &device_dispatch_table::vkGetAccelerationStructureHandleNV,
     "vkGetAccelerationStructureHandleNV");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawMeshTasksIndirectCountNV,
-    "vkCmdDrawMeshTasksIndirectCountNV");
-  V(dispatch_table, &device_dispatch_table::vkAcquireNextImageKHR,
-    "vkAcquireNextImageKHR");
-  V(dispatch_table, &device_dispatch_table::vkUpdateDescriptorSets,
-    "vkUpdateDescriptorSets");
-  V(dispatch_table, &device_dispatch_table::vkCmdEndQueryIndexedEXT,
-    "vkCmdEndQueryIndexedEXT");
-  V(dispatch_table, &device_dispatch_table::vkImportSemaphoreFdKHR,
-    "vkImportSemaphoreFdKHR");
-  V(dispatch_table, &device_dispatch_table::vkCreateRayTracingPipelinesNV,
-    "vkCreateRayTracingPipelinesNV");
-  V(dispatch_table, &device_dispatch_table::vkCmdExecuteCommands,
-    "vkCmdExecuteCommands");
-  V(dispatch_table, &device_dispatch_table::vkGetEventStatus,
-    "vkGetEventStatus");
-  V(dispatch_table, &device_dispatch_table::vkCmdPushConstants,
-    "vkCmdPushConstants");
-  V(dispatch_table, &device_dispatch_table::vkDestroyShaderModule,
-    "vkDestroyShaderModule");
-  V(dispatch_table, &device_dispatch_table::vkCmdCopyImageToBuffer,
-    "vkCmdCopyImageToBuffer");
-  V(dispatch_table, &device_dispatch_table::vkCreateIndirectCommandsLayoutNVX,
-    "vkCreateIndirectCommandsLayoutNVX");
-  V(dispatch_table, &device_dispatch_table::vkCreateDescriptorUpdateTemplate,
-    "vkCreateDescriptorUpdateTemplate");
-  V(dispatch_table, &device_dispatch_table::vkCmdEndConditionalRenderingEXT,
-    "vkCmdEndConditionalRenderingEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginConditionalRenderingEXT,
-    "vkCmdBeginConditionalRenderingEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdEndQuery, "vkCmdEndQuery");
-  V(dispatch_table, &device_dispatch_table::vkBindBufferMemory,
-    "vkBindBufferMemory");
-  V(dispatch_table, &device_dispatch_table::vkCreateRenderPass2KHR,
-    "vkCreateRenderPass2KHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdClearAttachments,
-    "vkCmdClearAttachments");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetViewport,
-    "vkCmdSetViewport");
-  V(dispatch_table, &device_dispatch_table::vkCmdClearDepthStencilImage,
-    "vkCmdClearDepthStencilImage");
-  V(dispatch_table, &device_dispatch_table::vkCmdFillBuffer, "vkCmdFillBuffer");
-  V(dispatch_table, &device_dispatch_table::vkCreateComputePipelines,
-    "vkCreateComputePipelines");
-  V(dispatch_table, &device_dispatch_table::vkCmdBlitImage, "vkCmdBlitImage");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetLineWidth,
-    "vkCmdSetLineWidth");
-  V(dispatch_table, &device_dispatch_table::vkDestroyFramebuffer,
-    "vkDestroyFramebuffer");
-  V(dispatch_table, &device_dispatch_table::vkDestroyQueryPool,
-    "vkDestroyQueryPool");
   V(dispatch_table,
-    &device_dispatch_table::vkCmdSetViewportShadingRatePaletteNV,
-    "vkCmdSetViewportShadingRatePaletteNV");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirect,
-    "vkCmdDrawIndirect");
-  V(dispatch_table, &device_dispatch_table::vkDestroyEvent, "vkDestroyEvent");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetStencilReference,
-    "vkCmdSetStencilReference");
-  V(dispatch_table, &device_dispatch_table::vkDestroyDevice, "vkDestroyDevice");
-  V(dispatch_table, &device_dispatch_table::vkDestroySemaphore,
-    "vkDestroySemaphore");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetStencilWriteMask,
-    "vkCmdSetStencilWriteMask");
-  V(dispatch_table, &device_dispatch_table::vkBeginCommandBuffer,
-    "vkBeginCommandBuffer");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkImportFenceWin32HandleKHR,
-    "vkImportFenceWin32HandleKHR");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkCmdSetStencilCompareMask,
-    "vkCmdSetStencilCompareMask");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetDepthBounds,
-    "vkCmdSetDepthBounds");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetDepthBias,
-    "vkCmdSetDepthBias");
-  V(dispatch_table, &device_dispatch_table::vkQueueWaitIdle, "vkQueueWaitIdle");
-  V(dispatch_table, &device_dispatch_table::vkCmdResolveImage,
-    "vkCmdResolveImage");
-  V(dispatch_table, &device_dispatch_table::vkEndCommandBuffer,
-    "vkEndCommandBuffer");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginRenderPass2KHR,
-    "vkCmdBeginRenderPass2KHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginQuery, "vkCmdBeginQuery");
-  V(dispatch_table, &device_dispatch_table::vkDebugMarkerSetObjectTagEXT,
-    "vkDebugMarkerSetObjectTagEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdBindPipeline,
-    "vkCmdBindPipeline");
-  V(dispatch_table, &device_dispatch_table::vkCmdCopyQueryPoolResults,
-    "vkCmdCopyQueryPoolResults");
-  V(dispatch_table, &device_dispatch_table::vkCreateSharedSwapchainsKHR,
-    "vkCreateSharedSwapchainsKHR");
-  V(dispatch_table, &device_dispatch_table::vkFreeCommandBuffers,
-    "vkFreeCommandBuffers");
+    &device_dispatch_table::vkCmdWriteAccelerationStructuresPropertiesNV,
+    "vkCmdWriteAccelerationStructuresPropertiesNV");
   V(dispatch_table, &device_dispatch_table::vkBindAccelerationStructureMemoryNV,
     "vkBindAccelerationStructureMemoryNV");
-  V(dispatch_table, &device_dispatch_table::vkCreateCommandPool,
-    "vkCreateCommandPool");
-  V(dispatch_table, &device_dispatch_table::vkCmdWriteBufferMarkerAMD,
-    "vkCmdWriteBufferMarkerAMD");
-  V(dispatch_table, &device_dispatch_table::vkDestroyRenderPass,
-    "vkDestroyRenderPass");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexedIndirect,
-    "vkCmdDrawIndexedIndirect");
-  V(dispatch_table, &device_dispatch_table::vkCmdUpdateBuffer,
-    "vkCmdUpdateBuffer");
-  V(dispatch_table, &device_dispatch_table::vkCmdClearColorImage,
-    "vkCmdClearColorImage");
-  V(dispatch_table, &device_dispatch_table::vkAllocateDescriptorSets,
-    "vkAllocateDescriptorSets");
-  V(dispatch_table, &device_dispatch_table::vkGetImageSparseMemoryRequirements,
-    "vkGetImageSparseMemoryRequirements");
-  V(dispatch_table, &device_dispatch_table::vkCmdCopyImage, "vkCmdCopyImage");
-  V(dispatch_table, &device_dispatch_table::vkGetImageMemoryRequirements,
-    "vkGetImageMemoryRequirements");
-  V(dispatch_table, &device_dispatch_table::vkGetFenceStatus,
-    "vkGetFenceStatus");
-  V(dispatch_table, &device_dispatch_table::vkCreateValidationCacheEXT,
-    "vkCreateValidationCacheEXT");
-  V(dispatch_table, &device_dispatch_table::vkSetDebugUtilsObjectNameEXT,
-    "vkSetDebugUtilsObjectNameEXT");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkGetMemoryWin32HandleKHR,
-    "vkGetMemoryWin32HandleKHR");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkImportFenceFdKHR,
-    "vkImportFenceFdKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdBindDescriptorSets,
-    "vkCmdBindDescriptorSets");
-  V(dispatch_table, &device_dispatch_table::vkCreateRenderPass,
-    "vkCreateRenderPass");
-  V(dispatch_table, &device_dispatch_table::vkResetCommandBuffer,
-    "vkResetCommandBuffer");
-  V(dispatch_table, &device_dispatch_table::vkGetMemoryFdKHR,
-    "vkGetMemoryFdKHR");
-  V(dispatch_table, &device_dispatch_table::vkDestroySwapchainKHR,
-    "vkDestroySwapchainKHR");
-  V(dispatch_table, &device_dispatch_table::vkRegisterDeviceEventEXT,
-    "vkRegisterDeviceEventEXT");
-  V(dispatch_table, &device_dispatch_table::vkFreeDescriptorSets,
-    "vkFreeDescriptorSets");
-  V(dispatch_table, &device_dispatch_table::vkSetDebugUtilsObjectTagEXT,
-    "vkSetDebugUtilsObjectTagEXT");
-  V(dispatch_table, &device_dispatch_table::vkAllocateMemory,
-    "vkAllocateMemory");
-  V(dispatch_table, &device_dispatch_table::vkQueueSubmit, "vkQueueSubmit");
-  V(dispatch_table, &device_dispatch_table::vkCmdEndRenderPass2KHR,
-    "vkCmdEndRenderPass2KHR");
-  V(dispatch_table, &device_dispatch_table::vkFreeMemory, "vkFreeMemory");
-  V(dispatch_table, &device_dispatch_table::vkCreateDescriptorPool,
-    "vkCreateDescriptorPool");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetScissor, "vkCmdSetScissor");
-  V(dispatch_table, &device_dispatch_table::vkDestroyCommandPool,
-    "vkDestroyCommandPool");
-  V(dispatch_table, &device_dispatch_table::vkGetRenderAreaGranularity,
-    "vkGetRenderAreaGranularity");
-  V(dispatch_table, &device_dispatch_table::vkFlushMappedMemoryRanges,
-    "vkFlushMappedMemoryRanges");
-  V(dispatch_table, &device_dispatch_table::vkDestroySampler,
-    "vkDestroySampler");
-  V(dispatch_table, &device_dispatch_table::vkCmdWaitEvents, "vkCmdWaitEvents");
-  V(dispatch_table, &device_dispatch_table::vkWaitForFences, "vkWaitForFences");
-  V(dispatch_table, &device_dispatch_table::vkGetDeviceProcAddr,
-    "vkGetDeviceProcAddr");
-  V(dispatch_table, &device_dispatch_table::vkCmdResetEvent, "vkCmdResetEvent");
-  V(dispatch_table, &device_dispatch_table::vkQueuePresentKHR,
-    "vkQueuePresentKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdEndRenderPass,
-    "vkCmdEndRenderPass");
-  V(dispatch_table, &device_dispatch_table::vkGetQueueCheckpointDataNV,
-    "vkGetQueueCheckpointDataNV");
-  V(dispatch_table, &device_dispatch_table::vkGetBufferMemoryRequirements,
-    "vkGetBufferMemoryRequirements");
-  V(dispatch_table, &device_dispatch_table::vkGetDeviceQueue,
-    "vkGetDeviceQueue");
-  V(dispatch_table, &device_dispatch_table::vkMapMemory, "vkMapMemory");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkGetFenceWin32HandleKHR,
-    "vkGetFenceWin32HandleKHR");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkGetFenceFdKHR, "vkGetFenceFdKHR");
-  V(dispatch_table, &device_dispatch_table::vkBindBufferMemory2,
-    "vkBindBufferMemory2");
-  V(dispatch_table, &device_dispatch_table::vkCmdBindVertexBuffers,
-    "vkCmdBindVertexBuffers");
-  V(dispatch_table, &device_dispatch_table::vkAllocateCommandBuffers,
-    "vkAllocateCommandBuffers");
-  V(dispatch_table, &device_dispatch_table::vkDestroyValidationCacheEXT,
-    "vkDestroyValidationCacheEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdProcessCommandsNVX,
-    "vkCmdProcessCommandsNVX");
-  V(dispatch_table, &device_dispatch_table::vkCreateBufferView,
-    "vkCreateBufferView");
-  V(dispatch_table, &device_dispatch_table::vkCmdDispatch, "vkCmdDispatch");
-  V(dispatch_table, &device_dispatch_table::vkDestroyBufferView,
-    "vkDestroyBufferView");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexed,
-    "vkCmdDrawIndexed");
-  V(dispatch_table, &device_dispatch_table::vkCreateFence, "vkCreateFence");
-  V(dispatch_table, &device_dispatch_table::vkCreateFramebuffer,
-    "vkCreateFramebuffer");
-  V(dispatch_table, &device_dispatch_table::vkCreateBuffer, "vkCreateBuffer");
-  V(dispatch_table, &device_dispatch_table::vkCmdCopyBufferToImage,
-    "vkCmdCopyBufferToImage");
-  V(dispatch_table, &device_dispatch_table::vkCreateShaderModule,
-    "vkCreateShaderModule");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetCheckpointNV,
-    "vkCmdSetCheckpointNV");
-  V(dispatch_table, &device_dispatch_table::vkDestroyFence, "vkDestroyFence");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkGetMemoryWin32HandleNV,
-    "vkGetMemoryWin32HandleNV");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexedIndirectCountKHR,
-    "vkCmdDrawIndexedIndirectCountKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdDraw, "vkCmdDraw");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetSampleLocationsEXT,
-    "vkCmdSetSampleLocationsEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetBlendConstants,
-    "vkCmdSetBlendConstants");
-  V(dispatch_table, &device_dispatch_table::vkDestroyPipeline,
-    "vkDestroyPipeline");
-  V(dispatch_table, &device_dispatch_table::vkCreateSemaphore,
-    "vkCreateSemaphore");
-  V(dispatch_table, &device_dispatch_table::vkGetQueryPoolResults,
-    "vkGetQueryPoolResults");
-  V(dispatch_table, &device_dispatch_table::vkCmdCopyBuffer, "vkCmdCopyBuffer");
-  V(dispatch_table, &device_dispatch_table::vkDestroyImage, "vkDestroyImage");
-  V(dispatch_table, &device_dispatch_table::vkCreateImageView,
-    "vkCreateImageView");
-  V(dispatch_table, &device_dispatch_table::vkCreateQueryPool,
-    "vkCreateQueryPool");
-  V(dispatch_table, &device_dispatch_table::vkBindImageMemory,
-    "vkBindImageMemory");
-  V(dispatch_table, &device_dispatch_table::vkSetEvent, "vkSetEvent");
-  V(dispatch_table, &device_dispatch_table::vkCreateSampler, "vkCreateSampler");
-  V(dispatch_table, &device_dispatch_table::vkDestroyDescriptorPool,
-    "vkDestroyDescriptorPool");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetEvent, "vkCmdSetEvent");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginQueryIndexedEXT,
-    "vkCmdBeginQueryIndexedEXT");
+  V(dispatch_table,
+    &device_dispatch_table::vkGetAccelerationStructureMemoryRequirementsNV,
+    "vkGetAccelerationStructureMemoryRequirementsNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawMeshTasksIndirectCountNV,
+    "vkCmdDrawMeshTasksIndirectCountNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawMeshTasksIndirectNV,
+    "vkCmdDrawMeshTasksIndirectNV");
   V(dispatch_table, &device_dispatch_table::vkCmdDrawMeshTasksNV,
     "vkCmdDrawMeshTasksNV");
-  V(dispatch_table, &device_dispatch_table::vkDestroyBuffer, "vkDestroyBuffer");
-  V(dispatch_table, &device_dispatch_table::vkBindImageMemory2,
-    "vkBindImageMemory2");
-  V(dispatch_table, &device_dispatch_table::vkCreatePipelineCache,
-    "vkCreatePipelineCache");
-#ifdef VK_USE_PLATFORM_ANDROID_KHR
-  V(dispatch_table,
-    &device_dispatch_table::vkGetAndroidHardwareBufferPropertiesANDROID,
-    "vkGetAndroidHardwareBufferPropertiesANDROID");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkGetImageSubresourceLayout,
-    "vkGetImageSubresourceLayout");
-  V(dispatch_table, &device_dispatch_table::vkUnmapMemory, "vkUnmapMemory");
-  V(dispatch_table, &device_dispatch_table::vkResetDescriptorPool,
-    "vkResetDescriptorPool");
-  V(dispatch_table, &device_dispatch_table::vkGetBufferMemoryRequirements2,
-    "vkGetBufferMemoryRequirements2");
-  V(dispatch_table, &device_dispatch_table::vkDestroyImageView,
-    "vkDestroyImageView");
-  V(dispatch_table, &device_dispatch_table::vkCmdWriteTimestamp,
-    "vkCmdWriteTimestamp");
-  V(dispatch_table, &device_dispatch_table::vkUpdateDescriptorSetWithTemplate,
-    "vkUpdateDescriptorSetWithTemplate");
-  V(dispatch_table, &device_dispatch_table::vkDeviceWaitIdle,
-    "vkDeviceWaitIdle");
-  V(dispatch_table, &device_dispatch_table::vkQueueBindSparse,
-    "vkQueueBindSparse");
-  V(dispatch_table, &device_dispatch_table::vkGetPipelineCacheData,
-    "vkGetPipelineCacheData");
-  V(dispatch_table, &device_dispatch_table::vkCreateGraphicsPipelines,
-    "vkCreateGraphicsPipelines");
-  V(dispatch_table, &device_dispatch_table::vkMergePipelineCaches,
-    "vkMergePipelineCaches");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetExclusiveScissorNV,
-    "vkCmdSetExclusiveScissorNV");
-  V(dispatch_table, &device_dispatch_table::vkDestroyDescriptorSetLayout,
-    "vkDestroyDescriptorSetLayout");
-  V(dispatch_table, &device_dispatch_table::vkInvalidateMappedMemoryRanges,
-    "vkInvalidateMappedMemoryRanges");
-  V(dispatch_table, &device_dispatch_table::vkCreatePipelineLayout,
-    "vkCreatePipelineLayout");
-  V(dispatch_table, &device_dispatch_table::vkResetCommandPool,
-    "vkResetCommandPool");
-  V(dispatch_table,
-    &device_dispatch_table::vkCmdBindTransformFeedbackBuffersEXT,
-    "vkCmdBindTransformFeedbackBuffersEXT");
-  V(dispatch_table, &device_dispatch_table::vkCreateDescriptorSetLayout,
-    "vkCreateDescriptorSetLayout");
-  V(dispatch_table, &device_dispatch_table::vkCmdNextSubpass,
-    "vkCmdNextSubpass");
-  V(dispatch_table, &device_dispatch_table::vkDebugMarkerSetObjectNameEXT,
-    "vkDebugMarkerSetObjectNameEXT");
-  V(dispatch_table, &device_dispatch_table::vkDestroyIndirectCommandsLayoutNVX,
-    "vkDestroyIndirectCommandsLayoutNVX");
-  V(dispatch_table, &device_dispatch_table::vkQueueInsertDebugUtilsLabelEXT,
-    "vkQueueInsertDebugUtilsLabelEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirectCountAMD,
-    "vkCmdDrawIndirectCountAMD");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginTransformFeedbackEXT,
-    "vkCmdBeginTransformFeedbackEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdBindIndexBuffer,
-    "vkCmdBindIndexBuffer");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexedIndirectCountAMD,
-    "vkCmdDrawIndexedIndirectCountAMD");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginRenderPass,
-    "vkCmdBeginRenderPass");
-  V(dispatch_table, &device_dispatch_table::vkCmdReserveSpaceForCommandsNVX,
-    "vkCmdReserveSpaceForCommandsNVX");
-  V(dispatch_table, &device_dispatch_table::vkCreateObjectTableNVX,
-    "vkCreateObjectTableNVX");
-  V(dispatch_table, &device_dispatch_table::vkDestroyObjectTableNVX,
-    "vkDestroyObjectTableNVX");
-  V(dispatch_table, &device_dispatch_table::vkRegisterObjectsNVX,
-    "vkRegisterObjectsNVX");
-  V(dispatch_table, &device_dispatch_table::vkUnregisterObjectsNVX,
-    "vkUnregisterObjectsNVX");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkImportSemaphoreWin32HandleKHR,
-    "vkImportSemaphoreWin32HandleKHR");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkCmdPushDescriptorSetKHR,
-    "vkCmdPushDescriptorSetKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdBeginDebugUtilsLabelEXT,
-    "vkCmdBeginDebugUtilsLabelEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdDispatchIndirect,
-    "vkCmdDispatchIndirect");
-  V(dispatch_table, &device_dispatch_table::vkTrimCommandPool,
-    "vkTrimCommandPool");
-  V(dispatch_table, &device_dispatch_table::vkDestroyPipelineCache,
-    "vkDestroyPipelineCache");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkGetMemoryWin32HandlePropertiesKHR,
-    "vkGetMemoryWin32HandlePropertiesKHR");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkGetMemoryFdPropertiesKHR,
-    "vkGetMemoryFdPropertiesKHR");
-#ifdef VK_USE_PLATFORM_WIN32_KHR
-  V(dispatch_table, &device_dispatch_table::vkGetSemaphoreWin32HandleKHR,
-    "vkGetSemaphoreWin32HandleKHR");
-#endif
-  V(dispatch_table, &device_dispatch_table::vkGetDeviceGroupPeerMemoryFeatures,
-    "vkGetDeviceGroupPeerMemoryFeatures");
-  V(dispatch_table, &device_dispatch_table::vkCmdDebugMarkerEndEXT,
-    "vkCmdDebugMarkerEndEXT");
-  V(dispatch_table, &device_dispatch_table::vkGetSemaphoreFdKHR,
-    "vkGetSemaphoreFdKHR");
-  V(dispatch_table, &device_dispatch_table::vkDestroySamplerYcbcrConversion,
-    "vkDestroySamplerYcbcrConversion");
-  V(dispatch_table, &device_dispatch_table::vkCmdTraceRaysNV,
-    "vkCmdTraceRaysNV");
-  V(dispatch_table, &device_dispatch_table::vkGetPastPresentationTimingGOOGLE,
-    "vkGetPastPresentationTimingGOOGLE");
-  V(dispatch_table, &device_dispatch_table::vkDisplayPowerControlEXT,
-    "vkDisplayPowerControlEXT");
-  V(dispatch_table, &device_dispatch_table::vkGetDescriptorSetLayoutSupport,
-    "vkGetDescriptorSetLayoutSupport");
-  V(dispatch_table, &device_dispatch_table::vkGetSwapchainCounterEXT,
-    "vkGetSwapchainCounterEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdPipelineBarrier,
-    "vkCmdPipelineBarrier");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetDeviceMask,
-    "vkCmdSetDeviceMask");
-  V(dispatch_table, &device_dispatch_table::vkResetFences, "vkResetFences");
-  V(dispatch_table,
-    &device_dispatch_table::vkGetDeviceGroupPresentCapabilitiesKHR,
-    "vkGetDeviceGroupPresentCapabilitiesKHR");
-  V(dispatch_table,
-    &device_dispatch_table::vkGetDeviceGroupSurfacePresentModesKHR,
-    "vkGetDeviceGroupSurfacePresentModesKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetViewportWScalingNV,
-    "vkCmdSetViewportWScalingNV");
-  V(dispatch_table, &device_dispatch_table::vkCmdCopyAccelerationStructureNV,
-    "vkCmdCopyAccelerationStructureNV");
-  V(dispatch_table, &device_dispatch_table::vkAcquireNextImage2KHR,
-    "vkAcquireNextImage2KHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdDispatchBase,
-    "vkCmdDispatchBase");
-  V(dispatch_table, &device_dispatch_table::vkCreateImage, "vkCreateImage");
-  V(dispatch_table, &device_dispatch_table::vkDestroyDescriptorUpdateTemplate,
-    "vkDestroyDescriptorUpdateTemplate");
-  V(dispatch_table,
-    &device_dispatch_table::vkCmdPushDescriptorSetWithTemplateKHR,
-    "vkCmdPushDescriptorSetWithTemplateKHR");
-  V(dispatch_table, &device_dispatch_table::vkSetHdrMetadataEXT,
-    "vkSetHdrMetadataEXT");
-  V(dispatch_table, &device_dispatch_table::vkGetSwapchainStatusKHR,
-    "vkGetSwapchainStatusKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdSetDiscardRectangleEXT,
-    "vkCmdSetDiscardRectangleEXT");
-  V(dispatch_table, &device_dispatch_table::vkGetRefreshCycleDurationGOOGLE,
-    "vkGetRefreshCycleDurationGOOGLE");
-  V(dispatch_table, &device_dispatch_table::vkGetImageMemoryRequirements2,
-    "vkGetImageMemoryRequirements2");
-  V(dispatch_table, &device_dispatch_table::vkGetSwapchainImagesKHR,
-    "vkGetSwapchainImagesKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdDebugMarkerInsertEXT,
-    "vkCmdDebugMarkerInsertEXT");
-  V(dispatch_table, &device_dispatch_table::vkGetImageSparseMemoryRequirements2,
-    "vkGetImageSparseMemoryRequirements2");
   V(dispatch_table, &device_dispatch_table::vkCmdSetCoarseSampleOrderNV,
     "vkCmdSetCoarseSampleOrderNV");
-  V(dispatch_table, &device_dispatch_table::vkCreateSamplerYcbcrConversion,
-    "vkCreateSamplerYcbcrConversion");
-  V(dispatch_table, &device_dispatch_table::vkGetDeviceQueue2,
-    "vkGetDeviceQueue2");
-  V(dispatch_table, &device_dispatch_table::vkGetValidationCacheDataEXT,
-    "vkGetValidationCacheDataEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetExclusiveScissorNV,
+    "vkCmdSetExclusiveScissorNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirectByteCountEXT,
+    "vkCmdDrawIndirectByteCountEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginQueryIndexedEXT,
+    "vkCmdBeginQueryIndexedEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexedIndirectCountKHR,
+    "vkCmdDrawIndexedIndirectCountKHR");
 #ifdef VK_USE_PLATFORM_ANDROID_KHR
   V(dispatch_table,
     &device_dispatch_table::vkGetMemoryAndroidHardwareBufferANDROID,
     "vkGetMemoryAndroidHardwareBufferANDROID");
 #endif
-  V(dispatch_table, &device_dispatch_table::vkMergeValidationCachesEXT,
-    "vkMergeValidationCachesEXT");
-  V(dispatch_table, &device_dispatch_table::vkGetShaderInfoAMD,
-    "vkGetShaderInfoAMD");
-  V(dispatch_table, &device_dispatch_table::vkGetCalibratedTimestampsEXT,
-    "vkGetCalibratedTimestampsEXT");
-  V(dispatch_table, &device_dispatch_table::vkQueueBeginDebugUtilsLabelEXT,
-    "vkQueueBeginDebugUtilsLabelEXT");
-  V(dispatch_table, &device_dispatch_table::vkQueueEndDebugUtilsLabelEXT,
-    "vkQueueEndDebugUtilsLabelEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdEndDebugUtilsLabelEXT,
-    "vkCmdEndDebugUtilsLabelEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdInsertDebugUtilsLabelEXT,
-    "vkCmdInsertDebugUtilsLabelEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdDebugMarkerBeginEXT,
-    "vkCmdDebugMarkerBeginEXT");
-  V(dispatch_table, &device_dispatch_table::vkCreateSwapchainKHR,
-    "vkCreateSwapchainKHR");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirectCountKHR,
-    "vkCmdDrawIndirectCountKHR");
-  V(dispatch_table, &device_dispatch_table::vkGetMemoryHostPointerPropertiesEXT,
-    "vkGetMemoryHostPointerPropertiesEXT");
+  V(dispatch_table,
+    &device_dispatch_table::vkCmdSetViewportShadingRatePaletteNV,
+    "vkCmdSetViewportShadingRatePaletteNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdEndRenderPass2KHR,
+    "vkCmdEndRenderPass2KHR");
   V(dispatch_table, &device_dispatch_table::vkCmdNextSubpass2KHR,
     "vkCmdNextSubpass2KHR");
-  V(dispatch_table, &device_dispatch_table::vkGetBufferDeviceAddressEXT,
-    "vkGetBufferDeviceAddressEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirectByteCountEXT,
-    "vkCmdDrawIndirectByteCountEXT");
-  V(dispatch_table, &device_dispatch_table::vkCmdDrawMeshTasksIndirectNV,
-    "vkCmdDrawMeshTasksIndirectNV");
-  V(dispatch_table, &device_dispatch_table::vkResetEvent, "vkResetEvent");
-  V(dispatch_table, &device_dispatch_table::vkCmdBindShadingRateImageNV,
-    "vkCmdBindShadingRateImageNV");
-  V(dispatch_table, &device_dispatch_table::vkCompileDeferredNV,
-    "vkCompileDeferredNV");
-  V(dispatch_table, &device_dispatch_table::vkGetDeviceMemoryCommitment,
-    "vkGetDeviceMemoryCommitment");
-  V(dispatch_table, &device_dispatch_table::vkRegisterDisplayEventEXT,
-    "vkRegisterDisplayEventEXT");
-  V(dispatch_table, &device_dispatch_table::vkCreateAccelerationStructureNV,
-    "vkCreateAccelerationStructureNV");
-  V(dispatch_table, &device_dispatch_table::vkDestroyPipelineLayout,
-    "vkDestroyPipelineLayout");
-  V(dispatch_table,
-    &device_dispatch_table::vkGetAccelerationStructureMemoryRequirementsNV,
-    "vkGetAccelerationStructureMemoryRequirementsNV");
-  V(dispatch_table, &device_dispatch_table::vkCreateEvent, "vkCreateEvent");
-  V(dispatch_table,
-    &device_dispatch_table::vkCmdWriteAccelerationStructuresPropertiesNV,
-    "vkCmdWriteAccelerationStructuresPropertiesNV");
-  V(dispatch_table, &device_dispatch_table::vkCmdBuildAccelerationStructureNV,
-    "vkCmdBuildAccelerationStructureNV");
-  V(dispatch_table, &device_dispatch_table::vkDestroyAccelerationStructureNV,
-    "vkDestroyAccelerationStructureNV");
+  V(dispatch_table, &device_dispatch_table::vkCreateRenderPass2KHR,
+    "vkCreateRenderPass2KHR");
+  V(dispatch_table, &device_dispatch_table::vkGetMemoryHostPointerPropertiesEXT,
+    "vkGetMemoryHostPointerPropertiesEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginDebugUtilsLabelEXT,
+    "vkCmdBeginDebugUtilsLabelEXT");
+  V(dispatch_table, &device_dispatch_table::vkQueueInsertDebugUtilsLabelEXT,
+    "vkQueueInsertDebugUtilsLabelEXT");
+  V(dispatch_table, &device_dispatch_table::vkQueueEndDebugUtilsLabelEXT,
+    "vkQueueEndDebugUtilsLabelEXT");
+  V(dispatch_table, &device_dispatch_table::vkSetDebugUtilsObjectNameEXT,
+    "vkSetDebugUtilsObjectNameEXT");
+  V(dispatch_table, &device_dispatch_table::vkGetCalibratedTimestampsEXT,
+    "vkGetCalibratedTimestampsEXT");
+  V(dispatch_table, &device_dispatch_table::vkGetShaderInfoAMD,
+    "vkGetShaderInfoAMD");
+  V(dispatch_table, &device_dispatch_table::vkGetDescriptorSetLayoutSupport,
+    "vkGetDescriptorSetLayoutSupport");
+  V(dispatch_table, &device_dispatch_table::vkMergeValidationCachesEXT,
+    "vkMergeValidationCachesEXT");
+  V(dispatch_table, &device_dispatch_table::vkDestroyValidationCacheEXT,
+    "vkDestroyValidationCacheEXT");
+  V(dispatch_table, &device_dispatch_table::vkGetDeviceQueue2,
+    "vkGetDeviceQueue2");
+  V(dispatch_table, &device_dispatch_table::vkCreateSamplerYcbcrConversion,
+    "vkCreateSamplerYcbcrConversion");
+  V(dispatch_table, &device_dispatch_table::vkGetImageSparseMemoryRequirements2,
+    "vkGetImageSparseMemoryRequirements2");
+  V(dispatch_table, &device_dispatch_table::vkGetImageMemoryRequirements2,
+    "vkGetImageMemoryRequirements2");
+  V(dispatch_table, &device_dispatch_table::vkGetBufferMemoryRequirements2,
+    "vkGetBufferMemoryRequirements2");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetViewportWScalingNV,
+    "vkCmdSetViewportWScalingNV");
+  V(dispatch_table, &device_dispatch_table::vkGetPastPresentationTimingGOOGLE,
+    "vkGetPastPresentationTimingGOOGLE");
+  V(dispatch_table, &device_dispatch_table::vkGetRefreshCycleDurationGOOGLE,
+    "vkGetRefreshCycleDurationGOOGLE");
+  V(dispatch_table, &device_dispatch_table::vkGetSwapchainStatusKHR,
+    "vkGetSwapchainStatusKHR");
+  V(dispatch_table, &device_dispatch_table::vkSetHdrMetadataEXT,
+    "vkSetHdrMetadataEXT");
   V(dispatch_table, &device_dispatch_table::vkGetRayTracingShaderGroupHandlesNV,
     "vkGetRayTracingShaderGroupHandlesNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdDispatchBase,
+    "vkCmdDispatchBase");
+  V(dispatch_table, &device_dispatch_table::vkAcquireNextImage2KHR,
+    "vkAcquireNextImage2KHR");
+  V(dispatch_table, &device_dispatch_table::vkCreateRayTracingPipelinesNV,
+    "vkCreateRayTracingPipelinesNV");
+  V(dispatch_table, &device_dispatch_table::vkCreateAccelerationStructureNV,
+    "vkCreateAccelerationStructureNV");
   V(dispatch_table,
-    &device_dispatch_table::vkGetImageDrmFormatModifierPropertiesEXT,
-    "vkGetImageDrmFormatModifierPropertiesEXT");
+    &device_dispatch_table::vkGetDeviceGroupPresentCapabilitiesKHR,
+    "vkGetDeviceGroupPresentCapabilitiesKHR");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetDeviceMask,
+    "vkCmdSetDeviceMask");
+  V(dispatch_table, &device_dispatch_table::vkBindImageMemory2,
+    "vkBindImageMemory2");
+  V(dispatch_table, &device_dispatch_table::vkGetSwapchainCounterEXT,
+    "vkGetSwapchainCounterEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdBuildAccelerationStructureNV,
+    "vkCmdBuildAccelerationStructureNV");
+  V(dispatch_table, &device_dispatch_table::vkRegisterDisplayEventEXT,
+    "vkRegisterDisplayEventEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdBindShadingRateImageNV,
+    "vkCmdBindShadingRateImageNV");
+  V(dispatch_table, &device_dispatch_table::vkGetFenceFdKHR, "vkGetFenceFdKHR");
+  V(dispatch_table,
+    &device_dispatch_table::vkCmdBindTransformFeedbackBuffersEXT,
+    "vkCmdBindTransformFeedbackBuffersEXT");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkGetFenceWin32HandleKHR,
+    "vkGetFenceWin32HandleKHR");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkGetSemaphoreFdKHR,
+    "vkGetSemaphoreFdKHR");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkImportSemaphoreWin32HandleKHR,
+    "vkImportSemaphoreWin32HandleKHR");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkGetBufferDeviceAddressEXT,
+    "vkGetBufferDeviceAddressEXT");
+  V(dispatch_table, &device_dispatch_table::vkGetMemoryFdPropertiesKHR,
+    "vkGetMemoryFdPropertiesKHR");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkGetMemoryWin32HandleKHR,
+    "vkGetMemoryWin32HandleKHR");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkCmdEndDebugUtilsLabelEXT,
+    "vkCmdEndDebugUtilsLabelEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdBindPipeline,
+    "vkCmdBindPipeline");
+  V(dispatch_table, &device_dispatch_table::vkEndCommandBuffer,
+    "vkEndCommandBuffer");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetScissor, "vkCmdSetScissor");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginRenderPass2KHR,
+    "vkCmdBeginRenderPass2KHR");
+  V(dispatch_table, &device_dispatch_table::vkSetDebugUtilsObjectTagEXT,
+    "vkSetDebugUtilsObjectTagEXT");
+  V(dispatch_table, &device_dispatch_table::vkResetFences, "vkResetFences");
+  V(dispatch_table, &device_dispatch_table::vkFreeCommandBuffers,
+    "vkFreeCommandBuffers");
+  V(dispatch_table, &device_dispatch_table::vkCmdExecuteCommands,
+    "vkCmdExecuteCommands");
+  V(dispatch_table, &device_dispatch_table::vkCreateRenderPass,
+    "vkCreateRenderPass");
+  V(dispatch_table, &device_dispatch_table::vkFreeDescriptorSets,
+    "vkFreeDescriptorSets");
+  V(dispatch_table, &device_dispatch_table::vkCmdInsertDebugUtilsLabelEXT,
+    "vkCmdInsertDebugUtilsLabelEXT");
+  V(dispatch_table, &device_dispatch_table::vkImportSemaphoreFdKHR,
+    "vkImportSemaphoreFdKHR");
+  V(dispatch_table, &device_dispatch_table::vkCreateDescriptorPool,
+    "vkCreateDescriptorPool");
+  V(dispatch_table, &device_dispatch_table::vkDestroyDescriptorSetLayout,
+    "vkDestroyDescriptorSetLayout");
+  V(dispatch_table, &device_dispatch_table::vkCreateGraphicsPipelines,
+    "vkCreateGraphicsPipelines");
+  V(dispatch_table, &device_dispatch_table::vkGetPipelineCacheData,
+    "vkGetPipelineCacheData");
+  V(dispatch_table, &device_dispatch_table::vkCompileDeferredNV,
+    "vkCompileDeferredNV");
+#ifdef VK_USE_PLATFORM_ANDROID_KHR
+  V(dispatch_table,
+    &device_dispatch_table::vkGetAndroidHardwareBufferPropertiesANDROID,
+    "vkGetAndroidHardwareBufferPropertiesANDROID");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkGetRenderAreaGranularity,
+    "vkGetRenderAreaGranularity");
+  V(dispatch_table, &device_dispatch_table::vkDestroyCommandPool,
+    "vkDestroyCommandPool");
+  V(dispatch_table, &device_dispatch_table::vkGetDeviceMemoryCommitment,
+    "vkGetDeviceMemoryCommitment");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetViewport,
+    "vkCmdSetViewport");
+  V(dispatch_table, &device_dispatch_table::vkDestroyPipelineCache,
+    "vkDestroyPipelineCache");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkGetSemaphoreWin32HandleKHR,
+    "vkGetSemaphoreWin32HandleKHR");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkGetImageSubresourceLayout,
+    "vkGetImageSubresourceLayout");
+  V(dispatch_table, &device_dispatch_table::vkAllocateCommandBuffers,
+    "vkAllocateCommandBuffers");
+  V(dispatch_table, &device_dispatch_table::vkDestroyBuffer, "vkDestroyBuffer");
+  V(dispatch_table, &device_dispatch_table::vkCreateBuffer, "vkCreateBuffer");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginQuery, "vkCmdBeginQuery");
+  V(dispatch_table, &device_dispatch_table::vkCreateFramebuffer,
+    "vkCreateFramebuffer");
+  V(dispatch_table, &device_dispatch_table::vkCreateFence, "vkCreateFence");
+  V(dispatch_table, &device_dispatch_table::vkDestroyQueryPool,
+    "vkDestroyQueryPool");
+  V(dispatch_table, &device_dispatch_table::vkBindBufferMemory2,
+    "vkBindBufferMemory2");
+  V(dispatch_table, &device_dispatch_table::vkCmdTraceRaysNV,
+    "vkCmdTraceRaysNV");
+  V(dispatch_table, &device_dispatch_table::vkMergePipelineCaches,
+    "vkMergePipelineCaches");
+  V(dispatch_table, &device_dispatch_table::vkCreatePipelineLayout,
+    "vkCreatePipelineLayout");
+  V(dispatch_table, &device_dispatch_table::vkCmdWriteTimestamp,
+    "vkCmdWriteTimestamp");
+  V(dispatch_table, &device_dispatch_table::vkGetQueueCheckpointDataNV,
+    "vkGetQueueCheckpointDataNV");
+  V(dispatch_table, &device_dispatch_table::vkGetQueryPoolResults,
+    "vkGetQueryPoolResults");
+  V(dispatch_table, &device_dispatch_table::vkQueueSubmit, "vkQueueSubmit");
+  V(dispatch_table, &device_dispatch_table::vkGetBufferMemoryRequirements,
+    "vkGetBufferMemoryRequirements");
+  V(dispatch_table, &device_dispatch_table::vkDestroyDescriptorUpdateTemplate,
+    "vkDestroyDescriptorUpdateTemplate");
+  V(dispatch_table, &device_dispatch_table::vkDestroyRenderPass,
+    "vkDestroyRenderPass");
+  V(dispatch_table, &device_dispatch_table::vkCreateDescriptorSetLayout,
+    "vkCreateDescriptorSetLayout");
+  V(dispatch_table, &device_dispatch_table::vkFreeMemory, "vkFreeMemory");
+  V(dispatch_table, &device_dispatch_table::vkDestroyFramebuffer,
+    "vkDestroyFramebuffer");
+  V(dispatch_table, &device_dispatch_table::vkWaitForFences, "vkWaitForFences");
   V(dispatch_table, &device_dispatch_table::vkCmdEndTransformFeedbackEXT,
     "vkCmdEndTransformFeedbackEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdUpdateBuffer,
+    "vkCmdUpdateBuffer");
+  V(dispatch_table, &device_dispatch_table::vkCreatePipelineCache,
+    "vkCreatePipelineCache");
+  V(dispatch_table, &device_dispatch_table::vkCmdDebugMarkerEndEXT,
+    "vkCmdDebugMarkerEndEXT");
+  V(dispatch_table, &device_dispatch_table::vkDestroyDevice, "vkDestroyDevice");
+  V(dispatch_table, &device_dispatch_table::vkGetValidationCacheDataEXT,
+    "vkGetValidationCacheDataEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetSampleLocationsEXT,
+    "vkCmdSetSampleLocationsEXT");
+  V(dispatch_table, &device_dispatch_table::vkCreateComputePipelines,
+    "vkCreateComputePipelines");
+  V(dispatch_table, &device_dispatch_table::vkCmdBlitImage, "vkCmdBlitImage");
+  V(dispatch_table, &device_dispatch_table::vkCreateShaderModule,
+    "vkCreateShaderModule");
+  V(dispatch_table, &device_dispatch_table::vkCreateImage, "vkCreateImage");
+  V(dispatch_table, &device_dispatch_table::vkCmdCopyBufferToImage,
+    "vkCmdCopyBufferToImage");
+  V(dispatch_table, &device_dispatch_table::vkRegisterDeviceEventEXT,
+    "vkRegisterDeviceEventEXT");
+  V(dispatch_table, &device_dispatch_table::vkGetFenceStatus,
+    "vkGetFenceStatus");
+  V(dispatch_table, &device_dispatch_table::vkGetDeviceProcAddr,
+    "vkGetDeviceProcAddr");
+  V(dispatch_table, &device_dispatch_table::vkResetEvent, "vkResetEvent");
+  V(dispatch_table, &device_dispatch_table::vkCmdDebugMarkerBeginEXT,
+    "vkCmdDebugMarkerBeginEXT");
+  V(dispatch_table, &device_dispatch_table::vkCreateSemaphore,
+    "vkCreateSemaphore");
+  V(dispatch_table, &device_dispatch_table::vkCmdBindDescriptorSets,
+    "vkCmdBindDescriptorSets");
+  V(dispatch_table, &device_dispatch_table::vkDestroySamplerYcbcrConversion,
+    "vkDestroySamplerYcbcrConversion");
+  V(dispatch_table, &device_dispatch_table::vkCmdClearAttachments,
+    "vkCmdClearAttachments");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirectCountKHR,
+    "vkCmdDrawIndirectCountKHR");
+  V(dispatch_table, &device_dispatch_table::vkGetDeviceQueue,
+    "vkGetDeviceQueue");
+  V(dispatch_table, &device_dispatch_table::vkResetDescriptorPool,
+    "vkResetDescriptorPool");
+  V(dispatch_table, &device_dispatch_table::vkCmdDispatch, "vkCmdDispatch");
+  V(dispatch_table, &device_dispatch_table::vkCreateCommandPool,
+    "vkCreateCommandPool");
+  V(dispatch_table, &device_dispatch_table::vkCmdResolveImage,
+    "vkCmdResolveImage");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkGetMemoryWin32HandlePropertiesKHR,
+    "vkGetMemoryWin32HandlePropertiesKHR");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkGetSwapchainImagesKHR,
+    "vkGetSwapchainImagesKHR");
+  V(dispatch_table, &device_dispatch_table::vkDestroySampler,
+    "vkDestroySampler");
+  V(dispatch_table, &device_dispatch_table::vkDestroyDescriptorPool,
+    "vkDestroyDescriptorPool");
+  V(dispatch_table, &device_dispatch_table::vkUnmapMemory, "vkUnmapMemory");
+  V(dispatch_table, &device_dispatch_table::vkDestroySemaphore,
+    "vkDestroySemaphore");
+  V(dispatch_table, &device_dispatch_table::vkInvalidateMappedMemoryRanges,
+    "vkInvalidateMappedMemoryRanges");
+  V(dispatch_table, &device_dispatch_table::vkCmdCopyQueryPoolResults,
+    "vkCmdCopyQueryPoolResults");
+  V(dispatch_table, &device_dispatch_table::vkBeginCommandBuffer,
+    "vkBeginCommandBuffer");
+  V(dispatch_table, &device_dispatch_table::vkMapMemory, "vkMapMemory");
+  V(dispatch_table, &device_dispatch_table::vkCmdWriteBufferMarkerAMD,
+    "vkCmdWriteBufferMarkerAMD");
+  V(dispatch_table, &device_dispatch_table::vkQueuePresentKHR,
+    "vkQueuePresentKHR");
+  V(dispatch_table, &device_dispatch_table::vkGetImageMemoryRequirements,
+    "vkGetImageMemoryRequirements");
+  V(dispatch_table, &device_dispatch_table::vkQueueWaitIdle, "vkQueueWaitIdle");
+  V(dispatch_table, &device_dispatch_table::vkSetEvent, "vkSetEvent");
+  V(dispatch_table, &device_dispatch_table::vkAcquireNextImageKHR,
+    "vkAcquireNextImageKHR");
+  V(dispatch_table, &device_dispatch_table::vkDestroyBufferView,
+    "vkDestroyBufferView");
+  V(dispatch_table, &device_dispatch_table::vkCreateValidationCacheEXT,
+    "vkCreateValidationCacheEXT");
+  V(dispatch_table, &device_dispatch_table::vkBindImageMemory,
+    "vkBindImageMemory");
+  V(dispatch_table, &device_dispatch_table::vkResetCommandBuffer,
+    "vkResetCommandBuffer");
+  V(dispatch_table, &device_dispatch_table::vkDestroyImageView,
+    "vkDestroyImageView");
+  V(dispatch_table, &device_dispatch_table::vkQueueBindSparse,
+    "vkQueueBindSparse");
+  V(dispatch_table, &device_dispatch_table::vkCmdFillBuffer, "vkCmdFillBuffer");
+  V(dispatch_table, &device_dispatch_table::vkDeviceWaitIdle,
+    "vkDeviceWaitIdle");
+  V(dispatch_table, &device_dispatch_table::vkDestroyFence, "vkDestroyFence");
+  V(dispatch_table,
+    &device_dispatch_table::vkGetDeviceGroupSurfacePresentModesKHR,
+    "vkGetDeviceGroupSurfacePresentModesKHR");
+  V(dispatch_table, &device_dispatch_table::vkUpdateDescriptorSets,
+    "vkUpdateDescriptorSets");
+  V(dispatch_table, &device_dispatch_table::vkCmdEndQuery, "vkCmdEndQuery");
+  V(dispatch_table, &device_dispatch_table::vkCmdCopyAccelerationStructureNV,
+    "vkCmdCopyAccelerationStructureNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdProcessCommandsNVX,
+    "vkCmdProcessCommandsNVX");
+  V(dispatch_table, &device_dispatch_table::vkQueueBeginDebugUtilsLabelEXT,
+    "vkQueueBeginDebugUtilsLabelEXT");
+  V(dispatch_table, &device_dispatch_table::vkRegisterObjectsNVX,
+    "vkRegisterObjectsNVX");
+  V(dispatch_table, &device_dispatch_table::vkFlushMappedMemoryRanges,
+    "vkFlushMappedMemoryRanges");
+  V(dispatch_table, &device_dispatch_table::vkCreateEvent, "vkCreateEvent");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetStencilCompareMask,
+    "vkCmdSetStencilCompareMask");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetLineWidth,
+    "vkCmdSetLineWidth");
+  V(dispatch_table,
+    &device_dispatch_table::vkCmdPushDescriptorSetWithTemplateKHR,
+    "vkCmdPushDescriptorSetWithTemplateKHR");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetDepthBias,
+    "vkCmdSetDepthBias");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetBlendConstants,
+    "vkCmdSetBlendConstants");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetDepthBounds,
+    "vkCmdSetDepthBounds");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetStencilWriteMask,
+    "vkCmdSetStencilWriteMask");
+  V(dispatch_table, &device_dispatch_table::vkCmdBindIndexBuffer,
+    "vkCmdBindIndexBuffer");
+  V(dispatch_table, &device_dispatch_table::vkDestroyAccelerationStructureNV,
+    "vkDestroyAccelerationStructureNV");
+  V(dispatch_table, &device_dispatch_table::vkGetMemoryFdKHR,
+    "vkGetMemoryFdKHR");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkGetMemoryWin32HandleNV,
+    "vkGetMemoryWin32HandleNV");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirectCountAMD,
+    "vkCmdDrawIndirectCountAMD");
+  V(dispatch_table, &device_dispatch_table::vkCmdBindVertexBuffers,
+    "vkCmdBindVertexBuffers");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetDiscardRectangleEXT,
+    "vkCmdSetDiscardRectangleEXT");
+  V(dispatch_table, &device_dispatch_table::vkCreateDescriptorUpdateTemplate,
+    "vkCreateDescriptorUpdateTemplate");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetCheckpointNV,
+    "vkCmdSetCheckpointNV");
+  V(dispatch_table, &device_dispatch_table::vkCmdDraw, "vkCmdDraw");
+  V(dispatch_table, &device_dispatch_table::vkDestroyEvent, "vkDestroyEvent");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginConditionalRenderingEXT,
+    "vkCmdBeginConditionalRenderingEXT");
+  V(dispatch_table, &device_dispatch_table::vkCreateBufferView,
+    "vkCreateBufferView");
+  V(dispatch_table, &device_dispatch_table::vkBindBufferMemory,
+    "vkBindBufferMemory");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndirect,
+    "vkCmdDrawIndirect");
+  V(dispatch_table, &device_dispatch_table::vkDisplayPowerControlEXT,
+    "vkDisplayPowerControlEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdDispatchIndirect,
+    "vkCmdDispatchIndirect");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexedIndirect,
+    "vkCmdDrawIndexedIndirect");
+  V(dispatch_table, &device_dispatch_table::vkCmdCopyBuffer, "vkCmdCopyBuffer");
+  V(dispatch_table, &device_dispatch_table::vkCmdCopyImage, "vkCmdCopyImage");
+  V(dispatch_table, &device_dispatch_table::vkDestroyPipeline,
+    "vkDestroyPipeline");
+  V(dispatch_table, &device_dispatch_table::vkCmdCopyImageToBuffer,
+    "vkCmdCopyImageToBuffer");
+  V(dispatch_table, &device_dispatch_table::vkCmdClearColorImage,
+    "vkCmdClearColorImage");
+  V(dispatch_table, &device_dispatch_table::vkCmdClearDepthStencilImage,
+    "vkCmdClearDepthStencilImage");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetEvent, "vkCmdSetEvent");
+  V(dispatch_table, &device_dispatch_table::vkDestroyIndirectCommandsLayoutNVX,
+    "vkDestroyIndirectCommandsLayoutNVX");
+  V(dispatch_table, &device_dispatch_table::vkCmdPushDescriptorSetKHR,
+    "vkCmdPushDescriptorSetKHR");
+  V(dispatch_table, &device_dispatch_table::vkUpdateDescriptorSetWithTemplate,
+    "vkUpdateDescriptorSetWithTemplate");
+  V(dispatch_table, &device_dispatch_table::vkCmdEndConditionalRenderingEXT,
+    "vkCmdEndConditionalRenderingEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdResetQueryPool,
+    "vkCmdResetQueryPool");
+  V(dispatch_table, &device_dispatch_table::vkCmdPushConstants,
+    "vkCmdPushConstants");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginRenderPass,
+    "vkCmdBeginRenderPass");
+  V(dispatch_table, &device_dispatch_table::vkCmdSetStencilReference,
+    "vkCmdSetStencilReference");
+  V(dispatch_table, &device_dispatch_table::vkImportFenceFdKHR,
+    "vkImportFenceFdKHR");
+  V(dispatch_table, &device_dispatch_table::vkCmdEndRenderPass,
+    "vkCmdEndRenderPass");
+  V(dispatch_table, &device_dispatch_table::vkCmdResetEvent, "vkCmdResetEvent");
+  V(dispatch_table, &device_dispatch_table::vkResetCommandPool,
+    "vkResetCommandPool");
+  V(dispatch_table, &device_dispatch_table::vkCreateSharedSwapchainsKHR,
+    "vkCreateSharedSwapchainsKHR");
+  V(dispatch_table, &device_dispatch_table::vkAllocateDescriptorSets,
+    "vkAllocateDescriptorSets");
+  V(dispatch_table, &device_dispatch_table::vkCreateSwapchainKHR,
+    "vkCreateSwapchainKHR");
+  V(dispatch_table, &device_dispatch_table::vkCmdBeginTransformFeedbackEXT,
+    "vkCmdBeginTransformFeedbackEXT");
+  V(dispatch_table, &device_dispatch_table::vkDestroySwapchainKHR,
+    "vkDestroySwapchainKHR");
+  V(dispatch_table, &device_dispatch_table::vkCreateQueryPool,
+    "vkCreateQueryPool");
+  V(dispatch_table, &device_dispatch_table::vkDestroyPipelineLayout,
+    "vkDestroyPipelineLayout");
+  V(dispatch_table, &device_dispatch_table::vkCmdDebugMarkerInsertEXT,
+    "vkCmdDebugMarkerInsertEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexedIndirectCountAMD,
+    "vkCmdDrawIndexedIndirectCountAMD");
+  V(dispatch_table, &device_dispatch_table::vkCmdEndQueryIndexedEXT,
+    "vkCmdEndQueryIndexedEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdWaitEvents, "vkCmdWaitEvents");
+  V(dispatch_table, &device_dispatch_table::vkCmdDrawIndexed,
+    "vkCmdDrawIndexed");
+  V(dispatch_table, &device_dispatch_table::vkTrimCommandPool,
+    "vkTrimCommandPool");
+  V(dispatch_table, &device_dispatch_table::vkCreateImageView,
+    "vkCreateImageView");
+  V(dispatch_table, &device_dispatch_table::vkDestroyShaderModule,
+    "vkDestroyShaderModule");
+  V(dispatch_table, &device_dispatch_table::vkDebugMarkerSetObjectNameEXT,
+    "vkDebugMarkerSetObjectNameEXT");
+  V(dispatch_table, &device_dispatch_table::vkCmdPipelineBarrier,
+    "vkCmdPipelineBarrier");
+  V(dispatch_table, &device_dispatch_table::vkDebugMarkerSetObjectTagEXT,
+    "vkDebugMarkerSetObjectTagEXT");
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+  V(dispatch_table, &device_dispatch_table::vkImportFenceWin32HandleKHR,
+    "vkImportFenceWin32HandleKHR");
+#endif
+  V(dispatch_table, &device_dispatch_table::vkCmdReserveSpaceForCommandsNVX,
+    "vkCmdReserveSpaceForCommandsNVX");
+  V(dispatch_table, &device_dispatch_table::vkGetImageSparseMemoryRequirements,
+    "vkGetImageSparseMemoryRequirements");
+  V(dispatch_table, &device_dispatch_table::vkAllocateMemory,
+    "vkAllocateMemory");
+  V(dispatch_table, &device_dispatch_table::vkCreateIndirectCommandsLayoutNVX,
+    "vkCreateIndirectCommandsLayoutNVX");
+  V(dispatch_table, &device_dispatch_table::vkDestroyImage, "vkDestroyImage");
+  V(dispatch_table, &device_dispatch_table::vkCmdNextSubpass,
+    "vkCmdNextSubpass");
+  V(dispatch_table, &device_dispatch_table::vkCreateObjectTableNVX,
+    "vkCreateObjectTableNVX");
+  V(dispatch_table, &device_dispatch_table::vkGetEventStatus,
+    "vkGetEventStatus");
+  V(dispatch_table, &device_dispatch_table::vkDestroyObjectTableNVX,
+    "vkDestroyObjectTableNVX");
+  V(dispatch_table, &device_dispatch_table::vkGetDeviceGroupPeerMemoryFeatures,
+    "vkGetDeviceGroupPeerMemoryFeatures");
+  V(dispatch_table, &device_dispatch_table::vkUnregisterObjectsNVX,
+    "vkUnregisterObjectsNVX");
+  V(dispatch_table, &device_dispatch_table::vkCreateSampler, "vkCreateSampler");
 }
 
 inline std::unique_ptr<spk::global_dispatch_table> load_global_dispatch_table(
@@ -29454,6 +29825,10 @@ class physical_device {
 
   // vkGetPhysicalDeviceCalibrateableTimeDomainsEXT
   inline std::vector<spk::time_domain_ext> calibrateable_time_domains_ext();
+
+  // vkGetPhysicalDeviceCooperativeMatrixPropertiesNV
+  inline std::vector<spk::cooperative_matrix_properties_nv>
+  cooperative_matrix_properties_nv();
 
   // vkCreateDevice
 
@@ -31986,6 +32361,25 @@ physical_device::calibrateable_time_domains_ext() {
   if (success2_ != spk::result::success)
     throw spk::unexpected_command_result(
         success2_, "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+  return result_;
+}
+
+inline std::vector<spk::cooperative_matrix_properties_nv>
+physical_device::cooperative_matrix_properties_nv() {
+  uint32_t size_;
+  spk::result success1_ =
+      dispatch_table().get_physical_device_cooperative_matrix_properties_nv(
+          handle_, &size_, nullptr);
+  if (success1_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success1_, "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
+  std::vector<spk::cooperative_matrix_properties_nv> result_(size_);
+  spk::result success2_ =
+      dispatch_table().get_physical_device_cooperative_matrix_properties_nv(
+          handle_, &size_, result_.data());
+  if (success2_ != spk::result::success)
+    throw spk::unexpected_command_result(
+        success2_, "vkGetPhysicalDeviceCooperativeMatrixPropertiesNV");
   return result_;
 }
 
