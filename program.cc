@@ -10,8 +10,7 @@
 namespace {
 
 void init_sdl() {
-  DVC_ASSERT_EQ(SDL_Init(SDL_INIT_VIDEO /*| SDL_INIT_AUDIO*/), 0,
-                SDL_GetError());
+  DVC_ASSERT_EQ(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO), 0, SDL_GetError());
   DVC_ASSERT_EQ(SDL_SetRelativeMouseMode(SDL_TRUE), 0, SDL_GetError());
 }
 
